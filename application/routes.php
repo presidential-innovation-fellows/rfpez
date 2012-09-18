@@ -32,10 +32,7 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('home.index');
-});
+Route::get('/', array('uses' => 'home@index', 'as' => 'root'));
 
 /*
 |--------------------------------------------------------------------------
