@@ -32,7 +32,33 @@
 |
 */
 
-Route::get('/', array('uses' => 'home@index', 'as' => 'root'));
+Route::get('/', array('uses' => 'home@index'));
+
+Route::resourceful('vendors', array('new', 'create'));
+
+
+/*
+|--------------------------------------------------------------------------
+| Asset Definitions
+|--------------------------------------------------------------------------
+*/
+
+Bundle::start('basset');
+
+if (Config::get('basset')) Basset\Config::extend(Config::get('basset'));
+
+Basset::scripts('website', function($basset)
+{
+  // $basset->add('pjax', 'jquery.pjax.js')
+  //        ->add('sisyphus', 'sisyphus.min.js')
+  //        ->add('app', 'app.js', 'pjax');
+});
+
+Basset::styles('website', function($basset)
+{
+  $basset->add('main', 'main.css');
+});
+
 
 /*
 |--------------------------------------------------------------------------
