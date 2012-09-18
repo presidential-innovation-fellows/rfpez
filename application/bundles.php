@@ -36,6 +36,10 @@
 return array(
 
 	'docs' => array('handles' => 'docs'),
-  'bob'
+  'bob',
+  'basset' => array(
+    'handles' => 'basset',
+    'auto'    => true
+  )
 
 );
