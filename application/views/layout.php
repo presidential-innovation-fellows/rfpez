@@ -11,6 +11,14 @@
 </head>
 <body>
 
+  <h1>EasyBid</h1>
+
+  <?php if (Auth::check()): ?>
+    logged in
+  <?php endif; ?>
+
+  <hr />
+
   <?= Section::yield('content') ?>
 
   <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script> -->

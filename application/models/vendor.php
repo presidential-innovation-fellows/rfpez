@@ -10,7 +10,7 @@ class Vendor extends Eloquent {
   public function validator($more_attributes = array()) {
     $rules = array('company_name' => 'required',
                    'contact_name' => 'required',
-                   'email' => 'required|email|unique:vendors',
+                   'email' => 'required|email|unique:vendors|unique:officers',
                    'password' => 'required|min:6',
                    'address' => 'required',
                    'city' => 'required',

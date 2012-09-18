@@ -32,7 +32,10 @@
 |
 */
 
-Route::get('/', array('uses' => 'home@index'));
+Route::get('/', array('uses' => 'home@index', 'as' => 'root'));
+
+Route::get('signin', array('uses' => 'auth@new', 'as' => 'signin'));
+Route::post('signin', array('uses' => 'auth@create'));
 
 Route::resourceful('vendors', array('new', 'create'));
 
