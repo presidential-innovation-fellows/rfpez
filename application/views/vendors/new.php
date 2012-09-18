@@ -51,7 +51,7 @@
 
   <h5>Services</h5>
   <?php foreach(Service::all() as $service): ?>
-    <label><input type="checkbox" name="services[<?= $service->name ?>]" /><?= $service->name ?></label>
+    <label><input type="checkbox" name="services[<?= $service->id ?>]" /><?= $service->name ?></label>
   <?php endforeach; ?>
 
   <input type="submit" />

@@ -39,10 +39,15 @@ class Vendors_Controller extends Base_Controller {
     $vendor = new Vendor(Input::get('vendor'));
     $validator = $vendor->validator();
 
-    if ($validator->fails()){
+    if ($validator->fails()) {
       return Redirect::to_route('new_vendors')->with_errors($validator->errors);
     } else {
       $vendor->save();
+
+      foreach (Input::get('services') as $key => $val) {
+        $vendor->services()->attach($key);
+      }
+
       return 'vendor saved';
     }
   }
