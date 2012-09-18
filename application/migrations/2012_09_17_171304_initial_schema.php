@@ -34,7 +34,7 @@ class Initial_Schema {
 
     Schema::create('contracts', function($t){
       $t->increments('id');
-      $t->integer('officer_id');
+      $t->integer('officer_id')->nullable();
       $t->string('fbo_solnbr');
       $t->string('agency');
       $t->string('office');
