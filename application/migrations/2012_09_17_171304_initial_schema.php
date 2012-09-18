@@ -71,7 +71,7 @@ class Initial_Schema {
       $t->string('encrypted_password');
       $t->string('reset_password_token')->nullable();
       $t->timestamp('reset_password_sent_at')->nullable();
-      $t->integer('sign_in_count')->nullable();
+      $t->integer('sign_in_count');
       $t->timestamp('current_sign_in_at')->nullable();
       $t->timestamp('last_sign_in_at')->nullable();
       $t->string('current_sign_in_ip')->nullable();
@@ -137,10 +137,17 @@ class Initial_Schema {
       // This stuff should be pretty easy to implement, and is
       // hopefully a good enough security practice for starters,
       // as opposed to tracking each login and each password reset request.
-      $t->string('encrypted_password');
+      //
+      // When the officer signs up, encrypted_password is null.
+      // She is then sent an email with a link to confirm her account,
+      // which then lets her create a password. The page is actually
+      // the "reset password" page, but since we know that she's never
+      // had a password (the sign_in_count is 0), we can make it appear
+      // differently.
+      $t->string('encrypted_password')->nullable();
       $t->string('reset_password_token')->nullable();
       $t->timestamp('reset_password_sent_at')->nullable();
-      $t->integer('sign_in_count')->nullable();
+      $t->integer('sign_in_count');
       $t->timestamp('current_sign_in_at')->nullable();
       $t->timestamp('last_sign_in_at')->nullable();
       $t->string('current_sign_in_ip')->nullable();
