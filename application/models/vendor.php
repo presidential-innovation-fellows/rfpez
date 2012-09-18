@@ -17,8 +17,7 @@ class Vendor extends Eloquent {
                    'state' => 'required|max:2',
                    'zip' => 'required|numeric',
                    'ballpark_price' => 'required|numeric',
-                   'portfolio_url' => 'required|url',
-                   'more_info' => '');
+                   'portfolio_url' => 'required|url');
 
     return Validator::make(array_merge($this->attributes, $more_attributes), $rules);
   }
