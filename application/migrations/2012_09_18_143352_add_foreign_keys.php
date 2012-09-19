@@ -9,6 +9,14 @@ class Add_Foreign_Keys {
 	 */
 	public function up()
 	{
+		Schema::table('vendors', function($t){
+			$t->foreign('user_id')->references('id')->on('users')->on_delete('CASCADE');
+		});
+
+		Schema::table('officers', function($t){
+			$t->foreign('user_id')->references('id')->on('users')->on_delete('CASCADE');
+		});
+
 		Schema::table('bids', function($t){
 			$t->foreign('vendor_id')->references('id')->on('vendors')->on_delete('CASCADE');
 			$t->foreign('contract_id')->references('id')->on('contracts')->on_delete('CASCADE');
@@ -27,8 +35,6 @@ class Add_Foreign_Keys {
 			$t->foreign('service_id')->references('id')->on('services')->on_delete('CASCADE');
 			$t->foreign('vendor_id')->references('id')->on('vendors')->on_delete('CASCADE');
 		});
-
-
 	}
 
 	/**
@@ -38,6 +44,14 @@ class Add_Foreign_Keys {
 	 */
 	public function down()
 	{
+		Schema::table('vendors', function($t){
+			$t->drop_foreign('vendors_user_id_foreign');
+		});
+
+		Schema::table('officers', function($t){
+			$t->drop_foreign('officers_user_id_foreign');
+		});
+
 		Schema::table('bids', function($t){
 			$t->drop_foreign('bids_vendor_id_foreign');
 			$t->drop_foreign('bids_contract_id_foreign');

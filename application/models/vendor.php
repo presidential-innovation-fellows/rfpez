@@ -10,8 +10,6 @@ class Vendor extends Eloquent {
   public function validator($more_attributes = array()) {
     $rules = array('company_name' => 'required',
                    'contact_name' => 'required',
-                   'email' => 'required|email|unique:vendors|unique:officers',
-                   'password' => 'required|min:6',
                    'address' => 'required',
                    'city' => 'required',
                    'state' => 'required|max:2',
@@ -20,6 +18,10 @@ class Vendor extends Eloquent {
                    'portfolio_url' => 'required|url');
 
     return Validator::make(array_merge($this->attributes, $more_attributes), $rules);
+  }
+
+  public function user() {
+    return $this->belongs_to('User');
   }
 
   public function services() {
@@ -31,15 +33,3 @@ class Vendor extends Eloquent {
   }
 
 }
-
-Event::listen('eloquent.saving: Vendor', function($model) {
-
-  // Hash the password and store it in the encrypted_password column.
-  if (isset($model->attributes["password"])) {
-    $model->attributes["encrypted_password"] = Hash::make($model->attributes["password"]);
-    unset($model->attributes["password"]);
-  }
-
-});
-
-

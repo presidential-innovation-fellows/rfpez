@@ -8,7 +8,18 @@ class Auth_Controller extends Base_Controller {
   }
 
   public function action_create() {
-    // authenticate
+    $credentials = array('username' => Input::get('email'), 'password' => Input::get('password'));
+
+    if (Auth::attempt($credentials)) {
+      return Redirect::to('/');
+    } else {
+      return Redirect::to_route('signin');
+    }
+  }
+
+  public function action_delete() {
+    Auth::logout();
+    return Redirect::to('/');
   }
 
 }

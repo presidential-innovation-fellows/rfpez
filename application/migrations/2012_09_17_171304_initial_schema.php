@@ -9,6 +9,33 @@ class Initial_Schema {
    */
   public function up()
   {
+    Schema::create('users', function($t){
+      $t->increments('id');
+      $t->string('email');
+
+      // Taking a lot of inspiration from the Devise Rails gem.
+      // This stuff should be pretty easy to implement, and is
+      // hopefully a good enough security practice for starters,
+      // as opposed to tracking each login and each password reset request.
+      //
+      // When the officer signs up, encrypted_password is null.
+      // She is then sent an email with a link to confirm her account,
+      // which then lets her create a password. The page is actually
+      // the "reset password" page, but since we know that she's never
+      // had a password (the sign_in_count is 0), we can make it appear
+      // differently.
+      $t->string('encrypted_password')->nullable();
+      $t->string('reset_password_token')->nullable();
+      $t->timestamp('reset_password_sent_at')->nullable();
+      $t->integer('sign_in_count');
+      $t->timestamp('current_sign_in_at')->nullable();
+      $t->timestamp('last_sign_in_at')->nullable();
+      $t->string('current_sign_in_ip')->nullable();
+      $t->string('last_sign_in_ip')->nullable();
+
+      $t->timestamps();
+    });
+
     Schema::create('bids', function($t){
       $t->increments('id');
       $t->integer('vendor_id');
@@ -60,22 +87,9 @@ class Initial_Schema {
 
     Schema::create('vendors', function($t){
       $t->increments('id');
+      $t->integer('user_id');
       $t->string('company_name');
       $t->string('contact_name');
-      $t->string('email');
-
-      // Taking a lot of inspiration from the Devise Rails gem.
-      // This stuff should be pretty easy to implement, and is
-      // hopefully a good enough security practice for starters,
-      // as opposed to tracking each login and each password reset request.
-      $t->string('encrypted_password');
-      $t->string('reset_password_token')->nullable();
-      $t->timestamp('reset_password_sent_at')->nullable();
-      $t->integer('sign_in_count');
-      $t->timestamp('current_sign_in_at')->nullable();
-      $t->timestamp('last_sign_in_at')->nullable();
-      $t->string('current_sign_in_ip')->nullable();
-      $t->string('last_sign_in_ip')->nullable();
 
       $t->string('address');
       $t->string('city');
@@ -116,7 +130,7 @@ class Initial_Schema {
 
     Schema::create('officers', function($t){
       $t->increments('id');
-      $t->string('email');
+      $t->integer('user_id');
       $t->string('phone');
       $t->string('fax');
       $t->string('name');
@@ -133,25 +147,6 @@ class Initial_Schema {
       $t->timestamp('verified_at')->nullable();
       $t->string('verified_solnbr')->nullable();
 
-      // Taking a lot of inspiration from the Devise Rails gem.
-      // This stuff should be pretty easy to implement, and is
-      // hopefully a good enough security practice for starters,
-      // as opposed to tracking each login and each password reset request.
-      //
-      // When the officer signs up, encrypted_password is null.
-      // She is then sent an email with a link to confirm her account,
-      // which then lets her create a password. The page is actually
-      // the "reset password" page, but since we know that she's never
-      // had a password (the sign_in_count is 0), we can make it appear
-      // differently.
-      $t->string('encrypted_password')->nullable();
-      $t->string('reset_password_token')->nullable();
-      $t->timestamp('reset_password_sent_at')->nullable();
-      $t->integer('sign_in_count');
-      $t->timestamp('current_sign_in_at')->nullable();
-      $t->timestamp('last_sign_in_at')->nullable();
-      $t->string('current_sign_in_ip')->nullable();
-      $t->string('last_sign_in_ip')->nullable();
 
       $t->timestamps();
     });

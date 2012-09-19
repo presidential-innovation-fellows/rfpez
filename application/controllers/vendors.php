@@ -8,19 +8,17 @@ class Vendors_Controller extends Base_Controller {
   }
 
   public function action_create() {
+    $user = new User(Input::get('user'));
     $vendor = new Vendor(Input::get('vendor'));
-    $validator = $vendor->validator();
+    $userValidator = $user->validator();
+    $vendorValidator = $vendor->validator();
 
-    if ($validator->fails()) {
-      return Redirect::to_route('new_vendors')->with_errors($validator->errors);
+    if ($userValidator->valid() && $vendorValidator->valid()) {
+      $user->save();
+      $user->vendor()->insert($vendor);
+      return 'saved';
     } else {
-      $vendor->save();
-
-      foreach (Input::get('services') as $key => $val) {
-        $vendor->services()->attach($key);
-      }
-
-      return 'vendor saved';
+      return Redirect::to_route('new_vendors')->with_errors($userValidator->errors);
     }
   }
 

@@ -8,4 +8,8 @@ class Officer extends Eloquent {
     return $this->has_many('Contract');
   }
 
+  public function user() {
+    return $this->belongs_to('User');
+  }
+
 }

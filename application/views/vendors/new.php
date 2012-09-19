@@ -17,10 +17,10 @@
   <input type="text" name="vendor[contact_name]" />
 
   <label>Email</label>
-  <input type="text" name="vendor[email]" />
+  <input type="text" name="user[email]" />
 
   <label>Choose a Password</label>
-  <input type="password" name="vendor[password]" />
+  <input type="password" name="user[password]" />
 
   <label>Address</label>
   <input type="text" name="vendor[address]" />

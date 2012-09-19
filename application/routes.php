@@ -37,6 +37,8 @@ Route::get('/', array('uses' => 'home@index', 'as' => 'root'));
 Route::get('signin', array('uses' => 'auth@new', 'as' => 'signin'));
 Route::post('signin', array('uses' => 'auth@create'));
 
+Route::get('signout', array('uses' => 'auth@delete', 'as' => 'signout'));
+
 Route::resourceful('vendors', array('new', 'create'));
 
 
