@@ -6,12 +6,16 @@ class User extends Eloquent {
 
   public $includes = array('vendor', 'officer');
 
-  public function validator($more_attributes = array()) {
+  public function validator() {
     $rules = array('email' => 'required|email|unique:users',
                    'password' => 'required|min:8');
 
-    return Validator::make(array_merge($this->attributes, $more_attributes), $rules);
+    $validator = Validator::make($this->attributes, $rules);
+    $validator->passes(); // hack to populate error messages
+
+    return $validator;
   }
+
 
   public function vendor() {
     return $this->has_one('Vendor');

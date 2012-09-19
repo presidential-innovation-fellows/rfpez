@@ -1,8 +1,8 @@
 <?php Section::start('content') ?>
 
-<?php if (count($errors->all()) > 0): ?>
-  <?php foreach($errors->all() as $key => $val): ?>
-    <?= $val ?><br />
+<?php if (Session::has('errors')): ?>
+  <?php foreach(Session::get('errors') as $error): ?>
+    <?= $error ?><br />
   <?php endforeach; ?>
 <?php endif; ?>
 

@@ -13,12 +13,14 @@ class Vendors_Controller extends Base_Controller {
     $userValidator = $user->validator();
     $vendorValidator = $vendor->validator();
 
-    if ($userValidator->valid() && $vendorValidator->valid()) {
+
+    if ($user->validator()->passes() && $vendor->validator()->passes()) {
       $user->save();
       $user->vendor()->insert($vendor);
       return 'saved';
     } else {
-      return Redirect::to_route('new_vendors')->with_errors($userValidator->errors);
+      $allErrors = array_merge($userValidator->errors->all(), $vendorValidator->errors->all());
+      return Redirect::to_route('new_vendors')->with('errors', $allErrors);
     }
   }
 

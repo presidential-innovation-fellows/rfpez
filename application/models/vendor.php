@@ -7,7 +7,7 @@ class Vendor extends Eloquent {
   public static $ballpark_prices = array(1 => "$10,000 - $25,000",
                                          2 => "$25,000 - $50,000");
 
-  public function validator($more_attributes = array()) {
+  public function validator() {
     $rules = array('company_name' => 'required',
                    'contact_name' => 'required',
                    'address' => 'required',
@@ -17,7 +17,10 @@ class Vendor extends Eloquent {
                    'ballpark_price' => 'required|numeric',
                    'portfolio_url' => 'required|url');
 
-    return Validator::make(array_merge($this->attributes, $more_attributes), $rules);
+    $validator = Validator::make($this->attributes, $rules);
+    $validator->passes(); // hack to populate error messages
+
+    return $validator;
   }
 
   public function user() {
