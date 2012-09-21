@@ -16,8 +16,8 @@ class Vendors_Controller extends Base_Controller {
       $user->vendor()->insert($vendor);
       return 'saved';
     } else {
-      $allErrors = array_merge($user->validator()->errors->all(), $vendor->validator()->errors->all());
-      return Redirect::to_route('new_vendors')->with('errors', $allErrors);
+      Session::flash('errors', array_merge($user->validator(false)->errors->all(), $officer->validator()->errors->all()));
+      return $this->action_new();
     }
   }
 
