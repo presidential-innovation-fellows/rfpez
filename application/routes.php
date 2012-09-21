@@ -40,6 +40,7 @@ Route::post('signin', array('uses' => 'auth@create'));
 Route::get('signout', array('uses' => 'auth@delete', 'as' => 'signout'));
 
 Route::resourceful('vendors', array('new', 'create'));
+Route::resourceful('officers', array('new', 'create'));
 
 
 /*
