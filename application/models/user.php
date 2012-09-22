@@ -33,6 +33,12 @@ class User extends Eloquent {
     return $this->officer ? true : false;
   }
 
+  public function generate_reset_password_token() {
+    $this->reset_password_token = Str::random(24);
+    $this->reset_password_sent_at = new \DateTime;
+    $this->save();
+  }
+
 }
 
 Event::listen('eloquent.saving: User', function($model) {
