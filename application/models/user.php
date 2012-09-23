@@ -16,7 +16,6 @@ class User extends Eloquent {
     return $validator;
   }
 
-
   public function vendor() {
     return $this->has_one('Vendor');
   }
