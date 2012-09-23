@@ -1,5 +1,5 @@
 <?php Section::start('content') ?>
 
-Home Page
+<h3>Home Page</h3>
 
 <?php Section::stop() ?>

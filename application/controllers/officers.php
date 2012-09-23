@@ -15,7 +15,8 @@ class Officers_Controller extends Base_Controller {
       $user->save();
       $user->officer()->insert($officer);
       $user->generate_reset_password_token();
-      return 'saved';
+      Session::flash('notice', 'Please check your email for a link to finish signup.');
+      return Redirect::to('/');
     } else {
       Session::flash('errors', array_merge($user->validator(false)->errors->all(), $officer->validator()->errors->all()));
       return $this->action_new();
