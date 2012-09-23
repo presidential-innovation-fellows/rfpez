@@ -14,6 +14,7 @@ class Auth_Controller extends Base_Controller {
       Auth::user()->track_signin();
       return Redirect::to('/');
     } else {
+      Session::flash('errors', array('Login incorrect.'));
       return Redirect::to_route('signin');
     }
   }

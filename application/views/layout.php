@@ -21,6 +21,12 @@
 
   <hr />
 
+  <?php if (Session::has('errors')): ?>
+    <?php foreach(Session::get('errors') as $error): ?>
+      <?= $error ?><br />
+    <?php endforeach; ?>
+  <?php endif; ?>
+
   <?= Section::yield('content') ?>
 
   <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script> -->

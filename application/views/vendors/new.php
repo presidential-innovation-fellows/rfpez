@@ -1,11 +1,5 @@
 <?php Section::start('content') ?>
 
-<?php if (Session::has('errors')): ?>
-  <?php foreach(Session::get('errors') as $error): ?>
-    <?= $error ?><br />
-  <?php endforeach; ?>
-<?php endif; ?>
-
 <h3>New Vendor</h3>
 
 <form action="<?= route('vendors') ?>" method="POST">

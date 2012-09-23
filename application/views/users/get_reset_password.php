@@ -1,11 +1,5 @@
 <?php Section::start('content') ?>
 
-<?php if (Session::has('errors')): ?>
-  <?php foreach(Session::get('errors') as $error): ?>
-    <?= $error ?><br />
-  <?php endforeach; ?>
-<?php endif; ?>
-
 <?php if ($finish_signup): ?>
   <h3>Create password for <?= $user->email ?></h3>
 <?php else: ?>
