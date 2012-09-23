@@ -11,6 +11,7 @@ class Auth_Controller extends Base_Controller {
     $credentials = array('username' => Input::get('email'), 'password' => Input::get('password'));
 
     if (Auth::attempt($credentials)) {
+      Auth::user()->track_signin();
       return Redirect::to('/');
     } else {
       return Redirect::to_route('signin');

@@ -33,6 +33,15 @@ class User extends Eloquent {
     return $this->officer ? true : false;
   }
 
+  public function track_signin() {
+    $this->sign_in_count++;
+    $this->current_sign_in_ip = Request::ip();
+    $this->current_sign_in_at = new \DateTime;
+    if (!$this->last_sign_in_ip) $this->last_sign_in_ip = $this->current_sign_in_ip;
+    if (!$this->last_sign_in_at) $this->last_sign_in_at = $this->current_sign_in_at;
+    $this->save();
+  }
+
   public function generate_reset_password_token() {
     $this->reset_password_token = Str::random(24);
     $this->reset_password_sent_at = new \DateTime;
