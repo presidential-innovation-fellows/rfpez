@@ -1,3 +1,4 @@
+<?php Section::inject('page_title', 'Forgot Password'); ?>
 <?php Section::start('content') ?>
 
 <h3>Forgot Password</h3>

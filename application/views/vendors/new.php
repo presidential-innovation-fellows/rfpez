@@ -1,3 +1,4 @@
+<?php Section::inject('page_title', 'New Vendor'); ?>
 <?php Section::start('content') ?>
 
 <h3>New Vendor</h3>

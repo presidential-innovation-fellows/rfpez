@@ -5,13 +5,13 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 
-  <title></title>
+  <title><?= Helper::full_title(Section::yield('page_title')) ?></title>
   <?= Basset::show('website.css') ?>
 
 </head>
 <body>
 
-  <h1>EasyBid</h1>
+  <h1><a href="<?= route('root') ?>">EasyBid</a></h1>
 
   <?php if (Auth::check()): ?>
     logged in as <?= Auth::user()->email ?>. <a href="<?= route('signout') ?>">sign out</a>

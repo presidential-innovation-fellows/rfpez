@@ -1,3 +1,4 @@
+<?php Section::inject('page_title', 'Reset Password'); ?>
 <?php Section::start('content') ?>
 
 <?php if ($finish_signup): ?>

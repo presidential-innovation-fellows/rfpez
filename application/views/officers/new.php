@@ -1,3 +1,4 @@
+<?php Section::inject('page_title', 'New Officer'); ?>
 <?php Section::start('content') ?>
 
 <h3>New Officer</h3>
