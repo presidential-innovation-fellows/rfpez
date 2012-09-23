@@ -7,7 +7,8 @@ class User extends Eloquent {
   public $includes = array('vendor', 'officer');
 
   public function validator($password_required = true) {
-    $rules = array('email' => 'required|email|unique:users');
+    $rules = array();
+    $rules['email'] = $this->id ? 'required|email|unique:users,email,'.$this->id : 'required|email|unique:users';
     if ($password_required) $rules["password"] = "required|min:8";
 
     $validator = Validator::make($this->attributes, $rules);
@@ -48,10 +49,9 @@ class User extends Eloquent {
   }
 
   public function reset_password_to($new_password) {
-    $validator = Validator::make(array('password' => $new_password), array('password' => 'required|min:8'));
+    $this->password = $new_password;
 
-    if ($validator->passes()) {
-      $this->password = $new_password;
+    if ($this->validator()->passes()) {
       $this->reset_password_token = null;
       $this->reset_password_sent_at = null;
       $this->save();

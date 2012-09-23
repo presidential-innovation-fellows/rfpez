@@ -35,7 +35,8 @@ class Users_Controller extends Base_Controller {
     $user = Config::get('user');
 
     if ($user->reset_password_to(Input::get('password'))) {
-      Auth::login($user);
+      Auth::login($user->id);
+      $user->track_signin();
       return Redirect::to('/');
     } else {
       Session::flash('errors', array('New password not valid.'));
