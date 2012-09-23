@@ -6,6 +6,9 @@ class Users_Controller extends Base_Controller {
     parent::__construct();
 
     $this->filter('before', 'has_valid_reset_password_token')->only(array('get_reset_password', 'post_reset_password'));
+
+    $this->filter('before', 'no_auth')->only(array('get_forgot_password', 'post_forgot_password',
+                                                   'get_reset_password', 'post_reset_password'));
   }
 
 

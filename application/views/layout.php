@@ -14,7 +14,7 @@
   <h1><a href="<?= route('root') ?>">EasyBid</a></h1>
 
   <?php if (Auth::check()): ?>
-    logged in as <?= Auth::user()->email ?>. <a href="<?= route('signout') ?>">sign out</a>
+    logged in as <?= Auth::user()->email ?> (<?= Auth::user()->account_type() ?>). <a href="<?= route('signout') ?>">sign out</a>
   <?php else: ?>
     <a href="<?= route('signin') ?>">sign in</a> | <a href="<?= route('new_vendors') ?>">new vendor</a>
     | <a href="<?= route('new_officers') ?>">new officer</a>

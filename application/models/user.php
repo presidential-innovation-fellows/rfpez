@@ -25,6 +25,10 @@ class User extends Eloquent {
     return $this->has_one('Officer');
   }
 
+  public function account_type() {
+    return $this->vendor ? 'vendor' : 'officer';
+  }
+
   public function is_vendor() {
     return $this->vendor ? true : false;
   }
