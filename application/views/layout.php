@@ -14,7 +14,9 @@
   <h1>EasyBid</h1>
 
   <?php if (Auth::check()): ?>
-    logged in
+    logged in as <?= Auth::user()->email ?>. <a href="<?= route('signout') ?>">sign out</a>
+  <?php else: ?>
+    <a href="<?= route('signin') ?>">sign in</a>
   <?php endif; ?>
 
   <hr />

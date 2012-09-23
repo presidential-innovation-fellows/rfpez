@@ -43,21 +43,33 @@ class User extends Eloquent {
   }
 
   public function generate_reset_password_token() {
-    $this->reset_password_token = Str::random(24);
+    $this->reset_password_token = Str::random(36);
     $this->reset_password_sent_at = new \DateTime;
     $this->save();
+  }
+
+  public function reset_password_to($new_password) {
+    $validator = Validator::make(array('password' => $new_password), array('password' => 'required|min:8'));
+
+    if ($validator->passes()) {
+      $this->password = $new_password;
+      $this->reset_password_token = null;
+      $this->reset_password_sent_at = null;
+      $this->save();
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
 
 Event::listen('eloquent.saving: User', function($model) {
-
   // Hash the password and store it in the encrypted_password column.
   if (isset($model->attributes["password"])) {
     $model->attributes["encrypted_password"] = Hash::make($model->attributes["password"]);
     unset($model->attributes["password"]);
   }
-
 });
 
 

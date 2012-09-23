@@ -35,9 +35,16 @@
 Route::get('/', array('uses' => 'home@index', 'as' => 'root'));
 
 Route::get('signin', array('uses' => 'auth@new', 'as' => 'signin'));
-Route::post('signin', array('uses' => 'auth@create'));
+Route::post('signin', array('uses' => 'auth@create', 'as' => 'signin'));
 
 Route::get('signout', array('uses' => 'auth@delete', 'as' => 'signout'));
+
+Route::get('forgotpassword', array('uses' => 'users@get_forgot_password', 'as' => 'forgot_password'));
+Route::post('forgotpassword', array('uses' => 'users@post_forgot_password', 'as' => 'forgot_password'));
+
+Route::get('resetpassword/(:any)', array('uses' => 'users@get_reset_password', 'as' => 'reset_password'));
+Route::post('resetpassword/(:any)', array('uses' => 'users@post_reset_password', 'as' => 'reset_password'));
+
 
 Route::resourceful('vendors', array('new', 'create'));
 Route::resourceful('officers', array('new', 'create'));

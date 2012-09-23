@@ -22,14 +22,4 @@ class Officers_Controller extends Base_Controller {
     }
   }
 
-  public function action_get_forgot_password() {
-    // display the password recovery form
-  }
-
-  public function action_post_forgot_password() {
-    $user = User::where_email(Input::get('email'))->first();
-    $user->generate_reset_password_token();
-    return 'reset token generated';
-  }
-
 }
