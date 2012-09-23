@@ -6,7 +6,11 @@
   <?php endforeach; ?>
 <?php endif; ?>
 
-<h3>Reset password for <?= $user->email ?></h3>
+<?php if ($finish_signup): ?>
+  <h3>Create password for <?= $user->email ?></h3>
+<?php else: ?>
+  <h3>Reset password for <?= $user->email ?></h3>
+<?php endif; ?>
 
 <form action="<?= route('reset_password', array($user->reset_password_token)) ?>" method="POST">
 
