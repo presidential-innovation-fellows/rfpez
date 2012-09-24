@@ -51,6 +51,9 @@ Route::resourceful('vendors', array('new', 'create'));
 Route::resourceful('officers', array('new', 'create'));
 Route::resourceful('contracts', array('new', 'create', 'edit', 'update', 'index', 'show'));
 
+Route::get('contracts/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
+Route::post('contracts/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));
+
 
 /*
 |--------------------------------------------------------------------------
@@ -64,7 +67,7 @@ if (Config::get('basset')) Basset\Config::extend(Config::get('basset'));
 
 Basset::scripts('website', function($basset)
 {
-  // $basset->add('pjax', 'jquery.pjax.js')
+  $basset->add('main', 'main.js');
   //        ->add('sisyphus', 'sisyphus.min.js')
   //        ->add('app', 'app.js', 'pjax');
 });
