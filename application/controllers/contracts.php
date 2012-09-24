@@ -38,7 +38,10 @@ class Contracts_Controller extends Base_Controller {
     $response = json_decode(file_get_contents('http://rfpez-apis.presidentialinnovationfellows.org/opportunities/fbozombie/'
                                               . $solnbr), true);
 
-    if (Contract::where_fbo_solnbr($response["solnbr"])->first()) {
+    if (!isset($response["solnbr"])) {
+      Session::flash('errors', array("Couldn't find that contract on FBO."));
+      return $this->action_new();
+    } else if (Contract::where_fbo_solnbr($response["solnbr"])->first()) {
       Session::flash('errors', array("That contract already exists in the system."));
       return $this->action_new();
     } else if ((trim(strtolower($response["email"]))) != trim(strtolower(Auth::user()->email))) {
