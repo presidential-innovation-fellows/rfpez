@@ -26,7 +26,7 @@
     <?php if (Auth::user()->is_officer()): ?>
       <a href="<?= route('new_contracts') ?>">new contract</a>
     <?php else: ?>
-      vendor nav
+      <a href="<?= route('contracts') ?>">browse contracts</a>
     <?php endif; ?>
 
 
