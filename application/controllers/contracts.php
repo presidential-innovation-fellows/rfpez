@@ -35,8 +35,14 @@ class Contracts_Controller extends Base_Controller {
       return $this->action_new();
     }
 
-    $response = json_decode(file_get_contents('http://rfpez-apis.presidentialinnovationfellows.org/opportunities/fbozombie/'
-                                              . $solnbr), true);
+    $context = stream_context_create(array('http'=>array('timeout' => 20)));
+    $contents = @file_get_contents('http://rfpez-apis.presidentialinnovationfellows.org/opportunities/fbozombie/'
+                                              . $solnbr, false, $context);
+    if ($contents === false) {
+      Session::flash('errors', array("FBO timed out."));
+      return $this->action_new();
+    }
+    $response = json_decode($contents, true);
 
     if (!isset($response["solnbr"])) {
       Session::flash('errors', array("Couldn't find that contract on FBO."));
