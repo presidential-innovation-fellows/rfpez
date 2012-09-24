@@ -5,9 +5,12 @@ class Bids_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
+    $this->filter('before', 'auth')->only(array('show'));
     $this->filter('before', 'vendor_only')->only(array('new', 'create'));
-    $this->filter('before', 'contract_exists')->only(array('new', 'create'));
+    $this->filter('before', 'contract_exists')->only(array('new', 'create', 'show'));
     $this->filter('before', 'bid_not_already_made')->only(array('new', 'create'));
+    $this->filter('before', 'bid_exists')->only(array('show'));
+    $this->filter('before', 'allowed_to_view')->only(array('show'));
   }
 
   public function action_new() {
@@ -40,6 +43,13 @@ class Bids_Controller extends Base_Controller {
     return Redirect::to_route('contract', array($contract->id));
   }
 
+  public function action_show() {
+    $view = View::make('bids.show');
+    $view->contract = Config::get('contract');
+    $view->bid = Config::get('bid');
+    $this->layout->content = $view;
+  }
+
 }
 
 Route::filter('contract_exists', function() {
@@ -47,6 +57,23 @@ Route::filter('contract_exists', function() {
   $contract = Contract::find($id);
   if (!$contract) return Redirect::to('/');
   Config::set('contract', $contract);
+});
+
+Route::filter('bid_exists', function() {
+  $id = Request::$route->parameters[1];
+  $bid = Bid::find($id);
+  if (!$bid) return Redirect::to('/');
+  Config::set('bid', $bid);
+});
+
+Route::filter('allowed_to_view', function() {
+  $bid = Config::get('bid');
+  $contract = Config::get('contract');
+  if (Auth::user()->is_officer()) {
+    if ($contract->officer_id != Auth::user()->officer->id) return Redirect::to('/');
+  } else {
+    if ($bid->vendor_id != Auth::user()->vendor->id) return Redirect::to('/');
+  }
 });
 
 Route::filter('bid_not_already_made', function() {

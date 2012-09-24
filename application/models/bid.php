@@ -14,6 +14,10 @@ class Bid extends Eloquent {
     return $this->belongs_to('Contract');
   }
 
+  public function prices() {
+    return json_decode($this->prices, true);
+  }
+
 }
 
 Event::listen('eloquent.saving: Bid', function($model) {

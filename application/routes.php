@@ -21,6 +21,7 @@ Route::resourceful('contracts', array('new', 'create', 'edit', 'update', 'index'
 
 Route::get('contracts/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
 Route::post('contracts/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));
+Route::get('contracts/(:num)/bids/(:num)', array('uses' => 'bids@show', 'as' => 'bid'));
 
 
 /*
