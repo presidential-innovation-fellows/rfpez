@@ -64,11 +64,13 @@ class Contracts_Controller extends Base_Controller {
     $contract->officer_id = Auth::user()->officer->id;
     $contract->agency = $response["agency"];
     $contract->office = $response["office"];
+    $contract->title = $response["title"];
     $contract->statement_of_work = $response["statement_of_work"];
     $contract->set_aside = $response["set_aside"];
     $contract->classification_code = $response["classification_code"];
-    // Todo: Update parser to parse only the longer naics code
-    //       and also parse the contract title.
+    $contract->naics_code = $response["naics"];
+    $contract->proposals_due_at = new \DateTime($response["response_date"]);
+    $contract->posted_at = new \DateTime($response["posted_date"]);
 
     $contract->save();
 
