@@ -7,6 +7,7 @@ class Bids_Controller extends Base_Controller {
 
     $this->filter('before', 'vendor_only')->only(array('new', 'create'));
     $this->filter('before', 'contract_exists')->only(array('new', 'create'));
+    $this->filter('before', 'bid_not_already_made')->only(array('new', 'create'));
   }
 
   public function action_new() {
@@ -46,4 +47,16 @@ Route::filter('contract_exists', function() {
   $contract = Contract::find($id);
   if (!$contract) return Redirect::to('/');
   Config::set('contract', $contract);
+});
+
+Route::filter('bid_not_already_made', function() {
+  $contract = Config::get('contract');
+  $bid = Bid::where('vendor_id', '=', Auth::user()->vendor->id)
+            ->where('contract_id', '=', $contract->id)
+            ->first();
+
+  if ($bid) {
+    Session::flash('notice', 'Sorry, but you already placed a bid on this contract.');
+    return Redirect::to_route('contract', array($contract->id));
+  }
 });
