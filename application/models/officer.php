@@ -28,4 +28,14 @@ class Officer extends Eloquent {
     return $this->belongs_to('User');
   }
 
+  public function is_verified() {
+    return $this->verified_solnbr ? true : false;
+  }
+
+  public function verify_with_solnbr($solnbr) {
+    $this->verified_solnbr = $solnbr;
+    $this->verified_at = new \DateTime;
+    $this->save();
+  }
+
 }

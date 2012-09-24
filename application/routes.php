@@ -49,7 +49,7 @@ Route::post('resetpassword/(:any)', array('uses' => 'users@post_reset_password',
 
 Route::resourceful('vendors', array('new', 'create'));
 Route::resourceful('officers', array('new', 'create'));
-Route::resourceful('contracts', array('new', 'create'));
+Route::resourceful('contracts', array('new', 'create', 'edit', 'update', 'index', 'show'));
 
 
 /*

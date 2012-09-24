@@ -2,6 +2,14 @@
 
 class Auth_Controller extends Base_Controller {
 
+  public function __construct() {
+    parent::__construct();
+
+    $this->filter('before', 'no_auth')->only(array('new', 'create'));
+    $this->filter('before', 'auth')->only(array('delete'));
+  }
+
+
   public function action_new() {
     $view = View::make('auth.signin');
     $this->layout->content = $view;
