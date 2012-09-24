@@ -2,6 +2,12 @@
 
 class Officers_Controller extends Base_Controller {
 
+  public function __construct() {
+    parent::__construct();
+
+    $this->filter('before', 'no_auth')->only(array('new', 'create'));
+  }
+
   public function action_new() {
     $view = View::make('officers.new');
     $this->layout->content = $view;
