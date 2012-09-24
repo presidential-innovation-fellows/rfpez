@@ -1,3 +1,13 @@
 label {
   display: block;
 }
+body.no-auth .vendor-only,
+body.no-auth .officer-only {
+  display: none !important;
+}
+body.officer .vendor-only {
+  display: none !important;
+}
+body.vendor .officer-only {
+  display: none !important;
+}

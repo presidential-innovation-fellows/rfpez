@@ -9,7 +9,14 @@
   <?= Basset::show('website.css') ?>
 
 </head>
-<body>
+<?php
+  if (Auth::guest()) {
+    $body_class = "no-auth";
+  } else {
+    $body_class = "auth " . (Auth::user()->is_vendor() ? "vendor" : "officer");
+  }
+?>
+<body class="<?= $body_class ?>">
 
   <h1><a href="<?= route('root') ?>">EasyBid</a></h1>
 

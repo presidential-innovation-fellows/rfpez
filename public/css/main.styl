@@ -1,2 +1,15 @@
 label
   display block
+
+body
+  &.no-auth
+    .vendor-only, .officer-only
+      display none !important
+
+  &.officer
+    .vendor-only
+      display none !important
+
+  &.vendor
+    .officer-only
+      display none !important
