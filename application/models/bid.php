@@ -18,6 +18,13 @@ class Bid extends Eloquent {
     return json_decode($this->prices, true);
   }
 
+  public function dismiss($reason, $explanation = false) {
+    if (!$explanation) $explanation = $reason;
+    $this->dismissal_reason = $reason;
+    $this->dismissal_explanation = $explanation;
+    $this->save();
+  }
+
 }
 
 Event::listen('eloquent.saving: Bid', function($model) {

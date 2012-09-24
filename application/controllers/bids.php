@@ -6,11 +6,12 @@ class Bids_Controller extends Base_Controller {
     parent::__construct();
 
     $this->filter('before', 'auth')->only(array('show'));
-    $this->filter('before', 'vendor_only')->only(array('new', 'create'));
-    $this->filter('before', 'contract_exists')->only(array('new', 'create', 'show'));
+    $this->filter('before', 'vendor_only')->only(array('new', 'create', 'destroy'));
+    $this->filter('before', 'contract_exists')->only(array('new', 'create', 'show', 'destroy'));
     $this->filter('before', 'bid_not_already_made')->only(array('new', 'create'));
-    $this->filter('before', 'bid_exists')->only(array('show'));
+    $this->filter('before', 'bid_exists')->only(array('show', 'destroy'));
     $this->filter('before', 'allowed_to_view')->only(array('show'));
+    $this->filter('before', 'allowed_to_destroy')->only(array('destroy'));
   }
 
   public function action_new() {
@@ -50,6 +51,13 @@ class Bids_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
+  public function action_destroy() {
+    $contract = Config::get('contract');
+    $bid = Config::get('bid');
+    $bid->dismiss('Deleted by vendor');
+    return Redirect::to_route('contract', array($contract->id));
+  }
+
 }
 
 Route::filter('contract_exists', function() {
@@ -76,10 +84,19 @@ Route::filter('allowed_to_view', function() {
   }
 });
 
+Route::filter('allowed_to_destroy', function() {
+  $bid = Config::get('bid');
+  if ($bid->vendor_id != Auth::user()->vendor->id) return Redirect::to('/');
+});
+
 Route::filter('bid_not_already_made', function() {
   $contract = Config::get('contract');
   $bid = Bid::where('vendor_id', '=', Auth::user()->vendor->id)
             ->where('contract_id', '=', $contract->id)
+            ->where(function($query) {
+              $query->where('dismissal_reason', '!=', 'Deleted by vendor');
+              $query->or_where_null('dismissal_reason');
+            })
             ->first();
 
   if ($bid) {
