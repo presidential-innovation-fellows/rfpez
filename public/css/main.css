@@ -1,5 +1,19 @@
+.clearfix {
+  zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
 label {
   display: block;
+}
+body {
+  padding-top: 60px;
 }
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
