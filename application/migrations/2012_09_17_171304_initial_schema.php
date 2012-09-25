@@ -122,6 +122,7 @@ class Initial_Schema {
     // Many-to-many relationship for the services
     // that a vendor offers.
     Schema::create('service_vendor', function($t){
+      $t->increments('id');
       $t->integer('service_id');
       $t->integer('vendor_id');
 

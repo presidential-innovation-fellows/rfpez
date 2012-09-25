@@ -4,7 +4,7 @@ class Bid extends Eloquent {
 
   public static $timestamps = true;
 
-  public static $accessible = array('approach', 'previous_work', 'other_notes');
+  public static $accessible = array('contract_id', 'approach', 'previous_work', 'other_notes', 'prices');
 
   public function vendor() {
     return $this->belongs_to('Vendor');
@@ -15,7 +15,7 @@ class Bid extends Eloquent {
   }
 
   public function prices() {
-    return json_decode($this->prices, true);
+    if ($this->prices) return json_decode($this->prices, true);
   }
 
   public function dismiss($reason, $explanation = false) {
