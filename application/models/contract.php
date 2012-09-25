@@ -23,10 +23,7 @@ class Contract extends Eloquent {
   public function current_bid_from($vendor) {
     $bid = Bid::where('contract_id', '=', $this->id)
               ->where('vendor_id', '=', $vendor->id)
-              ->where(function($query) {
-                $query->where('dismissal_reason', '!=', 'Deleted by vendor');
-                $query->or_where_null('dismissal_reason');
-              })
+              ->where('deleted_by_vendor', '!=', true)
               ->first();
 
     return $bid ? $bid : false;
