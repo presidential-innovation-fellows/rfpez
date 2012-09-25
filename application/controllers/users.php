@@ -24,7 +24,8 @@ class Users_Controller extends Base_Controller {
       return $this->action_get_forgot_password();
     }
     $user->generate_reset_password_token();
-    return 'reset token generated';
+    Session::flash('notice', 'reset token generated');
+    return Redirect::to_route('signin');
   }
 
   public function action_get_reset_password() {
