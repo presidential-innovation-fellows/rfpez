@@ -7,8 +7,8 @@ class Officer extends Eloquent {
   public static $accessible = array('user_id', 'phone', 'fax', 'name', 'title', 'agency');
 
   public function validator() {
-    $rules = array('phone' => 'required|numeric',
-                   'fax' => 'required|numeric',
+    $rules = array('phone' => 'required',
+                   'fax' => 'required',
                    'name' => 'required',
                    'title' => 'required',
                    'agency' => 'required');
