@@ -49,7 +49,8 @@ Basset::scripts('website', function($basset)
 
 Basset::styles('website', function($basset)
 {
-  $basset->add('maincss', 'main.css');
+  $basset->add('bootstrap', 'bootstrap.css')
+         ->add('maincss', 'main.css');
 });
 
 
