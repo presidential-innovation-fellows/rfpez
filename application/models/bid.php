@@ -25,6 +25,14 @@ class Bid extends Eloquent {
     $this->save();
   }
 
+  public function total_price() {
+    $total = 0;
+    foreach($this->prices() as $deliv => $price) {
+      $total += floatVal($price);
+    }
+    return $total;
+  }
+
 }
 
 Event::listen('eloquent.saving: Bid', function($model) {

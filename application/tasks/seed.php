@@ -85,7 +85,7 @@ class Seed_Task {
                            'approach' => 'This is the approach.',
                            'previous_work' => 'This is the previous work.',
                            'other_notes' => 'These are the other notes.',
-                           'prices' => array('First deliverable' => '$100', 'Second deliverable' => '$200')));
+                           'prices' => array('First deliverable' => '100', 'Second deliverable' => '200')));
     $b->vendor_id = $v->id;
     $b->save();
   }
