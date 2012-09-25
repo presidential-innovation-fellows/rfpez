@@ -69,8 +69,14 @@ class Contracts_Controller extends Base_Controller {
     $contract->set_aside = $response["set_aside"];
     $contract->classification_code = $response["classification_code"];
     $contract->naics_code = $response["naics"];
-    $contract->proposals_due_at = new \DateTime($response["response_date"]);
-    $contract->posted_at = new \DateTime($response["posted_date"]);
+
+    if ($due_at = strtotime($response["response_date"])) {
+      $contract->proposals_due_at = date_timestamp_set(new \DateTime(), $due_at);
+    }
+
+    if ($posted_at = strtotime($response["posted_date"])) {
+      $contract->posted_at = date_timestamp_set(new \DateTime(), $posted_at);
+    }
 
     $contract->save();
 
