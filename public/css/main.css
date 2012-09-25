@@ -13,7 +13,7 @@ label {
   display: block;
 }
 body {
-  padding-top: 60px;
+  padding-top: 75px;
 }
 body.no-auth .vendor-only,
 body.no-auth .officer-only {

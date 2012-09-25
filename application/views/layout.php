@@ -28,26 +28,24 @@
 ?>
 </head>
 <body class="<?= $body_class ?>">
+
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar">1</span>
+          <span class="icon-bar">2</span>
+          <span class="icon-bar">3</span>
+        </a>
+        <a class="brand" href="<?= route('root') ?>">EasyBid</a>
+
+        <?= View::make('partials.topnav') ?>
+
+      </div>
+    </div>
+  </div>
+
   <div class="container">
-
-    <h1><a href="<?= route('root') ?>">EasyBid</a></h1>
-
-    <?php if (Auth::check()): ?>
-      logged in as <?= Auth::user()->email ?> (<?= Auth::user()->account_type() ?>). <a href="<?= route('signout') ?>">sign out</a>
-      <br />
-      <?php if (Auth::user()->is_officer()): ?>
-        <a href="<?= route('new_contracts') ?>">new contract</a> | <a href="<?= route('my_contracts') ?>">my contracts</a>
-      <?php else: ?>
-        <a href="<?= route('contracts') ?>">browse contracts</a>
-      <?php endif; ?>
-
-
-    <?php else: ?>
-      <a href="<?= route('signin') ?>">sign in</a> | <a href="<?= route('new_vendors') ?>">new vendor</a>
-      | <a href="<?= route('new_officers') ?>">new officer</a>
-    <?php endif; ?>
-
-    <hr />
 
     <?php if (Session::has('errors')): ?>
       <?php foreach(Session::get('errors') as $error): ?>
