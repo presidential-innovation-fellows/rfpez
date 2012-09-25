@@ -9,7 +9,7 @@ class Add_More_Company_Links {
 	 */
 	public function up()
 	{
-		Schema::table('bids', function($t){
+		Schema::table('vendors', function($t){
 			$t->string('homepage_url')->nullable();
 			$t->string('sourcecode_url')->nullable();
 		});
@@ -22,7 +22,7 @@ class Add_More_Company_Links {
 	 */
 	public function down()
 	{
-		Schema::table('bids', function($t){
+		Schema::table('vendors', function($t){
 			$t->drop_column('homepage_url');
 			$t->drop_column('sourcecode_url');
 		});
