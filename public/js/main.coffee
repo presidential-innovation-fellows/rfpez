@@ -8,7 +8,7 @@ $(document).on "click", ".show-dismiss-modal", ->
   el = $(this)
   modal = $("#dismiss-modal")
   modal.find(".company-name").text(el.data('vendor-company-name'))
-  modal.find("input, textarea").val()
+  modal.find("textarea").val("")
   modal.find("button").button('reset')
   modal.modal('show')
 
@@ -24,7 +24,10 @@ $(document).on "click", ".show-dismiss-modal", ->
       success: (data) ->
         if data.status is "already dismissed" or "success"
           modal.modal('hide')
-          window.location.reload() # cheap hack, in the future this should find the bid in the list and hide it
+          if el.data('remove-from-list')
+            el.closest("." + el.data('remove-from-list')).remove()
+          else
+            window.location.reload()
 
 $ ->
   $("#dismiss-modal").modal
