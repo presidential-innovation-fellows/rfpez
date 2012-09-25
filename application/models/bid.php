@@ -36,6 +36,10 @@ class Bid extends Eloquent {
     $this->save();
   }
 
+  public function dismissed() {
+    return $this->dismissal_reason ? true : false;
+  }
+
   public function total_price() {
     $total = 0;
     foreach($this->prices() as $deliv => $price) {

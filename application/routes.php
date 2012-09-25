@@ -24,6 +24,7 @@ Route::get('contracts/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new
 Route::get('contracts/(:num)/bids', array('uses' => 'bids@review', 'as' => 'bids'));
 Route::post('contracts/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));
 Route::get('contracts/(:num)/bids/(:num)', array('uses' => 'bids@show', 'as' => 'bid'));
+Route::get('contracts/(:num)/bids/(:num)/dismiss', array('uses' => 'bids@dismiss', 'as' => 'bid_dismiss'));
 Route::get('contracts/(:num)/bids/(:num)/destroy', array('uses' => 'bids@destroy', 'as' => 'bid_destroy'));
 
 
@@ -48,7 +49,8 @@ Basset::scripts('website', function($basset)
 
 Basset::styles('website', function($basset)
 {
-  $basset->add('maincss', 'main.css');
+  $basset->add('bootstrap', 'bootstrap.css')
+         ->add('maincss', 'main.css');
 });
 
 

@@ -5,15 +5,15 @@ class Bids_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->filter('before', 'auth')->only(array('show', 'review'));
-    $this->filter('before', 'officer_only')->only(array('review'));
+    $this->filter('before', 'auth')->only(array('show'));
+    $this->filter('before', 'officer_only')->only(array('review', 'dismiss'));
     $this->filter('before', 'vendor_only')->only(array('new', 'create', 'destroy'));
-    $this->filter('before', 'contract_exists')->only(array('new', 'create', 'show', 'destroy', 'review'));
+    $this->filter('before', 'contract_exists')->only(array('new', 'create', 'show', 'destroy', 'review', 'dismiss'));
     $this->filter('before', 'bid_not_already_made')->only(array('new', 'create'));
-    $this->filter('before', 'bid_exists')->only(array('show', 'destroy'));
+    $this->filter('before', 'bid_exists')->only(array('show', 'destroy', 'dismiss'));
     $this->filter('before', 'allowed_to_view')->only(array('show'));
     $this->filter('before', 'allowed_to_destroy')->only(array('destroy'));
-    $this->filter('before', 'allowed_to_review')->only(array('review'));
+    $this->filter('before', 'allowed_to_review')->only(array('review', 'dismiss'));
   }
 
   public function action_new() {
@@ -29,6 +29,15 @@ class Bids_Controller extends Base_Controller {
     if (!Input::get('show_all')) $query = $query->where_null('dismissal_reason');
     $view->bids = $query->get();
     $this->layout->content = $view;
+  }
+
+  public function action_dismiss() {
+    $contract = Config::get('contract');
+    $bid = Config::get('bid');
+    // if ($bid->dismissed()) return Response::json(array("status" => "already dismissed"));
+    // we can prevent them from doing this if we want, but i don't see why not.
+    $bid->dismiss(Input::get('reason'), Input::get('explanation'));
+    return Response::json(array("status" => "success"));
   }
 
   public function action_create() {
