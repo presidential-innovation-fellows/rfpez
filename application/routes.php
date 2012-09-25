@@ -18,6 +18,7 @@ Route::post('resetpassword/(:any)', array('uses' => 'users@post_reset_password',
 Route::resourceful('vendors', array('new', 'create'));
 Route::resourceful('officers', array('new', 'create'));
 Route::resourceful('contracts', array('new', 'create', 'edit', 'update', 'index', 'show'));
+Route::get('contracts/mine', array('uses' => 'contracts@mine', 'as' => 'my_contracts'));
 
 Route::get('contracts/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
 Route::post('contracts/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));

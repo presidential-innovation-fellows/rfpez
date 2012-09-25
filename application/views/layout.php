@@ -26,7 +26,7 @@
     logged in as <?= Auth::user()->email ?> (<?= Auth::user()->account_type() ?>). <a href="<?= route('signout') ?>">sign out</a>
     <br />
     <?php if (Auth::user()->is_officer()): ?>
-      <a href="<?= route('new_contracts') ?>">new contract</a>
+      <a href="<?= route('new_contracts') ?>">new contract</a> | <a href="<?= route('my_contracts') ?>">my contracts</a>
     <?php else: ?>
       <a href="<?= route('contracts') ?>">browse contracts</a>
     <?php endif; ?>
