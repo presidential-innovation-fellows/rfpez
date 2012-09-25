@@ -19,7 +19,6 @@ class Officer extends Eloquent {
     return $validator;
   }
 
-
   public function contracts() {
     return $this->has_many('Contract');
   }
