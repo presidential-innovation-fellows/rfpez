@@ -4,7 +4,8 @@
 <h3>Review Bids for <?= $contract->title ?></h3>
 
 <?php foreach($bids as $bid): ?>
-  <?= $bid->total_price() ?>
+  $<?= intval($bid->total_price()) ?> - <?= $bid->vendor->company_name ?> |
+  <a href="<?= route('bid', array($contract->id, $bid->id)) ?>">details</a>
 <?php endforeach; ?>
 
 <?php Section::stop() ?>
