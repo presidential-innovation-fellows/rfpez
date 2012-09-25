@@ -20,7 +20,8 @@ class Vendors_Controller extends Base_Controller {
     if ($user->validator()->passes() && $vendor->validator()->passes()) {
       $user->save();
       $user->vendor()->insert($vendor);
-      return 'saved';
+      Auth::login($user->id);
+      return Redirect::to('/');
     } else {
       Session::flash('errors', array_merge($user->validator()->errors->all(), $vendor->validator()->errors->all()));
       return $this->action_new();

@@ -5,18 +5,27 @@ class Bids_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->filter('before', 'auth')->only(array('show'));
+    $this->filter('before', 'auth')->only(array('show', 'review'));
+    $this->filter('before', 'officer_only')->only(array('review'));
     $this->filter('before', 'vendor_only')->only(array('new', 'create', 'destroy'));
-    $this->filter('before', 'contract_exists')->only(array('new', 'create', 'show', 'destroy'));
+    $this->filter('before', 'contract_exists')->only(array('new', 'create', 'show', 'destroy', 'review'));
     $this->filter('before', 'bid_not_already_made')->only(array('new', 'create'));
     $this->filter('before', 'bid_exists')->only(array('show', 'destroy'));
     $this->filter('before', 'allowed_to_view')->only(array('show'));
     $this->filter('before', 'allowed_to_destroy')->only(array('destroy'));
+    $this->filter('before', 'allowed_to_review')->only(array('review'));
   }
 
   public function action_new() {
     $view = View::make('bids.new');
     $view->contract = Config::get('contract');
+    $this->layout->content = $view;
+  }
+
+  public function action_review() {
+    $view = View::make('bids.review');
+    $view->contract = Config::get('contract');
+    $view->bids = $view->contract->bids;
     $this->layout->content = $view;
   }
 
@@ -87,6 +96,11 @@ Route::filter('allowed_to_view', function() {
 Route::filter('allowed_to_destroy', function() {
   $bid = Config::get('bid');
   if ($bid->vendor_id != Auth::user()->vendor->id) return Redirect::to('/');
+});
+
+Route::filter('allowed_to_review', function() {
+  $contract = Config::get('contract');
+  if ($contract->officer_id != Auth::user()->officer->id) return Redirect::to('/');
 });
 
 Route::filter('bid_not_already_made', function() {

@@ -26,10 +26,10 @@ class Initial_Schema {
       // differently.
       $t->string('encrypted_password')->nullable();
       $t->string('reset_password_token')->nullable();
-      $t->timestamp('reset_password_sent_at')->nullable();
+      $t->date('reset_password_sent_at')->nullable();
       $t->integer('sign_in_count');
-      $t->timestamp('current_sign_in_at')->nullable();
-      $t->timestamp('last_sign_in_at')->nullable();
+      $t->date('current_sign_in_at')->nullable();
+      $t->date('last_sign_in_at')->nullable();
       $t->string('current_sign_in_ip')->nullable();
       $t->string('last_sign_in_ip')->nullable();
 
@@ -69,8 +69,8 @@ class Initial_Schema {
       $t->string('set_aside')->nullable();
       $t->string('classification_code')->nullable();
       $t->integer('naics_code');
-      $t->timestamp('proposals_due_at');
-      $t->timestamp('posted_at');
+      $t->date('proposals_due_at');
+      $t->date('posted_at');
 
       $t->timestamps();
     });
@@ -122,6 +122,7 @@ class Initial_Schema {
     // Many-to-many relationship for the services
     // that a vendor offers.
     Schema::create('service_vendor', function($t){
+      $t->increments('id');
       $t->integer('service_id');
       $t->integer('vendor_id');
 
@@ -137,14 +138,11 @@ class Initial_Schema {
       $t->string('title');
       $t->string('agency');
 
-      // If true, grants site admin powers to this officer.
-      $t->boolean('is_admin');
-
       // The date and SOLNBR from FBO that allowed
       // us to verify this officer.
       //
       // If null, officer is not verified.
-      $t->timestamp('verified_at')->nullable();
+      $t->date('verified_at')->nullable();
       $t->string('verified_solnbr')->nullable();
 
 

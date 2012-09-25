@@ -5,7 +5,7 @@ class Contracts_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->filter('before', 'officer_only')->only(array('new', 'create', 'edit', 'update'));
+    $this->filter('before', 'officer_only')->only(array('new', 'create', 'edit', 'update', 'mine'));
     $this->filter('before', 'correct_officer')->only(array('edit', 'update'));
     $this->filter('before', 'contract_exists')->only(array('show'));
   }
@@ -24,6 +24,12 @@ class Contracts_Controller extends Base_Controller {
 
   public function action_new() {
     $view = View::make('contracts.new');
+    $this->layout->content = $view;
+  }
+
+  public function action_mine() {
+    $view = View::make('contracts.mine');
+    $view->contracts = Contract::where_officer_id(Auth::user()->officer->id)->get();
     $this->layout->content = $view;
   }
 
