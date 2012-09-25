@@ -13,6 +13,8 @@
 
   <title><?= Helper::full_title(Section::yield('page_title')) ?></title>
 
+  <link href="http://netdna.bootstrapcdn.com/bootswatch/2.1.0/cerulean/bootstrap.min.css" media="all" type="text/css" rel="stylesheet">
+
   <?= Basset::show('website.css') ?>
 
 <?php
