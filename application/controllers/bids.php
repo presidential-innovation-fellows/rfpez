@@ -25,7 +25,9 @@ class Bids_Controller extends Base_Controller {
   public function action_review() {
     $view = View::make('bids.review');
     $view->contract = Config::get('contract');
-    $view->bids = $view->contract->bids;
+    $query = $view->contract->bids()->where('deleted_by_vendor', '!=', true);
+    if (!Input::get('show_all')) $query = $query->where_null('dismissal_reason');
+    $view->bids = $query->get();
     $this->layout->content = $view;
   }
 
@@ -68,7 +70,8 @@ class Bids_Controller extends Base_Controller {
   public function action_destroy() {
     $contract = Config::get('contract');
     $bid = Config::get('bid');
-    $bid->dismiss('Deleted by vendor');
+    $bid->deleted_by_vendor = true;
+    $bid->save();;
     return Redirect::to_route('contract', array($contract->id));
   }
 
@@ -112,10 +115,7 @@ Route::filter('bid_not_already_made', function() {
   $contract = Config::get('contract');
   $bid = Bid::where('vendor_id', '=', Auth::user()->vendor->id)
             ->where('contract_id', '=', $contract->id)
-            ->where(function($query) {
-              $query->where('dismissal_reason', '!=', 'Deleted by vendor');
-              $query->or_where_null('dismissal_reason');
-            })
+            ->where('deleted_by_vendor', '!=', true)
             ->first();
 
   if ($bid) {
