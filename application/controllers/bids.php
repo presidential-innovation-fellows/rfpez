@@ -47,10 +47,15 @@ class Bids_Controller extends Base_Controller {
     }
     $bid->prices = $prices;
 
-    $bid->save();
+    if ($bid->validator()->passes()) {
+      $bid->save();
+      Session::flash('notice', 'Thanks for submitting your bid.');
+      return Redirect::to_route('contract', array($contract->id));
+    } else {
+      Session::flash('errors', $bid->validator()->errors->all());
+      return $this->action_new();
+    }
 
-    Session::flash('notice', 'Thanks for submitting your bid.');
-    return Redirect::to_route('contract', array($contract->id));
   }
 
   public function action_show() {

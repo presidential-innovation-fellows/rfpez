@@ -6,6 +6,17 @@ class Bid extends Eloquent {
 
   public static $accessible = array('contract_id', 'approach', 'previous_work', 'other_notes', 'prices');
 
+  public function validator() {
+    $rules = array('approach' => 'required',
+                   'previous_work' => 'required',
+                   'prices' => 'required');
+
+    $validator = Validator::make($this->attributes, $rules);
+    $validator->passes(); // hack to populate error messages
+
+    return $validator;
+  }
+
   public function vendor() {
     return $this->belongs_to('Vendor');
   }
