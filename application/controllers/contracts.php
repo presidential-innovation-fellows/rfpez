@@ -70,14 +70,12 @@ class Contracts_Controller extends Base_Controller {
     $contract->classification_code = $response["classification_code"];
     $contract->naics_code = $response["naics"];
 
-    if (strtotime($response["response_date"])) {
-      $dt = new \DateTime();
-      $contract->proposals_due_at = $dt->setTimestamp(strtotime($response["response_date"]));
+    if ($due_at = strtotime($response["response_date"])) {
+      $contract->proposals_due_at = date_timestamp_set(new \DateTime(), $due_at);
     }
 
-    if (strtotime($response["posted_date"])) {
-      $dt = new \DateTime();
-      $contract->posted_at = $dt->setTimestamp(strtotime($response["posted_date"]));
+    if ($posted_at = strtotime($response["posted_date"])) {
+      $contract->posted_at = date_timestamp_set(new \DateTime(), $posted_at);
     }
 
     $contract->save();
