@@ -2,11 +2,16 @@
 <?php Section::start('content') ?>
 
 <h3><?= $contract->title ?></h3>
+
 <?= $contract->statement_of_work ?>
 
 <hr />
 
 <h3>View Bid</h3>
+
+<div class="only-user only-user-<?= $bid->vendor->user->id ?>">
+  <a href="<?= route('bid_destroy', array($contract->id, $bid->id)) ?>">Delete Bid</a>
+</div>
 
 <h4>Approach</h4>
 <p><?= $bid->approach ?></p>

@@ -8,14 +8,16 @@
   <title><?= Helper::full_title(Section::yield('page_title')) ?></title>
   <?= Basset::show('website.css') ?>
 
-</head>
 <?php
   if (Auth::guest()) {
     $body_class = "no-auth";
+    print "<style>.only-user { display: none; }</style>";
   } else {
     $body_class = "auth " . (Auth::user()->is_vendor() ? "vendor" : "officer");
+    print "<style>.only-user:not(.only-user-".Auth::user()->id.") { display: none; }</style>";
   }
 ?>
+</head>
 <body class="<?= $body_class ?>">
 
   <h1><a href="<?= route('root') ?>">EasyBid</a></h1>
