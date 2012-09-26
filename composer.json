@@ -2,7 +2,7 @@
     "name": "RFPEz",
     "require": {
         "php": ">=5.3.0",
-        "mthaml/mthaml": "1.1.1"
+        "dz0ny/jade.php": "@dev"
     },
     "minimum-stability": "stable"
 }
