@@ -3,7 +3,7 @@
 
 <?= View::make('bids.dismiss_modal') ?>
 
-<h3>View Bid</h3>
+<h3>View Bid for contract <a href="<?= route('contract', array($contract->id)) ?>"><?= $contract->title ?></a></h3>
 
 <div class="officer-only">
   <?php if ($bid->dismissed()): ?>
@@ -44,11 +44,5 @@
     <?php endforeach; ?>
   <?php endif; ?>
 </table>
-
-<hr />
-
-<h3><?= $contract->title ?></h3>
-
-<?= $contract->statement_of_work ?>
 
 <?php Section::stop() ?>
