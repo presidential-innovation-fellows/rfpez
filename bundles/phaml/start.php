@@ -2,8 +2,8 @@
 
 Event::listen(View::loader, function($bundle, $view)
 {
-	// This event just makes the View class think that ".jade" files are valid...
-	$path = Bundle::path($bundle).'views/'.$view.'.jade';
+	// This event just makes the View class think that ".haml" files are valid...
+	$path = Bundle::path($bundle).'views/'.$view.'.haml';
 
 	if (file_exists($path)) return $path;
 });
@@ -11,7 +11,7 @@ Event::listen(View::loader, function($bundle, $view)
 
 Event::listen(View::engine, function($view)
 {
-	if ( ! str_contains(File::extension($view->path), 'jade'))
+	if ( ! str_contains(File::extension($view->path), 'haml'))
 	{
 		return $view->get();
 	}
