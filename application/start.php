@@ -60,6 +60,7 @@ Laravel\Autoloader::$aliases = $aliases;
 
 Autoloader::map(array(
 	'Fragment' => path('app').'libraries/fragment.php',
+	'Section' => path('app').'libraries/section.php',
 	'Base_Controller' => path('app').'controllers/base.php',
 ));
 
