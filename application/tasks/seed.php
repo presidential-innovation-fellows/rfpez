@@ -74,7 +74,7 @@ class Seed_Task {
                                 'set_aside' => 'N/A',
                                 'classification_code' => 'X -- Lease or rental of facilities',
                                 'naics_code' => '531390',
-                                'proposals_due_at' => new \DateTime,
+                                'proposals_due_at' => new \DateTime('February 10th, 2013'),
                                 'posted_at' => new \DateTime));
     $c->fbo_solnbr = 'D-13-ST-0010';
     $c->officer_id = $o->id;
@@ -88,6 +88,12 @@ class Seed_Task {
                            'prices' => array('First deliverable' => '100', 'Second deliverable' => '200')));
     $b->vendor_id = $v->id;
     $b->save();
+
+    $q = new Question(array('contract_id' => $c->id,
+                            'question' => 'Is there any need for information architecture? I know that when I usually do a thing like this, information architecture is most definitely included.',
+                            'answer' => 'Yes, there is. I would budget about $1300 for it. Yep.'));
+    $q->vendor_id = $v->id;
+    $q->save();
   }
 
 }
