@@ -35,11 +35,14 @@
 
 return array(
 
-	'docs' => array('handles' => 'docs'),
+  'docs' => array('handles' => 'docs'),
   'bob',
   'basset' => array(
     'handles' => 'basset',
     'auto'    => true
-  )
+  ),
+  'jaded' => array(
+  	'auto' => true
+  ),
 
 );
