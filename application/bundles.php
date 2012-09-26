@@ -41,7 +41,7 @@ return array(
     'handles' => 'basset',
     'auto'    => true
   ),
-  'phaml' => array(
+  'jaded' => array(
   	'auto' => true
   ),
 
