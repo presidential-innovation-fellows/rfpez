@@ -19,6 +19,7 @@ Route::resourceful('vendors', array('new', 'create'));
 Route::resourceful('officers', array('new', 'create'));
 Route::resourceful('contracts', array('new', 'create', 'edit', 'update', 'index', 'show'));
 Route::get('contracts/mine', array('uses' => 'contracts@mine', 'as' => 'my_contracts'));
+Route::resourceful('questions', array('create'));
 
 Route::get('contracts/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
 Route::get('contracts/(:num)/bids', array('uses' => 'bids@review', 'as' => 'bids'));

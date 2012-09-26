@@ -20,12 +20,22 @@
     <hr />
     <div class="q-and-a">
       <h4>Q &amp; A</h4>
-      <?php foreach($contract->questions as $question): ?>
-        <div class="question-wrapper">
-          <div class="question">This is a question? There is more text in here, or is it more like this?</div>
-          <div class="answer">This is the answer. The answer answer answer. Yeppers!</div>
-        </div>
-      <?php endforeach; ?>
+      <div class="questions">
+        <?php foreach($contract->questions as $question): ?>
+          <div class="question-wrapper">
+            <div class="question"><?= $question->question ?></div>
+            <div class="answer"><?= $question->answer ?></div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+      <div class="ask-question vendor-only">
+        <h4>Ask a question about this project</h4>
+        <form action="<?= route('questions') ?>" id="ask-question-form" method="post">
+          <input type="hidden" name="contract_id" value="<?= $contract->id ?>" />
+          <textarea name="question" placeholder="Type your question here"></textarea><br />
+          <button class="btn btn-primary" data-loading-text="Submitting...">Submit</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

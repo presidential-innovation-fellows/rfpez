@@ -29,6 +29,30 @@ $(document).on "click", ".show-dismiss-modal", ->
           else
             window.location.reload()
 
+$(document).on "submit", "#ask-question-form", (e) ->
+  el = $(this)
+  button = el.find("button")
+  button.button('loading')
+  e.preventDefault()
+  $.ajax
+    url: "/questions"
+    data:
+      contract_id: el.find("input[name=contract_id]").val()
+      question: el.find("textarea[name=question]").val()
+    type: "POST"
+    success: (data) ->
+      button.button('reset')
+      el.find("textarea[name=question]").val('')
+      if data.status is "success"
+        $(".questions").append """
+          <div class="question-wrapper">
+            <div class="question">#{data.question.question}</div>
+            <div class="answer"></div>
+          </div>
+        """
+      else
+        alert 'error!'
+
 $ ->
   $("#dismiss-modal").modal
     show: false
