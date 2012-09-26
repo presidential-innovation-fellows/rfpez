@@ -12,6 +12,9 @@
 label {
   display: block;
 }
+a {
+  cursor: pointer;
+}
 body {
   padding-top: 75px;
 }
@@ -24,4 +27,16 @@ body.officer .vendor-only {
 }
 body.vendor .officer-only {
   display: none !important;
+}
+.question-wrapper {
+  margin-bottom: 15px;
+}
+.question-wrapper .question {
+  margin-bottom: 5px;
+}
+.question-wrapper .answer-question {
+  padding: 0;
+}
+#answer-question-form {
+  display: none;
 }

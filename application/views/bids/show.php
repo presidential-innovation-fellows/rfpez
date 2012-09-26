@@ -1,7 +1,9 @@
 <?php Section::inject('page_title', 'Show Bid'); ?>
 <?php Section::start('content') ?>
 
-<?= View::make('bids.dismiss_modal') ?>
+<?php if (Auth::user()->is_officer()): ?>
+  <?= View::make('bids.dismiss_modal') ?>
+<?php endif; ?>
 
 <h3>View Bid for contract <a href="<?= route('contract', array($contract->id)) ?>"><?= $contract->title ?></a></h3>
 

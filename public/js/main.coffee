@@ -30,10 +30,10 @@ $(document).on "click", ".show-dismiss-modal", ->
             window.location.reload()
 
 $(document).on "submit", "#ask-question-form", (e) ->
+  e.preventDefault()
   el = $(this)
   button = el.find("button")
   button.button('loading')
-  e.preventDefault()
   $.ajax
     url: "/questions"
     data:
@@ -53,6 +53,33 @@ $(document).on "submit", "#ask-question-form", (e) ->
       else
         alert 'error!'
 
-$ ->
-  $("#dismiss-modal").modal
-    show: false
+$(document).on "click", ".answer-question-toggle", ->
+  el = $(this)
+  question = $(this).closest(".question-wrapper")
+  form = $("#answer-question-form")
+  form.find("input[name=id]").val(question.data('id'))
+  form.find("textarea[name=answer]").val('')
+  form.appendTo(question)
+  form.show()
+
+$(document).on "submit", "#answer-question-form", (e) ->
+  e.preventDefault()
+  el = $(this)
+  question = el.closest(".question-wrapper")
+  $.ajax
+    url: el.attr('action')
+    type: "post"
+    data:
+      id: el.find("input[name=id]").val()
+      answer: el.find("textarea[name=answer]").val()
+
+    success: (data) ->
+      if data.status is "success"
+        el.hide()
+        el.prependTo('body')
+        question.find(".answer-question").remove()
+        question.append """
+          <div class="answer">#{data.question.answer}</div>
+        """
+      else
+        alert 'error'

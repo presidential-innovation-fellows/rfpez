@@ -1,6 +1,16 @@
 <?php Section::inject('page_title', $contract->title); ?>
 <?php Section::start('content') ?>
 
+<?php if (Auth::user()->is_officer()): ?>
+  <?= View::make('contracts.answer_question') ?>
+<?php endif; ?>
+
+<div class="only-user only-user-<?= $contract->officer->id ?>">
+  This is a contract you posted. Admin tasks and links can go up here.
+  <a href="<?= route('bids', array($contract->id)) ?>" class="pull-right">Review Bids</a>
+  <hr />
+</div>
+
 <div class="row">
   <div class="span7">
     <h3><?= $contract->title ?></h3>
@@ -22,9 +32,15 @@
       <h4>Q &amp; A</h4>
       <div class="questions">
         <?php foreach($contract->questions as $question): ?>
-          <div class="question-wrapper">
-            <div class="question"><?= $question->question ?></div>
-            <div class="answer"><?= $question->answer ?></div>
+          <div class="question-wrapper" data-id="<?= $question->id ?>">
+            <div class="question well"><?= $question->question ?></div>
+            <?php if ($question->answer): ?>
+              <div class="answer"><?= $question->answer ?></div>
+            <?php else: ?>
+              <div class="answer-question only-user only-user-<?= $contract->officer->id ?>">
+                <a class="answer-question-toggle">Answer Question</a>
+              </div>
+            <?php endif; ?>
           </div>
         <?php endforeach; ?>
       </div>
