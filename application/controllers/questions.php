@@ -16,7 +16,9 @@ class Questions_Controller extends Base_Controller {
 
     if ($question->validator()->passes()) {
       $question->save();
-      return Response::json(array("status" => "success", "question" => $question->to_array()));
+      return Response::json(array("status" => "success",
+                                  "question" => $question->to_array(),
+                                  "html" => View::make('partials.question')->with('question', $question)->render()));
     } else {
       return Response::json(array("status" => "error", "errors" => $question->validator()->errors->all()));
     }
@@ -32,7 +34,9 @@ class Questions_Controller extends Base_Controller {
     if ($answer && $answer != "") {
       $question->answer = $answer;
       $question->save();
-      return Response::json(array("status" => "success", "question" => $question->to_array()));
+      return Response::json(array("status" => "success",
+                                  "question" => $question->to_array(),
+                                  "html" => View::make('partials.question')->with('question', $question)->render()));
     } else {
       return Response::json(array("status" => "error", "errors" => array('No answer provided.')));
     }

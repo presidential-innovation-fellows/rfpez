@@ -44,12 +44,7 @@ $(document).on "submit", "#ask-question-form", (e) ->
       button.button('reset')
       el.find("textarea[name=question]").val('')
       if data.status is "success"
-        $(".questions").append """
-          <div class="question-wrapper">
-            <div class="question">#{data.question.question}</div>
-            <div class="answer"></div>
-          </div>
-        """
+        $(".questions").append data.html
       else
         alert 'error!'
 
@@ -78,8 +73,6 @@ $(document).on "submit", "#answer-question-form", (e) ->
         el.hide()
         el.prependTo('body')
         question.find(".answer-question").remove()
-        question.append """
-          <div class="answer">#{data.question.answer}</div>
-        """
+        question.replaceWith data.html
       else
         alert 'error'
