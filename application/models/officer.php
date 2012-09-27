@@ -6,7 +6,11 @@ class Officer extends Eloquent {
 
   public static $accessible = array('user_id', 'phone', 'fax', 'name', 'title', 'agency');
 
+  public $validator = false;
+
   public function validator() {
+    if ($this->validator) return $this->validator;
+
     $rules = array('phone' => 'required',
                    'fax' => 'required',
                    'name' => 'required',
@@ -16,7 +20,7 @@ class Officer extends Eloquent {
     $validator = Validator::make($this->attributes, $rules);
     $validator->passes(); // hack to populate error messages
 
-    return $validator;
+    return $this->validator = $validator;
   }
 
   public function contracts() {

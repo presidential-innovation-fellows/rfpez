@@ -6,7 +6,11 @@ class User extends Eloquent {
 
   public $includes = array('vendor', 'officer');
 
+  public $validator = false;
+
   public function validator($password_required = true) {
+    if ($this->validator) return $this->validator;
+
     $rules = array();
     $rules['email'] = $this->id ? 'required|email|unique:users,email,'.$this->id : 'required|email|unique:users';
     if ($password_required) $rules["password"] = "required|min:8";
@@ -14,7 +18,7 @@ class User extends Eloquent {
     $validator = Validator::make($this->attributes, $rules);
     $validator->passes(); // hack to populate error messages
 
-    return $validator;
+    return $this->validator = $validator;
   }
 
   public function vendor() {
