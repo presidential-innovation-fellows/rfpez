@@ -1,3 +1,9 @@
+update_vendor_image_preview = ->
+  el = $(".vendor-image-url input")
+  frame = el.closest(".vendor-image-url").find(".vendor-image-preview-frame")
+  img = frame.find("img")
+  img.attr("src", el.val())
+
 $(document).on "click", "#add-deliverable-button", ->
   $(".deliverables-row:eq(0)").clone().appendTo(".prices-table tbody").find("input").val("")
 
@@ -51,6 +57,8 @@ $(document).on "submit", "#ask-question-form", (e) ->
       else
         alert 'error!'
 
+$(document).on "blur", ".vendor-image-url input", update_vendor_image_preview
+
 $(document).on "click", ".answer-question-toggle", ->
   el = $(this)
   question = $(this).closest(".question-wrapper")
@@ -82,3 +90,6 @@ $(document).on "submit", "#answer-question-form", (e) ->
         new_question.find(".answer").fadeIn(300)
       else
         alert 'error'
+
+$ ->
+  update_vendor_image_preview()
