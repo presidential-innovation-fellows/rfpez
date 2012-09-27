@@ -36,8 +36,8 @@
     <th>Deliverable</th>
     <th>Price</th>
   </tr>
-  <?php if ($bid->prices()): ?>
-    <?php foreach($bid->prices() as $deliverable => $price): ?>
+  <?php if ($bid->prices): ?>
+    <?php foreach($bid->prices as $deliverable => $price): ?>
       <tr>
         <td><?= $deliverable ?></td>
         <td><?= $price ?></td>

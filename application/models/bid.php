@@ -46,7 +46,7 @@ class Bid extends Eloquent {
 
   public function total_price() {
     $total = 0;
-    foreach($this->prices() as $deliv => $price) {
+    foreach($this->prices as $deliv => $price) {
       $total += floatVal($price);
     }
     return $total;
