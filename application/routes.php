@@ -17,7 +17,7 @@ Route::get('finishsignup/(:any)', array('uses' => 'users@get_reset_password', 'a
 Route::get('resetpassword/(:any)', array('uses' => 'users@get_reset_password', 'as' => 'reset_password'));
 Route::post('resetpassword/(:any)', array('uses' => 'users@post_reset_password', 'as' => 'reset_password'));
 
-Route::resourceful('vendors', array('new', 'create'));
+Route::resourceful('vendors', array('new', 'create', 'index'));
 Route::resourceful('officers', array('new', 'create'));
 Route::resourceful('contracts', array('new', 'create', 'edit', 'update', 'index', 'show'));
 Route::get('contracts/mine', array('uses' => 'contracts@mine', 'as' => 'my_contracts'));

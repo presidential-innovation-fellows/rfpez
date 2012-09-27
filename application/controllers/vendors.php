@@ -30,4 +30,10 @@ class Vendors_Controller extends Base_Controller {
     }
   }
 
+  public function action_index() {
+    $view = View::make('vendors.index');
+    $view->vendors = Vendor::take(10)->get();
+    $this->layout->content = $view;
+  }
+
 }

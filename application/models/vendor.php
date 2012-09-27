@@ -30,6 +30,10 @@ class Vendor extends Eloquent {
     return $this->validator = $validator;
   }
 
+  public function get_ballpark_price_display() {
+    return self::$ballpark_prices[$this->ballpark_price];
+  }
+
   public function user() {
     return $this->belongs_to('User');
   }

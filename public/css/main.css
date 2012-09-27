@@ -41,13 +41,13 @@ body.vendor .officer-only {
   display: none;
 }
 .vendor-image-preview-frame {
-  width: 150px;
-  height: 150px;
+  width: 400px;
+  height: 300px;
   border: 1px solid #000;
   padding: 2px;
   margin-bottom: 20px;
 }
 .vendor-image-preview-frame img {
-  width: 150px;
-  height: 150px;
+  width: 400px;
+  height: 300px;
 }

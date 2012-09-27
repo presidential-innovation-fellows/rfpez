@@ -1,0 +1,15 @@
+- foreach($vendors as $vendor):
+  .vendor
+    .company_name
+      a(href="#{$vendor->homepage_url}") #{$vendor->company_name}
+
+    .ballpark_price #{$vendor->ballpark_price_display}
+
+    .city #{$vendor->city}
+
+    .vendor-image-preview-frame
+      img(src="#{$vendor->image_url}")
+
+    .more_info #{$vendor->more_info}
+
+  hr
