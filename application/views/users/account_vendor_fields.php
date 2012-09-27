@@ -82,7 +82,19 @@
       <span class="add-on">http://</span><input type="text" name="vendor[sourcecode_url]" value="<?= $vendor["sourcecode_url"] ?>" />
     </div>
 
-
   </fieldset>
 
+</div>
+
+<div class="row">
+  <div class="vendor-image-url">
+    <label>URL to an image of your Best Work</label>
+    <div class="input-prepend">
+      <span class="add-on">http://</span>
+      <input type="text" name="vendor[image_url]" value="<?= $vendor["image_url"] ?>" />
+    </div>
+
+    <label>Preview</label>
+    <img src="" class="vendor-image-preview" />
+  </div>
 </div>

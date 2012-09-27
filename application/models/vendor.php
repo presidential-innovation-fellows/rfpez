@@ -21,7 +21,8 @@ class Vendor extends Eloquent {
                    'state' => 'required|max:2',
                    'zip' => 'required|numeric',
                    'ballpark_price' => 'required|numeric',
-                   'portfolio_url' => 'required');
+                   'portfolio_url' => 'required',
+                   'image_url' => 'required');
 
     $validator = Validator::make($this->attributes, $rules);
     $validator->passes(); // hack to populate error messages
