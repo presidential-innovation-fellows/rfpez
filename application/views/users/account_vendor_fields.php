@@ -68,13 +68,13 @@
     <h5>Company links</h5>
 
     <label>Home page</label>
-    <input type="text" name="vendor[homepage_url]" value="<?= $vendor["homepage_url"] ?: "http://" ?>" />
+    <input type="text" name="vendor[homepage_url]" value="<?= $vendor["homepage_url"] ?>" />
 
     <label>Portfolio</label>
-    <input type="text" name="vendor[portfolio_url]" value="<?= $vendor["portfolio_url"] ?: "http://" ?>" />
+    <input type="text" name="vendor[portfolio_url]" value="<?= $vendor["portfolio_url"] ?>" />
 
     <label>Public source (e.g. github)</label>
-    <input type="text" name="vendor[sourcecode_url]" value="<?= $vendor["sourcecode_url"] ?: "http://" ?>" />
+    <input type="text" name="vendor[sourcecode_url]" value="<?= $vendor["sourcecode_url"] ?>" />
 
   </fieldset>
 
@@ -83,7 +83,7 @@
 <div class="row">
   <div class="vendor-image-url">
     <label>URL to an image of your Best Work</label>
-    <input type="text" name="vendor[image_url]" value="<?= $vendor["image_url"] ?: "http://" ?>" />
+    <input type="text" name="vendor[image_url]" value="<?= $vendor["image_url"] ?>" />
 
     <label>Preview</label>
     <div class="vendor-image-preview-frame">
