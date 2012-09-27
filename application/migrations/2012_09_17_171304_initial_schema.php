@@ -164,6 +164,7 @@ class Initial_Schema {
     Schema::drop('services');
     Schema::drop('service_vendor');
     Schema::drop('officers');
+    Schema::drop('users');
   }
 
 }
