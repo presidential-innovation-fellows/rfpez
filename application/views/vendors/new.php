@@ -63,12 +63,22 @@
     </select>
 
     <h5>Company links</h5>
+
     <label>Home page</label>
-    <input type="text" name="vendor[homepage_url]" value="<?= $vendor["homepage_url"] ?>" placeholder="http://" />
+    <div class="input-prepend">
+      <span class="add-on">http://</span><input type="text" name="vendor[homepage_url]" value="<?= $vendor["homepage_url"] ?>" />
+    </div>
+
     <label>Portfolio</label>
-    <input type="text" name="vendor[portfolio_url]" value="<?= $vendor["portfolio_url"] ?>" placeholder="http://" />
+    <div class="input-prepend">
+      <span class="add-on">http://</span><input type="text" name="vendor[portfolio_url]" value="<?= $vendor["portfolio_url"] ?>" />
+    </div>
+
     <label>Public source (e.g. github)</label>
-    <input type="text" name="vendor[sourcecode_url]" value="<?= $vendor["sourcecode_url"] ?>" placeholder="http://" />
+    <div class="input-prepend">
+      <span class="add-on">http://</span><input type="text" name="vendor[sourcecode_url]" value="<?= $vendor["sourcecode_url"] ?>" />
+    </div>
+
 
   </fieldset>
 

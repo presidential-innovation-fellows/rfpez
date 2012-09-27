@@ -5,7 +5,9 @@ class Vendor extends Eloquent {
   public static $timestamps = true;
 
   public static $ballpark_prices = array(1 => "$10,000 - $25,000",
-                                         2 => "$25,000 - $50,000");
+                                         2 => "$25,000 - $50,000",
+                                         3 => "$50,000 - $100,000",
+                                         4 => "$100,000+");
 
   public $validator = false;
 
