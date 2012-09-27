@@ -10,7 +10,7 @@ class Add_More_Company_Links {
 	public function up()
 	{
 		Schema::table('vendors', function($t){
-			$t->string('homepage_url')->nullable();
+			$t->string('homepage_url');
 			$t->string('sourcecode_url')->nullable();
 		});
 	}
