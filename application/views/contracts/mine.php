@@ -1,5 +1,4 @@
 <?php Section::inject('page_title', 'My Contracts'); ?>
-<?php Section::start('content') ?>
 
 <h3>My Contracts</h3>
 
@@ -9,5 +8,3 @@
 
   <br />
 <?php endforeach; ?>
-
-<?php Section::stop() ?>

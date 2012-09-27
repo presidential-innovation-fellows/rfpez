@@ -1,5 +1,4 @@
 <?php Section::inject('page_title', 'New Bid'); ?>
-<?php Section::start('content') ?>
 
 <h3><?= $contract->title ?></h3>
 <?= $contract->statement_of_work ?>
@@ -65,5 +64,3 @@
   <input type="submit" />
 
 </form>
-
-<?php Section::stop() ?>

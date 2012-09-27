@@ -1,0 +1,29 @@
+div.nav-collapse.collapse
+
+- if (Auth::check()):
+
+  ul.nav
+    - if (Auth::user()->is_officer()):
+      li
+        a(href="#{ route('new_contracts') }") new contract
+      li
+        a(href="#{ route('my_contracts') }") my contracts
+    - else:
+      li
+        a(href="#{ route('contracts') }") browse contracts
+
+  ul.nav.pull-right
+    li
+      a(href="#{ route('signout') }") sign out
+
+- else:
+
+  ul.nav
+    li
+      a(href="#{ route('new_vendors') }") new vendor
+    li
+      a(href="#{ route('new_officers') }") new officer
+
+  ul.nav.pull-right
+    li
+      a(href="#{ route('signin') }") sign in

@@ -1,5 +1,4 @@
 <?php Section::inject('page_title', 'Show Bid'); ?>
-<?php Section::start('content') ?>
 
 <?php if (Auth::user()->is_officer()): ?>
   <?= View::make('bids.dismiss_modal') ?>
@@ -46,5 +45,3 @@
     <?php endforeach; ?>
   <?php endif; ?>
 </table>
-
-<?php Section::stop() ?>

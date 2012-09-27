@@ -1,5 +1,4 @@
 <?php Section::inject('page_title', $contract->title); ?>
-<?php Section::start('content') ?>
 
 <?php if (Auth::user() && Auth::user()->is_officer()): ?>
   <?= View::make('contracts.answer_question') ?>
@@ -46,4 +45,3 @@
     </div>
   </div>
 </div>
-<?php Section::stop() ?>

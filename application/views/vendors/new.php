@@ -1,5 +1,4 @@
 <?php Section::inject('page_title', 'New Vendor'); ?>
-<?php Section::start('content') ?>
 
 <h1> Company Profile </h1>
 
@@ -86,5 +85,3 @@
 <hr />
 <input class="btn btn-primary" type="submit" value="Save Profile" />
 </form>
-
-<?php Section::stop() ?>

@@ -1,5 +1,4 @@
 <?php Section::inject('page_title', 'Review Bids'); ?>
-<?php Section::start('content') ?>
 
 <h3>Review Bids for <?= $contract->title ?></h3>
 
@@ -27,5 +26,3 @@
 
   </div>
 <?php endforeach; ?>
-
-<?php Section::stop() ?>

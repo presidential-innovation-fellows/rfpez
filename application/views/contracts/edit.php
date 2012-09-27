@@ -1,5 +1,4 @@
 <?php Section::inject('page_title', 'Edit Contract'); ?>
-<?php Section::start('content') ?>
 
 <h3>Edit Contract</h3>
 
@@ -38,5 +37,3 @@
   <input type="submit" />
 
 </form>
-
-<?php Section::stop() ?>

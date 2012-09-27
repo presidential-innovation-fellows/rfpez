@@ -16,9 +16,18 @@ Event::listen(View::engine, function($view)
 		return $view->get();
 	}
 
+	// First pass through the PHP layer...
 	$contents = $view->get();
 
 	$jade = new Jade\Jade;
 
-	return $jade->render($contents);
+	// Store the rendered Jade content...
+	$path = path('storage').'views/'.md5($view->view);
+
+	file_put_contents($path, $jade->render($contents));
+
+	$view->path = $path;
+
+	// Render the final Jaded output...
+	return $view->get();
 });

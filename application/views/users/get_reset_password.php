@@ -1,5 +1,4 @@
 <?php Section::inject('page_title', 'Reset Password'); ?>
-<?php Section::start('content') ?>
 
 <?php if ($finish_signup): ?>
   <h3>Create password for <?= $user->email ?></h3>
@@ -17,5 +16,3 @@
   <input type="submit" />
 
 </form>
-
-<?php Section::stop() ?>

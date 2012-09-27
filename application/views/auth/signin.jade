@@ -1,0 +1,13 @@
+h3 Sign In
+
+a( href="#{ route('forgot_password') }" ) forgot password?
+br
+br
+
+form(action="#{ route('signin') }", method="POST")
+  label Email:
+  input(type='text', name='email')
+
+  label Password:
+  input(type='password', name='password')
+  input(type='submit')
