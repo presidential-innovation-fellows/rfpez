@@ -71,6 +71,14 @@ class Users_Controller extends Base_Controller {
       }
 
     } else if ($officer = Auth::user()->officer) {
+      $officer->fill(Input::get('officer'));
+      if ($officer->validator()->passes()) {
+        $officer->save();
+        return Redirect::to_route('account');
+      } else {
+        Session::flash('errors', $officer->validator()->errors->all());
+        return $this->action_get_account();
+      }
 
     }
   }
