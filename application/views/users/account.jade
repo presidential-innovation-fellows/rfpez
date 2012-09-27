@@ -1,0 +1,20 @@
+- Section::inject('page_title', 'My Account')
+
+h1 My Account
+
+form(action="#{route('account')}", method="POST")
+
+  label Email: #{Auth::user()->email}
+  a(href="#") Change email
+
+  label Password:
+  a(href="#") Change Password
+
+  - if (Auth::user()->vendor):
+    h1 Vendor Profile
+    !{View::make('users.account_vendor_fields')}
+  - else:
+    !{View::make('users.account_officer_fields')}
+  - endif;
+
+  input.btn.btn-primary(type="submit", value="Save Changes")
