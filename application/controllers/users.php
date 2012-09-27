@@ -9,6 +9,8 @@ class Users_Controller extends Base_Controller {
 
     $this->filter('before', 'no_auth')->only(array('get_forgot_password', 'post_forgot_password',
                                                    'get_reset_password', 'post_reset_password'));
+
+    $this->filter('before', 'auth')->only(array('get_account', 'post_account'));
   }
 
 
@@ -45,6 +47,31 @@ class Users_Controller extends Base_Controller {
     } else {
       Session::flash('errors', array('New password not valid.'));
       return Redirect::to_route('reset_password', array($user->reset_password_token));
+    }
+  }
+
+  public function action_get_account() {
+    $view = View::make('users.account');
+    $this->layout->content = $view;
+  }
+
+  public function action_post_account() {
+
+    if ($vendor = Auth::user()->vendor) {
+
+      $vendor->fill(Input::get('vendor'));
+      if ($vendor->validator()->passes()) {
+        $services = Input::get('services') ? array_keys(Input::get('services')) : array();
+        $vendor->services()->sync($services);
+        $vendor->save();
+        return Redirect::to_route('account');
+      } else {
+        Session::flash('errors', $vendor->validator()->errors->all());
+        return $this->action_get_account();
+      }
+
+    } else if ($officer = Auth::user()->officer) {
+
     }
   }
 

@@ -7,6 +7,9 @@ Route::post('signin', array('uses' => 'auth@create', 'as' => 'signin'));
 
 Route::get('signout', array('uses' => 'auth@delete', 'as' => 'signout'));
 
+Route::get('account', array('uses' => 'users@get_account', 'as' => 'account'));
+Route::post('account', array('uses' => 'users@post_account', 'as' => 'account'));
+
 Route::get('forgotpassword', array('uses' => 'users@get_forgot_password', 'as' => 'forgot_password'));
 Route::post('forgotpassword', array('uses' => 'users@post_forgot_password', 'as' => 'forgot_password'));
 

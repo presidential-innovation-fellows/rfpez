@@ -20,6 +20,8 @@ class Vendors_Controller extends Base_Controller {
     if ($user->validator()->passes() && $vendor->validator()->passes()) {
       $user->save();
       $user->vendor()->insert($vendor);
+      $services = Input::get('services') ? array_keys(Input::get('services')) : array();
+      $user->vendor->services()->sync($services);
       Auth::login($user->id);
       return Redirect::to('/');
     } else {
