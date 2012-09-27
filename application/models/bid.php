@@ -25,8 +25,12 @@ class Bid extends Eloquent {
     return $this->belongs_to('Contract');
   }
 
-  public function prices() {
-    if ($this->prices) return json_decode($this->prices, true);
+  public function get_prices() {
+    return json_decode($this->attributes['prices']);
+  }
+
+  public function set_prices($value) {
+    $this->attributes['prices'] = json_encode($value);
   }
 
   public function dismiss($reason, $explanation = false) {
@@ -49,9 +53,3 @@ class Bid extends Eloquent {
   }
 
 }
-
-Event::listen('eloquent.saving: Bid', function($model) {
-  if (is_array($model->prices)) {
-    $model->prices = json_encode($model->prices);
-  }
-});
