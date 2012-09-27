@@ -1,5 +1,4 @@
 <?php Section::inject('page_title', 'My Account'); ?>
-<?php Section::start('content') ?>
 
 <h1>My Account</h1>
 
@@ -23,5 +22,3 @@
   <br /><br />
   <input class="btn btn-primary" type="submit" value="Save Changes " />
 </form>
-
-<?php Section::stop() ?>
