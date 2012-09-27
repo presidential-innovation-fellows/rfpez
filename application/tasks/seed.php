@@ -28,7 +28,8 @@ class Seed_Task {
                               'state' => 'CA',
                               'zip' => '10101',
                               'ballpark_price' => 1,
-                              'portfolio_url' => 'http://www.google.com',
+                              'image_url' => 'http://i.imgur.com/sHHmT.png',
+                              'homepage_url' => 'http://www.google.com',
                               'more_info' => 'There is no more info.'));
 
 
