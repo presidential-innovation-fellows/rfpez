@@ -9,7 +9,7 @@ div.nav-collapse.collapse
       li(class="#{URI::is('contracts/mine') ? 'active':''}")
         a(href="#{ route('my_contracts') }") my contracts
     - else:
-      li(class="#{URI::is('contracts') ? 'active':''}")
+      li(class="#{URI::is('contracts*') ? 'active':''}")
         a(href="#{ route('contracts') }") browse contracts
 
   ul.nav.pull-right
