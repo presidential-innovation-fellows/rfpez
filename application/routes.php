@@ -14,7 +14,6 @@ Route::get('finishsignup/(:any)', array('uses' => 'users@get_reset_password', 'a
 Route::get('resetpassword/(:any)', array('uses' => 'users@get_reset_password', 'as' => 'reset_password'));
 Route::post('resetpassword/(:any)', array('uses' => 'users@post_reset_password', 'as' => 'reset_password'));
 
-
 Route::resourceful('vendors', array('new', 'create'));
 Route::resourceful('officers', array('new', 'create'));
 Route::resourceful('contracts', array('new', 'create', 'edit', 'update', 'index', 'show'));
@@ -28,33 +27,6 @@ Route::post('contracts/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bid
 Route::get('contracts/(:num)/bids/(:num)', array('uses' => 'bids@show', 'as' => 'bid'));
 Route::get('contracts/(:num)/bids/(:num)/dismiss', array('uses' => 'bids@dismiss', 'as' => 'bid_dismiss'));
 Route::get('contracts/(:num)/bids/(:num)/destroy', array('uses' => 'bids@destroy', 'as' => 'bid_destroy'));
-
-
-/*
-|--------------------------------------------------------------------------
-| Asset Definitions
-|--------------------------------------------------------------------------
-*/
-
-Bundle::start('basset');
-
-if (Config::get('basset')) Basset\Config::extend(Config::get('basset'));
-
-Basset::scripts('website', function($basset)
-{
-  $basset->add('modernizerjs', 'js/vendor/modernizr-2.6.1-respond-1.1.0.min.js');
-  $basset->add('bootstrapjs', 'js/vendor/bootstrap.min.js');
-  $basset->add('mainjs', 'main.js');
-  //        ->add('sisyphus', 'sisyphus.min.js')
-  //        ->add('app', 'app.js', 'pjax');
-});
-
-Basset::styles('website', function($basset)
-{
-  $basset->add('bootstrap', 'bootstrap.css')
-         ->add('maincss', 'main.css');
-});
-
 
 /*
 |--------------------------------------------------------------------------
