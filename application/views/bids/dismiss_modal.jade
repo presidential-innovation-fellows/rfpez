@@ -1,0 +1,14 @@
+#dismiss-modal.modal.hide.fade(tabindex='-1', role='dialog')
+  .modal-header
+    button.close(type='button', data-dismiss='modal') ×
+    h3
+      | Dismiss bid from
+      span.company-name
+  .modal-body
+    | Dismissal Reason:
+    select(name='reason')
+      option(value='price too high') Price too high
+    textarea(name='explanation', placeholder='Dismissal Explanation')
+  .modal-footer
+    button.btn(data-dismiss='modal') Cancel
+    button.btn.btn-primary.dismiss-btn(data-loading-text='Dismissing...') Dismiss
