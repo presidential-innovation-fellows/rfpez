@@ -1,6 +1,6 @@
 <?php Section::inject('page_title', 'Show Bid'); ?>
 
-<?php if (Auth::user()->is_officer()): ?>
+<?php if (Auth::user()->officer): ?>
   <?= View::make('bids.dismiss_modal') ?>
 <?php endif; ?>
 

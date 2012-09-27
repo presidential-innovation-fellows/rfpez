@@ -20,7 +20,7 @@
     $body_class = "no-auth";
     print "<style>.only-user { display: none; }</style>";
   } else {
-    $body_class = "auth " . (Auth::user()->is_vendor() ? "vendor" : "officer");
+    $body_class = "auth " . (Auth::user()->vendor ? "vendor" : "officer");
     print "<style>.only-user:not(.only-user-".Auth::user()->id.") { display: none; }</style>";
   }
 ?>

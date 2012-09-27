@@ -3,7 +3,7 @@ div.nav-collapse.collapse
 - if (Auth::check()):
 
   ul.nav
-    - if (Auth::user()->is_officer()):
+    - if (Auth::user()->officer):
       li(class="#{URI::is('contracts/new') ? 'active':''}")
         a(href="#{ route('new_contracts') }") new contract
       li(class="#{URI::is('contracts/mine') ? 'active':''}")

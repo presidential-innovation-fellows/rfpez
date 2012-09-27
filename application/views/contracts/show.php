@@ -1,6 +1,6 @@
 <?php Section::inject('page_title', $contract->title); ?>
 
-<?php if (Auth::user() && Auth::user()->is_officer()): ?>
+<?php if (Auth::user() && Auth::user()->officer): ?>
   <?= View::make('contracts.answer_question') ?>
 <?php endif; ?>
 
@@ -20,7 +20,7 @@
     <hr />
     <h4>Proposals due <?= RelativeTime::format($contract->proposals_due_at) ?></h4>
     <div class="vendor-only">
-      <?php if (Auth::user() && Auth::user()->is_vendor() && $bid = $contract->current_bid_from(Auth::user()->vendor)): ?>
+      <?php if (Auth::user() && Auth::user()->vendor && $bid = $contract->current_bid_from(Auth::user()->vendor)): ?>
         <a href="<?= route('bid', array($contract->id, $bid->id)) ?>">View my bid</a>
       <?php else: ?>
         <a href="<?= route('new_bids', array($contract->id)) ?>">Bid on this Contract</a>

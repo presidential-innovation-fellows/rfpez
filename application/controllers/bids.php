@@ -103,7 +103,7 @@ Route::filter('bid_exists', function() {
 Route::filter('allowed_to_view', function() {
   $bid = Config::get('bid');
   $contract = Config::get('contract');
-  if (Auth::user()->is_officer()) {
+  if (Auth::user()->officer) {
     if ($contract->officer_id != Auth::user()->officer->id) return Redirect::to('/');
   } else {
     if ($bid->vendor_id != Auth::user()->vendor->id) return Redirect::to('/');

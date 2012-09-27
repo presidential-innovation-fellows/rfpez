@@ -110,14 +110,6 @@ class User extends Eloquent {
     return $this->vendor ? 'vendor' : 'officer';
   }
 
-  public function is_vendor() {
-    return $this->vendor ? true : false;
-  }
-
-  public function is_officer() {
-    return $this->officer ? true : false;
-  }
-
   public function track_signin() {
     $this->sign_in_count++;
     $this->current_sign_in_ip = Request::ip();
