@@ -6,6 +6,83 @@ class User extends Eloquent {
 
   public $includes = array('vendor', 'officer');
 
+  public function _find($id, $columns = array('*'))
+  {
+    // Uncomment this to switch back to three query version...
+    // return parent::_find($id, $columns);
+
+    $columns = array();
+    $columns[] = 'users.*';
+    $columns = array_merge($columns, $this->get_officer_columns());
+    $columns = array_merge($columns, $this->get_vendor_columns());
+
+    $record = DB::table('users')->left_join('vendors', 'users.id', '=', 'vendors.user_id')
+                                ->left_join('officers', 'users.id', '=', 'officers.user_id')
+                                ->where('users.id', '=', $id)
+                                ->select($columns)
+                                ->first();
+
+    if (is_null($record)) return;
+
+    $user = new User(array(), true);
+    $user->relationships['officer'] = new Officer(array(), true);
+    $user->relationships['vendor'] = new Vendor(array(), true);
+
+    // Map the aliased columns back into their proper models...
+    foreach ((array) $record as $column => $value)
+    {
+        if (starts_with($column, 'officer_alias_'))
+        {
+          $user->relationships['officer']->{str_replace('officer_alias_', '', $column)} = $value;
+        }
+        elseif (starts_with($column, 'vendor_alias_'))
+        {
+          $user->relationships['vendor']->{str_replace('vendor_alias_', '', $column)} = $value;
+        }
+        else
+        {
+          $user->$column = $value;
+        }
+    }
+
+    // The "sync" method forces to model to assume a "clean" state and
+    // think that no attributes have ever been modified like it was
+    // just pulled fresh out of the database...
+    if (is_null($user->relationships['officer']->id)) {
+      $user->relationships['officer'] = null;
+    } else {
+      $user->relationships['officer']->sync();
+    }
+    if (is_null($user->relationships['vendor']->id)) {
+      $user->relationships['vendor'] = null;
+    } else {
+      $user->relationships['vendor']->sync();
+    }
+
+    return $user;
+  }
+
+  protected static function get_officer_columns()
+  {
+    $columns = array(
+      'id', 'user_id', 'phone', 'fax', 'name', 'title', 'agency', 'verified_at',
+      'verified_solnbr', 'created_at', 'updated_at',
+    );
+
+    return array_map(function($v) { return 'officers.'.$v.' as officer_alias_'.$v; }, $columns);
+  }
+
+  protected static function get_vendor_columns()
+  {
+    $columns = array(
+      'id', 'user_id', 'company_name', 'contact_name', 'address', 'city', 'state',
+      'zip', 'latitude', 'longitude', 'ballpark_price', 'portfolio_url', 'more_info',
+      'created_at', 'updated_at', 'homepage_url', 'sourcecode_url',
+    );
+
+    return array_map(function($v) { return 'vendors.'.$v.' as vendor_alias_'.$v; }, $columns);
+  }
+
   public $validator = false;
 
   public function validator($password_required = true) {
@@ -78,5 +155,3 @@ Event::listen('eloquent.saving: User', function($model) {
     unset($model->attributes["password"]);
   }
 });
-
-
