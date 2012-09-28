@@ -20,13 +20,13 @@ body {
 }
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
-  display: none !important;
+  display: none;
 }
 body.officer .vendor-only {
-  display: none !important;
+  display: none;
 }
 body.vendor .officer-only {
-  display: none !important;
+  display: none;
 }
 .question-wrapper {
   margin-bottom: 15px;
@@ -50,4 +50,8 @@ body.vendor .officer-only {
 .vendor-image-preview-frame img {
   width: 400px;
   height: 300px;
+}
+.media.vendor {
+  display: inline-block;
+  margin: 10px 10px;
 }

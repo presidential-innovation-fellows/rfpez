@@ -1,5 +1,5 @@
 - foreach($vendors as $vendor):
-  .vendor
+  .media.vendor.well
     .company_name
       a(href="#{$vendor->homepage_url}") #{$vendor->company_name}
 
@@ -11,5 +11,3 @@
       img(src="#{$vendor->image_url}")
 
     .more_info #{$vendor->more_info}
-
-  hr
