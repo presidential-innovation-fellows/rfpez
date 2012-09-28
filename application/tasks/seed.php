@@ -37,7 +37,7 @@ class Seed_Task {
                              'password' => 'password'));
 
       $vendor = Vendor::create(array('user_id' => $user->id,
-                              'company_name' => "Bluth's Frozen Bananas",
+                              'company_name' => "Bluth's Frozen Bananas #$i",
                               'contact_name' => 'George Michael Bluth',
                               'address' => '1234 Main St.',
                               'city' => 'Los Angeles',
