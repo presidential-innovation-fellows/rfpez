@@ -118,7 +118,7 @@ class Contracts_Controller extends Base_Controller {
     } else if (Contract::where_fbo_solnbr($attributes["solnbr"])->first()) {
       Session::flash('errors', array("That contract already exists in the system."));
       return false;
-    } else if ((trim(strtolower($attributes["email"]))) != trim(strtolower(Auth::user()->email))) {
+    } else if (!preg_match('/'.preg_quote(Auth::user()->email).'/i', implode($attributes))) {
       Session::flash('errors', array("Couldn't verify email address."));
       return false;
     }
