@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return array(
 
@@ -32,6 +32,7 @@ return array(
 	),
 	"confirmed"      => "The :attribute confirmation does not match.",
 	"different"      => "The :attribute and :other must be different.",
+	"dotgovonly"      => "Sorry, only .gov email addresses are allowed.",
 	"email"          => "The :attribute format is invalid.",
 	"exists"         => "The selected :attribute is invalid.",
 	"image"          => "The :attribute must be an image.",

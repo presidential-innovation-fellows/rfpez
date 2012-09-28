@@ -85,11 +85,12 @@ class User extends Eloquent {
 
   public $validator = false;
 
-  public function validator($password_required = true) {
+  public function validator($password_required = true, $dotgov_only = false) {
     if ($this->validator) return $this->validator;
 
     $rules = array();
     $rules['email'] = $this->id ? 'required|email|unique:users,email,'.$this->id : 'required|email|unique:users';
+    if ($dotgov_only) $rules['email'] .= '|dotgovonly';
     if ($password_required) $rules["password"] = "required|min:8";
 
     $validator = Validator::make($this->attributes, $rules);
