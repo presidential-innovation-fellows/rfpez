@@ -1,11 +1,17 @@
 - foreach($vendors as $vendor):
   .media.vendor.well
-    .company_name
-      a(href="#{$vendor->homepage_url}") #{$vendor->company_name}
+    .company-name.officer-only
+      a(href="#") #{$vendor->company_name}
 
-    .ballpark_price #{$vendor->ballpark_price_display}
+    .company-name.no-officer
+      span #{$vendor->company_name}
 
-    .city #{$vendor->city}
+    .homepage-url
+      a(href="#{$vendor->homepage_url}") #{$vendor->homepage_url}
+
+    .ballpark-price #{$vendor->ballpark_price_display}
+
+    .clearfix
 
     .vendor-image-preview-frame
       img(src="#{$vendor->image_url}")

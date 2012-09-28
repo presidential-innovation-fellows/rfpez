@@ -46,15 +46,21 @@ body
 
   &.no-auth
     .vendor-only, .officer-only
-      display none !important
+      display none
 
   &.officer
     .vendor-only
-      display none !important
+      display none
+
+    .no-officer
+      display none
 
   &.vendor
     .officer-only
-      display none !important
+      display none
+
+    .no-vendor
+      display none
 
 .question-wrapper
   margin-bottom 15px
@@ -69,9 +75,9 @@ body
 .vendor-image-preview-frame
   width 400px
   height 300px
-  border 1px solid black
+  border 1px solid #ccc
   padding 2px
-  margin-bottom 20px
+  margin 5px 0 15px
 
   img
     width 400px
@@ -82,3 +88,15 @@ body
   &.vendor
     display inline-block
     margin 10px 10px
+
+    .company-name
+      font-size 16px
+      font-weight bold
+      margin-bottom 10px
+
+    .homepage-url
+      float left
+
+    .ballpark-price
+      float right
+      color #888

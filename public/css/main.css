@@ -25,7 +25,13 @@ body.no-auth .officer-only {
 body.officer .vendor-only {
   display: none;
 }
+body.officer .no-officer {
+  display: none;
+}
 body.vendor .officer-only {
+  display: none;
+}
+body.vendor .no-vendor {
   display: none;
 }
 .question-wrapper {
@@ -43,9 +49,9 @@ body.vendor .officer-only {
 .vendor-image-preview-frame {
   width: 400px;
   height: 300px;
-  border: 1px solid #000;
+  border: 1px solid #ccc;
   padding: 2px;
-  margin-bottom: 20px;
+  margin: 5px 0 15px;
 }
 .vendor-image-preview-frame img {
   width: 400px;
@@ -54,4 +60,16 @@ body.vendor .officer-only {
 .media.vendor {
   display: inline-block;
   margin: 10px 10px;
+}
+.media.vendor .company-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.media.vendor .homepage-url {
+  float: left;
+}
+.media.vendor .ballpark-price {
+  float: right;
+  color: #888;
 }
