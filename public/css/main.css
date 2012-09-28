@@ -20,19 +20,19 @@ body {
 }
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
-  display: none;
+  display: none !important;
 }
 body.officer .vendor-only {
-  display: none;
+  display: none !important;
 }
 body.officer .no-officer {
-  display: none;
+  display: none !important;
 }
 body.vendor .officer-only {
-  display: none;
+  display: none !important;
 }
 body.vendor .no-vendor {
-  display: none;
+  display: none !important;
 }
 .question-wrapper {
   margin-bottom: 15px;
