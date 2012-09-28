@@ -24,6 +24,7 @@
     print "<style>.only-user:not(.only-user-".Auth::user()->id.") { display: none; }</style>";
   }
 ?>
+  <?= HTML::script('js/vendor/modernizr-2.6.1-respond-1.1.0.min.js') ?>
 </head>
 <body class="<?= $body_class ?>">
 
