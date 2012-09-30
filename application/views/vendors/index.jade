@@ -1,19 +1,33 @@
-- foreach($vendors as $vendor):
-  .media.vendor.well
-    .company-name.officer-only
-      a(href="#") #{$vendor->company_name}
+.vendors-wrapper
+  .vendors
+    - foreach($vendors as $vendor):
+      .media.vendor.well
+        .company-name.officer-only
+          a(href="#") #{$vendor->company_name}
 
-    .company-name.no-officer
-      span #{$vendor->company_name}
+        .company-name.no-officer
+          span #{$vendor->company_name}
 
-    .homepage-url
-      a(href="#{$vendor->homepage_url}") #{$vendor->homepage_url_pretty}
+        .homepage-url
+          a(href="#{$vendor->homepage_url}") #{$vendor->homepage_url_pretty}
 
-    .ballpark-price #{$vendor->ballpark_price_display}
+        .ballpark-price #{$vendor->ballpark_price_display}
 
-    .clearfix
+        .clearfix
 
-    .vendor-image-preview-frame
-      img(src="#{$vendor->image_url}")
+        .vendor-image-preview-frame
+          img(src="#{$vendor->image_url}")
 
-    .more_info #{$vendor->more_info}
+        .more_info #{$vendor->more_info}
+
+
+  .loading-spinner
+    <?= HTML::image('img/spinner.gif') ?>
+
+  .finished-loading-text You're currently viewing all vendors.
+
+<?php Section::start('additional_scripts') ?>
+
+<?= HTML::script('js/infinite-vendor-scroll.js') ?>
+
+<?php Section::stop() ?>

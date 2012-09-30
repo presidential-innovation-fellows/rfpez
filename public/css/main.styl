@@ -87,7 +87,7 @@ body
 
   &.vendor
     display inline-block
-    margin 10px 10px
+    margin 10px 10px 40px
 
     .company-name
       font-size 16px
@@ -100,3 +100,22 @@ body
     .ballpark-price
       float right
       color #888
+
+.vendors-wrapper
+  .loading-spinner
+    text-align center
+    margin 0 0 35px
+    display none
+
+  .finished-loading-text
+    text-align center
+    margin 0 0 35px
+    display none
+
+  &.loading
+    .loading-spinner
+      display block
+
+  &.finished-loading
+    .finished-loading-text
+      display block

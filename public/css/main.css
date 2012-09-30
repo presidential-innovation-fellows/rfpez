@@ -59,7 +59,7 @@ body.vendor .no-vendor {
 }
 .media.vendor {
   display: inline-block;
-  margin: 10px 10px;
+  margin: 10px 10px 40px;
 }
 .media.vendor .company-name {
   font-size: 16px;
@@ -72,4 +72,20 @@ body.vendor .no-vendor {
 .media.vendor .ballpark-price {
   float: right;
   color: #888;
+}
+.vendors-wrapper .loading-spinner {
+  text-align: center;
+  margin: 0 0 35px;
+  display: none;
+}
+.vendors-wrapper .finished-loading-text {
+  text-align: center;
+  margin: 0 0 35px;
+  display: none;
+}
+.vendors-wrapper.loading .loading-spinner {
+  display: block;
+}
+.vendors-wrapper.finished-loading .finished-loading-text {
+  display: block;
 }

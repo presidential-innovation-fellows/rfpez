@@ -59,5 +59,7 @@
   <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.1.min.js"><\/script>')</script>
   <?= Basset::show('website.js') ?>
 
+  <?= Section::yield('additional_scripts') ?>
+
 </body>
 </html>
