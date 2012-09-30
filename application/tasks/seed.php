@@ -32,7 +32,7 @@ class Seed_Task {
                               'homepage_url' => 'http://www.google.com',
                               'more_info' => 'There is no more info.'));
 
-    for ($i = 0; $i < 15; $i++) {
+    for ($i = 0; $i < 45; $i++) {
       $user = User::create(array('email' => 'vendor'.$i.'@example.com',
                              'password' => 'password'));
 
