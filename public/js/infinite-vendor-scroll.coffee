@@ -20,15 +20,14 @@ load_more_vendors = ->
     success: (data) ->
       new_vendors = $(data).find(".vendors")
       vendors_wrapper.removeClass('loading')
+      loading_more_vendors = false
+      vendors_wrapper.data('current-page', next_page)
+      vendors_div.append(new_vendors)
 
-      if new_vendors.children().length is 0
+      if new_vendors.children(".vendor").length <= 9
         finished_loading_vendors = true
-        loading_more_vendors = false
         vendors_wrapper.addClass('finished-loading')
-      else
-        vendors_div.append(new_vendors)
-        loading_more_vendors = false
-        vendors_wrapper.data('current-page', next_page)
+
 
 $(document).on 'scroll', check_for_scroll_position
 

@@ -33,14 +33,12 @@
         var new_vendors;
         new_vendors = $(data).find(".vendors");
         vendors_wrapper.removeClass('loading');
-        if (new_vendors.children().length === 0) {
+        loading_more_vendors = false;
+        vendors_wrapper.data('current-page', next_page);
+        vendors_div.append(new_vendors);
+        if (new_vendors.children(".vendor").length <= 9) {
           finished_loading_vendors = true;
-          loading_more_vendors = false;
           return vendors_wrapper.addClass('finished-loading');
-        } else {
-          vendors_div.append(new_vendors);
-          loading_more_vendors = false;
-          return vendors_wrapper.data('current-page', next_page);
         }
       }
     });
