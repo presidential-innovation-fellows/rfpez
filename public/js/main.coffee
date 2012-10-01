@@ -68,6 +68,9 @@ $(document).on "click", ".answer-question-toggle", ->
   form.appendTo(question)
   form.show()
 
+$(document).on "submit", "#new-contract-form", ->
+  $(this).find("button[type=submit]").button('loading')
+
 $(document).on "submit", "#answer-question-form", (e) ->
   e.preventDefault()
   el = $(this)
