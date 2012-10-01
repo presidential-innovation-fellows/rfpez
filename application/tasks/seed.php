@@ -56,7 +56,12 @@ class Seed_Task {
     $c = new Contract(    array('agency' => 'Bluth Company',
                                 'office' => 'Office of Small Business Innovation',
                                 'title' => 'Website Design for the Bluth Company',
-                                'statement_of_work' => '<h1>Web Video Development & Production</h1>
+                                'statement_of_work' => '
+
+                                <!--
+                                  deliverables="Deliverable #1, Deliverable #2"
+                                -->
+                                <h1>Web Video Development & Production</h1>
                                   <hr />
 
                                   <h3>Background &amp; Scope</h3>

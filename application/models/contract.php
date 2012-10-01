@@ -29,4 +29,12 @@ class Contract extends Eloquent {
     return $bid ? $bid : false;
   }
 
+  public function get_parsed_deliverables() {
+    if (preg_match('/deliverables\=\"(.*)\"/', $this->statement_of_work, $matches)) {
+      return explode(',', $matches[1]);
+    } else {
+      return false;
+    }
+  }
+
 }

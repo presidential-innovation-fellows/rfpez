@@ -38,13 +38,15 @@ $(document).on "click", ".show-dismiss-modal", ->
 $(document).on "submit", "#ask-question-form", (e) ->
   e.preventDefault()
   el = $(this)
+  question_text = el.find("textarea[name=question]").val()
+  return if !question_text
   button = el.find("button")
   button.button('loading')
   $.ajax
     url: "/questions"
     data:
       contract_id: el.find("input[name=contract_id]").val()
-      question: el.find("textarea[name=question]").val()
+      question: question_text
     type: "POST"
     success: (data) ->
       button.button('reset')
