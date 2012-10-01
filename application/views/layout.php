@@ -42,9 +42,13 @@
   <div class="container">
 
     <?php if (Session::has('errors')): ?>
-      <?php foreach(Session::get('errors') as $error): ?>
-        <?= $error ?><br />
-      <?php endforeach; ?>
+      <div class="alert alert-error">
+        <ul>
+          <?php foreach(Session::get('errors') as $error): ?>
+            <li><?= $error ?></li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
     <?php endif; ?>
 
     <?php if (Session::has('notice')): ?>
