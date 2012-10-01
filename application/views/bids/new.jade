@@ -38,7 +38,7 @@
 
           - $i = 0;
           - $deliverable_prices = Input::old('deliverable_prices');
-          - $deliverable_names = Input::old('deliverable_names');
+          - $deliverable_names = Input::old('deliverable_names') ?: $contract->parsed_deliverables;
           - if ($deliverable_names):
             - foreach($deliverable_names as $deliverable_name):
               tr.deliverables-row
