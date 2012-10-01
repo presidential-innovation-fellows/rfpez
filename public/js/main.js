@@ -53,16 +53,20 @@
   });
 
   $(document).on("submit", "#ask-question-form", function(e) {
-    var button, el;
+    var button, el, question_text;
     e.preventDefault();
     el = $(this);
+    question_text = el.find("textarea[name=question]").val();
+    if (!question_text) {
+      return;
+    }
     button = el.find("button");
     button.button('loading');
     return $.ajax({
       url: "/questions",
       data: {
         contract_id: el.find("input[name=contract_id]").val(),
-        question: el.find("textarea[name=question]").val()
+        question: question_text
       },
       type: "POST",
       success: function(data) {

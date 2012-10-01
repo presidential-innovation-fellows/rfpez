@@ -103,3 +103,10 @@ body.vendor .no-vendor {
 .new-bid-form .prices-table .deliverables-row input.deliverable-price {
   width: 60px;
 }
+#ask-question-form textarea {
+  width: 100%;
+  min-height: 100px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
