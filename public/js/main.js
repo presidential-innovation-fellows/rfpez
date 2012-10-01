@@ -15,7 +15,9 @@
   });
 
   $(document).on("click", ".remove-deliverable", function() {
-    if ($(".deliverables-row").length !== 1) {
+    if ($(".deliverables-row").length === 1) {
+      return $(this).closest('.deliverables-row').find(':input').val('');
+    } else {
       return $(this).closest(".deliverables-row").remove();
     }
   });
