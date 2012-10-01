@@ -12,6 +12,9 @@
 a {
   cursor: pointer;
 }
+.alert ul {
+  margin-bottom: 0;
+}
 body {
   padding-top: 75px;
 }
