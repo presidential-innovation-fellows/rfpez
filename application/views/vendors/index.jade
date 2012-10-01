@@ -2,11 +2,8 @@
   .vendors
     - foreach($vendors as $vendor):
       .media.vendor.well
-        .company-name.officer-only
+        .company-name
           a(href="#") #{$vendor->company_name}
-
-        .company-name.no-officer
-          span #{$vendor->company_name}
 
         .homepage-url
           a(href="#{$vendor->homepage_url}") #{$vendor->homepage_url_pretty}
