@@ -82,15 +82,15 @@ class Contracts_Controller extends Base_Controller {
 
     if ($contract_id = $this->trySavingContract(array('solnbr' => $result["SOLNBR"],
                                                       'email' => $email,
-                                                      'agency' => $result["AGENCY"],
-                                                      'office' => $result["OFFICE"],
+                                                      'agency' => @$result["AGENCY"],
+                                                      'office' => @$result["OFFICE"],
                                                       'title' => $result["SUBJECT"],
                                                       'statement_of_work' => $result["DESC"],
                                                       'set_aside' => "",
-                                                      'classification_code' => $result["CLASSCOD"],
-                                                      'naics' => $result["NAICS"],
-                                                      'response_date' => $result["RESPDATE"],
-                                                      'posted_date' => $result["DATE"]))) {
+                                                      'classification_code' => @$result["CLASSCOD"],
+                                                      'naics' => @$result["NAICS"],
+                                                      'response_date' => @$result["RESPDATE"],
+                                                      'posted_date' => @$result["DATE"]))) {
       return Redirect::to_route('edit_contract', array($contract_id));
     } else {
       return $this->action_new();
