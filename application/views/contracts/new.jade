@@ -1,0 +1,12 @@
+<?php Section::inject('page_title', 'New Contract'); ?>
+
+h3 New Contract
+
+form(action="#{route('contracts')}", method="POST", id="new-contract-form")
+
+  label Soliciation # of FBO Posting
+  input(type="text", name="solnbr")
+
+  .form-actions
+    button.btn.btn-primary(type="submit", data-loading-text="Loading from FedBizOpps...") Submit
+
