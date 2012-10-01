@@ -26,7 +26,7 @@ class Vendors_Controller extends Base_Controller {
       return Redirect::to('/');
     } else {
       Session::flash('errors', array_merge($user->validator()->errors->all(), $vendor->validator()->errors->all()));
-      return $this->action_new();
+      return Redirect::to_route('new_vendors')->with_input();
     }
   }
 

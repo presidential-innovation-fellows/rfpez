@@ -38,7 +38,7 @@ class Contracts_Controller extends Base_Controller {
 
     if (!preg_match('/^[0-9A-Za-z\-\_\s]+$/', $solnbr)) {
       Session::flash('errors', array('Invalid Sol Nbr.'));
-      return $this->action_new();
+      return Redirect::to_route('new_contracts')->with_input();
     }
 
     $context = stream_context_create(array('http'=>array('timeout' => 20)));
@@ -61,13 +61,13 @@ class Contracts_Controller extends Base_Controller {
     $contents = file_get_contents('http://rfpez-apis.presidentialinnovationfellows.org/opportunities?SOLNBR='.$solnbr);
     if ($contents === false) {
       Session::flash('errors', array("FBO timed out and FBO API timed out."));
-      return $this->action_new();
+      return Redirect::to_route('new_contracts')->with_input();
     }
     $json = json_decode($contents, true);
 
     if (count($json["results"]) === 0) {
       Session::flash('errors', array("Couldn't find contract on FBO or FBO API."));
-      return $this->action_new();
+      return Redirect::to_route('new_contracts')->with_input();
     }
 
     $result = $json["results"][0];
@@ -93,7 +93,7 @@ class Contracts_Controller extends Base_Controller {
                                                       'posted_date' => @$result["DATE"]))) {
       return Redirect::to_route('edit_contract', array($contract_id));
     } else {
-      return $this->action_new();
+      return Redirect::to_route('new_contracts')->with_input();
     }
 
   }

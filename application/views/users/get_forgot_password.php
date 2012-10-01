@@ -5,7 +5,7 @@
 <form action="<?= route('forgot_password') ?>" method="POST">
 
   <label>Email address</label>
-  <input type="text" name="email" />
+  <input type="text" name="email" value="<?= Input::old('email') ?>" />
 
   <input type="submit" />
 

@@ -23,7 +23,7 @@ class Users_Controller extends Base_Controller {
     $user = User::where_email(Input::get('email'))->first();
     if (!$user) {
       Session::flash('errors', array('User not found.'));
-      return $this->action_get_forgot_password();
+      return Redirect::to_route('forgot_password')->with_input();
     }
     $user->generate_reset_password_token();
     Session::flash('notice', 'reset token generated');
@@ -67,7 +67,7 @@ class Users_Controller extends Base_Controller {
         return Redirect::to_route('account');
       } else {
         Session::flash('errors', $vendor->validator()->errors->all());
-        return $this->action_get_account();
+        return Redirect::to_route('account')->with_input();
       }
 
     } else if ($officer = Auth::user()->officer) {
@@ -77,7 +77,7 @@ class Users_Controller extends Base_Controller {
         return Redirect::to_route('account');
       } else {
         Session::flash('errors', $officer->validator()->errors->all());
-        return $this->action_get_account();
+        return Redirect::to_route('account')->with_input();
       }
 
     }

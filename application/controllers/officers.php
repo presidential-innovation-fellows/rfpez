@@ -24,7 +24,7 @@ class Officers_Controller extends Base_Controller {
       return Redirect::to('/')->with('notice', 'Please check your email for a link to finish signup.');
     } else {
       Session::flash('errors', array_merge($user->validator(false, true)->errors->all(), $officer->validator()->errors->all()));
-      return $this->action_new();
+      return Redirect::to_route('new_officers')->with_input();
     }
   }
 

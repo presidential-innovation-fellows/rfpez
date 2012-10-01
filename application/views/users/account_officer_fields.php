@@ -1,5 +1,7 @@
 <?php
-  if (!isset($officer) && Auth::user() && Auth::user()->officer) $officer = Auth::user()->officer->to_array();
+  if (!isset($officer) && Auth::user() && Auth::user()->officer) {
+    $officer = Input::old('officer') ?: Auth::user()->officer->to_array();
+  }
 ?>
 
 <?php if (isset($signup) && $signup): ?>
