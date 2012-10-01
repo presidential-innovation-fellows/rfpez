@@ -1,0 +1,13 @@
+<?php Section::inject('page_title', 'New Officer'); ?>
+
+h3 New Officer
+
+form(action="#{route('officers')}", method="post")
+
+  <?php $user = Input::get('user'); ?>
+  <?php $officer = Input::get('officer'); ?>
+
+  !{View::make('users.account_officer_fields')->with('officer', Input::get('officer'))->with('user', Input::get('user'))->with('signup', true)}
+
+  .form-actions
+    button.btn.btn-primary(type="submit") Submit
