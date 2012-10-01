@@ -9,9 +9,6 @@
 .clearfix:after {
   clear: both;
 }
-label {
-  display: block;
-}
 a {
   cursor: pointer;
 }
