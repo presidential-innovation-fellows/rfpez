@@ -4,7 +4,7 @@
   <?= View::make('bids.dismiss_modal') ?>
 <?php endif; ?>
 
-<h3>View Bid for contract <a href="<?= route('contract', array($contract->id)) ?>"><?= $contract->title ?></a></h3>
+<h1>View Bid for contract <a href="<?= route('contract', array($contract->id)) ?>"><?= $contract->title ?></a></h1>
 
 <div class="officer-only">
   <?php if ($bid->dismissed()): ?>

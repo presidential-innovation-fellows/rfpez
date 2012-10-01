@@ -15,6 +15,10 @@ a {
 .alert ul {
   margin-bottom: 0;
 }
+h1 {
+  color: #999;
+  font-size: 1.5em;
+}
 body {
   padding-top: 75px;
   margin-bottom: 25px;

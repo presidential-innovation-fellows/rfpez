@@ -1,6 +1,6 @@
 <?php Section::inject('page_title', 'Review Bids'); ?>
 
-<h3>Review Bids for <?= $contract->title ?></h3>
+<h1>Review Bids for <?= $contract->title ?></h1>
 
 <?php if (!Input::get('show_all')): ?>
   <a href="<?= route('bids', array($contract->id)) ?>?show_all=true">show all bids (including dismissed)</a>

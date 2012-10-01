@@ -1,6 +1,6 @@
 <?php Section::inject('page_title', 'Edit Contract'); ?>
 
-<h3>Verify Contract Details</h3>
+<h1>Verify Contract Details</h1>
 
 <form action="<?= route('contract', array($contract->id)) ?>" method="POST">
   <input type="hidden" name="_method" value="PUT" />
