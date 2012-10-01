@@ -102,7 +102,7 @@ class Seed_Task {
     $b = new Bid    (array('contract_id' => $c->id,
                            'approach' => 'This is the approach.',
                            'previous_work' => 'This is the previous work.',
-                           'other_notes' => 'These are the other notes.',
+                           'employee_details' => 'These are the employee details.',
                            'prices' => array('First deliverable' => '100', 'Second deliverable' => '200')));
     $b->vendor_id = $v->id;
     $b->save();

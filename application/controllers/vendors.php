@@ -6,6 +6,7 @@ class Vendors_Controller extends Base_Controller {
     parent::__construct();
 
     $this->filter('before', 'no_auth')->only(array('new', 'create'));
+    $this->filter('before', 'officer_only')->only(array('index'));
   }
 
   public function action_new() {

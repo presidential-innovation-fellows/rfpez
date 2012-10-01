@@ -27,8 +27,8 @@
 <h4>Previous Work</h4>
 <p><?= $bid->previous_work ?></p>
 
-<h4>Other Notes</h4>
-<p><?= $bid->other_notes ?></p>
+<h4>Employee Details</h4>
+<p><?= $bid->employee_details ?></p>
 
 <h4>Prices</h4>
 <table border="1">

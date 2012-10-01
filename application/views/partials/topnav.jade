@@ -3,10 +3,10 @@ div.nav-collapse.collapse
 - if (Auth::check()):
 
   ul.nav
-    li(class="#{URI::is('vendors') ? 'active':''}")
-      a(href="#{ route('vendors') }") browse vendors
 
     - if (Auth::user()->officer):
+      li(class="#{URI::is('vendors') ? 'active':''}")
+        a(href="#{ route('vendors') }") browse vendors
       li(class="#{URI::is('contracts/new') ? 'active':''}")
         a(href="#{ route('new_contracts') }") new contract
       li(class="#{URI::is('contracts/mine') ? 'active':''}")
@@ -24,8 +24,6 @@ div.nav-collapse.collapse
 - else:
 
   ul.nav
-    li(class="#{URI::is('vendors') ? 'active':''}")
-      a(href="#{ route('vendors') }") browse vendors
     li(class="#{URI::is('vendors/new') ? 'active':''}")
       a(href="#{ route('new_vendors') }") new vendor
     li(class="#{URI::is('officers/new') ? 'active':''}")

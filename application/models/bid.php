@@ -4,11 +4,12 @@ class Bid extends Eloquent {
 
   public static $timestamps = true;
 
-  public static $accessible = array('contract_id', 'approach', 'previous_work', 'other_notes', 'prices');
+  public static $accessible = array('contract_id', 'approach', 'previous_work', 'employee_details', 'prices');
 
   public function validator() {
     $rules = array('approach' => 'required',
                    'previous_work' => 'required',
+                   'employee_details' => 'required',
                    'prices' => 'required');
 
     $validator = Validator::make($this->attributes, $rules);
