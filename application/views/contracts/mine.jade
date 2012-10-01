@@ -1,0 +1,15 @@
+<?php Section::inject('page_title', 'My Contracts'); ?>
+
+h3 My Contracts
+  a.btn.btn-small.btn-success.pull-right(href="#{ route('new_contracts') }")
+    i.icon-plus-sign.icon-white
+    | new contract
+
+
+hr
+ul.contract-list
+  - foreach($contracts as $contract):
+    li
+      a(href="#{ route('contract', array($contract->id)) }") #{$contract->title}
+      a.btn.btn-mini(href="#{ route('bids', array($contract->id)) }") View Bids
+

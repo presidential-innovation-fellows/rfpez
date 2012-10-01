@@ -104,3 +104,10 @@ body.vendor .no-vendor {
 .new-bid-form .prices-table .deliverables-row input.deliverable-price {
   width: 60px;
 }
+.contract-list {
+  list-style: none;
+  font-size: 1.4em;
+}
+.contract-list li {
+  margin-bottom: 1.3em;
+}
