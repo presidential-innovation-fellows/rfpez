@@ -1,0 +1,9 @@
+<?php Section::inject('page_title', 'New Vendor'); ?>
+
+h1 New Vendor
+
+form(action="#{route('vendors')}", method="POST")
+
+  !{View::make('users.account_vendor_fields')->with('vendor', Input::old('vendor'))->with('user', Input::old('user'))->with('services', Input::old('services'))->with('signup', true)}
+
+  button.btn.btn-primary(type="submit") Save Profile

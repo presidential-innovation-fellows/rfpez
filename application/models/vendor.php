@@ -34,6 +34,10 @@ class Vendor extends Eloquent {
     return self::$ballpark_prices[$this->ballpark_price];
   }
 
+  public function get_homepage_url_pretty() {
+    return preg_replace('/http\:\/\/(www.)?/', '', $this->homepage_url);
+  }
+
   public function user() {
     return $this->belongs_to('User');
   }

@@ -9,11 +9,11 @@
 .clearfix:after {
   clear: both;
 }
-label {
-  display: block;
-}
 a {
   cursor: pointer;
+}
+.alert ul {
+  margin-bottom: 0;
 }
 body {
   padding-top: 75px;
@@ -26,7 +26,13 @@ body.no-auth .officer-only {
 body.officer .vendor-only {
   display: none !important;
 }
+body.officer .no-officer {
+  display: none !important;
+}
 body.vendor .officer-only {
+  display: none !important;
+}
+body.vendor .no-vendor {
   display: none !important;
 }
 .question-wrapper {
@@ -44,11 +50,47 @@ body.vendor .officer-only {
 .vendor-image-preview-frame {
   width: 400px;
   height: 300px;
-  border: 1px solid #000;
+  border: 1px solid #ccc;
   padding: 2px;
-  margin-bottom: 20px;
+  margin: 5px 0 15px;
 }
 .vendor-image-preview-frame img {
+  z-index: 2;
   width: 400px;
   height: 300px;
+}
+.media.vendor {
+  display: inline-block;
+  margin: 10px 10px 40px;
+}
+.media.vendor .company-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.media.vendor .homepage-url {
+  float: left;
+}
+.media.vendor .ballpark-price {
+  float: right;
+  color: #888;
+}
+.vendors-wrapper .loading-spinner {
+  text-align: center;
+  margin: 0 0 35px;
+  display: none;
+}
+.vendors-wrapper .finished-loading-text {
+  text-align: center;
+  margin: 0 0 35px;
+  display: none;
+}
+.vendors-wrapper.loading .loading-spinner {
+  display: block;
+}
+.vendors-wrapper.finished-loading .finished-loading-text {
+  display: block;
+}
+.vendor-image-form-row {
+  margin-top: 30px;
 }

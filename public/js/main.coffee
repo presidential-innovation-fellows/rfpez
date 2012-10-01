@@ -1,6 +1,6 @@
 update_vendor_image_preview = ->
   el = $(".vendor-image-url input")
-  frame = el.closest(".vendor-image-url").find(".vendor-image-preview-frame")
+  frame = el.closest(".vendor-image-form-row").find(".vendor-image-preview-frame")
   img = frame.find("img")
   img.attr("src", el.val())
 
@@ -67,6 +67,9 @@ $(document).on "click", ".answer-question-toggle", ->
   form.find("textarea[name=answer]").val('')
   form.appendTo(question)
   form.show()
+
+$(document).on "submit", "#new-contract-form", ->
+  $(this).find("button[type=submit]").button('loading')
 
 $(document).on "submit", "#answer-question-form", (e) ->
   e.preventDefault()

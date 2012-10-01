@@ -32,6 +32,23 @@ class Seed_Task {
                               'homepage_url' => 'http://www.google.com',
                               'more_info' => 'There is no more info.'));
 
+    for ($i = 0; $i < 45; $i++) {
+      $user = User::create(array('email' => 'vendor'.$i.'@example.com',
+                             'password' => 'password'));
+
+      $vendor = Vendor::create(array('user_id' => $user->id,
+                              'company_name' => "Bluth's Frozen Bananas #$i",
+                              'contact_name' => 'George Michael Bluth',
+                              'address' => '1234 Main St.',
+                              'city' => 'Los Angeles',
+                              'state' => 'CA',
+                              'zip' => '10101',
+                              'ballpark_price' => 1,
+                              'image_url' => 'http://i.imgur.com/sHHmT.png',
+                              'homepage_url' => 'http://www.google.com',
+                              'more_info' => 'There is no more info.'));
+    }
+
 
     $v->services()->attach($s1->id);
     $v->services()->attach($s3->id);

@@ -26,13 +26,14 @@ class Vendors_Controller extends Base_Controller {
       return Redirect::to('/');
     } else {
       Session::flash('errors', array_merge($user->validator()->errors->all(), $vendor->validator()->errors->all()));
-      return $this->action_new();
+      return Redirect::to_route('new_vendors')->with_input();
     }
   }
 
   public function action_index() {
     $view = View::make('vendors.index');
-    $view->vendors = Vendor::take(10)->get();
+    $page = intval(Input::get('page') ?: 1);
+    $view->vendors = Vendor::skip(($page - 1) * 10)->take(10)->get();
     $this->layout->content = $view;
   }
 

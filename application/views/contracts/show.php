@@ -31,7 +31,7 @@
       <h4>Q &amp; A</h4>
       <div class="questions">
         <?php foreach($contract->questions as $question): ?>
-          <?= View::make('partials.question')->with('question', $question) ?>
+          <?= View::make('partials.media.question')->with('question', $question) ?>
         <?php endforeach; ?>
       </div>
       <div class="ask-question vendor-only">

@@ -24,6 +24,7 @@
     print "<style>.only-user:not(.only-user-".Auth::user()->id.") { display: none; }</style>";
   }
 ?>
+  <?= HTML::script('js/vendor/modernizr-2.6.1-respond-1.1.0.min.js') ?>
 </head>
 <body class="<?= $body_class ?>">
 
@@ -41,13 +42,19 @@
   <div class="container">
 
     <?php if (Session::has('errors')): ?>
-      <?php foreach(Session::get('errors') as $error): ?>
-        <?= $error ?><br />
-      <?php endforeach; ?>
+      <div class="alert alert-error">
+        <ul>
+          <?php foreach(Session::get('errors') as $error): ?>
+            <li><?= $error ?></li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
     <?php endif; ?>
 
     <?php if (Session::has('notice')): ?>
-      <?= Session::get('notice') ?><br />
+      <div class="alert alert-success">
+        <?= Session::get('notice') ?>
+      </div>
     <?php endif; ?>
 
     <?= $content ?>
@@ -57,6 +64,8 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.1.min.js"><\/script>')</script>
   <?= Basset::show('website.js') ?>
+
+  <?= Section::yield('additional_scripts') ?>
 
 </body>
 </html>

@@ -17,15 +17,14 @@ class Officers_Controller extends Base_Controller {
     $user = new User(Input::get('user'));
     $officer = new Officer(Input::get('officer'));
 
-    if ($user->validator(false)->passes() && $officer->validator()->passes()) {
+    if ($user->validator(false, true)->passes() && $officer->validator()->passes()) {
       $user->save();
       $user->officer()->insert($officer);
       $user->generate_reset_password_token();
-      Session::flash('notice', 'Please check your email for a link to finish signup.');
-      return Redirect::to('/');
+      return Redirect::to('/')->with('notice', 'Please check your email for a link to finish signup.');
     } else {
-      Session::flash('errors', array_merge($user->validator(false)->errors->all(), $officer->validator()->errors->all()));
-      return $this->action_new();
+      Session::flash('errors', array_merge($user->validator(false, true)->errors->all(), $officer->validator()->errors->all()));
+      return Redirect::to_route('new_officers')->with_input();
     }
   }
 

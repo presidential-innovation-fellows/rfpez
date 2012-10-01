@@ -1,5 +1,8 @@
 <?php
-  if (!isset($vendor) && Auth::user() && Auth::user()->vendor) $vendor = Auth::user()->vendor->to_array();
+  if (!isset($vendor) && Auth::user() && Auth::user()->vendor) {
+    $vendor = Input::old('vendor') ?: Auth::user()->vendor->to_array();
+  }
+
   if (!isset($services) && Auth::user() && Auth::user()->vendor) {
     $services_list = Auth::user()->vendor->services()->lists('id');
     $services = array();
@@ -85,7 +88,6 @@
         <img />
       </div>
     </div>
-
   </fieldset>
 
 </div>
