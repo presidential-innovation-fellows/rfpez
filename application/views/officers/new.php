@@ -16,6 +16,6 @@
 
   <br /><br />
 
-  <input type="submit" />
+  <input class="btn btn-primary" type="submit" />
 
 </form>

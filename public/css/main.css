@@ -17,6 +17,7 @@ a {
 }
 body {
   padding-top: 75px;
+  margin-bottom: 25px;
 }
 body.no-auth .vendor-only,
 body.no-auth .officer-only {

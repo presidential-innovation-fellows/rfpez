@@ -33,4 +33,4 @@ div.nav-collapse.collapse
 
   ul.nav.pull-right
     li(class="#{URI::is('signin') ? 'active':''}")
-      a(href="#{ route('signin') }") sign in
+      a(href="#signinModal", data-toggle='modal') sign in

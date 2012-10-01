@@ -1,0 +1,12 @@
+.modal-body
+  form(action="#{ route('signin') }", method="POST")
+    p
+      input#email.span3(type='email', name='email', placeholder='Email')
+    p
+      input.span3(type='password', name='password', placeholder='Password')
+    p
+      button.btn.btn-primary(type='submit') Sign in
+      a(href='#') forgot password?
+.modal-footer
+  | Are you new?
+  a.btn(href='/') Register
