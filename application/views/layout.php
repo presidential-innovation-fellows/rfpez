@@ -52,7 +52,9 @@
     <?php endif; ?>
 
     <?php if (Session::has('notice')): ?>
-      <?= Session::get('notice') ?><br />
+      <div class="alert alert-success">
+        <?= Session::get('notice') ?>
+      </div>
     <?php endif; ?>
 
     <?= $content ?>
