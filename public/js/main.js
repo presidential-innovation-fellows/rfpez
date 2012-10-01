@@ -5,7 +5,7 @@
   update_vendor_image_preview = function() {
     var el, frame, img;
     el = $(".vendor-image-url input");
-    frame = el.closest(".vendor-image-url").find(".vendor-image-preview-frame");
+    frame = el.closest(".vendor-image-form-row").find(".vendor-image-preview-frame");
     img = frame.find("img");
     return img.attr("src", el.val());
   };

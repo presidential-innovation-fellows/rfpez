@@ -80,8 +80,8 @@
 
 </div>
 
-<div class="row">
-  <div class="vendor-image-url">
+<div class="row vendor-image-form-row">
+  <div class="vendor-image-url span12">
     <label>URL to an image of your Best Work</label>
     <input type="text" name="vendor[image_url]" value="<?= $vendor["image_url"] ?>" />
 

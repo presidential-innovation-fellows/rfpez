@@ -51,6 +51,7 @@ body.vendor .no-vendor {
   margin: 5px 0 15px;
 }
 .vendor-image-preview-frame img {
+  z-index: 2;
   width: 400px;
   height: 300px;
 }
@@ -85,4 +86,7 @@ body.vendor .no-vendor {
 }
 .vendors-wrapper.finished-loading .finished-loading-text {
   display: block;
+}
+.vendor-image-form-row {
+  margin-top: 30px;
 }
