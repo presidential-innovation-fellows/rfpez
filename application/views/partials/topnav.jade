@@ -10,10 +10,6 @@ div.nav-collapse.collapse
       li(class="#{URI::is('vendors') ? 'active':''}")
         a(href="#{ route('vendors') }") vendors
 
-    - else:
-      li(class="#{URI::is('contracts*') ? 'active':''}")
-        a(href="#{ route('contracts') }") browse contracts
-
   ul.nav.pull-right
     li(class="#{URI::is('account') ? 'active':''}")
       a(href="#{route('account')}") account
@@ -23,10 +19,8 @@ div.nav-collapse.collapse
 - else:
 
   ul.nav
-    li(class="#{URI::is('vendors/new') ? 'active':''}")
-      a(href="#{ route('new_vendors') }") new vendor
-    li(class="#{URI::is('officers/new') ? 'active':''}")
-      a(href="#{ route('new_officers') }") new officer
+    li(class="#{URI::is('contracts*') ? 'active':''}")
+      a(href="#{ route('contracts') }") all contracts
 
   ul.nav.pull-right
     li(class="#{URI::is('signin') ? 'active':''}")

@@ -1,1 +1,17 @@
 <?php Section::inject('page_title', 'Home'); ?>
+
+h1 A Technology Marketplace That Everybody Loves
+
+.span5
+  h3 For Small Business
+  p.main-description Create a simple online profile and begin bidding
+    | on <a href="#{ route('contracts') }">contracts</a>.
+    | If you're selected to work on a contract, we'll walk you through the government registration process.
+  a.btn.btn-warning.btn-large(href="#{ route('new_vendors') }") Register as a Company
+
+.span5
+  h3 For Government
+  p.main-description Make great statements of work and easily answer questions.
+    | Browse eligible firms and see their online portfolios.
+    | Receive bids from small innovative tech companies.
+  a.btn.btn-warning.btn-large(href="#{ route('new_officers') }") Register as a Contracting Officer
