@@ -1,0 +1,18 @@
+<?php Section::inject('page_title', 'Change Email'); ?>
+
+h3 Change Email
+
+form.form-horizontal(action="#{route('change_email')}", method="post")
+
+  .control-group
+    label.control-label New Email
+    .controls
+      input(type="text", name="new_email", value="#{Input::old('new_email')}")
+
+  .control-group
+    label.control-label Password
+    .controls
+      input(type="password", name="password")
+
+  .form-actions
+    button.btn.btn-primary(type="submit") Submit

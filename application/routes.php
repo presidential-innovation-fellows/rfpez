@@ -10,6 +10,10 @@ Route::get('signout', array('uses' => 'auth@delete', 'as' => 'signout'));
 Route::get('account', array('uses' => 'users@get_account', 'as' => 'account'));
 Route::post('account', array('uses' => 'users@post_account', 'as' => 'account'));
 
+Route::get('account/email', array('uses' => 'users@get_change_email', 'as' => 'change_email'));
+Route::post('account/email', array('uses' => 'users@post_change_email', 'as' => 'change_email'));
+Route::get('account/confirmnewemail/(:any)', array('uses' => 'users@confirm_new_email', 'as' => 'confirm_new_email'));
+
 Route::get('forgotpassword', array('uses' => 'users@get_forgot_password', 'as' => 'forgot_password'));
 Route::post('forgotpassword', array('uses' => 'users@post_forgot_password', 'as' => 'forgot_password'));
 

@@ -8,7 +8,10 @@ $(document).on "click", "#add-deliverable-button", ->
   $(".deliverables-row:eq(0)").clone().appendTo(".prices-table tbody").find("input").val("")
 
 $(document).on "click", ".remove-deliverable", ->
-  $(this).closest(".deliverables-row").remove() unless $(".deliverables-row").length is 1
+  if $(".deliverables-row").length is 1
+    $(this).closest('.deliverables-row').find(':input').val('')
+  else
+    $(this).closest(".deliverables-row").remove()
 
 $(document).on "click", ".show-dismiss-modal", ->
   el = $(this)

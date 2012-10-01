@@ -5,7 +5,7 @@ h1 My Account
 form(action="#{route('account')}", method="POST")
 
   label Email: #{Auth::user()->email}
-  a(href="#") Change email
+  a(href="#{route('change_email')}") Change email
 
   label Password:
   a(href="#") Change Password

@@ -139,6 +139,13 @@ class User extends Eloquent {
     }
   }
 
+  public function confirm_new_email() {
+    $this->email = $this->new_email;
+    $this->new_email = NULL;
+    $this->new_email_confirm_token = NULL;
+    $this->save();
+  }
+
 }
 
 Event::listen('eloquent.saving: User', function($model) {
