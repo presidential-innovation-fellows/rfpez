@@ -1,13 +1,20 @@
 h3 Sign In
 
-a( href="#{ route('forgot_password') }" ) forgot password?
-br
-br
+form.form-horizontal(action="#{ route('signin') }", method="POST")
+  .control-group
+    label.control-label Email
+    .controls
+      input(type='text', name='email')
 
-form(action="#{ route('signin') }", method="POST")
-  label Email:
-  input(type='text', name='email')
+  .control-group
+    label.control-label Password
+    .controls
+      input(type='password', name='password')
 
-  label Password:
-  input(type='password', name='password')
-  input(type='submit')
+  .control-group
+    label.control-label &nbsp;
+    .controls
+      a(href="#{route('forgot_password')}") Forgot Password?
+
+  .form-actions
+    button.btn.btn-primary(type='submit') Sign In
