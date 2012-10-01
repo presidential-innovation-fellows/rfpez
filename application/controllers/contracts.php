@@ -108,7 +108,7 @@ class Contracts_Controller extends Base_Controller {
     $contract = Config::get('contract');
     $contract->fill(Input::get('contract'));
     $contract->save();
-    return Redirect::to_route('edit_contract', array($contract->id));
+    return Redirect::to('/contracts/' . $contract->id);
   }
 
   public function trySavingContract($attributes) {

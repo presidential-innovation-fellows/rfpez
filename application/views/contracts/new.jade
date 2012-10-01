@@ -3,10 +3,7 @@
 h3 New Contract
 
 form(action="#{route('contracts')}", method="POST", id="new-contract-form")
-
-  label Soliciation # of FBO Posting
-  input(type="text", name="solnbr", value="#{Input::old('solnbr')}")
-
-  .form-actions
-    button.btn.btn-primary(type="submit", data-loading-text="Loading from FedBizOpps...") Submit
-
+  label Solicitation # of FBO.gov Posting
+  .input-append
+    input(type="text", name="solnbr", value="#{Input::old('solnbr')}")
+    button.btn.btn-primary(type="submit", data-loading-text="Loading from FedBizOpps...") Find
