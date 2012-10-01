@@ -7,10 +7,12 @@ class Users_Controller extends Base_Controller {
 
     $this->filter('before', 'has_valid_reset_password_token')->only(array('get_reset_password', 'post_reset_password'));
 
+    $this->filter('before', 'has_valid_new_email_confirm_token')->only(array('confirm_new_email'));
+
     $this->filter('before', 'no_auth')->only(array('get_forgot_password', 'post_forgot_password',
                                                    'get_reset_password', 'post_reset_password'));
 
-    $this->filter('before', 'auth')->only(array('get_account', 'post_account'));
+    $this->filter('before', 'auth')->only(array('get_account', 'post_account', 'get_change_email', 'post_change_email'));
   }
 
 
@@ -83,11 +85,71 @@ class Users_Controller extends Base_Controller {
     }
   }
 
+  public function action_get_change_email() {
+    $view = View::make('users.change_email');
+    $this->layout->content = $view;
+  }
+
+  public function action_post_change_email() {
+    $user = Auth::user();
+
+    if (!Hash::check(Input::get('password'), $user->encrypted_password)) {
+      Session::flash('errors', array('Incorrect password.'));
+      return Redirect::to_route('change_email')->with_input();
+    }
+
+    if ($user->vendor) {
+      $user->email = Input::get('new_email');
+
+      if ($user->validator(false)->passes()) {
+        $user->save();
+        return Redirect::to_route('account')->with('notice', 'Your email address has been updated.');
+      } else {
+        Session::flash('errors', $user->validator(false)->errors->all());
+        return Redirect::to_route('change_email')->with_input();
+      }
+
+    } else {
+      // For officers, they will first need to confirm that they
+      // own their new email address with a link we email to them.
+
+      $user->new_email = Input::get('new_email');
+      $user->new_email_confirm_token = Str::random(36);
+
+      $validator = Validator::make(array('new_email'=>$user->new_email),
+                                   array('new_email' => 'required|email|unique:users,email,'.$user->id.'|dotgovonly'));
+
+      if ($validator->passes()) {
+        $user->save();
+        return Redirect::to_route('account')->with('notice', 'Please check your inbox for a link to confirm your new email address.');
+      } else {
+        Session::flash('errors', $validator->errors->all());
+        return Redirect::to_route('change_email')->with_input();
+      }
+
+
+    }
+
+  }
+
+  public function action_confirm_new_email() {
+    $user = Config::get('user');
+    $user->confirm_new_email();
+    return Redirect::to_route('root')->with('notice', 'Your email address has been successfully updated.');
+  }
+
 }
 
 Route::filter('has_valid_reset_password_token', function() {
   $token = Request::$route->parameters[0];
   $user = User::where_reset_password_token($token)->first();
+  if (!$user) return Redirect::to('/');
+  Config::set('user', $user);
+});
+
+Route::filter('has_valid_new_email_confirm_token', function() {
+  $token = Request::$route->parameters[0];
+  $user = User::where_new_email_confirm_token($token)->first();
   if (!$user) return Redirect::to('/');
   Config::set('user', $user);
 });
