@@ -12,7 +12,7 @@
 
     form.new-bid-form(action="#{ route('bids', array($contract->id)) }", method="POST")
 
-      - $bid = Input::get('bid')
+      - $bid = Input::old('bid')
 
       .section
         label Your Approach
@@ -37,18 +37,21 @@
         tbody
 
           - $i = 0;
-          - $deliverable_prices = Input::get('deliverable_prices');
-          - $deliverable_names = Input::get('deliverable_names');
+          - $deliverable_prices = Input::old('deliverable_prices');
+          - $deliverable_names = Input::old('deliverable_names');
           - if ($deliverable_names):
-            - foreach(Input::get('deliverable_names') as $deliverable_name):
+            - foreach($deliverable_names as $deliverable_name):
               tr.deliverables-row
                 td
                   input(type="text", name="deliverable_names[]", value="#{ $deliverable_name }")
                 td
-                  input(type="text", name="deliverable_prices[]", value="#{ $deliverable_prices[$i] }")
-                td
-                  a.remove-deliverable(href="#", class="">) (x)
+                  .input-prepend
+                    span.add-on $
+                    input.deliverable-price(type="text", name="deliverable_prices[]", value="#{ $deliverable_prices[$i] }")
 
+                td
+                  a.btn.btn-danger.btn-small.remove-deliverable
+                    i.icon-white.icon-trash
               - $i++;
           - else:
             tr.deliverables-row

@@ -64,7 +64,7 @@ class Bids_Controller extends Base_Controller {
       return Redirect::to_route('contract', array($contract->id));
     } else {
       Session::flash('errors', $bid->validator()->errors->all());
-      return $this->action_new();
+      return Redirect::to_route('new_bids', array($contract->id, $bid->id))->with_input();
     }
 
   }
