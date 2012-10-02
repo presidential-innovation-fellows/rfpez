@@ -143,3 +143,10 @@ body.vendor .no-auth-only {
 .contracts-table tr.no-border td {
   border: 0;
 }
+#dismiss-modal textarea {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-height: 100px;
+}

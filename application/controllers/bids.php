@@ -25,9 +25,8 @@ class Bids_Controller extends Base_Controller {
   public function action_review() {
     $view = View::make('bids.review');
     $view->contract = Config::get('contract');
-    $query = $view->contract->bids()->where('deleted_by_vendor', '!=', true);
-    if (!Input::get('show_all')) $query = $query->where_null('dismissal_reason');
-    $view->bids = $query->get();
+    $view->open_bids = $view->contract->bids()->where('deleted_by_vendor', '!=', true)->where_null('dismissal_reason')->get();
+    $view->dismissed_bids = $view->contract->bids()->where('deleted_by_vendor', '!=', true)->where_not_null('dismissal_reason')->get();
     $this->layout->content = $view;
   }
 

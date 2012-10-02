@@ -47,8 +47,9 @@
     modal.find("button").button('reset');
     modal.modal('show');
     modal.off(".rfpez-dismiss");
-    return modal.on("click.rfpez-dismiss", ".dismiss-btn", function() {
-      $(this).button('loading');
+    return modal.on("submit.rfpez-dismiss", "form", function(e) {
+      e.preventDefault();
+      $(this).find("button").button('loading');
       return $.ajax({
         url: "/contracts/" + el.data('contract-id') + "/bids/" + el.data('bid-id') + "/dismiss",
         data: {

@@ -1,21 +1,47 @@
 - Section::inject('page_title', "Review Bids for $contract->title")
 
-- if (!Input::get('show_all')):
-  a(href="#{route('bids', array($contract->id))}?show_all=true") show all bids (including dismissed)
-- else:
-  a(href="#{route('bids', array($contract->id))}") hide dismissed bids
-- endif;
-
 !{View::make('bids.dismiss_modal')}
 
-- foreach($bids as $bid):
-  .bid
-    | $#{intval($bid->total_price())} - #{$bid->vendor->company_name}
-    |
-    a(href="#{route('bid', array($contract->id, $bid->id))}") details
-    | |
+h3 Bids awaiting review
 
-    - if($bid->dismissed()):
-      dismissed
-    - else:
-      a(href="#", class="show-dismiss-modal", data-contract-id="#{$contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}", data-remove-from-list="bid") Dismiss?
+table.table.open-bids
+  thead
+    tr
+      th Vendor Name
+      th Price
+      th Starred
+      th Actions
+
+  - foreach($open_bids as $bid):
+    tbody.bid
+      tr
+        td
+          a(href="#{route('bid', array($contract->id, $bid->id))}") #{$bid->vendor->company_name}
+        td $#{intval($bid->total_price())}
+        td #{$bid->starred}
+        td
+          - if($bid->dismissed()):
+            | Dismissed
+          - else:
+            a(class="btn btn-warning show-dismiss-modal", data-contract-id="#{$contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}", data-remove-from-list="bid") Dismiss?
+
+h3 Dismissed bids
+
+table.table.dismissed-bids
+  thead
+    tr
+      th Vendor Name
+      th Price
+      th Starred
+      th Actions
+
+  - foreach($dismissed_bids as $bid):
+    tbody.bid
+      tr
+        td
+          a(href="#{route('bid', array($contract->id, $bid->id))}") #{$bid->vendor->company_name}
+        td $#{intval($bid->total_price())}
+        td #{$bid->starred}
+        td
+          em Dismissed: #{$bid->dismissal_reason}
+          a.btn.btn-info(href="#") Un-Dismiss

@@ -35,8 +35,9 @@ $(document).on "click", ".show-dismiss-modal", ->
   modal.modal('show')
 
   modal.off ".rfpez-dismiss"
-  modal.on "click.rfpez-dismiss", ".dismiss-btn", ->
-    $(this).button('loading')
+  modal.on "submit.rfpez-dismiss", "form", (e) ->
+    e.preventDefault()
+    $(this).find("button").button('loading')
     $.ajax
       url: "/contracts/" + el.data('contract-id') + "/bids/" + el.data('bid-id') + "/dismiss"
       data:
