@@ -20,9 +20,14 @@
 
     .officer-only
       - if ($bid->dismissed()):
-        | You have dismissed this bid.<br />
-        | Reason: #{$bid->dismissal_reason}<br />
-        | Explanation: #{$bid->dismissal_explanation}
+        .alert.alert-danger.dismissed-alert
+          .dismissal-notice You have dismissed this bid.
+          .dismissal-reason
+            strong Reason:
+            span #{$bid->dismissal_reason}
+          .dismissal-explanation
+            strong Explanation:
+            span #{$bid->dismissal_explanation}
       - else:
         a(href="#", class="show-dismiss-modal", data-contract-id="#{$contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}") Dismiss?
       - endif;

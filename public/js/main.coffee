@@ -48,6 +48,21 @@ $(document).on "click", ".remove-deliverable", ->
   else
     $(this).closest(".deliverables-row").remove()
 
+$(document).on "click", ".undismiss-button", ->
+  el = $(this)
+  bid = el.closest(".bid")
+  $.ajax
+    url: "/contracts/" + bid.data('contract-id') + "/bids/" + bid.data('bid-id') + "/dismiss"
+    type: "GET"
+    success: (data) ->
+      if data.status is "success"
+        if el.data('move-to-table')
+          new_bid = $(data.html)
+          bid.remove()
+          $(".bids-table.open-bids thead").after(new_bid)
+        else
+          window.location.reload()
+
 $(document).on "click", ".show-dismiss-modal", ->
   el = $(this)
   modal = $("#dismiss-modal")
@@ -69,8 +84,10 @@ $(document).on "click", ".show-dismiss-modal", ->
       success: (data) ->
         if data.status is "already dismissed" or "success"
           modal.modal('hide')
-          if el.data('remove-from-list')
-            el.closest("." + el.data('remove-from-list')).remove()
+          if el.data('move-to-table')
+            el.closest(".bid").remove()
+            new_bid = $(data.html)
+            $(".bids-table.dismissed-bids thead").after(new_bid)
           else
             window.location.reload()
 

@@ -9,6 +9,6 @@ tbody.bid(data-contract-id="#{$bid->contract->id}", data-bid-id="#{$bid->id}")
     td
       - if($bid->dismissed()):
         em Dismissed: #{$bid->dismissal_reason}
-        a.btn.btn-info(href="#") Un-Dismiss
+        a.btn.btn-info.undismiss-button(data-move-to-table="true") Un-Dismiss
       - else:
-        a(class="btn btn-warning show-dismiss-modal", data-contract-id="#{$bid->contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}", data-remove-from-list="bid") Dismiss?
+        a(class="btn btn-warning show-dismiss-modal", data-contract-id="#{$bid->contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}", data-move-to-table="true") Dismiss?

@@ -167,3 +167,10 @@ body.vendor .no-auth-only {
 .bids-table .bid .star-td.starred .star-button {
   display: none;
 }
+.dismissed-alert .dismissal-notice {
+  border-bottom: 1px dotted #ccc;
+  padding-bottom: 10px;
+}
+.dismissed-alert .dismissal-reason {
+  padding-top: 10px;
+}

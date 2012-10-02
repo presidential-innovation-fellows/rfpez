@@ -69,6 +69,28 @@
     }
   });
 
+  $(document).on("click", ".undismiss-button", function() {
+    var bid, el;
+    el = $(this);
+    bid = el.closest(".bid");
+    return $.ajax({
+      url: "/contracts/" + bid.data('contract-id') + "/bids/" + bid.data('bid-id') + "/dismiss",
+      type: "GET",
+      success: function(data) {
+        var new_bid;
+        if (data.status === "success") {
+          if (el.data('move-to-table')) {
+            new_bid = $(data.html);
+            bid.remove();
+            return $(".bids-table.open-bids thead").after(new_bid);
+          } else {
+            return window.location.reload();
+          }
+        }
+      }
+    });
+  });
+
   $(document).on("click", ".show-dismiss-modal", function() {
     var el, modal;
     el = $(this);
@@ -89,10 +111,13 @@
         },
         type: "GET",
         success: function(data) {
+          var new_bid;
           if (data.status === "already dismissed" || "success") {
             modal.modal('hide');
-            if (el.data('remove-from-list')) {
-              return el.closest("." + el.data('remove-from-list')).remove();
+            if (el.data('move-to-table')) {
+              el.closest(".bid").remove();
+              new_bid = $(data.html);
+              return $(".bids-table.dismissed-bids thead").after(new_bid);
             } else {
               return window.location.reload();
             }

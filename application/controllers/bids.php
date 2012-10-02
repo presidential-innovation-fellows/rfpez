@@ -35,8 +35,14 @@ class Bids_Controller extends Base_Controller {
     $bid = Config::get('bid');
     // if ($bid->dismissed()) return Response::json(array("status" => "already dismissed"));
     // we can prevent them from doing this if we want, but i don't see why not.
-    $bid->dismiss(Input::get('reason'), Input::get('explanation'));
-    return Response::json(array("status" => "success"));
+    if ($bid->dismissed()) {
+      $bid->undismiss();
+    } else {
+      $bid->dismiss(Input::get('reason'), Input::get('explanation'));
+    }
+    return Response::json(array("status" => "success",
+                                "dismissed" => $bid->dismissed(),
+                                "html" => View::make("partials.media.bid_for_review")->with('bid', $bid)->render()));
   }
 
   public function action_star() {

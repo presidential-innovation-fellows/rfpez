@@ -41,6 +41,12 @@ class Bid extends Eloquent {
     $this->save();
   }
 
+  public function undismiss() {
+    $this->dismissal_reason = NULL;
+    $this->dismissal_explanation = NULL;
+    $this->save();
+  }
+
   public function dismissed() {
     return $this->dismissal_reason ? true : false;
   }
