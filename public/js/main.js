@@ -17,6 +17,26 @@
     }
   };
 
+  $(document).on("click", ".bid .unstar-button, .bid .star-button", function() {
+    var action, bid;
+    action = $(this).hasClass('unstar-button') ? "0" : "1";
+    bid = $(this).closest(".bid");
+    return $.ajax({
+      url: "/contracts/" + bid.data('contract-id') + "/bids/" + bid.data('bid-id') + "/star",
+      data: {
+        starred: action
+      },
+      type: "GET",
+      success: function(data) {
+        if (data.starred === '0') {
+          return bid.find(".star-td").removeClass("starred");
+        } else {
+          return bid.find(".star-td").addClass("starred");
+        }
+      }
+    });
+  });
+
   $(document).on("click", "a[data-confirm]", function(e) {
     var el;
     e.preventDefault();

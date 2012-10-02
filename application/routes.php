@@ -37,6 +37,7 @@ Route::get('contracts/(:num)/bids', array('uses' => 'bids@review', 'as' => 'bids
 Route::post('contracts/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));
 Route::get('contracts/(:num)/bids/(:num)', array('uses' => 'bids@show', 'as' => 'bid'));
 Route::get('contracts/(:num)/bids/(:num)/dismiss', array('uses' => 'bids@dismiss', 'as' => 'bid_dismiss'));
+Route::get('contracts/(:num)/bids/(:num)/star', array('uses' => 'bids@star', 'as' => 'bid_star'));
 Route::get('contracts/(:num)/bids/(:num)/destroy', array('uses' => 'bids@destroy', 'as' => 'bid_destroy'));
 
 /*

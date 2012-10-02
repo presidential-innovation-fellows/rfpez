@@ -10,6 +10,19 @@ update_vendor_image_preview = ->
     img.attr("src", imgval)
     hideshow.removeClass('hide')
 
+$(document).on "click", ".bid .unstar-button, .bid .star-button", ->
+  action = if $(this).hasClass('unstar-button') then "0" else "1"
+  bid = $(this).closest(".bid")
+  $.ajax
+    url: "/contracts/" + bid.data('contract-id') + "/bids/" + bid.data('bid-id') + "/star"
+    data:
+      starred: action
+    type: "GET"
+    success: (data) ->
+      if data.starred is '0'
+        bid.find(".star-td").removeClass("starred")
+      else
+        bid.find(".star-td").addClass("starred")
 
 $(document).on "click", "a[data-confirm]", (e) ->
   e.preventDefault();

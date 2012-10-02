@@ -150,3 +150,12 @@ body.vendor .no-auth-only {
   box-sizing: border-box;
   min-height: 100px;
 }
+.bids-table .bid .star-td .unstar-button {
+  display: none;
+}
+.bids-table .bid .star-td.starred .unstar-button {
+  display: inline-block;
+}
+.bids-table .bid .star-td.starred .star-button {
+  display: none;
+}
