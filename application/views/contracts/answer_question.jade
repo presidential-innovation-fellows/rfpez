@@ -1,0 +1,4 @@
+form#answer-question-form(action="#{route('answer_question')}", method="post")
+  input(type="hidden", name="id")
+  textarea(name="answer", placeholder="Answer")
+  button(class="btn btn-primary", data-loading-text="Submitting...") Submit

@@ -108,6 +108,7 @@
     var el, question;
     e.preventDefault();
     el = $(this);
+    el.find("button").button('loading');
     question = el.closest(".question-wrapper");
     return $.ajax({
       url: el.attr('action'),
@@ -120,6 +121,7 @@
         var new_question;
         if (data.status === "success") {
           el.hide();
+          el.find("button").button('reset');
           el.prependTo('body');
           question.find(".answer-question").remove();
           new_question = $(data.html);

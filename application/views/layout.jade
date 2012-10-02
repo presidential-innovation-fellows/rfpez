@@ -54,6 +54,8 @@ body(class="#{$body_class}")
       .alert.alert-success #{Session::get('notice')}
     - endif;
 
+    h1 #{Section::yield('page_title')}
+
     !{$content}
 
 

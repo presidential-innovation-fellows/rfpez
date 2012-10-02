@@ -79,6 +79,7 @@ $(document).on "submit", "#new-contract-form", ->
 $(document).on "submit", "#answer-question-form", (e) ->
   e.preventDefault()
   el = $(this)
+  el.find("button").button('loading')
   question = el.closest(".question-wrapper")
   $.ajax
     url: el.attr('action')
@@ -90,6 +91,7 @@ $(document).on "submit", "#answer-question-form", (e) ->
     success: (data) ->
       if data.status is "success"
         el.hide()
+        el.find("button").button('reset')
         el.prependTo('body')
         question.find(".answer-question").remove()
         new_question = $(data.html)
