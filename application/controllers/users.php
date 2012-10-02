@@ -28,7 +28,7 @@ class Users_Controller extends Base_Controller {
       return Redirect::to_route('forgot_password')->with_input();
     }
     $user->generate_reset_password_token();
-    Session::flash('notice', 'reset token generated');
+    Session::flash('notice', 'Reset password token generated.');
     return Redirect::to_route('signin');
   }
 
