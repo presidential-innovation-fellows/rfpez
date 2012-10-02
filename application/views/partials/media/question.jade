@@ -1,0 +1,8 @@
+.question-wrapper(data-id="#{$question->id}")
+  .question.well #{$question->question}
+  - if ($question->answer):
+    .answer #{$question->answer}
+  - else:
+    div(class="answer-question only-user only-user-#{$question->contract->officer->user->id}")
+      a.answer-question-toggle Answer Question
+  - endif;

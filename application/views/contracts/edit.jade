@@ -1,0 +1,43 @@
+- Section::inject('page_title', 'Verify Contract Details')
+
+form(action="#{route('contract', array($contract->id))}", method="post")
+  input(type="hidden", name="_method", value="PUT")
+
+  .row
+    fieldset.span4
+
+      label Sol Nbr of FBO Contract:
+      input(type="text", value="#{$contract->fbo_solnbr}", readonly)
+
+      label Agency
+      input(type="text", name="contract[agency]", value="#{$contract->agency}")
+
+      label Office
+      input(type="text", name="contract[office]", value="#{$contract->office}")
+
+      label Set Aside
+      input(type="text", name="contract[set_aside]", value="#{$contract->set_aside}")
+
+      label Classification Code
+      input(type="text", name="contract[classification_code]", value="#{$contract->classification_code}")
+
+      label Naics Code
+      input(type="text", name="contract[naics_code]", value="#{$contract->naics_code}")
+
+      label Proposals Due At
+      input(type="text", name="contract[proposals_due_at]", value="#{$contract->proposals_due_at}")
+
+      label Posted At
+      input(type="text", name="contract[posted_at]", value="#{$contract->posted_at}")
+
+      hr
+
+      button.btn.btn-primary(type="submit") Save Contract
+
+    fieldset.span6
+
+      label Statement of Work:
+      hr
+      textarea.hide(name="contract[statement_of_work]") !{$contract->statement_of_work}
+
+      !{$contract->statement_of_work}

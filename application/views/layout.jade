@@ -55,6 +55,7 @@ body(class="#{$body_class}")
     - endif;
 
     h1 #{Section::yield('page_title')}
+      | !{Section::yield('inside_header')}
 
     !{$content}
 

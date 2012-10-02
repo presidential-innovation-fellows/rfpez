@@ -14,7 +14,7 @@
   - endif;
 
 
-.only-user.only-user-#{$bid->vendor->user->id}
+div(class="only-user only-user-#{$bid->vendor->user->id}")
   a(href="#{route('bid_destroy', array($contract->id, $bid->id))}") Delete Bid
 
 h4 Approach
