@@ -140,3 +140,6 @@ body.vendor .no-auth-only {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.contracts-table tr.no-border td {
+  border: 0;
+}

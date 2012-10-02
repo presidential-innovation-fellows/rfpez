@@ -1,6 +1,27 @@
 - Section::inject('page_title', 'Contracts')
 
-ul.contract-list
-  - foreach($contracts as $contract):
-    li
-      a(href="#{route('contract', array($contract->id))}") #{$contract->title}
+table.table.contracts-table
+  thead
+    tr
+      th Contract Title
+      th Type
+      th Agency
+
+  tbody
+    - foreach($contracts as $contract):
+      tr
+        td
+          a(href="#{route('contract', array($contract->id))}") #{$contract->title}
+        td
+          a(href="?naics_code=#{$contract->naics_code}")
+            #{@Contract::$naics_codes[$contract->naics_code] ?: $contract->naics_code}
+        td
+          a(href="?agency=#{rawurlencode($contract->agency)}") #{$contract->agency}
+
+      tr.contract-details.no-border
+        td(colspan="3") #{$contract->sow_variable('bgscope')}
+
+      tr.deliverables.no-border
+        td(colspan="3")
+          strong Deliverables:
+          #{implode(', ', $contract->parsed_deliverables)}

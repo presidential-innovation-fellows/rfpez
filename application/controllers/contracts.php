@@ -12,7 +12,12 @@ class Contracts_Controller extends Base_Controller {
 
   public function action_index() {
     $view = View::make('contracts.index');
-    $view->contracts = Contract::all();
+    $query = Contract::query();
+
+    if (Input::get('naics_code')) $query = $query->where_naics_code(Input::get('naics_code'));
+    if (Input::get('agency')) $query = $query->where_agency(Input::get('agency'));
+
+    $view->contracts = $query->get();
     $this->layout->content = $view;
   }
 
