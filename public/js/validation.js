@@ -19,7 +19,8 @@
       rules: {
         "user[email]": {
           email: true,
-          required: true
+          required: true,
+          remote: "/validation/email"
         },
         "officer[name]": {
           required: true
@@ -59,7 +60,8 @@
         },
         "user[email]": {
           required: true,
-          email: true
+          email: true,
+          remote: "/validation/email"
         },
         "user[password]": {
           required: true,

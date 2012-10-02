@@ -2,6 +2,8 @@
 
 Route::get('/', array('uses' => 'home@index', 'as' => 'root'));
 
+Route::get('validation/email', array('uses' => 'validation@email', 'as' => 'validation_email'));
+
 Route::get('signin', array('uses' => 'auth@new', 'as' => 'signin'));
 Route::post('signin', array('uses' => 'auth@create', 'as' => 'signin'));
 
