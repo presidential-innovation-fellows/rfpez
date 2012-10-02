@@ -138,6 +138,38 @@ class Users_Controller extends Base_Controller {
     return Redirect::to_route('root')->with('notice', 'Your email address has been successfully updated.');
   }
 
+  public function action_get_change_password() {
+    $view = View::make('users.change_password');
+    $this->layout->content = $view;
+  }
+
+  public function action_post_change_password() {
+    $user = Auth::user();
+
+    if (!Hash::check(Input::get('old_password'), $user->encrypted_password)) {
+      Session::flash('errors', array('Incorrect password.'));
+      return Redirect::to_route('change_password');
+    }
+
+    if (Input::get('new_password') !== Input::get('confirm_new_password')) {
+      Session::flash('errors', array('Two passwords did not match.'));
+      return Redirect::to_route('change_password');
+    }
+
+    $user->password = Input::get('new_password');
+
+    if ($user->validator()->passes()) {
+      $user->save();
+      Session::flash('notice', 'Your password was successfully changed.');
+      return Redirect::to_route('account');
+    } else {
+      Session::flash('errors', $user->validator()->errors->all());
+      return Redirect::to_route('change_password');
+    }
+
+  }
+
+
 }
 
 Route::filter('has_valid_reset_password_token', function() {

@@ -6,7 +6,7 @@ form(action="#{route('account')}", method="POST")
   a(href="#{route('change_email')}") Change email
 
   label Password:
-  a(href="#") Change Password
+  a(href="#{route('change_password')}") Change Password
 
   - if (Auth::user()->vendor):
     h1 Vendor Profile

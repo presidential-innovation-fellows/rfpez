@@ -1,4 +1,5 @@
-<?php Section::inject('page_title', $contract->title); ?>
+- Section::inject('page_title', $contract->title)
+- Section::inject('no_page_header', true)
 
 - if (Auth::user() && Auth::user()->officer):
   !{View::make('contracts.answer_question')}
@@ -24,6 +25,9 @@ div(class="only-user only-user-#{$contract->officer->id}")
       - else:
         a(href="#{route('new_bids', array($contract->id))}") Bid on this Contract
       - endif;
+
+    .no-auth-only
+      <a class="btn btn-success" href="#{route('signin')}">Sign in</a> to bid on this contract.
 
     hr
 

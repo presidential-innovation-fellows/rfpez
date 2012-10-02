@@ -11,6 +11,12 @@ update_vendor_image_preview = ->
     hideshow.removeClass('hide')
 
 
+$(document).on "click", "a[data-confirm]", (e) ->
+  e.preventDefault();
+  el = $(this)
+  if confirm(el.data('confirm'))
+    window.location = el.attr('href')
+
 $(document).on "click", "#add-deliverable-button", ->
   $(".deliverables-row:eq(0)").clone().appendTo(".prices-table tbody").find("input").val("")
 

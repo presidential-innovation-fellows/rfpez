@@ -17,6 +17,15 @@
     }
   };
 
+  $(document).on("click", "a[data-confirm]", function(e) {
+    var el;
+    e.preventDefault();
+    el = $(this);
+    if (confirm(el.data('confirm'))) {
+      return window.location = el.attr('href');
+    }
+  });
+
   $(document).on("click", "#add-deliverable-button", function() {
     return $(".deliverables-row:eq(0)").clone().appendTo(".prices-table tbody").find("input").val("");
   });

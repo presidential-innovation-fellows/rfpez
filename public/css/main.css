@@ -38,10 +38,16 @@ body.officer .vendor-only {
 body.officer .no-officer {
   display: none !important;
 }
+body.officer .no-auth-only {
+  display: none !important;
+}
 body.vendor .officer-only {
   display: none !important;
 }
 body.vendor .no-vendor {
+  display: none !important;
+}
+body.vendor .no-auth-only {
   display: none !important;
 }
 .question-wrapper {
