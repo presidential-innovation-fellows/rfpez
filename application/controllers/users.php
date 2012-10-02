@@ -12,7 +12,8 @@ class Users_Controller extends Base_Controller {
     $this->filter('before', 'no_auth')->only(array('get_forgot_password', 'post_forgot_password',
                                                    'get_reset_password', 'post_reset_password'));
 
-    $this->filter('before', 'auth')->only(array('get_account', 'post_account', 'get_change_email', 'post_change_email'));
+    $this->filter('before', 'auth')->only(array('get_account', 'post_account', 'get_change_email', 'post_change_email',
+                                                'get_change_password', 'post_change_password'));
   }
 
 
