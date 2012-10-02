@@ -1,7 +1,7 @@
 - Section::inject('page_title', 'My Account')
 - Section::inject('no_page_header', true)
 
-form(action="#{route('account')}", method="POST")
+form(action="#{route('account')}", method="POST", class="account-form account-form-#{Auth::user()->vendor ? 'vendor' : 'officer'}")
 
   - if (Auth::user()->vendor):
     !{View::make('users.account_vendor_fields')}

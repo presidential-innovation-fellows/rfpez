@@ -2,7 +2,7 @@
 (function() {
 
   $(function() {
-    $("#new-officer-form").validate_rfpez({
+    $("#new-officer-form, .account-form-officer").validate_rfpez({
       rules: {
         "user[email]": {
           email: true,
@@ -25,7 +25,7 @@
         }
       }
     });
-    return $("#new-vendor-form").validate_rfpez({
+    return $("#new-vendor-form, .account-form-vendor").validate_rfpez({
       rules: {
         "vendor[more_info]": {
           required: true
