@@ -9,5 +9,5 @@ form(action="#{route('account')}", method="POST", class="account-form account-fo
     !{View::make('users.account_officer_fields')}
   - endif;
 
-  br
-  input.btn.btn-large.btn-warning(type="submit", value="Save Changes")
+  .form-actions
+    input.btn.btn-primary(type="submit", value="Save Changes")

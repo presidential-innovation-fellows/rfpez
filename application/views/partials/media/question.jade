@@ -1,8 +1,11 @@
-.question-wrapper(data-id="#{$question->id}")
-  .question.well #{$question->question}
-  - if ($question->answer):
-    .answer #{$question->answer}
-  - else:
-    div(class="answer-question only-user only-user-#{$question->contract->officer->user->id}")
-      a.answer-question-toggle Answer Question
-  - endif;
+.question-wrapper.well(data-id="#{$question->id}")
+  .question Q: #{$question->question}
+
+  .answer
+    - if ($question->answer):
+      | A: #{$question->answer}
+    - else:
+      em This question has not been answered.
+      div(class="answer-question only-user only-user-#{$question->contract->officer->user->id}")
+        a.answer-question-toggle Answer Question
+    - endif;

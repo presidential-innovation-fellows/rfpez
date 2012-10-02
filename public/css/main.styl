@@ -89,12 +89,18 @@ body
 .question-wrapper
   margin-bottom 15px
   .question
-    margin-bottom 5px
-  .answer-question
-    padding 0
+    padding-bottom 10px
+    border-bottom 1px dotted #ccc
+  .answer
+    padding-top 10px
 
 #answer-question-form
   display none
+
+  textarea
+    width 100%
+    box-sizing border-box
+    min-height 100px
 
 .vendor-image-preview-frame
   overflow hidden
@@ -183,3 +189,16 @@ body
     width 100%
     box-sizing border-box
     min-height 100px
+
+.bids-table
+  .bid
+    .star-td
+      .unstar-button
+        display none
+
+      &.starred
+        .unstar-button
+          display inline-block
+
+        .star-button
+          display none

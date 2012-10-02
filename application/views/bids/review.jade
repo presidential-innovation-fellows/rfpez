@@ -4,7 +4,7 @@
 
 h3 Bids awaiting review
 
-table.table.open-bids
+table.table.bids-table.open-bids
   thead
     tr
       th Vendor Name
@@ -13,21 +13,11 @@ table.table.open-bids
       th Actions
 
   - foreach($open_bids as $bid):
-    tbody.bid
-      tr
-        td
-          a(href="#{route('bid', array($contract->id, $bid->id))}") #{$bid->vendor->company_name}
-        td $#{intval($bid->total_price())}
-        td #{$bid->starred}
-        td
-          - if($bid->dismissed()):
-            | Dismissed
-          - else:
-            a(class="btn btn-warning show-dismiss-modal", data-contract-id="#{$contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}", data-remove-from-list="bid") Dismiss?
+    !{View::make('partials.media.bid_for_review')->with('bid', $bid)}
 
 h3 Dismissed bids
 
-table.table.dismissed-bids
+table.table.bids-table.dismissed-bids
   thead
     tr
       th Vendor Name
@@ -36,12 +26,4 @@ table.table.dismissed-bids
       th Actions
 
   - foreach($dismissed_bids as $bid):
-    tbody.bid
-      tr
-        td
-          a(href="#{route('bid', array($contract->id, $bid->id))}") #{$bid->vendor->company_name}
-        td $#{intval($bid->total_price())}
-        td #{$bid->starred}
-        td
-          em Dismissed: #{$bid->dismissal_reason}
-          a.btn.btn-info(href="#") Un-Dismiss
+    !{View::make('partials.media.bid_for_review')->with('bid', $bid)}

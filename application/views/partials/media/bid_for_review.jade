@@ -1,0 +1,14 @@
+tbody.bid(data-contract-id="#{$bid->contract->id}", data-bid-id="#{$bid->id}")
+  tr
+    td
+      a(href="#{route('bid', array($bid->contract->id, $bid->id))}") #{$bid->vendor->company_name}
+    td $#{intval($bid->total_price())}
+    td(class="star-td #{$bid->starred ? 'starred' : ''}")
+      a.btn.btn-inverse.unstar-button Starred
+      a.btn.star-button Star
+    td
+      - if($bid->dismissed()):
+        em Dismissed: #{$bid->dismissal_reason}
+        a.btn.btn-info(href="#") Un-Dismiss
+      - else:
+        a(class="btn btn-warning show-dismiss-modal", data-contract-id="#{$bid->contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}", data-remove-from-list="bid") Dismiss?
