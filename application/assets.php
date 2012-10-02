@@ -16,6 +16,7 @@ Basset::scripts('website', function($basset)
          ->add('jqueryvalidate', 'js/vendor/jquery.validate.js')
          ->add('jqueryvalidaterfpez', 'js/vendor/jquery.validate_rfpez.js')
          ->add('validation', 'js/validation.js')
+         ->add('filtercontracts', 'js/filter-contracts.js')
          ->add('mainjs', 'main.js');
   //        ->add('sisyphus', 'sisyphus.min.js')
   //        ->add('app', 'app.js', 'pjax');

@@ -1,5 +1,11 @@
 - Section::inject('page_title', 'Contracts')
 
+- Section::start('inside_header');
+  .search-contracts.pull-right
+    input.search-query#filter-contracts-input(type="search", placeholder="Filter contracts...")
+
+- Section::stop();
+
 table.table.contracts-table
   thead
     tr
@@ -7,16 +13,13 @@ table.table.contracts-table
       th Type
       th Agency
 
-  tbody
-    - foreach($contracts as $contract):
+  - foreach($contracts as $contract):
+    tbody.contract
       tr
         td
           a(href="#{route('contract', array($contract->id))}") #{$contract->title}
-        td
-          a(href="?naics_code=#{$contract->naics_code}")
-            #{@Contract::$naics_codes[$contract->naics_code] ?: $contract->naics_code}
-        td
-          a(href="?agency=#{rawurlencode($contract->agency)}") #{$contract->agency}
+        td #{@Contract::$naics_codes[$contract->naics_code] ?: $contract->naics_code}
+        td #{$contract->agency}
 
       tr.contract-details.no-border
         td(colspan="3") #{$contract->sow_variable('bgscope')}
