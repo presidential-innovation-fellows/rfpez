@@ -3,6 +3,7 @@ update_vendor_image_preview = ->
   frame = el.closest(".vendor-image-url").find(".vendor-image-preview-frame")
   hideshow = $(".vendor-image-preview")
   imgval = el.val()
+  $("#prev-img-btn").removeClass('btn-primary')
   if imgval == ''
     hideshow.addClass('hide')
   else
@@ -10,6 +11,13 @@ update_vendor_image_preview = ->
     img.attr("src", imgval)
     hideshow.removeClass('hide')
 
+vendor_image_keydown = ->
+  if event.which == 13
+    update_vendor_image_preview()
+    event.preventDefault()
+    return false
+  else
+    $("#prev-img-btn").addClass('btn-primary')
 
 $(document).on "click", "a[data-confirm]", (e) ->
   e.preventDefault();
@@ -77,6 +85,8 @@ $(document).on "submit", "#ask-question-form", (e) ->
         alert 'error!'
 
 $(document).on "blur", ".vendor-image-url input", update_vendor_image_preview
+
+$(document).on "keydown", ".vendor-image-url input", vendor_image_keydown
 
 $(document).on "click", ".answer-question-toggle", ->
   el = $(this)
