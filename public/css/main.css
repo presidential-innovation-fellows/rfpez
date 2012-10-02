@@ -179,6 +179,16 @@ body.vendor .no-auth-only {
 .bids-table .bid .star-td.starred .star-button {
   display: none;
 }
+.bids-table .bid .bid-details {
+  border: 0;
+  padding: 0;
+}
+.bids-table .bid .bid-details div {
+  margin-left: 4px;
+}
+.bids-table .bid .bid-details div .details-inner {
+  margin-bottom: 10px;
+}
 .dismissed-alert .dismissal-notice {
   border-bottom: 1px dotted #ccc;
   padding-bottom: 10px;

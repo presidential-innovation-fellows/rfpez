@@ -1,7 +1,9 @@
 tbody.bid(data-contract-id="#{$bid->contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}")
   tr
     td
-      a(href="#{route('bid', array($bid->contract->id, $bid->id))}") #{$bid->vendor->company_name}
+      a(data-toggle="collapse", data-target="#bid#{$bid->id}") #{$bid->vendor->company_name}
+      a.btn.btn-small(href="#{route('bid', array($bid->contract->id, $bid->id))}")
+        i.icon-share
     td $#{intval($bid->total_price())}
     td(class="star-td #{$bid->starred ? 'starred' : ''}")
       a.btn.btn-inverse.unstar-button Starred
@@ -13,3 +15,42 @@ tbody.bid(data-contract-id="#{$bid->contract->id}", data-bid-id="#{$bid->id}", d
           em Dismissed: #{$bid->dismissal_reason}
       - else:
         a(class="btn btn-warning show-dismiss-modal", data-move-to-table="true") Dismiss?
+
+  tr
+    td.bid-details(colspan="4")
+      div(id="bid#{$bid->id}", class="collapse")
+        .details-inner
+          .officer-only
+            - if ($bid->dismissed()):
+              .alert.alert-danger.dismissed-alert
+                .dismissal-notice You have dismissed this bid.
+                .dismissal-reason
+                  strong Reason:
+                  span #{$bid->dismissal_reason}
+                .dismissal-explanation
+                  strong Explanation:
+                  span #{$bid->dismissal_explanation}
+            - endif;
+
+          h4 Approach
+          p #{$bid->approach}
+
+          h4 Previous Work
+          p #{$bid->previous_work}
+
+          h4 Employee Details
+          p #{$bid->employee_details}
+
+          h4 Prices
+          table.table
+            thead
+              tr
+                th Deliverable
+                th Price
+            - if ($bid->prices):
+              - foreach($bid->prices as $deliverable => $price):
+                tr
+                  td #{$deliverable}
+                  td $#{$price}
+            - endif;
+
