@@ -1,6 +1,6 @@
 <?php Section::inject('page_title', 'New Officer'); ?>
 
-form(action="#{route('officers')}", method="post")
+form#new-officer-form(action="#{route('officers')}", method="post")
 
   <?php $user = Input::get('user'); ?>
   <?php $officer = Input::get('officer'); ?>

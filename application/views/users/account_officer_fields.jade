@@ -3,21 +3,27 @@
 - endif;
 
 - if (isset($signup) && $signup):
-  label Email
-  input(type="text", name="user[email]", value="#{$user['email']}")
+  .control-group
+    label Email
+    input(type="text", name="user[email]", value="#{$user['email']}")
 - endif;
 
-label Name
-input(type="text", name="officer[name]", value="#{$officer['name']}")
+.control-group
+  label Name
+  input(type="text", name="officer[name]", value="#{$officer['name']}")
 
-label Title
-input(type="text", name="officer[title]", value="#{$officer['title']}")
+.control-group
+  label Title
+  input(type="text", name="officer[title]", value="#{$officer['title']}")
 
-label Agency
-input(type="text", name="officer[agency]", value="#{$officer['agency']}")
+.control-group
+  label Agency
+  input(type="text", name="officer[agency]", value="#{$officer['agency']}")
 
-label Phone
-input(type="text", name="officer[phone]", value="#{$officer['phone']}")
+.control-group
+  label Phone
+  input(type="text", name="officer[phone]", value="#{$officer['phone']}")
 
-label Fax
-input(type="text", name="officer[fax]", value="#{$officer['fax']}")
+.control-group
+  label Fax
+  input(type="text", name="officer[fax]", value="#{$officer['fax']}")
