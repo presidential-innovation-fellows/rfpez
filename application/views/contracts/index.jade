@@ -24,4 +24,4 @@ table.table.contracts-table
       tr.deliverables.no-border
         td(colspan="3")
           strong Deliverables:
-          #{implode(', ', $contract->parsed_deliverables)}
+          #{$contract->parsed_deliverables_list}

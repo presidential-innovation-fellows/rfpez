@@ -55,4 +55,12 @@ class Contract extends Eloquent {
     }
   }
 
+  public function get_parsed_deliverables_list() {
+    if ($parsed_deliverables = $this->get_parsed_deliverables()) {
+      return implode(', ', $parsed_deliverables);
+    } else {
+      return '';
+    }
+  }
+
 }
