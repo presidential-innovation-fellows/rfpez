@@ -42,13 +42,7 @@
   <div class="container">
 
     <?php if (Auth::guest()): ?>
-      <div id="signinModal" class="modal hide" tabindex="-1" role="dialog">
-        <div class="modal-header">
-          <button class="close" type='button' data-dismiss='modal'> x </button>
-          <h3>Login to EasyBid</h3>
-        </div>
-        <?= View::make('partials.signin_form') ?>
-      </div>
+      <?= View::make('partials.signin_modal') ?>
     <?php endif; ?>
 
     <?php if (Session::has('errors')): ?>
