@@ -158,6 +158,18 @@ body.vendor .no-auth-only {
   box-sizing: border-box;
   min-height: 100px;
 }
+.bids-table thead th.vendor-name {
+  width: 50%;
+}
+.bids-table thead th.price {
+  width: 10%;
+}
+.bids-table thead th.starred {
+  width: 15%;
+}
+.bids-table thead th.actions {
+  width: 25%;
+}
 .bids-table .bid .star-td .unstar-button {
   display: none;
 }

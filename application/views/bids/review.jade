@@ -7,10 +7,10 @@ h3 Bids awaiting review
 table.table.bids-table.open-bids
   thead
     tr
-      th Vendor Name
-      th Price
-      th Starred
-      th Actions
+      th.vendor-name Vendor Name
+      th.price Price
+      th.starred Starred
+      th.actions Actions
 
   - foreach($open_bids as $bid):
     !{View::make('partials.media.bid_for_review')->with('bid', $bid)}
@@ -20,10 +20,10 @@ h3 Dismissed bids
 table.table.bids-table.dismissed-bids
   thead
     tr
-      th Vendor Name
-      th Price
-      th Starred
-      th Actions
+      th.vendor-name Vendor Name
+      th.price Price
+      th.starred Starred
+      th.actions Actions
 
   - foreach($dismissed_bids as $bid):
     !{View::make('partials.media.bid_for_review')->with('bid', $bid)}
