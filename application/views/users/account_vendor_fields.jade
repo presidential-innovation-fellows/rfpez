@@ -13,36 +13,42 @@
   fieldset.span5
     h3 Work and Capabilities
 
-    label
-      h5 Your company in 50 words or less
-    textarea(name="vendor[more_info]") #{$vendor['more_info']}
+    .control-group
+      label
+        h5 Your company in 50 words or less
+      textarea(name="vendor[more_info]") #{$vendor['more_info']}
 
-    h5 What kind of work does your company do?
-    - foreach(Service::all() as $service):
-      label.checkbox
-        <input type="checkbox" name="services[#{ $service->id }]" #{ (isset($services[$service->id])) ? "checked" : "" } />
-        | #{$service->name}
-
-    label
-      h5 Ballpark average project price
-    select(type="text", name="vendor[ballpark_price]")
-      - foreach(Vendor::$ballpark_prices as $id => $ballpark_price):
-        <option value="#{ $id }" #{ ($vendor['ballpark_price'] == $id) ? "selected" : "" }> #{ $ballpark_price } </option>
+    .control-group
+      h5 What kind of work does your company do?
+      - foreach(Service::all() as $service):
+        label.checkbox
+          <input type="checkbox" name="services[#{ $service->id }]" #{ (isset($services[$service->id])) ? "checked" : "" } />
+          | #{$service->name}
+    .control-group
+      label
+        h5 Ballpark average project price
+      select(type="text", name="vendor[ballpark_price]")
+        - foreach(Vendor::$ballpark_prices as $id => $ballpark_price):
+          <option value="#{ $id }" #{ ($vendor['ballpark_price'] == $id) ? "selected" : "" }> #{ $ballpark_price } </option>
 
     h5 Company links
 
-    label Home page
-    input(type="text", name="vendor[homepage_url]", value="#{ $vendor['homepage_url'] }")
+    .control-group
+      label Home page
+      input(type="text", name="vendor[homepage_url]", value="#{ $vendor['homepage_url'] }")
 
-    label Portfolio
-    input(type="text", name="vendor[portfolio_url]", value="#{ $vendor['portfolio_url'] }")
+    .control-group
+      label Portfolio
+      input(type="text", name="vendor[portfolio_url]", value="#{ $vendor['portfolio_url'] }")
 
-    label Public source (e.g. github)
-    input(type="text", name="vendor[sourcecode_url]", value="#{ $vendor['sourcecode_url'] }")
+    .control-group
+      label Public source (e.g. github)
+      input(type="text", name="vendor[sourcecode_url]", value="#{ $vendor['sourcecode_url'] }")
 
     .vendor-image-url
-      label An image of your best work
-      input(type="text", name="vendor[image_url]", value="#{ $vendor['image_url'] }")
+      .control-group
+        label An image of your best work
+        input(type="text", name="vendor[image_url]", value="#{ $vendor['image_url'] }")
 
       label.vendor-image-preview.hide (Preview)
       vendor-image-preview.vendor-image-preview-frame.hide
@@ -55,11 +61,12 @@
 
       h3 Contact Info
 
-      label Email
-      input(type="text", name="user[email]", value="#{ isset($user) ? $user['email'] : '' }")
-
-      label Choose a Password
-      input(type="password", name="user[password]")
+      .control-group
+        label Email
+        input(type="text", name="user[email]", value="#{ isset($user) ? $user['email'] : '' }")
+      .control-group
+        label Choose a Password
+        input(type="password", name="user[password]")
 
     - else:
       h3 Credentials
@@ -74,25 +81,28 @@
 
     - endif;
 
-    label Company Name
-    input(type="text", name="vendor[company_name]", value="#{ $vendor['company_name'] }")
+    .control-group
+      label Company Name
+      input(type="text", name="vendor[company_name]", value="#{ $vendor['company_name'] }")
 
-    label Person to Contact
-    input(type="text", name="vendor[contact_name]", value="#{ $vendor['contact_name'] }")
+    .control-group
+      label Person to Contact
+      input(type="text", name="vendor[contact_name]", value="#{ $vendor['contact_name'] }")
 
-    label Address
-    input(type="text", name="vendor[address]", value="#{ $vendor['address'] }")
+    .control-group
+      label Address
+      input(type="text", name="vendor[address]", value="#{ $vendor['address'] }")
 
-    label City
-    input(type="text", name="vendor[city]", value="#{ $vendor['city'] }")
+    .control-group
+      label City
+      input(type="text", name="vendor[city]", value="#{ $vendor['city'] }")
 
-    label State
-    select(name="vendor[state]")
-      - foreach(Helper::all_us_states() as $code => $state):
-        <option value="#{ $code }" #{ ($vendor['state'] == $code) ? "selected" : "" }> #{$state} </option>
+    .control-group
+      label State
+      select(name="vendor[state]")
+        - foreach(Helper::all_us_states() as $code => $state):
+          <option value="#{ $code }" #{ ($vendor['state'] == $code) ? "selected" : "" }> #{$state} </option>
 
-    label Zip
-    input(type="text", name="vendor[zip]", value="#{ $vendor['zip'] }")
-
-
-
+    .control-group
+      label Zip
+      input(type="text", name="vendor[zip]", value="#{ $vendor['zip'] }")

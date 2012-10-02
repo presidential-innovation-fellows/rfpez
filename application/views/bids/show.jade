@@ -14,6 +14,9 @@
   .span6
 
     h1 My Bid
+      a(class="btn btn-danger btn-small pull-right only-user only-user-#{$bid->vendor->user->id}", href="#{route('bid_destroy', array($contract->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
+        <i class="icon-white icon-trash"></i> Delete Bid
+
 
     .officer-only
       - if ($bid->dismissed()):
@@ -23,11 +26,6 @@
       - else:
         a(href="#", class="show-dismiss-modal", data-contract-id="#{$contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}") Dismiss?
       - endif;
-
-
-    div(class="only-user only-user-#{$bid->vendor->user->id}")
-      a.btn.btn-danger.btn-small(href="#{route('bid_destroy', array($contract->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
-        <i class="icon-white icon-trash"></i> Delete Bid
 
     h4 Approach
     p #{$bid->approach}

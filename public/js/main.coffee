@@ -86,12 +86,15 @@ $(document).on "click", ".answer-question-toggle", ->
   form.appendTo(question)
   form.show()
 
-$(document).on "submit", "#new-contract-form", ->
+$(document).on "submit", "#new-contract-form", (e) ->
+  return e.preventDefault() unless $(this).find('input[name=solnbr]').val()
   $(this).find("button[type=submit]").button('loading')
 
 $(document).on "submit", "#answer-question-form", (e) ->
   e.preventDefault()
   el = $(this)
+  answer_text = el.find("textarea[name=answer]").val()
+  return unless answer_text
   el.find("button").button('loading')
   question = el.closest(".question-wrapper")
   $.ajax
@@ -99,7 +102,7 @@ $(document).on "submit", "#answer-question-form", (e) ->
     type: "post"
     data:
       id: el.find("input[name=id]").val()
-      answer: el.find("textarea[name=answer]").val()
+      answer: answer_text
 
     success: (data) ->
       if data.status is "success"

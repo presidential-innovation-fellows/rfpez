@@ -5,10 +5,12 @@ div.nav-collapse.collapse
   ul.nav
 
     - if (Auth::user()->officer):
-      li(class="#{URI::is('contracts*') ? 'active':''}")
-        a(href="#{ route('my_contracts') }") contracts
+      li(class="#{URI::is('contracts/mine') ? 'active':''}")
+        a(href="#{ route('my_contracts') }") my contracts
+      li(class="#{URI::is('contracts*') && !URI::is('contracts/mine') ? 'active':''}")
+        a(href="#{ route('contracts') }") browse contracts
       li(class="#{URI::is('vendors') ? 'active':''}")
-        a(href="#{ route('vendors') }") vendors
+        a(href="#{ route('vendors') }") browse vendors
     - else:
       li(class="#{URI::is('contracts*') ? 'active':''}")
         a(href="#{ route('contracts') }") browse contracts

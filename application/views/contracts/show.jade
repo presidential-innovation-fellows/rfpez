@@ -27,7 +27,7 @@ div(class="only-user only-user-#{$contract->officer->id}")
       - endif;
 
     .no-auth-only
-      <a class="btn btn-success" href="#{route('signin')}">Sign in</a> to bid on this contract.
+      <a class="btn btn-success" href="#signinModal" data-toggle="modal">Sign in</a> to bid on this contract.
 
     hr
 
