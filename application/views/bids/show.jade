@@ -11,7 +11,7 @@
 
     !{ $contract->statement_of_work }
 
-  .span6
+  .span5.offset1
 
     h1 My Bid
       a(class="btn btn-danger btn-small pull-right only-user only-user-#{$bid->vendor->user->id}", href="#{route('bid_destroy', array($contract->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
