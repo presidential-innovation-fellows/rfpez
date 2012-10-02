@@ -16,15 +16,15 @@
 
       - $bid = Input::old('bid')
 
-      .section
+      .control-group
         label Your Approach
         textarea(name="bid[approach]", placeholder="Approach") #{ $bid["approach"] }
 
-      .section
+      .control-group
         label Previous Work
         textarea(name="bid[previous_work]", placeholder="Previous Work") #{ $bid["previous_work"] }
 
-      .section
+      .control-group
         label Employees who would work on this project
         textarea(name="bid[employee_details]", placeholder="Employee Details") #{ $bid["employee_details"] }
 

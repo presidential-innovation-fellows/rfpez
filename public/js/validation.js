@@ -2,6 +2,19 @@
 (function() {
 
   $(function() {
+    $(".new-bid-form").validate_rfpez({
+      rules: {
+        "bid[approach]": {
+          required: true
+        },
+        "bid[previous_work]": {
+          required: true
+        },
+        "bid[employee_details]": {
+          required: true
+        }
+      }
+    });
     $("#new-officer-form, .account-form-officer").validate_rfpez({
       rules: {
         "user[email]": {

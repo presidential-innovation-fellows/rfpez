@@ -61,7 +61,7 @@ class Bids_Controller extends Base_Controller {
     if ($bid->validator()->passes()) {
       $bid->save();
       Session::flash('notice', 'Thanks for submitting your bid.');
-      return Redirect::to_route('contract', array($contract->id));
+      return Redirect::to_route('bid', array($contract->id, $bid->id));
     } else {
       Session::flash('errors', $bid->validator()->errors->all());
       return Redirect::to_route('new_bids', array($contract->id, $bid->id))->with_input();
