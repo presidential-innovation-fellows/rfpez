@@ -42,10 +42,6 @@
     });
   };
 
-  $(document).on('scroll', check_for_scroll_position);
-
-  $(function() {
-    return check_for_scroll_position;
-  });
+  $(document).on('ready scroll', check_for_scroll_position);
 
 }).call(this);

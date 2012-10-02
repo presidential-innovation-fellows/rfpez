@@ -29,7 +29,4 @@ load_more_vendors = ->
         vendors_wrapper.addClass('finished-loading')
 
 
-$(document).on 'scroll', check_for_scroll_position
-
-$ ->
-  check_for_scroll_position
+$(document).on 'ready scroll', check_for_scroll_position
