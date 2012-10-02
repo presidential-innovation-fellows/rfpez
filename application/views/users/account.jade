@@ -1,7 +1,5 @@
 - Section::inject('page_title', 'My Account')
 
-h1 My Account
-
 form(action="#{route('account')}", method="POST")
 
   label Email: #{Auth::user()->email}
