@@ -49,8 +49,8 @@
       <label>An image of your best work</label>
       <input type="text" name="vendor[image_url]" value="<?= $vendor["image_url"] ?>" />
 
-      <label>Preview</label>
-      <div class="vendor-image-preview-frame">
+      <label class="vendor-image-preview hide">(Preview)</label>
+      <div class="vendor-image-preview vendor-image-preview-frame hide">
         <img />
       </div>
     </div>

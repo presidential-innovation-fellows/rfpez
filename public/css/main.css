@@ -57,16 +57,16 @@ body.vendor .no-vendor {
   display: none;
 }
 .vendor-image-preview-frame {
+  overflow: hidden;
+  text-align: center;
   width: 400px;
   height: 300px;
-  border: 1px solid #ccc;
+  border: 1px solid #eee;
   padding: 2px;
   margin: 5px 0 15px;
 }
 .vendor-image-preview-frame img {
   z-index: 2;
-  width: 400px;
-  height: 300px;
 }
 .media.vendor {
   display: inline-block;

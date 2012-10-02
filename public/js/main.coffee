@@ -1,8 +1,15 @@
 update_vendor_image_preview = ->
   el = $(".vendor-image-url input")
-  frame = el.closest(".vendor-image-form-row").find(".vendor-image-preview-frame")
-  img = frame.find("img")
-  img.attr("src", el.val())
+  frame = el.closest(".vendor-image-url").find(".vendor-image-preview-frame")
+  hideshow = $(".vendor-image-preview")
+  imgval = el.val()
+  if imgval == ''
+    hideshow.addClass('hide')
+  else
+    img = frame.find("img")
+    img.attr("src", imgval)
+    hideshow.removeClass('hide')
+
 
 $(document).on "click", "#add-deliverable-button", ->
   $(".deliverables-row:eq(0)").clone().appendTo(".prices-table tbody").find("input").val("")

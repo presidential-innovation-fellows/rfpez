@@ -3,11 +3,18 @@
   var update_vendor_image_preview;
 
   update_vendor_image_preview = function() {
-    var el, frame, img;
+    var el, frame, hideshow, img, imgval;
     el = $(".vendor-image-url input");
-    frame = el.closest(".vendor-image-form-row").find(".vendor-image-preview-frame");
-    img = frame.find("img");
-    return img.attr("src", el.val());
+    frame = el.closest(".vendor-image-url").find(".vendor-image-preview-frame");
+    hideshow = $(".vendor-image-preview");
+    imgval = el.val();
+    if (imgval === '') {
+      return hideshow.addClass('hide');
+    } else {
+      img = frame.find("img");
+      img.attr("src", imgval);
+      return hideshow.removeClass('hide');
+    }
   };
 
   $(document).on("click", "#add-deliverable-button", function() {
