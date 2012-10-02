@@ -116,14 +116,21 @@
     return form.show();
   });
 
-  $(document).on("submit", "#new-contract-form", function() {
+  $(document).on("submit", "#new-contract-form", function(e) {
+    if (!$(this).find('input[name=solnbr]').val()) {
+      return e.preventDefault();
+    }
     return $(this).find("button[type=submit]").button('loading');
   });
 
   $(document).on("submit", "#answer-question-form", function(e) {
-    var el, question;
+    var answer_text, el, question;
     e.preventDefault();
     el = $(this);
+    answer_text = el.find("textarea[name=answer]").val();
+    if (!answer_text) {
+      return;
+    }
     el.find("button").button('loading');
     question = el.closest(".question-wrapper");
     return $.ajax({
@@ -131,7 +138,7 @@
       type: "post",
       data: {
         id: el.find("input[name=id]").val(),
-        answer: el.find("textarea[name=answer]").val()
+        answer: answer_text
       },
       success: function(data) {
         var new_question;
