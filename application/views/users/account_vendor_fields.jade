@@ -48,10 +48,12 @@
     .vendor-image-url
       .control-group
         label An image of your best work
-        input(type="text", name="vendor[image_url]", value="#{ $vendor['image_url'] }")
+        .input-append
+          input(type="text", name="vendor[image_url]", value="#{ $vendor['image_url'] }")
+          button#prev-img-btn.btn(type="button") preview
 
       label.vendor-image-preview.hide (Preview)
-      vendor-image-preview.vendor-image-preview-frame.hide
+      .vendor-image-preview.vendor-image-preview-frame.hide
         img
 
 
