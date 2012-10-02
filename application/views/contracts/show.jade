@@ -1,4 +1,5 @@
-<?php Section::inject('page_title', $contract->title); ?>
+- Section::inject('page_title', $contract->title)
+- Section::inject('no_page_header', true)
 
 - if (Auth::user() && Auth::user()->officer):
   !{View::make('contracts.answer_question')}
