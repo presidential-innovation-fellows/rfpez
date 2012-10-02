@@ -1,40 +1,52 @@
 - Section::inject('page_title', 'Show Bid')
+- Section::inject('no_page_header', true)
 
 - if (Auth::user()->officer):
   !{View::make('bids.dismiss_modal')}
 - endif;
 
-.officer-only
-  - if ($bid->dismissed()):
-    | You have dismissed this bid.<br />
-    | Reason: #{$bid->dismissal_reason}<br />
-    | Explanation: #{$bid->dismissal_explanation}
-  - else:
-    a(href="#", class="show-dismiss-modal", data-contract-id="#{$contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}") Dismiss?
-  - endif;
+.row
+
+  .span6
+
+    !{ $contract->statement_of_work }
+
+  .span6
+
+    h1 My Bid
+
+    .officer-only
+      - if ($bid->dismissed()):
+        | You have dismissed this bid.<br />
+        | Reason: #{$bid->dismissal_reason}<br />
+        | Explanation: #{$bid->dismissal_explanation}
+      - else:
+        a(href="#", class="show-dismiss-modal", data-contract-id="#{$contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}") Dismiss?
+      - endif;
 
 
-div(class="only-user only-user-#{$bid->vendor->user->id}")
-  a(href="#{route('bid_destroy', array($contract->id, $bid->id))}") Delete Bid
+    div(class="only-user only-user-#{$bid->vendor->user->id}")
+      a.btn.btn-danger.btn-small(href="#{route('bid_destroy', array($contract->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
+        <i class="icon-white icon-trash"></i> Delete Bid
 
-h4 Approach
-p #{$bid->approach}
+    h4 Approach
+    p #{$bid->approach}
 
-h4 Previous Work
-p #{$bid->previous_work}
+    h4 Previous Work
+    p #{$bid->previous_work}
 
-h4 Employee Details
-p #{$bid->employee_details}
+    h4 Employee Details
+    p #{$bid->employee_details}
 
-h4 Prices
-table.table
-  thead
-    tr
-      th Deliverable
-      th Price
-  - if ($bid->prices):
-    - foreach($bid->prices as $deliverable => $price):
-      tr
-        td #{$deliverable}
-        td #{$price}
-  - endif;
+    h4 Prices
+    table.table
+      thead
+        tr
+          th Deliverable
+          th Price
+      - if ($bid->prices):
+        - foreach($bid->prices as $deliverable => $price):
+          tr
+            td #{$deliverable}
+            td #{$price}
+      - endif;
