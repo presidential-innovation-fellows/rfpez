@@ -9,6 +9,9 @@ div.nav-collapse.collapse
         a(href="#{ route('my_contracts') }") contracts
       li(class="#{URI::is('vendors') ? 'active':''}")
         a(href="#{ route('vendors') }") vendors
+    - else:
+      li(class="#{URI::is('contracts*') ? 'active':''}")
+        a(href="#{ route('contracts') }") browse contracts
 
   ul.nav.pull-right
     li(class="#{URI::is('account') ? 'active':''}")
@@ -20,7 +23,7 @@ div.nav-collapse.collapse
 
   ul.nav
     li(class="#{URI::is('contracts*') ? 'active':''}")
-      a(href="#{ route('contracts') }") all contracts
+      a(href="#{ route('contracts') }") browse contracts
 
   ul.nav.pull-right
     li(class="#{URI::is('signin') ? 'active':''}")
