@@ -57,14 +57,29 @@
   </fieldset>
 
   <fieldset class="span5">
-    <h3>Contact Info</h3>
 
     <?php if (isset($signup) && $signup): ?>
+      <h3>Contact Info</h3>
+
       <label>Email</label>
       <input type="text" name="user[email]" value="<?= isset($user) ? $user["email"] : "" ?>" />
 
       <label>Choose a Password</label>
       <input type="password" name="user[password]" />
+
+    <?php else: ?>
+      <h3>Credentials</h3>
+
+      <label class="larger"> <?= Auth::user()->email ?>
+        <a class="smaller" href="<?= route('change_email') ?>">change email</a>
+      </label>
+
+      <label class="larger"> (password hidden)
+        <a class="smaller" href="<?= route('change_password') ?>">change password</a>
+      </label>
+
+      <h3>Contact Info</h3>
+
     <?php endif; ?>
 
     <label>Company Name</label>
