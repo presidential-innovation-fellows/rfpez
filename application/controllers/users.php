@@ -67,7 +67,7 @@ class Users_Controller extends Base_Controller {
         $services = Input::get('services') ? array_keys(Input::get('services')) : array();
         $vendor->services()->sync($services);
         $vendor->save();
-        return Redirect::to_route('account');
+        return Redirect::to_route('account')->with('notice', 'Changes successfully saved.');
       } else {
         Session::flash('errors', $vendor->validator()->errors->all());
         return Redirect::to_route('account')->with_input();
@@ -77,7 +77,7 @@ class Users_Controller extends Base_Controller {
       $officer->fill(Input::get('officer'));
       if ($officer->validator()->passes()) {
         $officer->save();
-        return Redirect::to_route('account');
+        return Redirect::to_route('account')->with('notice', 'Changes successfully saved.');
       } else {
         Session::flash('errors', $officer->validator()->errors->all());
         return Redirect::to_route('account')->with_input();
