@@ -113,11 +113,11 @@ Route::filter('no_auth', function() {
 });
 
 Route::filter('vendor_only', function() {
-  if (Auth::guest()) return Redirect::to('/');
+  if (Auth::guest()) return Redirect::to('signin');
   if (!Auth::user()->vendor) return Redirect::to('/');
 });
 
 Route::filter('officer_only', function() {
-  if (Auth::guest()) return Redirect::to('/');
+  if (Auth::guest()) return Redirect::to('signin');
   if (!Auth::user()->officer) return Redirect::to('/');
 });
