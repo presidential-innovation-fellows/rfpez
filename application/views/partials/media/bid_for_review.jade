@@ -1,4 +1,4 @@
-tbody.bid(data-contract-id="#{$bid->contract->id}", data-bid-id="#{$bid->id}")
+tbody.bid(data-contract-id="#{$bid->contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}")
   tr
     td
       a(href="#{route('bid', array($bid->contract->id, $bid->id))}") #{$bid->vendor->company_name}
@@ -12,4 +12,4 @@ tbody.bid(data-contract-id="#{$bid->contract->id}", data-bid-id="#{$bid->id}")
         div
           em Dismissed: #{$bid->dismissal_reason}
       - else:
-        a(class="btn btn-warning show-dismiss-modal", data-contract-id="#{$bid->contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}", data-move-to-table="true") Dismiss?
+        a(class="btn btn-warning show-dismiss-modal", data-move-to-table="true") Dismiss?

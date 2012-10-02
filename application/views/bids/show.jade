@@ -11,7 +11,7 @@
 
     !{ $contract->statement_of_work }
 
-  .span5.offset1
+  .span5.offset1.bid(data-contract-id="#{$bid->contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}")
 
     h1 My Bid
       a(class="btn btn-danger btn-small pull-right only-user only-user-#{$bid->vendor->user->id}", href="#{route('bid_destroy', array($contract->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
@@ -28,8 +28,9 @@
           .dismissal-explanation
             strong Explanation:
             span #{$bid->dismissal_explanation}
+          a.btn.btn-info.undismiss-button Un-Dismiss
       - else:
-        a(href="#", class="show-dismiss-modal", data-contract-id="#{$contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}") Dismiss?
+        a(class="btn btn-warning show-dismiss-modal") Dismiss?
       - endif;
 
     h4 Approach

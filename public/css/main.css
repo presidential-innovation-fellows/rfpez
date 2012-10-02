@@ -186,3 +186,10 @@ body.vendor .no-auth-only {
 .dismissed-alert .dismissal-reason {
   padding-top: 10px;
 }
+.dismissed-alert .dismissal-explanation {
+  padding-bottom: 10px;
+  border-bottom: 1px dotted #ccc;
+}
+.dismissed-alert .btn {
+  margin-top: 10px;
+}

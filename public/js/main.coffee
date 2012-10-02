@@ -65,8 +65,9 @@ $(document).on "click", ".undismiss-button", ->
 
 $(document).on "click", ".show-dismiss-modal", ->
   el = $(this)
+  bid = el.closest(".bid")
   modal = $("#dismiss-modal")
-  modal.find(".company-name").text(el.data('vendor-company-name'))
+  modal.find(".company-name").text(bid.data('vendor-company-name'))
   modal.find("textarea").val("")
   modal.find("button").button('reset')
   modal.modal('show')
@@ -76,7 +77,7 @@ $(document).on "click", ".show-dismiss-modal", ->
     e.preventDefault()
     $(this).find("button").button('loading')
     $.ajax
-      url: "/contracts/" + el.data('contract-id') + "/bids/" + el.data('bid-id') + "/dismiss"
+      url: "/contracts/" + bid.data('contract-id') + "/bids/" + bid.data('bid-id') + "/dismiss"
       data:
         reason: modal.find("select[name=reason]").val()
         explanation: modal.find("textarea[name=explanation]").val()
@@ -85,7 +86,7 @@ $(document).on "click", ".show-dismiss-modal", ->
         if data.status is "already dismissed" or "success"
           modal.modal('hide')
           if el.data('move-to-table')
-            el.closest(".bid").remove()
+            bid.remove()
             new_bid = $(data.html)
             $(".bids-table.dismissed-bids thead").after(new_bid)
           else

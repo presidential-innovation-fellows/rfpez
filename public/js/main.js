@@ -92,10 +92,11 @@
   });
 
   $(document).on("click", ".show-dismiss-modal", function() {
-    var el, modal;
+    var bid, el, modal;
     el = $(this);
+    bid = el.closest(".bid");
     modal = $("#dismiss-modal");
-    modal.find(".company-name").text(el.data('vendor-company-name'));
+    modal.find(".company-name").text(bid.data('vendor-company-name'));
     modal.find("textarea").val("");
     modal.find("button").button('reset');
     modal.modal('show');
@@ -104,7 +105,7 @@
       e.preventDefault();
       $(this).find("button").button('loading');
       return $.ajax({
-        url: "/contracts/" + el.data('contract-id') + "/bids/" + el.data('bid-id') + "/dismiss",
+        url: "/contracts/" + bid.data('contract-id') + "/bids/" + bid.data('bid-id') + "/dismiss",
         data: {
           reason: modal.find("select[name=reason]").val(),
           explanation: modal.find("textarea[name=explanation]").val()
@@ -115,7 +116,7 @@
           if (data.status === "already dismissed" || "success") {
             modal.modal('hide');
             if (el.data('move-to-table')) {
-              el.closest(".bid").remove();
+              bid.remove();
               new_bid = $(data.html);
               return $(".bids-table.dismissed-bids thead").after(new_bid);
             } else {
