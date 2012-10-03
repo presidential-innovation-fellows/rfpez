@@ -8,7 +8,7 @@
     frame = el.closest(".vendor-image-url").find(".vendor-image-preview-frame");
     hideshow = $(".vendor-image-preview");
     imgval = el.val();
-    $("#prev-img-btn").removeClass('btn-primary');
+    $("#prev-img-btn").addClass('disabled');
     if (imgval === '') {
       return hideshow.addClass('hide');
     } else {
@@ -24,7 +24,7 @@
       event.preventDefault();
       return false;
     } else {
-      return $("#prev-img-btn").addClass('btn-primary');
+      return $("#prev-img-btn").removeClass('disabled');
     }
   };
 

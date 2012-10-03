@@ -3,7 +3,7 @@ update_vendor_image_preview = ->
   frame = el.closest(".vendor-image-url").find(".vendor-image-preview-frame")
   hideshow = $(".vendor-image-preview")
   imgval = el.val()
-  $("#prev-img-btn").removeClass('btn-primary')
+  $("#prev-img-btn").addClass('disabled')
   if imgval == ''
     hideshow.addClass('hide')
   else
@@ -17,7 +17,7 @@ vendor_image_keydown = ->
     event.preventDefault()
     return false
   else
-    $("#prev-img-btn").addClass('btn-primary')
+    $("#prev-img-btn").removeClass('disabled')
 
 $(document).on "click", ".bid .unstar-button, .bid .star-button", ->
   action = if $(this).hasClass('unstar-button') then "0" else "1"
