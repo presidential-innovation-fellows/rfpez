@@ -62,7 +62,6 @@ body.vendor .no-auth-only {
 }
 .question-wrapper .question {
   padding-bottom: 10px;
-  border-bottom: 1px dotted #ccc;
 }
 .question-wrapper .answer {
   padding-top: 10px;
