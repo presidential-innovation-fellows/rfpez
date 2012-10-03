@@ -37,13 +37,9 @@ class Contract extends Eloquent {
   }
 
   public function my_bid_id() {
+    if (!Auth::user() || !Auth::user()->vendor) return false;
     if (self::$my_bid_id_list === null) self::$my_bid_id_list = Auth::user()->vendor->bids()->lists('contract_id');
-
-    if (Auth::user() && Auth::user()->vendor){
-      if (in_array($this->id, self::$my_bid_id_list)) {
-        return $this->id;
-      }
-    }
+    if (in_array($this->id, self::$my_bid_id_list)) return $this->id;
 
     return false;
   }
