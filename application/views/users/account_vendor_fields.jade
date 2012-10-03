@@ -47,10 +47,10 @@
 
     .vendor-image-url
       .control-group
-        label An image of your best work
+        label Link to an image of your best work (400 x 300px)
         .input-append
           input(type="text", name="vendor[image_url]", value="#{ $vendor['image_url'] }")
-          button#prev-img-btn.btn(type="button") test
+          button#prev-img-btn.btn.btn-info(type="button") Preview
 
       label.vendor-image-preview.hide (Preview)
       .vendor-image-preview.vendor-image-preview-frame.hide

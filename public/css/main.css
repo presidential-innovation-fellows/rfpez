@@ -86,7 +86,8 @@ body.vendor .no-auth-only {
   margin: 5px 0 15px;
 }
 .vendor-image-preview-frame img {
-  z-index: 2;
+  width: 400px;
+  height: 300px;
 }
 .media.vendor {
   display: inline-block;
