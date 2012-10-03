@@ -10,18 +10,25 @@
 table.table.contracts-table
   thead
     tr
-      th Contract Title
-      th Type
-      th Agency
+      th.contract-title Contract Title
+      th.type Type
+      th.agency Agency
 
   - foreach($contracts as $contract):
     tbody.contract
       tr
         td
           a(href="#{route('contract', array($contract->id))}") #{$contract->title}
-          span(class="admin-star only-user only-user-#{$contract->officer->user->id}")
-            i.icon-star
-            | Posted by me
+          - if ($contract->is_mine()):
+            span.admin-star
+              i.icon-star
+              | Posted by me
+          - endif;
+
+          - if ($contract->my_bid()):
+            span.admin-star
+              i.icon-star
+              a(href="#{route('bid', array($contract->id, $contract->my_bid()->id))}") View my bid
 
         td #{@Contract::$naics_codes[$contract->naics_code] ?: $contract->naics_code}
         td #{$contract->agency}
