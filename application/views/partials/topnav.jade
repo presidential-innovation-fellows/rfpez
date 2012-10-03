@@ -3,30 +3,35 @@ div.nav-collapse.collapse
 - if (Auth::check()):
 
   ul.nav
+    li(class="#{URI::is('contracts*') ? 'active':''}")
+      a(href="#{ route('contracts') }") Contracts
 
     - if (Auth::user()->officer):
-      li(class="#{URI::is('contracts/mine') ? 'active':''}")
-        a(href="#{ route('my_contracts') }") my contracts
-      li(class="#{URI::is('contracts*') && !URI::is('contracts/mine') ? 'active':''}")
-        a(href="#{ route('contracts') }") browse contracts
       li(class="#{URI::is('vendors') ? 'active':''}")
-        a(href="#{ route('vendors') }") browse vendors
-    - else:
-      li(class="#{URI::is('contracts*') ? 'active':''}")
-        a(href="#{ route('contracts') }") browse contracts
+        a(href="#{ route('vendors') }") Vendors
 
   ul.nav.pull-right
-    li(class="#{URI::is('account') ? 'active':''}")
-      a(href="#{route('account')}") account
-    li
-      a(href="#{ route('signout') }") sign out
+    li.dropdown
+      a(href="#", class="dropdown-toggle", data-toggle="dropdown")
+        | #{Auth::user()->email}
+        b.caret
+      ul.dropdown-menu
+        - if (Auth::user()->officer):
+          li(class="#{URI::is('contracts/mine') ? 'active':''}")
+            a(href="#{ route('my_contracts') }") My Contracts
+        - endif;
+        li(class="#{URI::is('account') ? 'active':''}")
+          a(href="#{route('account')}") Account Settings
+        li
+          a(href="#{ route('signout') }") Sign Out
+
 
 - else:
 
   ul.nav
     li(class="#{URI::is('contracts*') ? 'active':''}")
-      a(href="#{ route('contracts') }") browse contracts
+      a(href="#{ route('contracts') }") Contracts
 
   ul.nav.pull-right
     li(class="#{URI::is('signin') ? 'active':''}")
-      a(href="#signinModal", data-toggle='modal') sign in
+      a(href="#signinModal", data-toggle='modal') Sign In
