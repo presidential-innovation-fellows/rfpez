@@ -19,6 +19,7 @@ class Contract extends Eloquent {
                                     'statement_of_work', 'title');
 
   public static $my_bid_id_list = null;
+  public static $my_contract_id_list = null;
 
   public function officer() {
     return $this->belongs_to('Officer');
@@ -33,7 +34,11 @@ class Contract extends Eloquent {
   }
 
   public function is_mine() {
-    return Auth::user() && Auth::user()->officer && Auth::user()->officer->user->id == $this->officer->user->id;
+    if  (!Auth::user() || !Auth::user()->officer) return false;
+    if (self::$my_contract_id_list === null) self::$my_contract_id_list = Auth::user()->officer->contracts()->lists('id');
+    if (in_array($this->id, self::$my_contract_id_list)) return $this->id;
+
+    return false;
   }
 
   public function my_bid_id() {
