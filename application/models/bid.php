@@ -6,6 +6,8 @@ class Bid extends Eloquent {
 
   public static $accessible = array('contract_id', 'approach', 'previous_work', 'employee_details', 'prices');
 
+  public static $dismissal_reasons = array('Price too high');
+
   public function validator() {
     $rules = array('approach' => 'required',
                    'previous_work' => 'required',

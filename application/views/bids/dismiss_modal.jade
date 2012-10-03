@@ -11,7 +11,8 @@
         label.control-label Dismissal Reason:
         .controls
           select(name='reason')
-            option(value='price too high') Price too high
+            - foreach (Bid::$dismissal_reasons as $reason):
+              option(value="#{$reason}") #{$reason}
 
       .control-group
         .controls
