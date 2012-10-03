@@ -1,56 +1,9 @@
 - Section::inject('page_title', 'Show Bid')
 - Section::inject('no_page_header', true)
 
-- if (Auth::user()->officer):
+- if (Auth::user()->id == $bid->contract->officer->user->id):
   !{View::make('bids.dismiss_modal')}
+  !{View::make('partials.media.officer_bid_toolbar')->with('bid', $bid)}
 - endif;
 
-.row
-
-  .span6
-
-    !{ $contract->statement_of_work }
-
-  .span5.offset1.bid(data-contract-id="#{$bid->contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}")
-
-    h1 My Bid
-      a(class="btn btn-danger btn-small pull-right only-user only-user-#{$bid->vendor->user->id}", href="#{route('bid_destroy', array($contract->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
-        <i class="icon-white icon-trash"></i> Delete Bid
-
-
-    .officer-only
-      - if ($bid->dismissed()):
-        .alert.alert-danger.dismissed-alert
-          .dismissal-notice You have dismissed this bid.
-          .dismissal-reason
-            strong Reason:
-            span #{$bid->dismissal_reason}
-          .dismissal-explanation
-            strong Explanation:
-            span #{$bid->dismissal_explanation}
-          a.btn.btn-info.undismiss-button Un-Dismiss
-      - else:
-        a(class="btn btn-warning show-dismiss-modal") Dismiss?
-      - endif;
-
-    h4 Approach
-    p #{$bid->approach}
-
-    h4 Previous Work
-    p #{$bid->previous_work}
-
-    h4 Employee Details
-    p #{$bid->employee_details}
-
-    h4 Prices
-    table.table
-      thead
-        tr
-          th Deliverable
-          th Price
-      - if ($bid->prices):
-        - foreach($bid->prices as $deliverable => $price):
-          tr
-            td #{$deliverable}
-            td $#{$price}
-      - endif;
+!{View::make('partials.media.bid_details')->with('bid', $bid)}

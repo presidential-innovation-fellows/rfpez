@@ -51,33 +51,41 @@ $(document).on "click", ".remove-deliverable", ->
 $(document).on "click", ".undismiss-button", ->
   el = $(this)
   bid = el.closest(".bid")
+  data_el = el.closest("[data-bid-id]")
+  contract_id = data_el.data('contract-id')
+  bid_id = data_el.data('bid-id')
+
   $.ajax
-    url: "/contracts/" + bid.data('contract-id') + "/bids/" + bid.data('bid-id') + "/dismiss"
+    url: "/contracts/#{contract_id}/bids/#{bid_id}/dismiss"
     type: "GET"
     success: (data) ->
       if data.status is "success"
         if el.data('move-to-table')
           new_bid = $(data.html)
           bid.remove()
-          $(".bids-table.open-bids thead").after(new_bid)
+          $(".bids-table.open-bids > thead").after(new_bid)
         else
           window.location.reload()
 
 $(document).on "click", ".show-dismiss-modal", ->
   el = $(this)
   bid = el.closest(".bid")
+  data_el = el.closest("[data-bid-id]")
+  contract_id = data_el.data('contract-id')
+  bid_id = data_el.data('bid-id')
+  vendor_company_name = data_el.data('vendor-company-name');
   modal = $("#dismiss-modal")
-  modal.find(".company-name").text(bid.data('vendor-company-name'))
+  modal.find(".company-name").text(vendor_company_name)
   modal.find("textarea").val("")
-  modal.find("button").button('reset')
+  modal.find(".dismiss-btn").button('reset')
   modal.modal('show')
 
   modal.off ".rfpez-dismiss"
   modal.on "submit.rfpez-dismiss", "form", (e) ->
     e.preventDefault()
-    $(this).find("button").button('loading')
+    $(this).find(".dismiss-btn").button('loading')
     $.ajax
-      url: "/contracts/" + bid.data('contract-id') + "/bids/" + bid.data('bid-id') + "/dismiss"
+      url: "/contracts/#{contract_id}/bids/#{bid_id}/dismiss"
       data:
         reason: modal.find("select[name=reason]").val()
         explanation: modal.find("textarea[name=explanation]").val()
@@ -88,7 +96,7 @@ $(document).on "click", ".show-dismiss-modal", ->
           if el.data('move-to-table')
             bid.remove()
             new_bid = $(data.html)
-            $(".bids-table.dismissed-bids thead").after(new_bid)
+            $(".bids-table.dismissed-bids > thead").after(new_bid)
           else
             window.location.reload()
 

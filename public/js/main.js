@@ -70,11 +70,14 @@
   });
 
   $(document).on("click", ".undismiss-button", function() {
-    var bid, el;
+    var bid, bid_id, contract_id, data_el, el;
     el = $(this);
     bid = el.closest(".bid");
+    data_el = el.closest("[data-bid-id]");
+    contract_id = data_el.data('contract-id');
+    bid_id = data_el.data('bid-id');
     return $.ajax({
-      url: "/contracts/" + bid.data('contract-id') + "/bids/" + bid.data('bid-id') + "/dismiss",
+      url: "/contracts/" + contract_id + "/bids/" + bid_id + "/dismiss",
       type: "GET",
       success: function(data) {
         var new_bid;
@@ -82,7 +85,7 @@
           if (el.data('move-to-table')) {
             new_bid = $(data.html);
             bid.remove();
-            return $(".bids-table.open-bids thead").after(new_bid);
+            return $(".bids-table.open-bids > thead").after(new_bid);
           } else {
             return window.location.reload();
           }
@@ -92,20 +95,24 @@
   });
 
   $(document).on("click", ".show-dismiss-modal", function() {
-    var bid, el, modal;
+    var bid, bid_id, contract_id, data_el, el, modal, vendor_company_name;
     el = $(this);
     bid = el.closest(".bid");
+    data_el = el.closest("[data-bid-id]");
+    contract_id = data_el.data('contract-id');
+    bid_id = data_el.data('bid-id');
+    vendor_company_name = data_el.data('vendor-company-name');
     modal = $("#dismiss-modal");
-    modal.find(".company-name").text(bid.data('vendor-company-name'));
+    modal.find(".company-name").text(vendor_company_name);
     modal.find("textarea").val("");
-    modal.find("button").button('reset');
+    modal.find(".dismiss-btn").button('reset');
     modal.modal('show');
     modal.off(".rfpez-dismiss");
     return modal.on("submit.rfpez-dismiss", "form", function(e) {
       e.preventDefault();
-      $(this).find("button").button('loading');
+      $(this).find(".dismiss-btn").button('loading');
       return $.ajax({
-        url: "/contracts/" + bid.data('contract-id') + "/bids/" + bid.data('bid-id') + "/dismiss",
+        url: "/contracts/" + contract_id + "/bids/" + bid_id + "/dismiss",
         data: {
           reason: modal.find("select[name=reason]").val(),
           explanation: modal.find("textarea[name=explanation]").val()
@@ -118,7 +125,7 @@
             if (el.data('move-to-table')) {
               bid.remove();
               new_bid = $(data.html);
-              return $(".bids-table.dismissed-bids thead").after(new_bid);
+              return $(".bids-table.dismissed-bids > thead").after(new_bid);
             } else {
               return window.location.reload();
             }
