@@ -30,6 +30,10 @@ class Contract extends Eloquent {
     return $this->has_many('Question');
   }
 
+  public function is_mine() {
+    return Auth::user() && Auth::user()->officer && Auth::user()->officer->user->id == $this->officer->user->id;
+  }
+
   public function current_bid_from($vendor) {
     $bid = Bid::where('contract_id', '=', $this->id)
               ->where('vendor_id', '=', $vendor->id)

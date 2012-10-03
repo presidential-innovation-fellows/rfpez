@@ -148,7 +148,17 @@ body.vendor .no-auth-only {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.contracts-table tr.no-border td {
+.contracts-table tbody.contract {
+  border-top: 1px solid #ddd;
+}
+.contracts-table tbody.contract .admin-star {
+  font-size: 11px;
+}
+.contracts-table tbody.contract .admin-star i {
+  line-height: 12px;
+  margin-top: -1px;
+}
+.contracts-table tr td {
   border: 0;
 }
 #dismiss-modal textarea {

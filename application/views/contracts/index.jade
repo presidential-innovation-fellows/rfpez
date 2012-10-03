@@ -19,13 +19,18 @@ table.table.contracts-table
       tr
         td
           a(href="#{route('contract', array($contract->id))}") #{$contract->title}
+          span(class="admin-star only-user only-user-#{$contract->officer->user->id}")
+            i.icon-star
+            | Posted by me
+
         td #{@Contract::$naics_codes[$contract->naics_code] ?: $contract->naics_code}
         td #{$contract->agency}
 
-      tr.contract-details.no-border
+      tr.contract-details
         td(colspan="3") #{$contract->sow_variable('bgscope')}
 
-      tr.deliverables.no-border
+      tr.deliverables
         td(colspan="3")
           strong Deliverables:
           #{$contract->parsed_deliverables_list}
+
