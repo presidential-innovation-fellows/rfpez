@@ -2,6 +2,7 @@
 - Section::inject('active_nav', 'contracts')
 
 - Section::start('inside_header');
+  a.officer-only.show-my-contracts-btn(href="#{route('my_contracts')}") show my contracts only
   .search-contracts.pull-right
     input.search-query#filter-contracts-input(type="search", placeholder="Filter contracts...")
 
