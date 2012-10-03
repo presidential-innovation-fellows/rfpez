@@ -1,6 +1,10 @@
 <?php
 
 Class Helper {
+  public static function active_nav($section) {
+    return (Section::yield('active_nav') == $section) ? true : false;
+  }
+
   public static function full_title($title = "") {
     if ($title == "") {
       return "EasyBid";

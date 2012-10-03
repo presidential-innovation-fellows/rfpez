@@ -2,8 +2,6 @@ tbody.bid(data-contract-id="#{$bid->contract->id}", data-bid-id="#{$bid->id}", d
   tr
     td
       a(data-toggle="collapse", data-target="#bid#{$bid->id}") #{$bid->vendor->company_name}
-      a.btn.btn-small(href="#{route('bid', array($bid->contract->id, $bid->id))}")
-        i.icon-share
     td $#{intval($bid->total_price())}
     td(class="star-td #{$bid->starred ? 'starred' : ''}")
       a.btn.btn-inverse.unstar-button Starred

@@ -1,4 +1,5 @@
 - Section::inject('page_title', 'Verify Contract Details')
+- Section::inject('active_nav', 'account')
 
 form(action="#{route('contract', array($contract->id))}", method="post")
   input(type="hidden", name="_method", value="PUT")
