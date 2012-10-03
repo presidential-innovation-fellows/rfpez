@@ -26,7 +26,7 @@ table.table.contracts-table
               | Posted by me
           - endif;
 
-          - if (Auth::user()->vendor && $contract->my_bid_id()):
+          - if (!Auth::guest() && Auth::user()->vendor && $contract->my_bid_id()):
             span.admin-star
               i.icon-star
               a(href="#{route('bid', array($contract->id, $contract->my_bid_id()))}") View my bid
