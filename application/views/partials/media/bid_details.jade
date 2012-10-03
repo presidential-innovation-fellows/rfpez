@@ -1,6 +1,9 @@
 .details-inner
 
-  h4 Bid from #{$bid->vendor->company_name} on
+  h4.officer-only Bid from #{$bid->vendor->company_name} on
+    a(href="#{route('contract', array($bid->contract->id))}") #{$bid->contract->title}
+
+  h4.vendor-only My bid on
     a(href="#{route('contract', array($bid->contract->id))}") #{$bid->contract->title}
 
   hr
