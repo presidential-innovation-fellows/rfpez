@@ -10,7 +10,7 @@ class Bids_Controller extends Base_Controller {
     $this->filter('before', 'vendor_only')->only(array('new', 'create', 'destroy'));
     $this->filter('before', 'contract_exists')->only(array('new', 'create', 'show', 'destroy', 'review', 'dismiss', 'star', 'sf1449'));
     $this->filter('before', 'bid_not_already_made')->only(array('new', 'create'));
-    $this->filter('before', 'bid_exists')->only(array('show', 'destroy', 'dismiss', 'star', 'sf1449'));
+    $this->filter('before', 'bid_exists_and_is_not_only_a_draft')->only(array('show', 'destroy', 'dismiss', 'star', 'sf1449'));
     $this->filter('before', 'allowed_to_view')->only(array('show', 'sf1449'));
     $this->filter('before', 'allowed_to_destroy')->only(array('destroy'));
     $this->filter('before', 'allowed_to_review')->only(array('review', 'dismiss', 'star'));
@@ -55,7 +55,7 @@ class Bids_Controller extends Base_Controller {
 
   public function action_create() {
     $contract = Config::get('contract');
-    $bid = new Bid();
+    $bid = $contract->my_current_bid_draft() ?: new Bid();
     $bid->vendor_id = Auth::user()->vendor->id;
     $bid->contract_id = $contract->id;
     $bid->fill(Input::get('bid'));
@@ -71,13 +71,18 @@ class Bids_Controller extends Base_Controller {
     }
     $bid->prices = $prices;
 
-    if ($bid->validator()->passes()) {
-      $bid->save();
-      Session::flash('notice', 'Thanks for submitting your bid.');
-      return Redirect::to_route('bid', array($contract->id, $bid->id));
+    if (Input::get('submit_now') === 'true') {
+      if ($bid->validator()->passes()) {
+        $bid->submit();
+        Session::flash('notice', 'Thanks for submitting your bid.');
+        return Redirect::to_route('bid', array($contract->id, $bid->id));
+      } else {
+        Session::flash('errors', $bid->validator()->errors->all());
+        return Redirect::to_route('new_bids', array($contract->id, $bid->id))->with_input();
+      }
     } else {
-      Session::flash('errors', $bid->validator()->errors->all());
-      return Redirect::to_route('new_bids', array($contract->id, $bid->id))->with_input();
+      $bid->save();
+      return Response::json(array("status" => "success"));
     }
 
   }
@@ -122,7 +127,6 @@ class Bids_Controller extends Base_Controller {
     $context = stream_context_create(array('http' => $contextData));
     $contents = @file_get_contents('http://pdf-filler.heroku.com/fill', false, $context);
 
-                   ->header('Content-Type', 'application/pdf');
     if ($contents) {
       return Response::make($contents)
                      ->header('Content-Type', 'application/pdf');
@@ -140,9 +144,9 @@ Route::filter('contract_exists', function() {
   Config::set('contract', $contract);
 });
 
-Route::filter('bid_exists', function() {
+Route::filter('bid_exists_and_is_not_only_a_draft', function() {
   $id = Request::$route->parameters[1];
-  $bid = Bid::find($id);
+  $bid = Bid::where_not_null('submitted_at')->where_id($id)->first();
   if (!$bid) return Redirect::to('/');
   Config::set('bid', $bid);
 });
@@ -172,6 +176,7 @@ Route::filter('bid_not_already_made', function() {
   $bid = Bid::where('vendor_id', '=', Auth::user()->vendor->id)
             ->where('contract_id', '=', $contract->id)
             ->where('deleted_by_vendor', '!=', true)
+            ->where_not_null('submitted_at')
             ->first();
 
   if ($bid) {

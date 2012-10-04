@@ -29,11 +29,19 @@ class Bid extends Eloquent {
   }
 
   public function get_prices() {
-    return json_decode($this->attributes['prices']);
+    return json_decode($this->attributes['prices'], true);
   }
 
   public function set_prices($value) {
     $this->attributes['prices'] = json_encode($value);
+  }
+
+  public function get_deliverable_names() {
+    return $this->get_prices() ? array_keys($this->get_prices()) : false;
+  }
+
+  public function get_deliverable_prices() {
+    return $this->get_prices() ? array_values($this->get_prices()) : false;
   }
 
   public function dismiss($reason, $explanation = false) {
@@ -51,6 +59,11 @@ class Bid extends Eloquent {
 
   public function dismissed() {
     return $this->dismissal_reason ? true : false;
+  }
+
+  public function submit() {
+    $this->submitted_at = new \DateTime;
+    $this->save();
   }
 
   public function total_price() {

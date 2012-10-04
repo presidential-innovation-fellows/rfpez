@@ -26,10 +26,14 @@ table.table.contracts-table
               | Posted by me
           - endif;
 
-          - if (!Auth::guest() && Auth::user()->vendor && $contract->my_bid_id()):
+          - if (!Auth::guest() && Auth::user()->vendor && $bid = $contract->my_bid()):
             span.admin-star
               i.icon-star
-              a(href="#{route('bid', array($contract->id, $contract->my_bid_id()))}") View my bid
+              - if ($bid->submitted_at):
+                a(href="#{route('bid', array($contract->id, $contract->my_bid()->id))}") View my bid
+              - else:
+                a(href="#{route('new_bids', array($contract->id))}") Continue Writing Bid
+              - endif;
 
         td #{@Contract::$naics_codes[$contract->naics_code] ?: $contract->naics_code}
         td #{$contract->agency}

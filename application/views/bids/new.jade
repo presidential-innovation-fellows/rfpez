@@ -2,6 +2,12 @@
 - Section::inject('no_page_header', true)
 - Section::inject('active_nav', 'contracts')
 
+<?php Section::start('additional_scripts') ?>
+
+<?= HTML::script('js/save-bid-draft.js') ?>
+
+<?php Section::stop() ?>
+
 .row
 
   .span6
@@ -14,7 +20,15 @@
 
     form.new-bid-form(action="#{ route('bids', array($contract->id)) }", method="POST")
 
-      - $bid = Input::old('bid')
+      input(type="hidden", name="submit_now", value="true")
+
+      - $draft = $contract->my_current_bid_draft()
+      - $draft_array = $draft ? $draft->to_array() : false
+      - $bid = Input::old('bid') ?: $draft_array
+
+      - if ($draft):
+        .alert.alert-success You are editing a draft saved on #{$draft->updated_at}.
+      - endif;
 
       .control-group
         label Your Approach
@@ -39,8 +53,10 @@
         tbody
 
           - $i = 0;
-          - $deliverable_prices = Input::old('deliverable_prices');
-          - $deliverable_names = Input::old('deliverable_names') ?: $contract->parsed_deliverables;
+          - $draft_deliverable_names = $draft ? $draft->deliverable_names : false
+          - $draft_deliverable_prices = $draft ? $draft->deliverable_prices : false
+          - $deliverable_prices = Input::old('deliverable_prices') ?: $draft_deliverable_prices
+          - $deliverable_names = Input::old('deliverable_names') ?: $draft_deliverable_names ?: $contract->parsed_deliverables
           - if ($deliverable_names):
             - foreach($deliverable_names as $deliverable_name):
               tr.deliverables-row
@@ -74,4 +90,5 @@
 
       .form-actions
         button.btn.btn-primary(type="submit") Submit Bid
+        a.btn#save-draft-button(data-loading-text="All Changes Saved") Save Draft
         span.help-inline note: bids cannot be edited once submitted!

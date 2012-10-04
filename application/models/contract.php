@@ -18,9 +18,6 @@ class Contract extends Eloquent {
                                     'naics_code', 'proposals_due_at', 'posted_at',
                                     'statement_of_work', 'title');
 
-  public static $my_bid_id_list = null;
-  public static $my_contract_id_list = null;
-
   public function officer() {
     return $this->belongs_to('Officer');
   }
@@ -35,17 +32,19 @@ class Contract extends Eloquent {
 
   public function is_mine() {
     if  (!Auth::user() || !Auth::user()->officer) return false;
-    if (self::$my_contract_id_list === null) self::$my_contract_id_list = Auth::user()->officer->contracts()->lists('id');
-    if (in_array($this->id, self::$my_contract_id_list)) return $this->id;
-
+    if (Auth::user()->officer->id == $this->officer_id) return true;
     return false;
   }
 
-  public function my_bid_id() {
+  public function my_bid() {
     if (!Auth::user() || !Auth::user()->vendor) return false;
-    if (self::$my_bid_id_list === null)
-      self::$my_bid_id_list = Auth::user()->vendor->bids()->where('deleted_by_vendor', '=', false)->lists('contract_id');
-    if (in_array($this->id, self::$my_bid_id_list)) return $this->id;
+
+    if ($bid = Auth::user()->vendor->bids()
+                           ->where_contract_id($this->id)
+                           ->where_deleted_by_vendor(false)
+                           ->first()) {
+      return $bid;
+    }
 
     return false;
   }
@@ -54,9 +53,30 @@ class Contract extends Eloquent {
     $bid = Bid::where('contract_id', '=', $this->id)
               ->where('vendor_id', '=', $vendor->id)
               ->where('deleted_by_vendor', '!=', true)
+              ->where_not_null('submitted_at')
               ->first();
 
     return $bid ? $bid : false;
+  }
+
+  public function current_bid_draft_from($vendor) {
+    $bid = Bid::where('contract_id', '=', $this->id)
+              ->where('vendor_id', '=', $vendor->id)
+              ->where('deleted_by_vendor', '!=', true)
+              ->where_null('submitted_at')
+              ->first();
+
+    return $bid ? $bid : false;
+  }
+
+  public function my_current_bid() {
+    if (!Auth::user() || !Auth::user()->vendor) return false;
+    return $this->current_bid_from(Auth::user()->vendor);
+  }
+
+  public function my_current_bid_draft() {
+    if (!Auth::user() || !Auth::user()->vendor) return false;
+    return $this->current_bid_draft_from(Auth::user()->vendor);
   }
 
   public function sow_variable($var) {
