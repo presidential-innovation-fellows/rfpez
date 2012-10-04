@@ -1,4 +1,9 @@
+$.validator.addMethod 'dotgovonly', (value, element, param) ->
+  return value.match(new RegExp('.gov$', 'i'))
+, 'Sorry, only .gov email addresses are allowed.'
+
 $ ->
+
   $(".new-bid-form").validate_rfpez
     rules:
       "bid[approach]":
@@ -15,6 +20,7 @@ $ ->
       "user[email]":
         email: true
         required: true
+        dotgovonly: true
         remote: "/validation/email"
 
       "officer[name]":
