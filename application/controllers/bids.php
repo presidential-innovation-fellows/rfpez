@@ -5,13 +5,13 @@ class Bids_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->filter('before', 'auth')->only(array('show'));
+    $this->filter('before', 'auth')->only(array('show', 'sf1449'));
     $this->filter('before', 'officer_only')->only(array('review', 'dismiss', 'star'));
     $this->filter('before', 'vendor_only')->only(array('new', 'create', 'destroy'));
-    $this->filter('before', 'contract_exists')->only(array('new', 'create', 'show', 'destroy', 'review', 'dismiss', 'star'));
+    $this->filter('before', 'contract_exists')->only(array('new', 'create', 'show', 'destroy', 'review', 'dismiss', 'star', 'sf1449'));
     $this->filter('before', 'bid_not_already_made')->only(array('new', 'create'));
-    $this->filter('before', 'bid_exists')->only(array('show', 'destroy', 'dismiss', 'star'));
-    $this->filter('before', 'allowed_to_view')->only(array('show'));
+    $this->filter('before', 'bid_exists')->only(array('show', 'destroy', 'dismiss', 'star', 'sf1449'));
+    $this->filter('before', 'allowed_to_view')->only(array('show', 'sf1449'));
     $this->filter('before', 'allowed_to_destroy')->only(array('destroy'));
     $this->filter('before', 'allowed_to_review')->only(array('review', 'dismiss', 'star'));
   }
@@ -93,8 +93,36 @@ class Bids_Controller extends Base_Controller {
     $contract = Config::get('contract');
     $bid = Config::get('bid');
     $bid->deleted_by_vendor = true;
-    $bid->save();;
+    $bid->save();
     return Redirect::to_route('contract', array($contract->id));
+  }
+
+  public function action_sf1449() {
+
+    $contract = Config::get('contract');
+    $bid = Config::get('bid');
+
+    $query = http_build_query(array('pdf' => 'http://www.acq.osd.mil/dpap/ccap/cc/jcchb/Files/FormsPubsRegs/forms/sf1449_e.pdf',
+                                    'solicitationnumber' => $contract->fbo_solnbr,
+                                    'solicitationdate' => $contract->posted_at,
+                                    'contactname' => $contract->officer->name,
+                                    'contactphone' => $contract->officer->phone,
+                                    'offerduedate' => $contract->proposals_due_at,
+                                    'contractoraddress' => $bid->vendor->company_name."\n".
+                                                           $bid->vendor->address."\n".
+                                                           $bid->vendor->city.", ".$bid->vendor->state." ".$bid->vendor->zip,
+                                    'schedule1' => 'SEE ATTACHED'));
+
+    $contextData = array('method' => 'POST',
+                         'header' => "Connection: close\r\n".
+                         "Content-Type: "."application/x-www-form-urlencoded"."\r\n",
+                         "Content-Length: ".strlen($query)."\r\n",
+                         'content'=> $query);
+
+    $context = stream_context_create(array('http' => $contextData));
+
+    return Response::make(file_get_contents('http://pdf-filler.heroku.com/fill', false, $context))
+                   ->header('Content-Type', 'application/pdf');
   }
 
 }

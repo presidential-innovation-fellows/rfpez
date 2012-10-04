@@ -6,6 +6,11 @@
   h4.vendor-only My bid on
     a(href="#{route('contract', array($bid->contract->id))}") #{$bid->contract->title}
 
+  a(class="btn", href="#{route('bid_sf1449', array($bid->contract->id, $bid->id))}")
+    i.icon-download
+    | SF1449
+
+
   hr
 
   .officer-only
