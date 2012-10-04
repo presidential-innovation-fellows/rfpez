@@ -103,4 +103,19 @@ class Contract extends Eloquent {
     }
   }
 
+  public function open_bids() {
+    return $this->bids()
+                ->where_deleted_by_vendor(false)
+                ->where_null('dismissal_reason')
+                ->where_not_null('submitted_at')
+                ->get();
+  }
+
+  public function dismissed_bids() {
+    return $this->bids()
+                ->where_deleted_by_vendor(false)
+                ->where_not_null('dismissal_reason')
+                ->get();
+  }
+
 }

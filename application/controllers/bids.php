@@ -25,8 +25,8 @@ class Bids_Controller extends Base_Controller {
   public function action_review() {
     $view = View::make('bids.review');
     $view->contract = Config::get('contract');
-    $view->open_bids = $view->contract->bids()->where('deleted_by_vendor', '!=', true)->where_null('dismissal_reason')->get();
-    $view->dismissed_bids = $view->contract->bids()->where('deleted_by_vendor', '!=', true)->where_not_null('dismissal_reason')->get();
+    $view->open_bids = $view->contract->open_bids();
+    $view->dismissed_bids = $view->contract->dismissed_bids();
     $this->layout->content = $view;
   }
 
@@ -173,11 +173,7 @@ Route::filter('allowed_to_review', function() {
 
 Route::filter('bid_not_already_made', function() {
   $contract = Config::get('contract');
-  $bid = Bid::where('vendor_id', '=', Auth::user()->vendor->id)
-            ->where('contract_id', '=', $contract->id)
-            ->where('deleted_by_vendor', '!=', true)
-            ->where_not_null('submitted_at')
-            ->first();
+  $bid = $contract->current_bid_from(Auth::user()->vendor);
 
   if ($bid) {
     Session::flash('notice', 'Sorry, but you already placed a bid on this contract.');
