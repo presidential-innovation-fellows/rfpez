@@ -30,22 +30,6 @@ class Vendor extends Eloquent {
     return $this->validator = $validator;
   }
 
-  public function set_homepage_url($value) {
-    $this->attributes['homepage_url'] = preg_match('/^https?\:\/\//', $value) ? $value : 'http://' . $value;
-  }
-
-  public function set_portfolio_url($value) {
-    $this->attributes['portfolio_url'] = preg_match('/^https?\:\/\//', $value) ? $value : 'http://' . $value;
-  }
-
-  public function set_image_url($value) {
-    $this->attributes['image_url'] = preg_match('/^https?\:\/\//', $value) ? $value : 'http://' . $value;
-  }
-
-  public function set_sourcecode_url($value) {
-    $this->attributes['sourcecode_url'] = preg_match('/^https?\:\/\//', $value) ? $value : 'http://' . $value;
-  }
-
   public function get_ballpark_price_display() {
     return self::$ballpark_prices[$this->ballpark_price];
   }
