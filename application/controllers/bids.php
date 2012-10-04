@@ -120,9 +120,15 @@ class Bids_Controller extends Base_Controller {
                          'content'=> $query);
 
     $context = stream_context_create(array('http' => $contextData));
+    $contents = @file_get_contents('http://pdf-filler.heroku.com/fill', false, $context);
 
-    return Response::make(file_get_contents('http://pdf-filler.heroku.com/fill', false, $context))
                    ->header('Content-Type', 'application/pdf');
+    if ($contents) {
+      return Response::make($contents)
+                     ->header('Content-Type', 'application/pdf');
+    } else {
+      return Response::error('404');
+    }
   }
 
 }
