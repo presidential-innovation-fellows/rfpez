@@ -49,19 +49,8 @@
         "vendor[more_info]": {
           required: true
         },
-        "vendor[homepage_url]": {
-          required: true,
-          url: true
-        },
-        "vendor[portfolio_url]": {
-          url: true
-        },
-        "vendor[sourcecode_url]": {
-          url: true
-        },
         "vendor[image_url]": {
-          required: true,
-          url: true
+          required: true
         },
         "user[email]": {
           required: true,
