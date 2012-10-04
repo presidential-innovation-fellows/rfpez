@@ -2,7 +2,7 @@
 - Section::inject('no_page_header', true)
 - Section::inject('active_nav', 'contracts')
 
-- if (Auth::user()->id == $bid->contract->officer->user->id):
+- if ($bid->contract->is_mine()):
   !{View::make('bids.dismiss_modal')}
   !{View::make('partials.media.officer_bid_toolbar')->with('bid', $bid)}
 - endif;

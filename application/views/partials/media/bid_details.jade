@@ -6,6 +6,14 @@
   h4.vendor-only My bid on
     a(href="#{route('contract', array($bid->contract->id))}") #{$bid->contract->title}
 
+  a.btn(href="#{route('bid_sf1449', array($bid->contract->id, $bid->id))}")
+    i.icon-download
+    | SF1449
+
+  a.btn.btn-danger.vendor-only(href="#{route('bid_destroy', array($bid->contract->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
+    i.icon-white.icon-trash
+    | Delete Bid
+
   hr
 
   .officer-only
