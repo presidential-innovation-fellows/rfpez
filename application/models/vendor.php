@@ -22,6 +22,8 @@ class Vendor extends Eloquent {
                    'zip' => 'required|numeric',
                    'ballpark_price' => 'required|numeric',
                    'homepage_url' => 'required|url',
+                   'portfolio_url' => 'url',
+                   'sourcecode_url' => 'url',
                    'image_url' => 'required|url');
 
     $validator = Validator::make($this->attributes, $rules);
