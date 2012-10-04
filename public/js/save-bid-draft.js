@@ -30,7 +30,7 @@
 
   $(document).on("input", ".new-bid-form :input", form_update_handler);
 
-  $(document).on("click", "#add-deliverable-button", form_update_handler);
+  $(document).on("click", "#add-deliverable-button, .remove-deliverable", form_update_handler);
 
   window.setInterval(save_draft, 5000);
 
