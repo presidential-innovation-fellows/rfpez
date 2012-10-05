@@ -2,6 +2,8 @@
 (function() {
   var update_vendor_image_preview, vendor_image_keydown;
 
+  window.Rfpez || (window.Rfpez = {});
+
   update_vendor_image_preview = function() {
     var el, frame, hideshow, img, imgval;
     el = $(".vendor-image-url input");
@@ -27,6 +29,13 @@
       return $("#prev-img-btn").removeClass('disabled');
     }
   };
+
+  $(document).on('show', '.bid-details .collapse', function() {
+    var bid_id, data_el;
+    data_el = $(this).closest("[data-bid-id]");
+    bid_id = data_el.data('bid-id');
+    return Rfpez.view_notification_payload('bid', bid_id);
+  });
 
   $(document).on('shown', '#signinModal', function() {
     return $("#signinModal #email").focus();

@@ -1,3 +1,5 @@
+window.Rfpez ||= {}
+
 update_vendor_image_preview = ->
   el = $(".vendor-image-url input")
   frame = el.closest(".vendor-image-url").find(".vendor-image-preview-frame")
@@ -18,6 +20,11 @@ vendor_image_keydown = ->
     return false
   else
     $("#prev-img-btn").removeClass('disabled')
+
+$(document).on 'show', '.bid-details .collapse', ->
+  data_el = $(this).closest("[data-bid-id]")
+  bid_id = data_el.data('bid-id')
+  Rfpez.view_notification_payload('bid', bid_id)
 
 $(document).on 'shown', '#signinModal', ->
   $("#signinModal #email").focus()

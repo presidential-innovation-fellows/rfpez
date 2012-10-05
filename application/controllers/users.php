@@ -13,7 +13,7 @@ class Users_Controller extends Base_Controller {
                                                    'get_reset_password', 'post_reset_password'));
 
     $this->filter('before', 'auth')->only(array('get_account', 'post_account', 'get_change_email', 'post_change_email',
-                                                'get_change_password', 'post_change_password'));
+                                                'get_change_password', 'post_change_password', 'view_notification_payload'));
   }
 
 
@@ -168,6 +168,13 @@ class Users_Controller extends Base_Controller {
       return Redirect::to_route('change_password');
     }
 
+  }
+
+  public function action_view_notification_payload($key, $val) {
+    $user = Auth::user();
+    $user->view_notification_payload($key, $val);
+    return Response::json(array("status" => "success",
+                                "unread_count" => $user->unread_notification_count()));
   }
 
 

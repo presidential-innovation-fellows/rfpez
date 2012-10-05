@@ -92,7 +92,7 @@ class Bids_Controller extends Base_Controller {
     $view->contract = Config::get('contract');
     $view->bid = Config::get('bid');
     $this->layout->content = $view;
-    Notification::mark_as_read_where_bid_id($view->bid->id);
+    Auth::user()->view_notification_payload('bid', $view->bid->id);
   }
 
   public function action_destroy() {

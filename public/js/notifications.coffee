@@ -1,4 +1,4 @@
-update_notification_badge = (count) ->
+Rfpez.update_notification_badge = (count) ->
   nav_item = $(".notification-nav-item")
   badge = nav_item.find(".unread-notification-badge")
   if count > 0
@@ -6,6 +6,13 @@ update_notification_badge = (count) ->
     badge.removeClass('hide')
   else
     badge.addClass('hide')
+
+Rfpez.view_notification_payload = (key, val) ->
+  $.ajax
+    url: "/account/viewnotifications/#{key}/#{val}"
+    type: "PUT"
+    success: (data) ->
+      Rfpez.update_notification_badge(data.unread_count)
 
 $(document).on "click", ".notification-item .mark-as-read, .notification-item .mark-as-unread", ->
   el = $(this)
@@ -22,4 +29,4 @@ $(document).on "click", ".notification-item .mark-as-read, .notification-item .m
       if data.status is "success"
         new_notification_item = $(data.html)
         notification_item.replaceWith(new_notification_item)
-        update_notification_badge(data.unread_count)
+        Rfpez.update_notification_badge(data.unread_count)

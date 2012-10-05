@@ -123,6 +123,15 @@ class User extends Eloquent {
     return $this->has_many('Notification', 'actor_id');
   }
 
+  public function view_notification_payload($key, $val) {
+    foreach ($this->unread_notifications() as $notification) {
+      if ($key == "bid") {
+        if ($notification->payload["bid"] && $notification->payload["bid"]["id"] == $val)
+          $notification->mark_as_read();
+      }
+    }
+  }
+
   public function account_type() {
     return $this->vendor ? 'vendor' : 'officer';
   }

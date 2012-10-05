@@ -17,6 +17,7 @@ Route::post('account/email', array('uses' => 'users@post_change_email', 'as' => 
 Route::get('account/password', array('uses' => 'users@get_change_password', 'as' => 'change_password'));
 Route::post('account/password', array('uses' => 'users@post_change_password', 'as' => 'change_password'));
 Route::get('account/confirmnewemail/(:any)', array('uses' => 'users@confirm_new_email', 'as' => 'confirm_new_email'));
+Route::put('account/viewnotifications/(:any)/(:any)', array('uses' => 'users@view_notification_payload', 'as' => 'view_notification_payload'));
 
 Route::get('forgotpassword', array('uses' => 'users@get_forgot_password', 'as' => 'forgot_password'));
 Route::post('forgotpassword', array('uses' => 'users@post_forgot_password', 'as' => 'forgot_password'));

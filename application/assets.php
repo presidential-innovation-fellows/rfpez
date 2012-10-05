@@ -16,10 +16,10 @@ Basset::scripts('website', function($basset)
          ->add('jqueryvalidate', 'js/vendor/jquery.validate.js')
          ->add('jqueryvalidaterfpez', 'js/vendor/jquery.validate_rfpez.js')
          ->add('jqueryform', 'js/vendor/jquery.form.js')
+         ->add('mainjs', 'main.js')
          ->add('validation', 'js/validation.js')
          ->add('filtercontracts', 'js/filter-contracts.js')
-         ->add('notifications', 'js/notifications.js')
-         ->add('mainjs', 'main.js');
+         ->add('notifications', 'js/notifications.js');
 });
 
 Basset::styles('website', function($basset)
