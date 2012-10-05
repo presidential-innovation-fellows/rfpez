@@ -23,7 +23,7 @@ table.table.contracts-table
           - if ($contract->is_mine()):
             span.admin-star
               i.icon-star
-              | Posted by me
+              a(href="#{route('bids', array($contract->id))}") Review Bids
           - endif;
 
           - if (!Auth::guest() && Auth::user()->vendor && $bid = $contract->my_bid()):
