@@ -28,6 +28,10 @@
     }
   };
 
+  $(document).on('shown', '#signinModal', function() {
+    return $("#signinModal #email").focus();
+  });
+
   $(document).on("click", ".bid .unstar-button, .bid .star-button", function() {
     var action, bid;
     action = $(this).hasClass('unstar-button') ? "0" : "1";

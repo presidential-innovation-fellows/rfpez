@@ -19,6 +19,9 @@ vendor_image_keydown = ->
   else
     $("#prev-img-btn").removeClass('disabled')
 
+$(document).on 'shown', '#signinModal', ->
+  $("#signinModal #email").focus()
+
 $(document).on "click", ".bid .unstar-button, .bid .star-button", ->
   action = if $(this).hasClass('unstar-button') then "0" else "1"
   bid = $(this).closest(".bid")
