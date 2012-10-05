@@ -8,7 +8,7 @@ class Bids_Controller extends Base_Controller {
     $this->filter('before', 'auth')->only(array('show', 'sf1449'));
     $this->filter('before', 'officer_only')->only(array('review', 'dismiss', 'star'));
     $this->filter('before', 'vendor_only')->only(array('new', 'create', 'destroy'));
-    $this->filter('before', 'contract_exists')->only(array('new', 'create', 'show', 'destroy', 'review', 'dismiss', 'star', 'sf1449'));
+    $this->filter('before', 'contract_exists');
     $this->filter('before', 'bid_not_already_made')->only(array('new', 'create'));
     $this->filter('before', 'bid_exists_and_is_not_only_a_draft')->only(array('show', 'destroy', 'dismiss', 'star', 'sf1449'));
     $this->filter('before', 'allowed_to_view')->only(array('show', 'sf1449'));
