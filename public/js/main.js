@@ -230,7 +230,8 @@
   });
 
   $(function() {
-    return update_vendor_image_preview();
+    update_vendor_image_preview();
+    return $("[data-onload-focus]:eq(0)").focus();
   });
 
 }).call(this);

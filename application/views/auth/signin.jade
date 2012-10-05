@@ -6,7 +6,7 @@ form.form-horizontal(action="#{ route('signin') }", method="POST")
   .control-group
     label.control-label Email
     .controls
-      input(type='text', name='email')
+      input(type='text', name='email', value="#{Input::old('email')}", data-onload-focus)
 
   .control-group
     label.control-label Password

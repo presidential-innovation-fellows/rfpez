@@ -22,7 +22,7 @@ class Auth_Controller extends Base_Controller {
       Auth::user()->track_signin();
       return Redirect::to('/');
     } else {
-      return Redirect::to_route('signin')->with('errors', array('Login incorrect.'));
+      return Redirect::to_route('signin')->with('errors', array('Login incorrect.'))->with_input();
     }
   }
 

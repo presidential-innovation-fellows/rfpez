@@ -173,3 +173,4 @@ $(document).on "submit", "#answer-question-form", (e) ->
 
 $ ->
   update_vendor_image_preview()
+  $("[data-onload-focus]:eq(0)").focus()
