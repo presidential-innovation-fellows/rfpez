@@ -15,9 +15,8 @@
     | Delete Bid
 
   hr
-
-  .officer-only
-    - if ($bid->dismissed()):
+  - if ($bid->dismissed()):
+    .officer-only
       .alert.alert-danger.dismissed-alert
         .dismissal-notice You have dismissed this bid.
         .dismissal-reason
@@ -26,7 +25,17 @@
         .dismissal-explanation
           strong Explanation:
           span #{$bid->dismissal_explanation}
-    - endif;
+
+    .vendor-only
+      .alert.alert-danger.dismissed-alert
+        .dismissal-notice Your bid has been dismissed.
+        .dismissal-reason
+          strong Reason:
+          span #{$bid->dismissal_reason}
+        .dismissal-explanation
+          strong Explanation:
+          span #{$bid->dismissal_explanation}
+  - endif;
 
   h4 Approach
   p #{$bid->approach}
