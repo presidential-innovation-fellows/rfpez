@@ -2,13 +2,13 @@
 
 if ($notification->notification_type == "Dismissal") {
   $bid = $notification->payload["bid"];
-  $line1 = "Your bid on <a href='".route('contract', array($bid["contract_id"]))."'>".$bid["contract"]["title"].
+  $line1 = "Your bid on <a href='".route('bid', array($bid["contract"]["id"], $bid["id"]))."'>".$bid["contract"]["title"].
             "</a> has been dismissed.";
   $line2 = "Dismissal reason: \"" . $notification->payload["bid"]["dismissal_reason"]."\"";
 
 } elseif ($notification->notification_type == "Undismissal") {
   $bid = $notification->payload["bid"];
-  $line1 = "Your bid on <a href='".route('contract', array($bid["contract_id"]))."'>".$bid["contract"]["title"].
+  $line1 = "Your bid on <a href='".route('bid', array($bid["contract"]["id"], $bid["id"]))."'>".$bid["contract"]["title"].
             "</a> has been un-dismissed.";
   $line2 = "Congrats, you're back in the running!";
 

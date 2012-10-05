@@ -30,6 +30,15 @@ class Notification extends Eloquent {
     $this->save();
   }
 
+  public static function mark_as_read_where_bid_id($id) {
+    if (!Auth::user()) return;
+
+    foreach (Auth::user()->unread_notifications() as $notification) {
+      if ($notification->payload["bid"] && $notification->payload["bid"]["id"] == $id)
+        $notification->mark_as_read();
+    }
+  }
+
   public static function send($notification_type, $attributes) {
     // @todo More info can be "cached" in the payload for better performance when reading notifications.
     $notification = new Notification(array('notification_type' => $notification_type));

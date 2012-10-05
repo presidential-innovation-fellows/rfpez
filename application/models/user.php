@@ -107,6 +107,10 @@ class User extends Eloquent {
     return $this->has_one('Officer');
   }
 
+  public function unread_notifications() {
+    return $this->notifications_received()->where_read(false)->get();
+  }
+
   public function unread_notification_count() {
     return $this->notifications_received()->where_read(false)->count();
   }
