@@ -1,3 +1,6 @@
+Rfpez.unread_notification_count = ->
+  parseInt($(".notification-nav-item .unread-notification-badge").text())
+
 Rfpez.update_notification_badge = (count) ->
   nav_item = $(".notification-nav-item")
   badge = nav_item.find(".unread-notification-badge")
@@ -5,9 +8,11 @@ Rfpez.update_notification_badge = (count) ->
     badge.text(count)
     badge.removeClass('hide')
   else
+    badge.text(0)
     badge.addClass('hide')
 
 Rfpez.view_notification_payload = (key, val) ->
+  return unless Rfpez.unread_notification_count() > 0
   $.ajax
     url: "/account/viewnotifications/#{key}/#{val}"
     type: "PUT"
