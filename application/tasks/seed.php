@@ -178,25 +178,8 @@ class Seed_Task {
                              'employee_details' => 'These are the employee details.',
                              'prices' => array('First deliverable' => '100', 'Second deliverable' => '200')));
       $b->vendor_id = $v->id;
-      $b->save();
+      $b->submit();
 
-      $b1 = new Bid    (array('contract_id' => $c->id,
-                             'approach' => 'This is the approach.',
-                             'previous_work' => 'This is the previous work.',
-                             'employee_details' => 'These are the employee details.',
-                             'prices' => array('First deliverable' => '50', 'Second deliverable' => '200')));
-      $b1->vendor_id = $v->id;
-      $b1->save();
-
-      $b2 = new Bid    (array('contract_id' => $c->id,
-                             'approach' => 'This is the approach.',
-                             'previous_work' => 'This is the previous work.',
-                             'employee_details' => 'These are the employee details.',
-                             'prices' => array('First deliverable' => '500', 'Second deliverable' => '1200')));
-      $b2->vendor_id = $v->id;
-      $b2->dismissal_reason = "Price too high.";
-      $b2->dismissal_explanation = "Sorry, the price you quoted was too high for our contract.";
-      $b2->save();
 
       $q = new Question(array('contract_id' => $c->id,
                               'question' => 'Is there any need for information architecture? I know that when I usually do a thing like this, information architecture is most definitely included.',

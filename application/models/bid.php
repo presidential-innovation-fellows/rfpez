@@ -4,6 +4,8 @@ class Bid extends Eloquent {
 
   public static $timestamps = true;
 
+  public $includes = array('contract', 'vendor');
+
   public static $accessible = array('contract_id', 'approach', 'previous_work', 'employee_details', 'prices');
 
   public static $dismissal_reasons = array('Price too high');
@@ -49,12 +51,15 @@ class Bid extends Eloquent {
     $this->dismissal_reason = $reason;
     $this->dismissal_explanation = $explanation;
     $this->save();
+
+    Notification::send('Dismissal', array('bid' => $this));
   }
 
   public function undismiss() {
     $this->dismissal_reason = NULL;
     $this->dismissal_explanation = NULL;
     $this->save();
+    Notification::send('Undismissal', array('bid' => $this));
   }
 
   public function dismissed() {
@@ -64,6 +69,7 @@ class Bid extends Eloquent {
   public function submit() {
     $this->submitted_at = new \DateTime;
     $this->save();
+    Notification::send('BidSubmit', array('bid' => $this));
   }
 
   public function total_price() {

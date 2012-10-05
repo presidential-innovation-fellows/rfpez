@@ -107,6 +107,14 @@ class User extends Eloquent {
     return $this->has_one('Officer');
   }
 
+  public function notifications_received() {
+    return $this->has_many('Notification', 'target_id')->order_by('created_at', 'desc');
+  }
+
+  public function notifications_sent() {
+    return $this->has_many('Notification', 'actor_id');
+  }
+
   public function account_type() {
     return $this->vendor ? 'vendor' : 'officer';
   }

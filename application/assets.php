@@ -18,6 +18,7 @@ Basset::scripts('website', function($basset)
          ->add('jqueryform', 'js/vendor/jquery.form.js')
          ->add('validation', 'js/validation.js')
          ->add('filtercontracts', 'js/filter-contracts.js')
+         ->add('notifications', 'js/notifications.js')
          ->add('mainjs', 'main.js');
 });
 

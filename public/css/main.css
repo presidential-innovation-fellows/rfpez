@@ -229,3 +229,49 @@ body.vendor .no-auth-only {
 .fit3wells .span4 {
   width: 250px;
 }
+.notification-list {
+  margin: 0;
+}
+.notification-item {
+  list-style: none;
+  padding: 10px 0 10px 30px;
+  position: relative;
+}
+.notification-item.unread {
+  font-weight: bold;
+}
+.notification-item.unread .unread-button-wrapper {
+  display: block;
+}
+.notification-item.unread .read-button-wrapper {
+  display: none !important;
+}
+.notification-item:hover .read-button-wrapper {
+  display: block;
+}
+.notification-item .unread-button-wrapper,
+.notification-item .read-button-wrapper {
+  position: absolute;
+  top: 28px;
+  left: 0;
+}
+.notification-item .unread-button-wrapper {
+  display: none;
+}
+.notification-item .read-button-wrapper {
+  display: none;
+}
+.notification-item .line2 {
+  color: #999;
+  font-weight: normal;
+}
+.notification-item .timestamp {
+  font-weight: normal;
+}
+.btn-circle {
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  padding: 0;
+  height: 12px;
+  width: 12px;
+}
