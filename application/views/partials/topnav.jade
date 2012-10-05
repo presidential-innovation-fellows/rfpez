@@ -24,6 +24,13 @@ div.nav-collapse.collapse
           a(href="#{route('account')}") Account Settings
         li
           a(href="#{ route('signout') }") Sign Out
+    li(class="notification-nav-item #{Helper::active_nav('notifications') ? 'active':''}")
+      a(href="#{route('notifications')}")
+        | &nbsp;
+        i.icon-white.icon-envelope
+        - $count = Auth::user()->unread_notification_count()
+        span(class="badge badge-inverse unread-notification-badge #{$count == 0 ? 'hide' : ''}") #{$count}
+        | &nbsp;
 
 
 - else:

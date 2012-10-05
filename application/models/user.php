@@ -107,6 +107,10 @@ class User extends Eloquent {
     return $this->has_one('Officer');
   }
 
+  public function unread_notification_count() {
+    return $this->notifications_received()->where_read(false)->count();
+  }
+
   public function notifications_received() {
     return $this->has_many('Notification', 'target_id')->order_by('created_at', 'desc');
   }

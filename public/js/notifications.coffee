@@ -1,3 +1,12 @@
+update_notification_badge = (count) ->
+  nav_item = $(".notification-nav-item")
+  badge = nav_item.find(".unread-notification-badge")
+  if count > 0
+    badge.text(count)
+    badge.removeClass('hide')
+  else
+    badge.addClass('hide')
+
 $(document).on "click", ".notification-item .mark-as-read, .notification-item .mark-as-unread", ->
   el = $(this)
   notification_item = el.closest(".notification-item")
@@ -13,3 +22,4 @@ $(document).on "click", ".notification-item .mark-as-read, .notification-item .m
       if data.status is "success"
         new_notification_item = $(data.html)
         notification_item.replaceWith(new_notification_item)
+        update_notification_badge(data.unread_count)
