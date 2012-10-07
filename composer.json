@@ -2,7 +2,8 @@
     "name": "RFPEZ",
     "require": {
         "php": ">=5.3.0",
-        "dz0ny/jade.php": "@dev"
+        "dz0ny/jade.php": "@dev",
+        "fzaninotto/faker": "dev-master"
     },
     "minimum-stability": "stable"
 }
