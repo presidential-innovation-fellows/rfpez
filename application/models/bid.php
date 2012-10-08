@@ -53,6 +53,7 @@ class Bid extends Eloquent {
     $this->save();
 
     Notification::send('Dismissal', array('bid' => $this));
+    Mailer::send('Dismissal', array('bid' => $this));
   }
 
   public function undismiss() {
