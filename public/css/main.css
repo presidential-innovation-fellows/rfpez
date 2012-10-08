@@ -136,6 +136,9 @@ body.vendor .no-auth-only {
 .new-bid-form .prices-table .deliverables-row input.deliverable-price {
   width: 60px;
 }
+.new-bid-form .prices-table tfoot .total-price-row th {
+  text-align: right;
+}
 .contract-list {
   list-style: none;
   font-size: 1.4em;
