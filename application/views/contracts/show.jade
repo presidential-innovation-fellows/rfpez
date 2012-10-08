@@ -35,8 +35,11 @@
     .q-and-a
       h4 Q &amp; A
       .questions
-        - foreach($contract->questions as $question):
-          !{View::make('partials.media.question')->with('question', $question)}
+        - if ($contract->questions):
+          - foreach($contract->questions as $question):
+            !{View::make('partials.media.question')->with('question', $question)}
+        - else:
+          p No questions have been asked.
 
       .vendor-only
         h4 Ask a question about this project
