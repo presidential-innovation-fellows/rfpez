@@ -1,0 +1,52 @@
+.bids-table
+  width 100%
+
+  thead
+    th.vendor-name
+      width 50%
+    th.price
+      width 10%
+    th.starred
+      width 15%
+    th.actions
+      width 25%
+
+  .bid
+    .star-td
+      .unstar-button
+        display none
+
+      &.starred
+        .unstar-button
+          display inline-block
+
+        .star-button
+          display none
+
+    .bid-details
+      border 0
+      padding 0
+
+      div
+        margin-left 4px
+
+        .details-inner
+          margin-bottom 10px
+
+      .example-work
+        padding-left 20px
+
+#dismiss-modal
+  textarea
+    width 100%
+    box-sizing border-box
+    min-height 100px
+
+
+.dismissed-alert
+  .dismissal-notice
+    border-bottom 1px dotted #ccc
+    padding-bottom 10px
+
+  .dismissal-reason
+    padding-top 10px

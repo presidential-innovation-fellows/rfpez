@@ -1,0 +1,26 @@
+//// Conditional Styles for different user types ////
+body
+
+  &.no-auth
+    .vendor-only, .officer-only
+      display none !important
+
+  &.officer
+    .vendor-only
+      display none !important
+
+    .no-officer
+      display none !important
+
+    .no-auth-only
+      display none !important
+
+  &.vendor
+    .officer-only
+      display none !important
+
+    .no-vendor
+      display none !important
+
+    .no-auth-only
+      display none !important

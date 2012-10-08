@@ -1,0 +1,38 @@
+.notification-list
+  margin 0
+
+.notification-item
+  list-style none
+  padding 10px 0 10px 30px
+  position relative
+
+  &.unread
+    font-weight bold
+
+    .unread-button-wrapper
+      display block
+
+    .read-button-wrapper
+      display none !important
+
+  &:hover
+    .read-button-wrapper
+      display block
+
+  .unread-button-wrapper, .read-button-wrapper
+    position absolute
+    top 28px
+    left 0
+
+  .unread-button-wrapper
+    display none
+
+  .read-button-wrapper
+    display none
+
+  .line2
+    color #999
+    font-weight normal
+
+  .timestamp
+    font-weight normal
