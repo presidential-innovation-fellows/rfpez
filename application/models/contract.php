@@ -118,4 +118,8 @@ class Contract extends Eloquent {
                 ->get();
   }
 
+  public static function open_contracts() {
+    return self::where('proposals_due_at', '>', \DB::raw('NOW()'));
+  }
+
 }
