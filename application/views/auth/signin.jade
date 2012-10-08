@@ -3,6 +3,7 @@
 
 
 form.form-horizontal(action="#{ route('signin') }", method="POST")
+  input(type="hidden", name="redirect_to", value="#{Input::old('redirect_to') ?: Session::get('redirect_to')}")
   .control-group
     label.control-label Email
     .controls

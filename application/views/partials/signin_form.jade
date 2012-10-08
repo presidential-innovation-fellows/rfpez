@@ -1,5 +1,6 @@
 .modal-body
   form(action="#{route('signin')}", method="POST")
+    input(type='hidden', name='modal', value='true')
     p
       input#email.span3(type='email', name='email', placeholder='Email')
     p
