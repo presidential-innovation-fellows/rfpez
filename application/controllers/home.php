@@ -5,8 +5,10 @@ class Home_Controller extends Base_Controller {
   public function action_index() {
     if (Auth::check()) {
       if (Auth::user()->officer) {
+        Session::reflash();
         return Redirect::to_route('my_contracts');
       } else {
+        Session::reflash();
         return Redirect::to_route('contracts');
       }
       // When we have something better...
