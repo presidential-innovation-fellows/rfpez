@@ -30,7 +30,7 @@ Class Factory {
                               'contact_name' => $faker->name,
                               'address' => $faker->streetAddress,
                               'city' => $faker->city,
-                              'state' => $faker->state,
+                              'state' => $faker->stateAbbr,
                               'zip' => $faker->postcode,
                               'ballpark_price' => rand(1,4),
                               'image_url' => $portfolio_urls[array_rand($portfolio_urls)],
