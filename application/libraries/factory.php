@@ -79,7 +79,7 @@ Class Factory {
     $posted_at->setTimestamp(rand(1333256400, 1346475600));
 
     ob_start();
-    require("./application/tasks/seed_data/sows/".rand(1,1).".html");
+    require("./application/tasks/seed_data/sows/".rand(1,1).".php");
     $contents = ob_get_contents();
     ob_end_clean();
 
