@@ -19,6 +19,9 @@ div.nav-collapse.collapse
         - if (Auth::user()->officer):
           li
             a(href="#{ route('my_contracts') }") My Contracts
+        - else:
+          li
+            a(href="#{ route('my_bids') }") My Bids
         - endif;
         li
           a(href="#{route('account')}") Account Settings

@@ -66,6 +66,10 @@ class Bid extends Eloquent {
     return $this->dismissal_reason ? true : false;
   }
 
+  public function get_status() {
+    return $this->dismissed() ? "Dismissed" : "Pending Review";
+  }
+
   public function submit() {
     $this->submitted_at = new \DateTime;
     $this->save();

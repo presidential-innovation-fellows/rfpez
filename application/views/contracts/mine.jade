@@ -9,9 +9,12 @@
 
 
 hr
-ul.contract-list
-  - foreach($contracts as $contract):
-    li
-      a(href="#{ route('contract', array($contract->id)) }") #{$contract->title}
-      a.btn.btn-mini(href="#{ route('bids', array($contract->id)) }") View Bids
 
+- if ($contracts):
+  ul.contract-list
+    - foreach($contracts as $contract):
+      li
+        a(href="#{ route('contract', array($contract->id)) }") #{$contract->title}
+        a.btn.btn-mini(href="#{ route('bids', array($contract->id)) }") View Bids
+- else:
+  p No contracts to display.

@@ -36,6 +36,8 @@ Route::post('answerquestion', array('uses' => 'questions@answer', 'as' => 'answe
 Route::resourceful('notifications', array('index'));
 Route::put('notifications/(:num)/markasread', array('uses' => 'notifications@mark_as_read', 'as' => 'notification_mark_as_read'));
 
+Route::get('bids/mine', array('uses' => 'bids@mine', 'as' => 'my_bids'));
+
 Route::resourceful('contracts', array('new', 'create', 'edit', 'update', 'index', 'show'));
 Route::get('contracts/mine', array('uses' => 'contracts@mine', 'as' => 'my_contracts'));
 Route::get('contracts/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));

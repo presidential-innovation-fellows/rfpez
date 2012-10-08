@@ -1,0 +1,23 @@
+- Section::inject('page_title', 'My Bids')
+- Section::inject('active_nav', 'account')
+
+
+hr
+
+- if ($bids):
+  table.table.my-bid-table
+    thead
+      tr
+        th Contract
+        th Total Price
+        th Status
+    tbody
+      - foreach($bids as $bid):
+        tr(class="bid bid-#{strtolower($bid->status)}")
+          td
+            a(href="#{route('bid', array($bid->contract->id, $bid->id))}") #{$bid->contract->title}
+          td $#{$bid->total_price()}
+          td.status #{$bid->status}
+
+- else:
+  p No bids to display.

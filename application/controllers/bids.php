@@ -7,8 +7,8 @@ class Bids_Controller extends Base_Controller {
 
     $this->filter('before', 'auth')->only(array('show', 'sf1449'));
     $this->filter('before', 'officer_only')->only(array('review', 'dismiss', 'star'));
-    $this->filter('before', 'vendor_only')->only(array('new', 'create', 'destroy'));
-    $this->filter('before', 'contract_exists');
+    $this->filter('before', 'vendor_only')->only(array('new', 'create', 'destroy', 'mine'));
+    $this->filter('before', 'contract_exists')->except('mine');
     $this->filter('before', 'bid_not_already_made')->only(array('new', 'create'));
     $this->filter('before', 'bid_exists_and_is_not_only_a_draft')->only(array('show', 'destroy', 'dismiss', 'star', 'sf1449'));
     $this->filter('before', 'allowed_to_view')->only(array('show', 'sf1449'));
@@ -19,6 +19,12 @@ class Bids_Controller extends Base_Controller {
   public function action_new() {
     $view = View::make('bids.new');
     $view->contract = Config::get('contract');
+    $this->layout->content = $view;
+  }
+
+  public function action_mine() {
+    $view = View::make('bids.mine');
+    $view->bids = Bid::where_vendor_id(Auth::user()->vendor->id)->get();
     $this->layout->content = $view;
   }
 
