@@ -7,7 +7,7 @@
     total = 0;
     $(".deliverable-price").each(function() {
       var price;
-      if (price = parseInt($(this).val())) {
+      if (price = parseFloat($(this).val())) {
         return total += price;
       }
     });

@@ -1,7 +1,7 @@
 update_total_price = ->
   total = 0
   $(".deliverable-price").each ->
-    if price = parseInt($(this).val())
+    if price = parseFloat($(this).val())
       total += price
   $("#total-price").html("$"+total)
 
