@@ -56,8 +56,8 @@ class Notification extends Eloquent {
 
     } elseif ($this->notification_type == "CollaboratorAdded") {
       $contract = $this->payload["contract"];
-      $return_array["subject"] = $contract["officer"]["name"]." has added you as a collaborator for ".$contract["title"].".";
-      $return_array["line1"] = $contract["officer"]["name"]." has <a href='".route('contract', array($contract["id"]))."'>added you as a collaborator</a> for ".$contract["title"].".";
+      $return_array["subject"] = "You have been added as a collaborator for ".$contract["title"].".";
+      $return_array["line1"] = "You have been added as a collaborator on  <a href='".route('contract', array($contract["id"]))."'>".$contract["title"]."</a>.";
       $return_array["line2"] = "You can now review bids and answer questions about this contract.";
     }
 
