@@ -128,6 +128,9 @@ class User extends Eloquent {
       if ($key == "bid") {
         if ($notification->payload["bid"] && $notification->payload["bid"]["id"] == $val)
           $notification->mark_as_read();
+      } elseif ($key == "contract") {
+        if ($notification->payload["contract"] && $notification->payload["contract"]["id"] == $val)
+          $notification->mark_as_read();
       }
     }
   }

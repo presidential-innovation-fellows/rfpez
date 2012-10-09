@@ -21,6 +21,7 @@ class Contracts_Controller extends Base_Controller {
     $view = View::make('contracts.show');
     $view->contract = Config::get('contract');
     $this->layout->content = $view;
+    if (Auth::user()) Auth::user()->view_notification_payload('contract', $view->contract->id);
   }
 
   public function action_admin() {
@@ -37,6 +38,8 @@ class Contracts_Controller extends Base_Controller {
     if ($user->officer->collaborates_on($contract->id)) return Response::json(array("status" => "already exists"));
 
     $contract->collaborators()->attach($user->officer->id);
+    Notification::send("CollaboratorAdded", array("contract" => $contract,
+                                              "officer" => $user->officer));
     return Response::json(array("status" => "success",
                                 "html" => View::make("partials.media.collaborator_tr")->with('officer', $user->officer)->render() ));
   }
@@ -54,7 +57,10 @@ class Contracts_Controller extends Base_Controller {
 
   public function action_mine() {
     $view = View::make('contracts.mine');
-    $view->contracts = Contract::where_officer_id(Auth::user()->officer->id)->get();
+    $my_collaborating_ids = ContractCollaborator::where_officer_id(Auth::user()->officer->id)->lists('contract_id');
+    $view->contracts = Contract::where_officer_id(Auth::user()->officer->id)
+                               ->or_where_in('id', $my_collaborating_ids)
+                               ->get();
     $this->layout->content = $view;
   }
 
