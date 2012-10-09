@@ -53,6 +53,12 @@ class Notification extends Eloquent {
       $return_array["line1"] = $bid["vendor"]["company_name"]." has <a href='".route('bid', array($bid["contract"]["id"], $bid["id"])).
                 "'>submitted a bid</a> for ".$bid["contract"]["title"].".";
       $return_array["line2"] = Helper::truncate($bid["approach"], 20);
+
+    } elseif ($this->notification_type == "CollaboratorAdded") {
+      $contract = $this->payload["contract"];
+      $return_array["subject"] = $contract["officer"]["name"]." has added you as a collaborator for ".$contract["title"].".";
+      $return_array["line1"] = $contract["officer"]["name"]." has <a href='".route('contract', array($contract["id"]))."'>added you as a collaborator</a> for ".$contract["title"].".";
+      $return_array["line2"] = "You can now review bids and answer questions about this contract.";
     }
 
     return $return_array;
@@ -79,6 +85,13 @@ class Notification extends Eloquent {
       $notification->fill(array('target_id' => $bid->contract->officer->user_id,
                                 'actor_id' => $bid->vendor->user_id,
                                 'payload' => array('bid' => $bid->to_array())));
+
+    } elseif ($notification->notification_type == "CollaboratorAdded") {
+      $contract = $attributes["contract"];
+      $officer = $attributes["officer"];
+      $notification->fill(array('target_id' => $officer->user_id,
+                                'actor_id' => $contract->officer->user_id,
+                                'payload' => array('contract' => $contract->to_array())));
 
     } else {
       throw new \Exception("Don't know how to handle that notification type.");

@@ -23,7 +23,7 @@ head
     - print "<style>.only-user { display: none; }</style>";
   - else:
     - $body_class = "auth " . (Auth::user()->vendor ? "vendor" : "officer");
-    - print "<style>.only-user:not(.only-user-".Auth::user()->id.") { display: none; }</style>";
+    - print "<style>.only-user:not(.only-user-".Auth::user()->id."), .not-user-".Auth::user()->id." { display: none; }</style>";
   - endif;
 
   !{HTML::script('js/vendor/modernizr-2.6.1-respond-1.1.0.min.js')}

@@ -5,9 +5,15 @@ class Contracts_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->filter('before', 'officer_only')->only(array('new', 'create', 'edit', 'update', 'mine', 'admin', 'add_collaborator', 'destroy_collaborator'));
-    $this->filter('before', 'correct_officer')->only(array('edit', 'update', 'admin', 'add_collaborator', 'destroy_collaborator'));
-    $this->filter('before', 'contract_exists')->only(array('show'));
+    $this->filter('before', 'officer_only')->except(array('index', 'show'));
+
+    $this->filter('before', 'contract_exists')->only(array('edit', 'update', 'admin', 'add_collaborator',
+                                                           'destroy_collaborator', 'show'));
+
+    $this->filter('before', 'owner_only')->only(array('edit', 'update', 'destroy_collaborator'));
+
+    $this->filter('before', 'owner_or_collaborator')->only(array('admin', 'add_collaborator'));
+
     $this->filter('before', 'collaborator_exists')->only(array('destroy_collaborator'));
   }
 
@@ -21,6 +27,7 @@ class Contracts_Controller extends Base_Controller {
     $view = View::make('contracts.show');
     $view->contract = Config::get('contract');
     $this->layout->content = $view;
+    if (Auth::user()) Auth::user()->view_notification_payload('contract', $view->contract->id);
   }
 
   public function action_admin() {
@@ -37,8 +44,13 @@ class Contracts_Controller extends Base_Controller {
     if ($user->officer->collaborates_on($contract->id)) return Response::json(array("status" => "already exists"));
 
     $contract->collaborators()->attach($user->officer->id);
+    Notification::send("CollaboratorAdded", array("contract" => $contract,
+                                              "officer" => $user->officer));
     return Response::json(array("status" => "success",
-                                "html" => View::make("partials.media.collaborator_tr")->with('officer', $user->officer)->render() ));
+                                "html" => View::make("partials.media.collaborator_tr")
+                                              ->with('officer', $user->officer)
+                                              ->with('contract', $contract)
+                                              ->render() ));
   }
 
   public function action_destroy_collaborator() {
@@ -54,7 +66,7 @@ class Contracts_Controller extends Base_Controller {
 
   public function action_mine() {
     $view = View::make('contracts.mine');
-    $view->contracts = Contract::where_officer_id(Auth::user()->officer->id)->get();
+    $view->contracts = Auth::user()->officer->my_contracts_including_collaborating_on()->get();
     $this->layout->content = $view;
   }
 
@@ -196,9 +208,17 @@ Route::filter('collaborator_exists', function() {
   Config::set('collaborator', $collaborator);
 });
 
-Route::filter('correct_officer', function() {
+Route::filter('owner_only', function() {
   $id = Request::$route->parameters[0];
   $contract = Contract::find($id);
-  if (!$contract || $contract->officer->id != Auth::user()->officer->id) return Redirect::to('/');
+  if ($contract->officer->id != Auth::user()->officer->id) return Redirect::to('/');
+  Config::set('contract', $contract);
+});
+
+Route::filter('owner_or_collaborator', function() {
+  $id = Request::$route->parameters[0];
+  $contract = Contract::find($id);
+  if ($contract->officer->id != Auth::user()->officer->id && !Auth::user()->officer->collaborates_on($contract->id))
+    return Redirect::to('/');
   Config::set('contract', $contract);
 });

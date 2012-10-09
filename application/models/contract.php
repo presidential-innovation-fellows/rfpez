@@ -34,6 +34,12 @@ class Contract extends Eloquent {
     return $this->has_many('Question');
   }
 
+  public function is_mine_or_collaborates_on() {
+    if (!Auth::user() || !Auth::user()->officer) return false;
+    if ($this->is_mine() || Auth::user()->officer->collaborates_on($this->id)) return true;
+    return false;
+  }
+
   public function is_mine() {
     if  (!Auth::user() || !Auth::user()->officer) return false;
     if (Auth::user()->officer->id == $this->officer_id) return true;
