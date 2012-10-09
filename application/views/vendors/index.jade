@@ -6,7 +6,7 @@
     - foreach($vendors as $vendor):
       .media.vendor.well
         .company-name
-          a(href="#") #{$vendor->company_name}
+          a(href="#{route('vendor', array($vendor->id))}") #{$vendor->company_name}
 
         .homepage-url
           a(href="#{$vendor->homepage_url}") #{$vendor->homepage_url_pretty}
