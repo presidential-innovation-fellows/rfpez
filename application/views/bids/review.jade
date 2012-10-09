@@ -8,6 +8,12 @@
   !{View::make('bids.dismiss_modal')}
 - endif;
 
+- if (Auth::user()->officer->collaborates_on($contract->id)):
+  .alert.alert-info
+    | <strong>You're a collaborator on this contract.</strong> When you
+    | star a bid, your contracting officer will see it too.
+- endif;
+
 h3 Bids awaiting review
 
 table.table.bids-table.open-bids
