@@ -29,6 +29,7 @@ Route::post('resetpassword/(:any)', array('uses' => 'users@post_reset_password',
 Route::resourceful('vendors', array('new', 'create', 'index'));
 
 Route::resourceful('officers', array('new', 'create'));
+Route::get('officers/typeahead', array('uses' => 'officers@typeahead', 'as' => 'officers_typeahead'));
 
 Route::resourceful('questions', array('create'));
 Route::post('answerquestion', array('uses' => 'questions@answer', 'as' => 'answer_question'));
@@ -41,6 +42,8 @@ Route::get('bids/mine', array('uses' => 'bids@mine', 'as' => 'my_bids'));
 Route::resourceful('contracts', array('new', 'create', 'edit', 'update', 'index', 'show'));
 Route::get('contracts/mine', array('uses' => 'contracts@mine', 'as' => 'my_contracts'));
 Route::get('contracts/(:num)/admin', array('uses' => 'contracts@admin', 'as' => 'contract_admin'));
+Route::post('contracts/(:num)/collaborators', array('uses' => 'contracts@add_collaborator', 'as' => 'contract_collaborators'));
+Route::delete('contracts/(:num)/collaborators/(:num)', array('uses' => 'contracts@destroy_collaborator', 'as' => 'contract_collaborators_destroy'));
 Route::get('contracts/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
 Route::get('contracts/(:num)/bids', array('uses' => 'bids@review', 'as' => 'bids'));
 Route::post('contracts/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));

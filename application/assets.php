@@ -16,6 +16,7 @@ Basset::scripts('website', function($basset)
          ->add('jqueryvalidate', 'js/vendor/jquery.validate.js')
          ->add('jqueryvalidaterfpez', 'js/vendor/jquery.validate_rfpez.js')
          ->add('jqueryform', 'js/vendor/jquery.form.js')
+         ->add('flashbutton', 'js/flash-button.js')
          ->add('main', 'js/main.js')
          ->add('question-and-answer', 'js/question-and-answer.js')
          ->add('vendor-image-preview', 'js/vendor-image-preview.js')
@@ -23,6 +24,7 @@ Basset::scripts('website', function($basset)
          ->add('new-bid', 'js/new-bid.js')
          ->add('validation', 'js/validation.js')
          ->add('filter-contracts', 'js/filter-contracts.js')
+         ->add('collaborators', 'js/collaborators.js')
          ->add('notifications', 'js/notifications.js');
 });
 
