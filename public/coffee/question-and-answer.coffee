@@ -23,7 +23,7 @@ $(document).on "submit", "#answer-question-form", (e) ->
         question.replaceWith new_question
         new_question.find(".answer").fadeIn(300)
       else
-        alert 'error'
+        el.find('button').button('reset').flash_button_message("danger", "Error occurred")
 
 $(document).on "click", ".answer-question-toggle", ->
   el = $(this)

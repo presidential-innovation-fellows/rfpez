@@ -6,7 +6,6 @@ class Questions_Controller extends Base_Controller {
     parent::__construct();
 
     $this->filter('before', 'vendor_only')->only(array('create'));
-    $this->filter('before', 'can_answer')->only(array('answer'));
   }
 
   public function action_create() {
@@ -29,10 +28,12 @@ class Questions_Controller extends Base_Controller {
     $answer = trim(Input::get('answer'));
 
     if (!$question) return Response::json(array("status" => "question not found"));
-    if ($question->contract->officer->user->id != Auth::user()->id) return Response::json(array("status" => "not authorized"));
+    if ($question->contract->officer->user->id != Auth::user()->id &&
+        !Auth::user()->officer->collaborates_on($question->contract->id)) return Response::json(array("status" => "not authorized"));
 
     if ($answer && $answer != "") {
       $question->answer = $answer;
+      $question->answered_by = Auth::user()->officer->id;
       $question->save();
       return Response::json(array("status" => "success",
                                   "question" => $question->to_array(),

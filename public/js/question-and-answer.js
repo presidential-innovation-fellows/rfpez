@@ -30,7 +30,7 @@
           question.replaceWith(new_question);
           return new_question.find(".answer").fadeIn(300);
         } else {
-          return alert('error');
+          return el.find('button').button('reset').flash_button_message("danger", "Error occurred");
         }
       }
     });

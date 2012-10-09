@@ -17,6 +17,7 @@
         button.text(message);
         return setTimeout(function() {
           button.attr('class', original_classes);
+          button.removeClass('disabled');
           return button.text(original_text);
         }, timeout);
       });

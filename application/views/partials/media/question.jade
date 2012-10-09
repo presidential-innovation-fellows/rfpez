@@ -6,6 +6,7 @@
       | A: #{$question->answer}
     - else:
       em This question has not been answered.
-      div(class="answer-question only-user only-user-#{$question->contract->officer->user->id}")
-        a.answer-question-toggle Answer Question
+      - if (Auth::user() && Auth::user()->officer && Auth::user()->officer->collaborates_on($question->contract->id)):
+        div(class="answer-question")
+          a.answer-question-toggle Answer Question
     - endif;

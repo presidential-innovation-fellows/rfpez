@@ -17,5 +17,6 @@ $.fn.extend
 
       setTimeout ->
         button.attr('class', original_classes)
+        button.removeClass('disabled')
         button.text(original_text)
       , timeout
