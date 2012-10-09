@@ -56,7 +56,7 @@ body(class="#{$body_class}")
     - endif;
 
     - if (!Section::yield('no_page_header'))
-      h1 #{Section::yield('page_title')}
+      h4 #{Section::yield('page_title')}
         | !{Section::yield('inside_header')}
 
     !{Section::yield('subnav')}
