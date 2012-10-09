@@ -40,6 +40,7 @@ Route::get('bids/mine', array('uses' => 'bids@mine', 'as' => 'my_bids'));
 
 Route::resourceful('contracts', array('new', 'create', 'edit', 'update', 'index', 'show'));
 Route::get('contracts/mine', array('uses' => 'contracts@mine', 'as' => 'my_contracts'));
+Route::get('contracts/(:num)/admin', array('uses' => 'contracts@admin', 'as' => 'contract_admin'));
 Route::get('contracts/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
 Route::get('contracts/(:num)/bids', array('uses' => 'bids@review', 'as' => 'bids'));
 Route::post('contracts/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));

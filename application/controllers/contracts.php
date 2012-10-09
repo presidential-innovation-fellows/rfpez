@@ -5,8 +5,8 @@ class Contracts_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->filter('before', 'officer_only')->only(array('new', 'create', 'edit', 'update', 'mine'));
-    $this->filter('before', 'correct_officer')->only(array('edit', 'update'));
+    $this->filter('before', 'officer_only')->only(array('new', 'create', 'edit', 'update', 'mine', 'admin'));
+    $this->filter('before', 'correct_officer')->only(array('edit', 'update', 'admin'));
     $this->filter('before', 'contract_exists')->only(array('show'));
   }
 
@@ -18,6 +18,12 @@ class Contracts_Controller extends Base_Controller {
 
   public function action_show() {
     $view = View::make('contracts.show');
+    $view->contract = Config::get('contract');
+    $this->layout->content = $view;
+  }
+
+  public function action_admin() {
+    $view = View::make('contracts.admin');
     $view->contract = Config::get('contract');
     $this->layout->content = $view;
   }
