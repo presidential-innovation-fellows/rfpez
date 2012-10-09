@@ -33,12 +33,18 @@ $ ->
     source: (query, process) ->
       clearTimeout(typeahead_searching)
 
+      existing_collaborators = []
+      $(".collaborators-table tbody tr").each ->
+        existing_collaborators.push($(this).find('.email').text())
+
       typeahead_searching = setTimeout ->
         $.ajax
           url: "/officers/typeahead"
           data:
             query: query
           success: (data) ->
-            console.log 'searched'
+            data = $.grep data, (value) ->
+              return existing_collaborators.indexOf(value)
+
             return process(data)
       , 200

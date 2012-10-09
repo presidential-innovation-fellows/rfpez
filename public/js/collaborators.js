@@ -44,7 +44,12 @@
     return $("#add-collaborator-form input[name=email]").typeahead({
       minLength: 3,
       source: function(query, process) {
+        var existing_collaborators;
         clearTimeout(typeahead_searching);
+        existing_collaborators = [];
+        $(".collaborators-table tbody tr").each(function() {
+          return existing_collaborators.push($(this).find('.email').text());
+        });
         return typeahead_searching = setTimeout(function() {
           return $.ajax({
             url: "/officers/typeahead",
@@ -52,7 +57,9 @@
               query: query
             },
             success: function(data) {
-              console.log('searched');
+              data = $.grep(data, function(value) {
+                return existing_collaborators.indexOf(value);
+              });
               return process(data);
             }
           });
