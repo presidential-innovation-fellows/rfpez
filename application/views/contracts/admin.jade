@@ -1,0 +1,26 @@
+- Section::inject('page_title', "$contract->title")
+- Section::inject('page_action', "Admin")
+- Section::inject('active_nav', $contract->is_mine() ? 'account' : 'contracts')
+- Section::inject('active_subnav', 'admin')
+
+- if ($contract->is_mine()):
+  - Section::inject('subnav', View::make('partials.media.officer_contract_toolbar')->with('contract', $contract))
+- endif;
+
+h3 Collaborators
+
+table.table.collaborators-table(data-contract-id="#{$contract->id}")
+  thead
+    tr
+      th Email
+      th Actions
+  tbody
+    - foreach ($contract->collaborators as $officer):
+      !{View::make('partials.media.collaborator_tr')->with('officer', $officer)}
+  tfoot
+    tr
+      td(colspan="2")
+        form#add-collaborator-form(action="#{route('contract_collaborators', array($contract->id))}", method="POST")
+          .input-append
+            input(type="text", name="email", placeholder="Email Address", autocomplete="off")
+            button.btn.btn-success Add

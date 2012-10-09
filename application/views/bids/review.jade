@@ -1,7 +1,12 @@
-- Section::inject('page_title', "Review Bids for $contract->title")
+- Section::inject('page_title', "$contract->title")
+- Section::inject('page_action', "Review Bids")
 - Section::inject('active_nav', 'account')
+- Section::inject('active_subnav', 'review_bids')
 
-!{View::make('bids.dismiss_modal')}
+- if ($contract->is_mine()):
+  - Section::inject('subnav', View::make('partials.media.officer_contract_toolbar')->with('contract', $contract))
+  !{View::make('bids.dismiss_modal')}
+- endif;
 
 h3 Bids awaiting review
 

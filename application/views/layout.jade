@@ -12,7 +12,7 @@ head
   meta(name="description", content="")
   meta(name="viewport", content="width=device-width")
 
-  title #{Helper::full_title(Section::yield('page_title'))}
+  title #{Helper::full_title(Section::yield('page_title'), Section::yield('page_action'))}
 
   !{HTML::style('http://fonts.googleapis.com/css?family=Telex')}
   !{Basset::show('website.css')}
@@ -56,8 +56,10 @@ body(class="#{$body_class}")
     - endif;
 
     - if (!Section::yield('no_page_header'))
-      h1 #{Section::yield('page_title')}
+      h4 #{Section::yield('page_title')}
         | !{Section::yield('inside_header')}
+
+    !{Section::yield('subnav')}
 
     !{$content}
 

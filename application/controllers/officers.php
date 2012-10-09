@@ -6,11 +6,21 @@ class Officers_Controller extends Base_Controller {
     parent::__construct();
 
     $this->filter('before', 'no_auth')->only(array('new', 'create'));
+    $this->filter('before', 'officer_only')->only(array('typeahead'));
   }
 
   public function action_new() {
     $view = View::make('officers.new');
     $this->layout->content = $view;
+  }
+
+  public function action_typeahead() {
+    $results = User::where('users.email', 'LIKE', '%'.Input::get('query').'%')
+                   ->where('users.id', '!=', Auth::user()->id)
+                   ->join('officers', 'users.id', '=', 'officers.user_id')
+                   ->lists('email');
+
+    return Response::json($results);
   }
 
   public function action_create() {

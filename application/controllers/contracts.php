@@ -5,9 +5,10 @@ class Contracts_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->filter('before', 'officer_only')->only(array('new', 'create', 'edit', 'update', 'mine'));
-    $this->filter('before', 'correct_officer')->only(array('edit', 'update'));
+    $this->filter('before', 'officer_only')->only(array('new', 'create', 'edit', 'update', 'mine', 'admin', 'add_collaborator', 'destroy_collaborator'));
+    $this->filter('before', 'correct_officer')->only(array('edit', 'update', 'admin', 'add_collaborator', 'destroy_collaborator'));
     $this->filter('before', 'contract_exists')->only(array('show'));
+    $this->filter('before', 'collaborator_exists')->only(array('destroy_collaborator'));
   }
 
   public function action_index() {
@@ -20,6 +21,30 @@ class Contracts_Controller extends Base_Controller {
     $view = View::make('contracts.show');
     $view->contract = Config::get('contract');
     $this->layout->content = $view;
+  }
+
+  public function action_admin() {
+    $view = View::make('contracts.admin');
+    $view->contract = Config::get('contract');
+    $this->layout->content = $view;
+  }
+
+  public function action_add_collaborator() {
+    $contract = Config::get('contract');
+    $user = User::where_email(Input::get('email'))->first();
+    if (!$user) return Response::json(array("status" => "error"));
+    if ($user->id === Auth::user()->id) return Response::json(array("status" => "can't add yourself"));
+    if ($user->officer->collaborates_on($contract->id)) return Response::json(array("status" => "already exists"));
+
+    $contract->collaborators()->attach($user->officer->id);
+    return Response::json(array("status" => "success",
+                                "html" => View::make("partials.media.collaborator_tr")->with('officer', $user->officer)->render() ));
+  }
+
+  public function action_destroy_collaborator() {
+    $collaborator = Config::get('collaborator');
+    $collaborator->delete();
+    return Response::json(array("status" => "success"));
   }
 
   public function action_new() {
@@ -159,6 +184,16 @@ Route::filter('contract_exists', function() {
   $contract = Contract::find($id);
   if (!$contract) return Redirect::to('/');
   Config::set('contract', $contract);
+});
+
+Route::filter('collaborator_exists', function() {
+  $contract_id = Request::$route->parameters[0];
+  $officer_id = Request::$route->parameters[1];
+  $collaborator = ContractCollaborator::where_contract_id($contract_id)
+                                      ->where_officer_id($officer_id)
+                                      ->first();
+  if (!$collaborator) return Redirect::to('/');
+  Config::set('collaborator', $collaborator);
 });
 
 Route::filter('correct_officer', function() {

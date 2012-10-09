@@ -31,6 +31,14 @@ class Officer extends Eloquent {
     return $this->belongs_to('User');
   }
 
+  public function collaborates_on($contract_id) {
+    return in_array($contract_id, $this->contracts_collaborating_on()->lists('id'));
+  }
+
+  public function contracts_collaborating_on() {
+    return $this->has_many_and_belongs_to('Contract', 'contract_collaborators');
+  }
+
   public function is_verified() {
     return $this->verified_solnbr ? true : false;
   }

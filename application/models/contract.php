@@ -22,6 +22,10 @@ class Contract extends Eloquent {
     return $this->belongs_to('Officer');
   }
 
+  public function collaborators() {
+    return $this->has_many_and_belongs_to('Officer', 'contract_collaborators');
+  }
+
   public function bids() {
     return $this->has_many('Bid');
   }
