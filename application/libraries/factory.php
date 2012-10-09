@@ -20,7 +20,9 @@ Class Factory {
   public static function vendor() {
     $faker = Faker\Factory::create();
 
-    $portfolio_urls = array('http://i.imgur.com/sHHmT.png');
+    $image_urls = array('http://i.imgur.com/Gh4ZX.png', 'http://i.imgur.com/vySFV.png', 'http://i.imgur.com/RdBae.png',
+                        'http://i.imgur.com/ED5fa.png', 'http://i.imgur.com/gJncN.png', 'http://i.imgur.com/3pKFS.png',
+                        'http://i.imgur.com/3pKFS.png');
 
     $u = User::create(array('email' => 'vendor'.self::$vendor_count.'@example.com',
                             'password' => 'password'));
@@ -33,7 +35,7 @@ Class Factory {
                               'state' => $faker->stateAbbr,
                               'zip' => $faker->postcode,
                               'ballpark_price' => rand(1,4),
-                              'image_url' => $portfolio_urls[array_rand($portfolio_urls)],
+                              'image_url' => $image_urls[self::$vendor_count],
                               'homepage_url' => $faker->url,
                               'more_info' => $faker->paragraph));
 
