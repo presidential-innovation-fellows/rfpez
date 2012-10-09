@@ -11,10 +11,21 @@
 hr
 
 - if ($contracts):
-  ul.contract-list
-    - foreach($contracts as $contract):
-      li
-        a(href="#{ route('contract', array($contract->id)) }") #{$contract->title}
-        a.btn.btn-mini(href="#{ route('bids', array($contract->id)) }") View Bids
+  table.table.my-contract-table
+    thead
+      tr
+        th Contract
+        th Proposals Due
+        th # Bids
+        th Actions
+    tbody
+      - foreach($contracts as $contract):
+        tr
+          td
+            a(href="#{ route('contract', array($contract->id)) }") #{$contract->title}
+          td #{RelativeTime::format($contract->proposals_due_at)}
+          td #{$contract->submitted_bids()->count()}
+          td
+            a.btn.btn-mini(href="#{ route('bids', array($contract->id)) }") View Bids
 - else:
   p No contracts to display.

@@ -2,6 +2,6 @@ div.well.officer-contract-toolbar
   | You posted this contract on #{$contract->created_at}.
   .pull-right
     a.btn.btn-inverse(href="#{route('bids', array($contract->id))}")
-      | Review #{$contract->bids()->count()} #{Str::plural('Bid', $contract->bids()->count())}
+      | Review #{$contract->submitted_bids()->count()} #{Str::plural('Bid', $contract->submitted_bids()->count())}
     a.btn(href="#{route('edit_contract', array($contract->id))}")
       | Edit Contract

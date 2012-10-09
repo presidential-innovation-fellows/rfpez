@@ -103,6 +103,12 @@ class Contract extends Eloquent {
     }
   }
 
+  public function submitted_bids() {
+    return $this->bids()
+                ->where_deleted_by_vendor(false)
+                ->where_not_null('submitted_at');
+  }
+
   public function open_bids() {
     return $this->bids()
                 ->where_deleted_by_vendor(false)
