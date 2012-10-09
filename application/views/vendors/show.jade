@@ -1,0 +1,20 @@
+- Section::inject('page_title', $vendor->company_name)
+- Section::inject('no_page_header', true)
+- Section::inject('active_nav', 'vendors')
+
+.vendor-wrapper
+  .vendor.well
+    .company-name
+      a(href="#") #{$vendor->company_name}
+
+    .homepage-url
+      a(href="#{$vendor->homepage_url}") #{$vendor->homepage_url_pretty}
+
+    .ballpark-price #{$vendor->ballpark_price_display}
+
+    .clearfix
+
+    .vendor-image-preview-frame
+      img(src="#{$vendor->image_url}")
+
+    .more_info #{$vendor->more_info}

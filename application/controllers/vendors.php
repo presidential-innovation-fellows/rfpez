@@ -6,7 +6,8 @@ class Vendors_Controller extends Base_Controller {
     parent::__construct();
 
     $this->filter('before', 'no_auth')->only(array('new', 'create'));
-    $this->filter('before', 'officer_only')->only(array('index'));
+    $this->filter('before', 'officer_only')->only(array('index', 'show'));
+    $this->filter('before', 'vendor_exists')->only(array('show'));
   }
 
   public function action_new() {
@@ -38,4 +39,17 @@ class Vendors_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
+  public function action_show() {
+    $view = View::make('vendors.show');
+    $view->vendor = Config::get('vendor');
+    $this->layout->content = $view;
+  }
+
 }
+
+Route::filter('vendor_exists', function() {
+  $id = Request::$route->parameters[0];
+  $vendor = Vendor::find($id);
+  if (!$vendor) return Redirect::to('/vendors');
+  Config::set('vendor', $vendor);
+});
