@@ -1,6 +1,10 @@
 - Section::inject('page_title', 'Notifications')
 - Section::inject('active_nav', 'notifications')
 
-ul.notification-list
-  - foreach ($notifications as $notification):
-    !{View::make('partials.media.notification')->with('notification', $notification)}
+- if ($notifications):
+  ul.notification-list
+    - foreach ($notifications as $notification):
+      !{View::make('partials.media.notification')->with('notification', $notification)}
+- else:
+  p No notifications to show.
+- endif;
