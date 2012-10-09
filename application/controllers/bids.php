@@ -14,7 +14,8 @@ class Bids_Controller extends Base_Controller {
     $this->filter('before', 'bid_exists_and_is_not_only_a_draft')->only(array('show', 'destroy', 'dismiss', 'star', 'sf1449'));
     $this->filter('before', 'allowed_to_view')->only(array('show', 'sf1449'));
     $this->filter('before', 'allowed_to_destroy')->only(array('destroy'));
-    $this->filter('before', 'allowed_to_review')->only(array('review', 'dismiss', 'star'));
+    $this->filter('before', 'allowed_to_dismiss')->only(array('dismiss'));
+    $this->filter('before', 'allowed_to_review')->only(array('review', 'star'));
   }
 
   public function action_new() {
@@ -183,7 +184,14 @@ Route::filter('allowed_to_destroy', function() {
 
 Route::filter('allowed_to_review', function() {
   $contract = Config::get('contract');
-  if ($contract->officer_id != Auth::user()->officer->id) return Redirect::to('/');
+  if ($contract->officer_id != Auth::user()->officer->id && !Auth::user()->officer->collaborates_on($contract->id))
+    return Redirect::to('/');
+});
+
+Route::filter('allowed_to_dismiss', function() {
+  $contract = Config::get('contract');
+  if ($contract->officer_id != Auth::user()->officer->id)
+    return Redirect::to('/');
 });
 
 Route::filter('bid_not_already_made', function() {

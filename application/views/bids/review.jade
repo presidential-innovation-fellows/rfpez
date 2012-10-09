@@ -1,9 +1,9 @@
 - Section::inject('page_title', "$contract->title")
 - Section::inject('page_action', "Review Bids")
-- Section::inject('active_nav', 'account')
+- Section::inject('active_nav', $contract->is_mine_or_collaborates_on() ? 'account' : 'contracts')
 - Section::inject('active_subnav', 'review_bids')
 
-- if ($contract->is_mine()):
+- if ($contract->is_mine_or_collaborates_on()):
   - Section::inject('subnav', View::make('partials.media.officer_contract_toolbar')->with('contract', $contract))
   !{View::make('bids.dismiss_modal')}
 - endif;

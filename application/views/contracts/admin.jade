@@ -1,13 +1,23 @@
 - Section::inject('page_title', "$contract->title")
 - Section::inject('page_action', "Admin")
-- Section::inject('active_nav', $contract->is_mine() ? 'account' : 'contracts')
+- Section::inject('active_nav', $contract->is_mine_or_collaborates_on() ? 'account' : 'contracts')
 - Section::inject('active_subnav', 'admin')
 
-- if ($contract->is_mine()):
+- if ($contract->is_mine_or_collaborates_on()):
   - Section::inject('subnav', View::make('partials.media.officer_contract_toolbar')->with('contract', $contract))
 - endif;
 
+h3 Contracting Officer
+p
+  | #{$contract->officer->name}
+  br
+  | #{$contract->officer->user->email}
+  br
+  | #{$contract->officer->phone}
+
 h3 Collaborators
+
+p Collaborators can review bids, star and unstar them, and generally do everything <em>except</em> dismiss and award contracts.
 
 table.table.collaborators-table(data-contract-id="#{$contract->id}")
   thead
@@ -16,7 +26,7 @@ table.table.collaborators-table(data-contract-id="#{$contract->id}")
       th Actions
   tbody
     - foreach ($contract->collaborators as $officer):
-      !{View::make('partials.media.collaborator_tr')->with('officer', $officer)}
+      !{View::make('partials.media.collaborator_tr')->with('officer', $officer)->with('contract', $contract)}
   tfoot
     tr
       td(colspan="2")
