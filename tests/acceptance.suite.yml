@@ -11,6 +11,7 @@ modules:
     enabled:
         - PhpBrowser
         - WebHelper
+        - ZombieJS
     config:
         PhpBrowser:
             url: 'http://rfpez.dev/'
