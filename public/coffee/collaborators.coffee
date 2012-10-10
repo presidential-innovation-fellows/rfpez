@@ -15,12 +15,13 @@ $(document).on "submit", "#add-collaborator-form", (e) ->
         button.flash_button_message("warning", "Error occurred")
       el.resetForm()
 
-$(document).on "click", ".remove-collaborator-button", ->
+$(document).on "click", ".remove-collaborator-button", (e) ->
+  e.preventDefault()
   el = $(this)
   contract_id = el.closest("[data-contract-id]").data('contract-id')
   officer_id = el.closest("[data-officer-id]").data('officer-id')
   $.ajax
-    url: "/contracts/#{contract_id}/collaborators/#{officer_id}"
+    url: el.attr("href")
     type: "delete"
     success: ->
       el.closest("tr").remove()

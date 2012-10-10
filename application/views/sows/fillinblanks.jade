@@ -1,0 +1,26 @@
+- Section::inject('page_title', $sow->title)
+- Section::inject('active_nav', 'account')
+- Section::inject('active_subnav', 'fillinblanks')
+
+- Section::inject('subnav', View::make('sows.partials.sow_composer_toolbar')->with('sow', $sow))
+
+.step.step-5
+
+  form(method="POST")
+
+    .alert.alert-info Fill in the blanks below and we'll assemble your final document, which you can edit in the next step.
+
+    .control-group.x-large
+      .input-prepend
+        span.add-on Title
+        input(type="text", name="title", value="#{$sow->title}")
+
+    .sow-content
+      !{SowVariableParser::parse(View::make('sows.partials.step5_output')->with('sow', $sow), $sow)}
+
+    .bottom-controls.well
+      - $last_template_section_type = $sow->last_template_section_type()
+      a.btn(href="#{route('sow_section', array($sow->id, $last_template_section_type))}")
+        | &larr; #{$last_template_section_type}
+
+      button.btn.btn-primary.pull-right Edit Document &rarr;

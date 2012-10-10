@@ -1,0 +1,5 @@
+tr(data-officer-id="#{$officer->id}", class="not-user-#{$officer->user->id}")
+  td.email #{$officer->user->email}
+  td
+    button(class="btn btn-danger remove-collaborator-button", href="/sows/#{$sow->id}/collaborators/#{$officer->id}")
+      i.icon-white.icon-trash
