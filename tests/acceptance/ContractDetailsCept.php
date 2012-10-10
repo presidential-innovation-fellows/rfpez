@@ -1,5 +1,10 @@
 <?php
 $I = new WebGuy($scenario);
-$I->wantTo('See the details of a contract');
-$I->amOnPage('/contracts/mine');
-$I->see('My Contracts');
+$I->wantTo('Interact with the details and bids of a contract');
+$I->amOnPage('/signin');
+$I->fillField('email','officer1@example.gov');
+$I->fillField('password','password');
+$I->click('button.btn');
+$I->see('My Contracts', 'h4');
+$I->click('.my-contract-table a');
+$I->see('Timeline', 'h3');
