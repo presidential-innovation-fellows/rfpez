@@ -1,0 +1,13 @@
+- Section::inject('page_title', 'New SOW')
+- Section::inject('active_nav', 'account')
+
+
+form(method="POST")
+
+  select(name="template_id")
+    - foreach (SowTemplate::current()->get() as $template):
+      option(value="#{$template->id}") #{$template->title}
+
+
+  .form-actions
+    button.btn.btn-primary Submit

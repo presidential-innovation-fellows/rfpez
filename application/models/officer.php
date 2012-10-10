@@ -38,8 +38,23 @@ class Officer extends Eloquent {
     return $query;
   }
 
+  public function my_sows_including_collaborating_on() {
+    $my_collaborating_ids = SowCollaborator::where_officer_id($this->id)->lists('sow_id');
+    $query = Sow::where_officer_id(Auth::user()->officer->id);
+    if ($my_collaborating_ids) $query = $query->or_where_in('id', $my_collaborating_ids);
+    return $query;
+  }
+
   public function collaborates_on($contract_id) {
     return in_array($contract_id, $this->contracts_collaborating_on()->lists('id'));
+  }
+
+  public function collaborates_on_sow($sow_id) {
+    return in_array($sow_id, $this->sows_collaborating_on()->lists('id'));
+  }
+
+  public function sows_collaborating_on() {
+    return $this->has_many_and_belongs_to('Sow', 'sow_collaborators');
   }
 
   public function contracts_collaborating_on() {

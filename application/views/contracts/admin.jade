@@ -26,7 +26,7 @@ table.table.collaborators-table(data-contract-id="#{$contract->id}")
       th Actions
   tbody
     - foreach ($contract->collaborators as $officer):
-      !{View::make('partials.media.collaborator_tr')->with('officer', $officer)->with('contract', $contract)}
+      !{View::make('partials.media.contract_collaborator_tr')->with('officer', $officer)->with('contract', $contract)}
   tfoot
     tr
       td(colspan="2")

@@ -1,0 +1,84 @@
+- Section::inject('page_title', $sow->title)
+- Section::inject('active_nav', 'account')
+- Section::inject('active_subnav', 'section-'.$section_type)
+
+- Section::inject('subnav', View::make('sows.partials.sow_composer_toolbar')->with('sow', $sow))
+
+.step.step-3
+
+  - if ($help_text = $sow->template->get_variable($section_type)):
+    .alert.alert-info #{$help_text}
+  - endif;
+
+  form.form-horizontal.form-sections(method="POST")
+    - $today = date('n/j/y')
+
+    - foreach($sections as $section):
+      .control-group
+        .controls
+          label.checkbox
+            | <input type="checkbox" value="#{$section->id}" name="sections[]" class="section-toggle" #{$section->in_sow($sow) ? "checked" : ""}>
+            span.checkbox-tooltip(title="#{$section->help_text}") #{$section->title}
+
+          - if ($section_type == "Deliverables"):
+            span.input-append.date.datepicker(data-date="#{$today}", data-date-format="m/d/yy")
+              | Due Date:
+              input(size="16", type="text", value="#{$section->in_sow($sow) ? $sow->due_date($section) : $today}", name="deliverable_dates[]", disabled)
+              span.add-on
+                i.icon-calendar
+          - endif;
+
+    ul.custom-choices
+      li.template.clearfix
+        .choice-name
+          span &nbsp;
+          input(type="hidden", disabled, name="custom_sections[]")
+          input(type="hidden", disabled, name="custom_section_bodies[]")
+          a remove
+
+        - if ($section_type == "Deliverables"):
+          span.input-append.date.datepicker(data-date="#{$today}", data-date-format="m/d/yy")
+            | Due Date:
+            input(size="16", type="text", value="#{$today}", disabled, name="custom_deliverable_dates[]")
+            span.add-on
+              i.icon-calendar
+        - endif;
+
+      - foreach($custom_sections as $custom_section):
+        li.clearfix
+          .choice-name
+            span #{$custom_section->title}
+            input(type="hidden", name="custom_sections[]", value="#{$custom_section->title}")
+            input(type="hidden", name="custom_section_bodies[]", value="#{$custom_section->body}")
+            a (remove)
+
+          - if ($section_type == "Deliverables"):
+            span.input-append.date.datepicker(data-date="#{$sow->due_date($custom_section)}", data-date-format="m/d/yy")
+              | Due Date:
+              input(size="16", type="text", value="#{$sow->due_date($custom_section)}", name="custom_deliverable_dates[]")
+              span.add-on
+                i.icon-calendar
+          - endif;
+
+
+    .control-group
+      .controls
+        input#add-custom-choice-text(type="text", placeholder="Other")
+        button.btn.btn-success#add-custom-choice-btn Add
+
+    .bottom-controls.well
+      - if ($previous_template_section_type = $sow->template_section_type_before($section_type)):
+        a.btn(href="#{route('sow_section', array($sow->id, $previous_template_section_type))}")
+          | &larr; #{$previous_template_section_type}
+      - else:
+        a.btn(href="#{route('sow_background', array($sow->id))}")
+          | &larr; Background &amp; Scope
+      - endif;
+
+      button.btn.btn-primary.pull-right
+        - if ($next_template_section_type = $sow->template_section_type_after($section_type)):
+          | #{$next_template_section_type}
+        - else:
+          | Fill in Variables
+        - endif;
+        | &rarr;
