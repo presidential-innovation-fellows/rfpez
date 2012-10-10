@@ -73,10 +73,10 @@ class Add_Sow_Composer_Tables {
    */
   public function down()
   {
+    Schema::drop('sows');
+    Schema::drop('sow_sections');
     Schema::drop('sow_templates');
     Schema::drop('sow_template_sections');
-    Schema::drop('sow_sections');
-    Schema::drop('sows');
   }
 
 }
