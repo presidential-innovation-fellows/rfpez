@@ -62,8 +62,8 @@ class Notification extends Eloquent {
 
     } elseif ($this->notification_type == "SowCollaboratorAdded") {
       $sow = $this->payload["sow"];
-      $return_array["subject"] = "You have been added as a collaborator for a SOW: ".$sow["title"].".";
-      $return_array["line1"] = "You have been added as a collaborator on  <a href='".route('sow', array($sow["id"]))."'> a SOW: ".$sow["title"]."</a>.";
+      $return_array["subject"] = "You have been added as a collaborator for a SOW, \"".$sow["title"]."\".";
+      $return_array["line1"] = "You have been added as a collaborator on <a href='".route('sow', array($sow["id"]))."'> a SOW, \"".$sow["title"]."\"</a>.";
       $return_array["line2"] = "You can now review and edit this SOW.";
     }
 
