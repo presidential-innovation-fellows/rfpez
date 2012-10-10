@@ -12,11 +12,6 @@ class Sows_Controller extends Base_Controller {
     $this->filter('before', 'collaborator_exists')->only(array('destroy_collaborator'));
   }
 
-  public function action_mine() {
-    $view = View::make('sows.mine');
-    $this->layout->content = $view;
-  }
-
   public function action_add_collaborator() {
     $sow = Config::get('sow');
     $user = User::where_email(Input::get('email'))->first();
@@ -41,8 +36,18 @@ class Sows_Controller extends Base_Controller {
     return Response::json(array("status" => "success"));
   }
 
-  public function action_new_post($template_id) {
-    $template = SowTemplate::find($template_id);
+  public function action_mine() {
+    $view = View::make('sows.mine');
+    $this->layout->content = $view;
+  }
+
+  public function action_new() {
+    $view = View::make('sows.new');
+    $this->layout->content = $view;
+  }
+
+  public function action_new_post() {
+    $template = SowTemplate::find(Input::get('template_id'));
     $sow = Sow::create(array('title' => $template->title . " for " . Auth::user()->officer->agency,
                              'officer_id' => Auth::user()->officer->id,
                              'based_on_sow_template_id' => $template->id));

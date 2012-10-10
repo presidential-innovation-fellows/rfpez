@@ -4,6 +4,10 @@ class SowTemplate extends Eloquent {
   public static $timestamps = true;
   public static $table = "sow_templates";
 
+  public static function current() {
+    return self::where_visible(true);
+  }
+
   public function template_sections() {
     return $this->has_many('SowTemplateSection', 'sow_template_id');
   }
