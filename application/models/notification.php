@@ -54,7 +54,7 @@ class Notification extends Eloquent {
                 "'>submitted a bid</a> for ".$bid["contract"]["title"].".";
       $return_array["line2"] = Helper::truncate($bid["approach"], 20);
 
-    } elseif ($this->notification_type == "CollaboratorAdded") {
+    } elseif ($this->notification_type == "ContractCollaboratorAdded") {
       $contract = $this->payload["contract"];
       $return_array["subject"] = "You have been added as a collaborator for ".$contract["title"].".";
       $return_array["line1"] = "You have been added as a collaborator on  <a href='".route('contract', array($contract["id"]))."'>".$contract["title"]."</a>.";
@@ -92,7 +92,7 @@ class Notification extends Eloquent {
                                 'actor_id' => $bid->vendor->user_id,
                                 'payload' => array('bid' => $bid->to_array())));
 
-    } elseif ($notification->notification_type == "CollaboratorAdded") {
+    } elseif ($notification->notification_type == "ContractCollaboratorAdded") {
       $contract = $attributes["contract"];
       $officer = $attributes["officer"];
       $notification->fill(array('target_id' => $officer->user_id,

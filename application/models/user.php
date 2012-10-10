@@ -126,10 +126,10 @@ class User extends Eloquent {
   public function view_notification_payload($key, $val) {
     foreach ($this->unread_notifications() as $notification) {
       if ($key == "bid") {
-        if ($notification->payload["bid"] && $notification->payload["bid"]["id"] == $val)
+        if (isset($notification->payload["bid"]) && $notification->payload["bid"]["id"] == $val)
           $notification->mark_as_read();
       } elseif ($key == "contract") {
-        if ($notification->payload["contract"] && $notification->payload["contract"]["id"] == $val)
+        if (isset($notification->payload["contract"]) && $notification->payload["contract"]["id"] == $val)
           $notification->mark_as_read();
       }
     }

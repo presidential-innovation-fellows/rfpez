@@ -44,10 +44,10 @@ class Contracts_Controller extends Base_Controller {
     if ($user->officer->collaborates_on($contract->id)) return Response::json(array("status" => "already exists"));
 
     $contract->collaborators()->attach($user->officer->id);
-    Notification::send("CollaboratorAdded", array("contract" => $contract,
+    Notification::send("ContractCollaboratorAdded", array("contract" => $contract,
                                               "officer" => $user->officer));
     return Response::json(array("status" => "success",
-                                "html" => View::make("partials.media.collaborator_tr")
+                                "html" => View::make("partials.media.contract_collaborator_tr")
                                               ->with('officer', $user->officer)
                                               ->with('contract', $contract)
                                               ->render() ));
