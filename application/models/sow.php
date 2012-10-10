@@ -7,6 +7,14 @@ class Sow extends Eloquent {
     return $this->has_many('SowSection');
   }
 
+  public function officer() {
+    return $this->belongs_to('Officer');
+  }
+
+  public function collaborators() {
+    return $this->has_many_and_belongs_to('Officer', 'sow_collaborators');
+  }
+
   public function template() {
     return $this->belongs_to('SowTemplate', 'based_on_sow_template_id');
   }

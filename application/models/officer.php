@@ -42,6 +42,14 @@ class Officer extends Eloquent {
     return in_array($contract_id, $this->contracts_collaborating_on()->lists('id'));
   }
 
+  public function collaborates_on_sow($sow_id) {
+    return in_array($sow_id, $this->sows_collaborating_on()->lists('id'));
+  }
+
+  public function sows_collaborating_on() {
+    return $this->has_many_and_belongs_to('Sow', 'sow_collaborators');
+  }
+
   public function contracts_collaborating_on() {
     return $this->has_many_and_belongs_to('Contract', 'contract_collaborators');
   }

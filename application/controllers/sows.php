@@ -8,6 +8,8 @@ class Sows_Controller extends Base_Controller {
     $this->filter('before', 'sow_exists')->except(array('new', 'new_post'));
 
     $this->filter('after', 'doc')->only(array('doc'));
+
+    $this->filter('before', 'collaborator_exists')->only(array('destroy_collaborator'));
   }
 
   public function action_new() {
@@ -15,6 +17,30 @@ class Sows_Controller extends Base_Controller {
     $view->templates = SowTemplate::where('visible', '=', true)->get();
 
     $this->layout->content = $view;
+  }
+
+  public function action_add_collaborator() {
+    $sow = Config::get('sow');
+    $user = User::where_email(Input::get('email'))->first();
+    if (!$user) return Response::json(array("status" => "error"));
+    if ($user->id === Auth::user()->id) return Response::json(array("status" => "can't add yourself"));
+    if ($user->officer->collaborates_on_sow($sow->id)) return Response::json(array("status" => "already exists"));
+
+    $sow->collaborators()->attach($user->officer->id);
+    Notification::send("SowCollaboratorAdded", array("sow" => $sow,
+                                                     "officer" => $user->officer));
+
+    return Response::json(array("status" => "success",
+                                "html" => View::make("partials.media.sow_collaborator_tr")
+                                              ->with('officer', $user->officer)
+                                              ->with('sow', $sow)
+                                              ->render() ));
+  }
+
+  public function action_destroy_collaborator() {
+    $collaborator = Config::get('collaborator');
+    $collaborator->delete();
+    return Response::json(array("status" => "success"));
   }
 
   public function action_new_post() {
@@ -189,6 +215,16 @@ Route::filter('sow_exists', function() {
   $sow = Sow::find($id);
   if (!$sow) return Redirect::to('/');
   Config::set('sow', $sow);
+});
+
+Route::filter('collaborator_exists', function() {
+  $sow_id = Request::$route->parameters[0];
+  $officer_id = Request::$route->parameters[1];
+  $collaborator = SowCollaborator::where_sow_id($sow_id)
+                                 ->where_officer_id($officer_id)
+                                 ->first();
+  if (!$collaborator) return Redirect::to('/');
+  Config::set('collaborator', $collaborator);
 });
 
 Route::filter('doc', function($response) {

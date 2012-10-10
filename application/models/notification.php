@@ -59,6 +59,12 @@ class Notification extends Eloquent {
       $return_array["subject"] = "You have been added as a collaborator for ".$contract["title"].".";
       $return_array["line1"] = "You have been added as a collaborator on  <a href='".route('contract', array($contract["id"]))."'>".$contract["title"]."</a>.";
       $return_array["line2"] = "You can now review bids and answer questions about this contract.";
+
+    } elseif ($this->notification_type == "SowCollaboratorAdded") {
+      $sow = $this->payload["sow"];
+      $return_array["subject"] = "You have been added as a collaborator for a SOW: ".$sow["title"].".";
+      $return_array["line1"] = "You have been added as a collaborator on  <a href='".route('sow', array($sow["id"]))."'> a SOW: ".$sow["title"]."</a>.";
+      $return_array["line2"] = "You can now review and edit this SOW.";
     }
 
     return $return_array;
@@ -92,6 +98,13 @@ class Notification extends Eloquent {
       $notification->fill(array('target_id' => $officer->user_id,
                                 'actor_id' => $contract->officer->user_id,
                                 'payload' => array('contract' => $contract->to_array())));
+
+    } elseif ($notification->notification_type == "SowCollaboratorAdded") {
+      $sow = $attributes["sow"];
+      $officer = $attributes["officer"];
+      $notification->fill(array('target_id' => $officer->user_id,
+                                'actor_id' => $sow->officer->user_id,
+                                'payload' => array('sow' => $sow->to_array())));
 
     } else {
       throw new \Exception("Don't know how to handle that notification type.");

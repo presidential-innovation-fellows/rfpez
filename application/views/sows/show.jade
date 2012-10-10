@@ -3,10 +3,31 @@
   h1 #{$sow->title}
 
   .row
-    .span8
+    .span7
       | !{$sow->body}
 
       .disclaimer #{Config::get('sowcomposer.disclaimer')}
 
-    .span3.well.sidebar
+    .span4.well.sidebar
+      h4 Add Collaborators
+      p Share with your CO or others to get this RFP out the door.
+
+      table.table.collaborators-table(data-sow-id="#{$sow->id}")
+        thead
+          tr
+            th Email
+            th Actions
+        tbody
+          - foreach ($sow->collaborators as $officer):
+            !{View::make('partials.media.sow_collaborator_tr')->with('officer', $officer)->with('sow', $sow)}
+        tfoot
+          tr
+            td(colspan="2")
+              form#add-collaborator-form(action="#{route('sow_collaborators', array($sow->id))}", method="POST")
+                .input-append
+                  input(type="text", name="email", placeholder="Email Address", autocomplete="off")
+                  button.btn.btn-success Add
+
+
+      h4 Back to edit
       a.btn.btn-primary(href="#{route('sow_editdoc', array($sow->id))}") &larr; Edit SOW
