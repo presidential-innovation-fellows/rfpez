@@ -192,23 +192,12 @@ class Sows_Controller extends Base_Controller {
     $view = View::make('sows.show');
     $view->sow = Config::get('sow');
     $this->layout->content = $view;
+    if (Auth::user()) Auth::user()->view_notification_payload('sow', $view->sow->id);
   }
 
   public function action_doc() {
     $sow = Config::get('sow');
     return View::make('partials.doc')->with('sow', $sow);
-  }
-
-  public function action_print() {
-    $view = View::make('sows.print');
-    $view->sow = Config::get('sow');
-    return $view;
-  }
-
-  public function action_view($read_only_uuid) {
-    $view = View::make('sows.view');
-    $view->sow = Sow::where('read_only_uuid', '=', $read_only_uuid)->first();
-    $this->layout->content = $view;
   }
 
 }
