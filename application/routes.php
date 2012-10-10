@@ -59,11 +59,13 @@ Route::get('contracts/(:num)/bids/(:num)/sf1449.pdf', array('uses' => 'bids@sf14
 |--------------------------------------------------------------------------
 */
 
+Route::get('sows', array('uses' => 'sows@index', 'as' => 'sows'));
+Route::get('sows/mine', array('uses' => 'sows@mine', 'as' => 'my_sows'));
+
 Route::post('sows/(:num)/collaborators', array('uses' => 'sows@add_collaborator', 'as' => 'sow_collaborators'));
 Route::delete('sows/(:num)/collaborators/(:num)', array('uses' => 'sows@destroy_collaborator', 'as' => 'sow_collaborators_destroy'));
 
-Route::get('sows/new', array('uses' => 'sows@new', 'as' => 'new_sow'));
-Route::post('sows/new', array('uses' => 'sows@new_post', 'as' => 'new_sow'));
+Route::get('sows/new/(:num)', array('uses' => 'sows@new_post', 'as' => 'new_sow'));
 
 Route::get('sows/(:num)/background', array('uses' => 'sows@background', 'as' => 'sow_background'));
 Route::post('sows/(:num)/background', array('uses' => 'sows@background_post', 'as' => 'sow_background'));

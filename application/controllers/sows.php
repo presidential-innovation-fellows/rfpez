@@ -5,17 +5,15 @@ class Sows_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->filter('before', 'sow_exists')->except(array('new', 'new_post'));
+    $this->filter('before', 'sow_exists')->except(array('mine', 'new', 'new_post'));
 
     $this->filter('after', 'doc')->only(array('doc'));
 
     $this->filter('before', 'collaborator_exists')->only(array('destroy_collaborator'));
   }
 
-  public function action_new() {
-    $view = View::make('sows.new');
-    $view->templates = SowTemplate::where('visible', '=', true)->get();
-
+  public function action_mine() {
+    $view = View::make('sows.mine');
     $this->layout->content = $view;
   }
 
@@ -43,9 +41,11 @@ class Sows_Controller extends Base_Controller {
     return Response::json(array("status" => "success"));
   }
 
-  public function action_new_post() {
-    $sow = Sow::create(array('officer_id' => Auth::user()->officer->id,
-                             'based_on_sow_template_id' => Input::get('template_id')));
+  public function action_new_post($template_id) {
+    $template = SowTemplate::find($template_id);
+    $sow = Sow::create(array('title' => $template->title . " for " . Auth::user()->officer->agency,
+                             'officer_id' => Auth::user()->officer->id,
+                             'based_on_sow_template_id' => $template->id));
 
     return Redirect::to(route('sow_background', array($sow->id)));
   }
@@ -179,8 +179,6 @@ class Sows_Controller extends Base_Controller {
     $sow = Config::get('sow');
     $sow->body = Input::get('body');
     $sow->save();
-
-    Session::flash('notice', "Congratulations, your SOW is complete!");
 
     return Redirect::to(route('sow', array($sow->id)));
   }

@@ -1,3 +1,9 @@
+- Section::inject('page_title', $sow->title)
+- Section::inject('active_nav', 'account')
+- Section::inject('active_subnav', 'show')
+
+- Section::inject('subnav', View::make('sows.partials.sow_composer_toolbar')->with('sow', $sow))
+
 .step.step-7
 
   h1 #{$sow->title}
@@ -27,7 +33,3 @@
                 .input-append
                   input(type="text", name="email", placeholder="Email Address", autocomplete="off")
                   button.btn.btn-success Add
-
-
-      h4 Back to edit
-      a.btn.btn-primary(href="#{route('sow_editdoc', array($sow->id))}") &larr; Edit SOW

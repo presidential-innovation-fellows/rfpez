@@ -1,6 +1,10 @@
-.step.step-3
+- Section::inject('page_title', $sow->title)
+- Section::inject('active_nav', 'account')
+- Section::inject('active_subnav', 'section-'.$section_type)
 
-  h2.step-title #{$section_type}
+- Section::inject('subnav', View::make('sows.partials.sow_composer_toolbar')->with('sow', $sow))
+
+.step.step-3
 
   - if ($help_text = $sow->template->get_variable($section_type)):
     .alert.alert-info #{$help_text}

@@ -1,6 +1,11 @@
+- Section::inject('page_title', $sow->title)
+- Section::inject('active_nav', 'account')
+- Section::inject('active_subnav', 'editdoc')
+
+- Section::inject('subnav', View::make('sows.partials.sow_composer_toolbar')->with('sow', $sow))
+
 .step.step-6
   form(method="POST")
-    h2.step-title Edit Document Text
 
     textarea#sow-content-wysiwyg(name="body", style="width: 100%; min-height: 400px")
       !{SowVariableParser::parse(View::make('sows.partials.step6_output')->with('sow', $sow), $sow, "read")}

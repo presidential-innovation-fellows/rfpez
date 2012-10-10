@@ -1,10 +1,11 @@
-- Section::inject('page_title', 'New Statement of Work')
-- Section::inject('active_nav', 'contracts')
+- Section::inject('page_title', $sow->title)
+- Section::inject('active_nav', 'account')
+- Section::inject('active_subnav', 'background')
+
+- Section::inject('subnav', View::make('sows.partials.sow_composer_toolbar')->with('sow', $sow))
 
 .step.step-2
   form(method="POST")
-
-    h2.step-title Background &amp; Scope
 
     .row
       .span8
