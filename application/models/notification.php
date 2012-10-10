@@ -116,6 +116,7 @@ class Notification extends Eloquent {
 
   public function send_email() {
     $transport = Config::get('mailer.transport');
+    if (!$transport) return;
     $mailer = Swift_Mailer::newInstance($transport);
     $message = Swift_Message::newInstance();
     $message->setFrom(array('noreply@sba.gov'=>'EasyBid'));
