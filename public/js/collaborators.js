@@ -24,13 +24,14 @@
     });
   });
 
-  $(document).on("click", ".remove-collaborator-button", function() {
+  $(document).on("click", ".remove-collaborator-button", function(e) {
     var contract_id, el, officer_id;
+    e.preventDefault();
     el = $(this);
     contract_id = el.closest("[data-contract-id]").data('contract-id');
     officer_id = el.closest("[data-officer-id]").data('officer-id');
     return $.ajax({
-      url: "/contracts/" + contract_id + "/collaborators/" + officer_id,
+      url: el.attr("href"),
       type: "delete",
       success: function() {
         return el.closest("tr").remove();

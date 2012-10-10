@@ -1,0 +1,17 @@
+- Section::inject('page_title', 'My SOWs')
+- Section::inject('active_nav', 'account')
+
+table.table.my-sows-table
+  thead
+    tr
+      th SOW Title
+      th Date Created
+      th Actions
+  tbody
+    - foreach (Auth::user()->officer->my_sows_including_collaborating_on()->get() as $sow):
+      tr
+        td
+          a(href="#{route('sow', array($sow->id))}") #{$sow->title}
+        td #{$sow->created_at}
+        td
+          a.btn.btn-primary(href="#") Post Contract
