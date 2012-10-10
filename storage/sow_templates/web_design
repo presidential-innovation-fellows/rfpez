@@ -1,0 +1,64 @@
+This is a web site template!
+
+---TITLE---
+
+Web Design
+
+---Custom Section---
+
+--This is the helper/description that would show up for this section--
+
+# Title for a section
+
+### Lengthy information about this section.
+
+# Title for another section
+
+### More lengthy information about this section.
+
+
+---Deliverables---
+
+# Existing Audience Analysis
+
+### A report detailing the analysis of {{WEBSITE | Website | The website's URL. }}'s audiences clearly presenting in its text user personas to provide better understanding of {{AGENCY}} stakeholders and interest groups. This report will guide the strategic content creation, user interface design and overall themes of the other Deliverable Products outlined below.
+
+
+# Information Architecture
+
+### Information architecture (IA) and initial site map for the redesigned {{WEBSITE}} site. This IA and site map will be used so copy can be revised and/or developed in-house while the contractor is in the process of executing other deliverable products. Note the IA and site map will only include content/sites currently in the {{WEBSITE}} infrastructure.
+
+
+# Design Elements and Mood/Storyboarding
+
+### Initial design elements to be incorporated into the current {{WEBSITE}} infrastructure. In order to generate internal stakeholder interest in, and adoption of, the process, small changes to the organization and design of the current {{WEBSITE}} site will be developed and implemented as recommended based on the findings in Deliverable Product #1.
+
+
+# Page Templating
+
+### Complete redesign of {{WEBSITE}} and templates for outreach materials. This includes the complete website, features, applications, blog, social media, mobile, email and newsletters, and any items deemed best to connect with the audiences identified in Deliverable Product #1.
+
+Alongside the redesign process, {{WEBSITE}} will be migrated into an Open Source Content Management System (likely Drupal) and the selected vendor will be required to work with the back end development team(s) in order to incorporate the {{WEBSITE}} User Experience Strategy. The selected vendor will also be responsible for the front end development and programming required to successfully execute any of the redesigned {{WEBSITE}} materials such as cut up, markup, CSS, scripting, etc.
+
+Note that this deliverable may be subject to multiple rounds of revisions. {{WEBSITE}} requires a unique look and feel and creative materials submitted that clearly resemble other government or mission-related sites will not be accepted. Further, all materials are required to be ready for technical implementation upon delivery and {{AGENCY}} will not approve hours billed to make corrections to templated work or incorrectly formatted items.
+
+
+# Usability and Compliance Testing
+
+### A usability report detailing initial audience response and metrics pertaining to the {{WEBSITE}} redesign and any strategic recommendations and/or modifications to address issues as necessary.
+
+
+# Style and Brand Guidelines
+
+### Brand guidelines; a comprehensive manual for {{AGENCY | Agency | The agency you belong to.}} staff outlining the specifications and recommended use of all creative to develop and maintain the new corporate identity.
+
+
+---Requirements---
+
+--This is the helper/description that would show up for this section--
+
+# Open-sourced project online
+
+## Vendor must have code from a past project publicly available online for review.
+
+### The {{AGENCY}} {{OFFICE | Office | Your office name.}} requests that you have at least one project's code available for public review online.

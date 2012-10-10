@@ -1,0 +1,10 @@
+.step.step-6
+  form(method="POST")
+    h2.step-title Edit Document Text
+
+    textarea#sow-content-wysiwyg(name="body", style="width: 100%; min-height: 400px")
+      !{SowVariableParser::parse(View::make('sows.partials.step6_output')->with('sow', $sow), $sow, "read")}
+
+    .bottom-controls.well
+      a.btn(href="#{route('sow_fillinblanks', array($sow->id))}") &larr; Enter Variables
+      button.btn.btn-primary.pull-right Download SOW &rarr;

@@ -1,0 +1,22 @@
+.step.step-5
+
+  form(method="POST")
+
+    h2.step-title Fill out your SOW
+
+    .alert.alert-info Fill in the blanks below and we'll assemble your final document, which you can edit in the next step.
+
+    .control-group.x-large
+      .input-prepend
+        .add-on Title
+        input(type="text", name="title", value="#{$sow->title != "" ? $sow->title : $sow->template->title}")
+
+    .sow-content
+      !{SowVariableParser::parse(View::make('sows.partials.step5_output')->with('sow', $sow), $sow)}
+
+    .bottom-controls.well
+      - $last_template_section_type = $sow->last_template_section_type()
+      a.btn(href="#{route('sow_section', array($sow->id, $last_template_section_type))}")
+        | &larr; #{$last_template_section_type}
+
+      button.btn.btn-primary.pull-right Edit Document &rarr;

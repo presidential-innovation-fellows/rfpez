@@ -1,0 +1,14 @@
+h3 Background & Scope
+p #{$sow->background_and_scope()}
+
+- foreach($sow->sow_section_types() as $section_type):
+  h3 #{$section_type}
+  - $i = 1
+  - foreach($sow->sections($section_type) as $section):
+    h4 #{$i} #{$section->best_title()}
+    p
+      - if ($section->template_section):
+        | #{$section->template_section->body}
+      - else:
+        textarea.composer(name="custom_sections[#{$section->id}]") #{$section->body}
+  - ++$i;

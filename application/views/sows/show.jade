@@ -1,0 +1,12 @@
+.step.step-7
+
+  h1 #{$sow->title}
+
+  .row
+    .span8
+      | !{$sow->body}
+
+      .disclaimer #{Config::get('sowcomposer.disclaimer')}
+
+    .span3.well.sidebar
+      a.btn.btn-primary(href="#{route('sow_editdoc', array($sow->id))}") &larr; Edit SOW

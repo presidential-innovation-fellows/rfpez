@@ -55,6 +55,32 @@ Route::get('contracts/(:num)/bids/(:num)/sf1449.pdf', array('uses' => 'bids@sf14
 
 /*
 |--------------------------------------------------------------------------
+| SOW Composer
+|--------------------------------------------------------------------------
+*/
+
+Route::get('sows/new', array('uses' => 'sows@new', 'as' => 'new_sow'));
+Route::post('sows/new', array('uses' => 'sows@new_post', 'as' => 'new_sow'));
+
+Route::get('sows/(:num)/background', array('uses' => 'sows@background', 'as' => 'sow_background'));
+Route::post('sows/(:num)/background', array('uses' => 'sows@background_post', 'as' => 'sow_background'));
+
+Route::get('sows/(:num)/sections/(:all)', array('uses' => 'sows@section', 'as' => 'sow_section'));
+Route::post('sows/(:num)/sections/(:all)', array('uses' => 'sows@section_post', 'as' => 'sow_section_post'));
+
+Route::get('sows/(:num)/fillinblanks', array('uses' => 'sows@fillinblanks', 'as' => 'sow_fillinblanks'));
+Route::post('sows/(:num)/fillinblanks', array('uses' => 'sows@fillinblanks_post', 'as' => 'sow_fillinblanks'));
+
+Route::get('sows/(:num)/editdoc', array('uses' => 'sows@editdoc', 'as' => 'sow_editdoc'));
+Route::post('sows/(:num)/editdoc', array('uses' => 'sows@editdoc_post', 'as' => 'sow_editdoc'));
+
+Route::get('sows/(:num)', array('uses' => 'sows@show', 'as' => 'sow'));
+// Route::get('sows/(:num)/doc', array('uses' => 'sows@doc', 'as' => 'sow_doc'));
+// Route::get('sows/(:num)/print', array('uses' => 'sows@print', 'as' => 'sow_print'));
+// Route::get('sows/(:num)/view', array('uses' => 'sows@view', 'as' => 'sow_view'));
+
+/*
+|--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers
 |--------------------------------------------------------------------------
 |
