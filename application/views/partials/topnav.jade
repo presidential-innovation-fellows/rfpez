@@ -3,22 +3,22 @@ div.nav-collapse.collapse
 - if (Auth::check()):
 
   ul.nav
-    li(class="#{Helper::active_nav('contracts') ? 'active':''}")
-      a(href="#") Projects
+    li
+      a(href="#{ route('projects') }") Browse Projects
 
     - if (Auth::user()->officer):
-      li(class="#{Helper::active_nav('vendors') ? 'active':''}")
+      li
         a(href="#{ route('vendors') }") Vendors
 
   ul.nav.pull-right
-    li(class="dropdown #{Helper::active_nav('account') ? 'active':''}")
+    li.dropdown
       a(href="#", class="dropdown-toggle", data-toggle="dropdown")
         | #{Auth::user()->email}
         b.caret
       ul.dropdown-menu
         - if (Auth::user()->officer):
           li
-            a(href="#") My Projects
+            a(href="#{ route('my_projects') }") My Projects
         - else:
           li
             a(href="#{ route('my_bids') }") My Bids
@@ -27,7 +27,7 @@ div.nav-collapse.collapse
           a(href="#{route('account')}") Account Settings
         li
           a(href="#{ route('signout') }") Sign Out
-    li(class="notification-nav-item #{Helper::active_nav('notifications') ? 'active':''}")
+    li(class="notification-nav-item")
       a(href="#{route('notifications')}")
         | &nbsp;
         i.icon-white.icon-envelope
@@ -39,9 +39,9 @@ div.nav-collapse.collapse
 - else:
 
   ul.nav
-    li(class="#{Helper::active_nav('contracts') ? 'active':''}")
-      a(href="#") Projects
+    li
+      a(href="#{ route('projects') }") Browse Projects
 
   ul.nav.pull-right
-    li(class="#{Helper::active_nav('sign_in') ? 'active':''}")
+    li
       a(href="#signinModal", data-toggle='modal') Sign In

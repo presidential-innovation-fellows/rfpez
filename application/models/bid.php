@@ -30,6 +30,10 @@ class Bid extends Eloquent {
     return $this->belongs_to('Project');
   }
 
+  public function is_mine() {
+    return (Auth::vendor() && ($this->vendor == Auth::vendor())) ? true : false;
+  }
+
   public function get_prices() {
     return json_decode($this->attributes['prices'], true);
   }

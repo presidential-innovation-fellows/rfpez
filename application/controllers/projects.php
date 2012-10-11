@@ -5,11 +5,11 @@ class Projects_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->filter('before', 'officer_only')->except(array(/* ... */));
+    $this->filter('before', 'officer_only')->except(array('show', 'index'));
 
-    $this->filter('before', 'project_exists')->except(array('new', 'create'));
+    $this->filter('before', 'project_exists')->except(array('new', 'create', 'mine', 'index'));
 
-    $this->filter('before', 'i_am_collaborator')->except(array('new', 'create'));
+    $this->filter('before', 'i_am_collaborator')->except(array('new', 'create', 'mine', 'index', 'show'));
   }
 
   public function action_new() {
@@ -42,9 +42,21 @@ class Projects_Controller extends Base_Controller {
     return Redirect::to_route('project_admin', array($project->id));
   }
 
+  public function action_mine() {
+    $view = View::make('projects.mine');
+    $view->projects = Auth::officer()->projects;
+    $this->layout->content = $view;
+  }
+
   public function action_admin() {
     $view = View::make('projects.admin');
     $view->project = Config::get('project');
+    $this->layout->content = $view;
+  }
+
+  public function action_index() {
+    $view = View::make('projects.index');
+    $view->projects = Project::open_projects()->get();
     $this->layout->content = $view;
   }
 
@@ -80,11 +92,6 @@ class Projects_Controller extends Base_Controller {
     return Response::json(array("status" => "success"));
   }
 
-  // public function action_index() {
-  //   $view = View::make('contracts.index');
-  //   $view->contracts = Contract::open_contracts()->get();
-  //   $this->layout->content = $view;
-  // }
 
   // public function action_show() {
   //   $view = View::make('contracts.show');
@@ -96,11 +103,6 @@ class Projects_Controller extends Base_Controller {
 
 
 
-  // public function action_mine() {
-  //   $view = View::make('contracts.mine');
-  //   $view->contracts = Auth::user()->officer->my_contracts_including_collaborating_on()->get();
-  //   $this->layout->content = $view;
-  // }
 
   // public function action_create() {
   //   $solnbr = Input::get('solnbr');

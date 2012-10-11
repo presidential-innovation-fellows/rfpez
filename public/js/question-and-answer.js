@@ -2,7 +2,7 @@
 (function() {
 
   $(document).on("submit", "#answer-question-form", function(e) {
-    var answer_text, el, question;
+    var answer_text, el, question, question_id;
     e.preventDefault();
     el = $(this);
     answer_text = el.find("textarea[name=answer]").val();
@@ -11,13 +11,9 @@
     }
     el.find("button").button('loading');
     question = el.closest(".question-wrapper");
-    return $.ajax({
-      url: el.attr('action'),
-      type: "post",
-      data: {
-        id: el.find("input[name=id]").val(),
-        answer: answer_text
-      },
+    question_id = el.closest("[data-question-id]").data('question-id');
+    return el.ajaxSubmit({
+      url: "/questions/" + question_id,
       success: function(data) {
         var new_question;
         if (data.status === "success") {
@@ -60,7 +56,7 @@
     return $.ajax({
       url: "/questions",
       data: {
-        contract_id: el.find("input[name=contract_id]").val(),
+        project_id: el.find("input[name=project_id]").val(),
         question: question_text
       },
       type: "POST",

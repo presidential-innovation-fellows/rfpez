@@ -31,8 +31,7 @@ Route::resourceful('vendors', array('new', 'create', 'index', 'show'));
 Route::resourceful('officers', array('new', 'create'));
 Route::get('officers/typeahead', array('uses' => 'officers@typeahead', 'as' => 'officers_typeahead'));
 
-Route::resourceful('questions', array('create'));
-Route::post('answerquestion', array('uses' => 'questions@answer', 'as' => 'answer_question'));
+Route::resourceful('questions', array('create', 'update'));
 
 Route::resourceful('notifications', array('index'));
 Route::put('notifications/(:num)/markasread', array('uses' => 'notifications@mark_as_read', 'as' => 'notification_mark_as_read'));
@@ -43,7 +42,7 @@ Route::get('bids/mine', array('uses' => 'bids@mine', 'as' => 'my_bids'));
 
 Route::resourceful('projects', array('new', 'create', 'edit', 'update', 'index', 'show'));
 
-// Route::get('contracts/mine', array('uses' => 'contracts@mine', 'as' => 'my_contracts'));
+Route::get('projects/mine', array('uses' => 'projects@mine', 'as' => 'my_projects'));
 
 Route::get('projects/(:num)/admin', array('uses' => 'projects@admin', 'as' => 'project_admin'));
 
@@ -52,9 +51,9 @@ Route::delete('projects/(:num)/collaborators/(:num)', array('uses' => 'projects@
 
 Route::get('projects/(:num)/bids', array('uses' => 'bids@review', 'as' => 'review_bids'));
 
-// Route::get('contracts/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
-// Route::post('contracts/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));
-// Route::get('contracts/(:num)/bids/(:num)', array('uses' => 'bids@show', 'as' => 'bid'));
+Route::get('projects/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
+Route::post('projects/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));
+Route::get('projects/(:num)/bids/(:num)', array('uses' => 'bids@show', 'as' => 'bid'));
 // Route::get('contracts/(:num)/bids/(:num)/dismiss', array('uses' => 'bids@dismiss', 'as' => 'bid_dismiss'));
 // Route::get('contracts/(:num)/bids/(:num)/star', array('uses' => 'bids@star', 'as' => 'bid_star'));
 // Route::get('contracts/(:num)/bids/(:num)/destroy', array('uses' => 'bids@destroy', 'as' => 'bid_destroy'));

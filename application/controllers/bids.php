@@ -5,11 +5,17 @@ class Bids_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->filter('before', 'officer_only')->except(array(/* ... */));
+    $this->filter('before', 'vendor_only')->only(array('new', 'create'));
 
-    $this->filter('before', 'project_exists')->except(array());
+    $this->filter('before', 'project_exists');
 
-    $this->filter('before', 'i_am_collaborator')->except(array());
+    $this->filter('before', 'i_am_collaborator')->only(array('review'));
+
+    $this->filter('before', 'bid_exists')->only(array('show'));
+
+    $this->filter('before', 'i_am_collaborator_or_bid_vendor')->only(array('show'));
+
+    $this->filter('before', 'i_have_not_already_bid')->only(array('new', 'create'));
 
   }
 
@@ -21,11 +27,54 @@ class Bids_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
-  // public function action_new() {
-  //   $view = View::make('bids.new');
-  //   $view->contract = Config::get('contract');
-  //   $this->layout->content = $view;
-  // }
+  public function action_show() {
+    $view = View::make('bids.show');
+    $view->project = Config::get('project');
+    $view->bid = Config::get('bid');
+    $this->layout->content = $view;
+    Auth::user()->view_notification_payload('bid', $view->bid->id);
+  }
+
+  public function action_new() {
+    $view = View::make('bids.new');
+    $view->project = Config::get('project');
+    $this->layout->content = $view;
+  }
+
+  public function action_create() {
+    $project = Config::get('project');
+    $bid = $project->my_current_bid_draft() ?: new Bid();
+    $bid->vendor_id = Auth::user()->vendor->id;
+    $bid->project_id = $project->id;
+    $bid->fill(Input::get('bid'));
+
+    $prices = array();
+    $i = 0;
+    $deliverable_prices = Input::get('deliverable_prices');
+    foreach (Input::get('deliverable_names') as $deliverable_name) {
+      if (trim($deliverable_name) !== "") {
+        $prices[$deliverable_name] = $deliverable_prices[$i];
+      }
+      $i++;
+    }
+    $bid->prices = $prices;
+
+    if (Input::get('submit_now') === 'true') {
+      if ($bid->validator()->passes()) {
+        $bid->submit();
+        Session::flash('notice', 'Thanks for submitting your bid.');
+        return Redirect::to_route('bid', array($project->id, $bid->id));
+      } else {
+        Session::flash('errors', $bid->validator()->errors->all());
+        return Redirect::to_route('new_bids', array($project->id, $bid->id))->with_input();
+      }
+    } else {
+      $bid->save();
+      return Response::json(array("status" => "success"));
+    }
+
+  }
+
 
   // public function action_mine() {
   //   $view = View::make('bids.mine');
@@ -57,47 +106,7 @@ class Bids_Controller extends Base_Controller {
   //   return Response::json(array("status" => "success", "starred" => $bid->starred));
   // }
 
-  // public function action_create() {
-  //   $contract = Config::get('contract');
-  //   $bid = $contract->my_current_bid_draft() ?: new Bid();
-  //   $bid->vendor_id = Auth::user()->vendor->id;
-  //   $bid->contract_id = $contract->id;
-  //   $bid->fill(Input::get('bid'));
 
-  //   $prices = array();
-  //   $i = 0;
-  //   $deliverable_prices = Input::get('deliverable_prices');
-  //   foreach (Input::get('deliverable_names') as $deliverable_name) {
-  //     if (trim($deliverable_name) !== "") {
-  //       $prices[$deliverable_name] = $deliverable_prices[$i];
-  //     }
-  //     $i++;
-  //   }
-  //   $bid->prices = $prices;
-
-  //   if (Input::get('submit_now') === 'true') {
-  //     if ($bid->validator()->passes()) {
-  //       $bid->submit();
-  //       Session::flash('notice', 'Thanks for submitting your bid.');
-  //       return Redirect::to_route('bid', array($contract->id, $bid->id));
-  //     } else {
-  //       Session::flash('errors', $bid->validator()->errors->all());
-  //       return Redirect::to_route('new_bids', array($contract->id, $bid->id))->with_input();
-  //     }
-  //   } else {
-  //     $bid->save();
-  //     return Response::json(array("status" => "success"));
-  //   }
-
-  // }
-
-  // public function action_show() {
-  //   $view = View::make('bids.show');
-  //   $view->contract = Config::get('contract');
-  //   $view->bid = Config::get('bid');
-  //   $this->layout->content = $view;
-  //   Auth::user()->view_notification_payload('bid', $view->bid->id);
-  // }
 
   // public function action_destroy() {
   //   $contract = Config::get('contract');
@@ -154,6 +163,29 @@ Route::filter('i_am_collaborator', function() {
   if (!$project->is_mine()) return Redirect::to('/');
 });
 
+Route::filter('bid_exists', function() {
+  $id = Request::$route->parameters[1];
+  $bid = Bid::find($id);
+  if (!$bid) return Redirect::to('/');
+  Config::set('bid', $bid);
+});
+
+Route::filter('i_am_collaborator_or_bid_vendor', function() {
+  $bid = Config::get('bid');
+  $project = Config::get('project');
+  if (!$bid->is_mine() && !$project->is_mine()) return Redirect::to('/');
+});
+
+Route::filter('i_have_not_already_bid', function() {
+  $project = Config::get('project');
+  $bid = $project->current_bid_from(Auth::vendor());
+
+  if ($bid) {
+    Session::flash('notice', 'Sorry, but you already placed a bid on this project.');
+    return Redirect::to_route('project', array($project->id));
+  }
+});
+
 // Route::filter('contract_exists', function() {
 //   $id = Request::$route->parameters[0];
 //   $contract = Contract::find($id);
@@ -202,12 +234,3 @@ Route::filter('i_am_collaborator', function() {
 //     return Redirect::to('/');
 // });
 
-// Route::filter('bid_not_already_made', function() {
-//   $contract = Config::get('contract');
-//   $bid = $contract->current_bid_from(Auth::user()->vendor);
-
-//   if ($bid) {
-//     Session::flash('notice', 'Sorry, but you already placed a bid on this contract.');
-//     return Redirect::to_route('contract', array($contract->id));
-//   }
-// });
