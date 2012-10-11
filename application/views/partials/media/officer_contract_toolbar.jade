@@ -1,7 +1,12 @@
 ul.nav.nav-tabs.officer-toolbar
   li(class="#{Helper::active_subnav('view_contract') ? 'active':''}")
     a(href="#{route('contract', array($contract->id))}") View Contract
-  li(class="#{Helper::active_subnav('review_bids') ? 'active':''}")
-    a(href="#{route('bids', array($contract->id))}") Review #{$contract->submitted_bids()->count()} Bids
+  - if ($contract->submitted_bids()->count() === "0"):
+    li.disabled
+      a.muted No Bids Yet
+  - else:
+    li(class="#{Helper::active_subnav('review_bids') ? 'active':''}")
+      a(href="#{route('bids', array($contract->id))}") Review #{$contract->submitted_bids()->count()} Bids
+  - endif;
   li(class="#{Helper::active_subnav('admin') ? 'active':''}")
     a(href="#{route('contract_admin', array($contract->id))}") Admin
