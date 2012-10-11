@@ -176,10 +176,9 @@ class Initial_Schema {
 
     Schema::create('sows', function($t) {
       $t->increments('id');
+      $t->text('body');
       $t->integer('project_id');
       $t->integer('based_on_sow_template_id')->nullable();
-      $t->string('title');
-      $t->text('body');
       $t->text('variables'); // {Website Url: "energy.gov", Name: "Energy"}]
       $t->timestamps();
     });

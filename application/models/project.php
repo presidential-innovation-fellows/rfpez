@@ -2,6 +2,12 @@
 
 class Project extends Eloquent {
 
+  const STATUS_WRITING_SOW = 1;
+  const STATUS_WAITING_TO_POST = 2;
+  const STATUS_ACCEPTING_BIDS = 3;
+  const STATUS_REVIEWING_BIDS = 4;
+  const STATUS_CONTRACT_AWARDED = 5;
+
   public static $timestamps = true;
 
   public static $naics_codes = array(541430 => 'Graphic Design Services',
@@ -21,6 +27,10 @@ class Project extends Eloquent {
     return $this->has_many_and_belongs_to('Officer', 'project_collaborators');
   }
 
+  public function sow() {
+    return $this->has_one('Sow');
+  }
+
   public function bids() {
     return $this->has_many('Bid');
   }
@@ -31,7 +41,10 @@ class Project extends Eloquent {
 
   public function is_mine() {
     if (!Auth::user() || !Auth::user()->officer) return false;
-    if (in_array(Auth::user()->officer->id, $this->officers()->lists('officer_id'))) return true;
+
+    if (in_array(Auth::officer()->id, ProjectCollaborator::where_project_id($this->id)->lists('officer_id')))
+      return true;
+
     return false;
   }
 
@@ -45,6 +58,43 @@ class Project extends Eloquent {
       return $bid;
     }
 
+    return false;
+  }
+
+  public function status() {
+    if (!$this->body) {
+      return self::STATUS_WRITING_SOW;
+    } elseif (!$this->fbo_solnbr) {
+      return self::STATUS_WAITING_TO_POST;
+    } elseif (strtotime($this->proposals_due_at) > time()) {
+      return self::STATUS_ACCEPTING_BIDS;
+    } elseif (!$this->awarded_to()) {
+      return self::STATUS_REVIEWING_BIDS;
+    } else {
+      return self::STATUS_CONTRACT_AWARDED;
+    }
+  }
+
+  public function status_text() {
+    return self::status_to_text($this->status());
+  }
+
+  public static function status_to_text($status) {
+    switch ($status) {
+      case self::STATUS_WRITING_SOW:
+        return "Writing SOW";
+      case self::STATUS_WAITING_TO_POST:
+        return "Waiting to post";
+      case self::STATUS_ACCEPTING_BIDS:
+        return "Accepting bids";
+      case self::STATUS_REVIEWING_BIDS:
+        return "Reviewing bids";
+      case self::STATUS_CONTRACT_AWARDED:
+        return "Contract Awarded";
+    }
+  }
+
+  public function awarded_to() {
     return false;
   }
 
@@ -79,7 +129,7 @@ class Project extends Eloquent {
   }
 
   public function sow_variable($var) {
-    if (preg_match('/'.$var.'\=\"(.*)\"/', $this->statement_of_work, $matches)) {
+    if (preg_match('/'.$var.'\=\"(.*)\"/', $this->body, $matches)) {
       return $matches[1];
     } else {
       return false;

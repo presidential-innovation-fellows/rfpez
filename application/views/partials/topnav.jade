@@ -4,7 +4,7 @@ div.nav-collapse.collapse
 
   ul.nav
     li(class="#{Helper::active_nav('contracts') ? 'active':''}")
-      a(href="#{ route('contracts') }") Contracts
+      a(href="#") Projects
 
     - if (Auth::user()->officer):
       li(class="#{Helper::active_nav('vendors') ? 'active':''}")
@@ -18,9 +18,7 @@ div.nav-collapse.collapse
       ul.dropdown-menu
         - if (Auth::user()->officer):
           li
-            a(href="#{ route('my_contracts') }") My Contracts
-          li
-            a(href="#{ route('my_sows') }") My SOWs
+            a(href="#") My Projects
         - else:
           li
             a(href="#{ route('my_bids') }") My Bids
@@ -42,7 +40,7 @@ div.nav-collapse.collapse
 
   ul.nav
     li(class="#{Helper::active_nav('contracts') ? 'active':''}")
-      a(href="#{ route('contracts') }") Contracts
+      a(href="#") Projects
 
   ul.nav.pull-right
     li(class="#{Helper::active_nav('sign_in') ? 'active':''}")

@@ -1,0 +1,29 @@
+- Section::inject('page_title', 'New Project')
+- Section::inject('active_nav', 'projects')
+
+form(action="#{route('projects')}", method="POST", id="new-project-form")
+  .control-group
+    label Project Title
+    input(type="text", name="project[title]")
+
+  .control-group
+    label Agency
+    input(type="text", name="project[agency]")
+
+  .control-group
+    label Office
+    input(type="text", name="project[agency]")
+
+  .control-group
+    label Naics
+    input(type="text", name="project[naics]")
+
+  .control-group
+    label SOW Template
+    select(name="template_id")
+      - foreach (SowTemplate::current()->get() as $template):
+        option(value="#{$template->id}") #{$template->title}
+
+
+
+  button.btn.btn-primary(type="submit") Create

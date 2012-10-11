@@ -39,19 +39,25 @@ Route::put('notifications/(:num)/markasread', array('uses' => 'notifications@mar
 
 Route::get('bids/mine', array('uses' => 'bids@mine', 'as' => 'my_bids'));
 
-Route::resourceful('contracts', array('new', 'create', 'edit', 'update', 'index', 'show'));
-Route::get('contracts/mine', array('uses' => 'contracts@mine', 'as' => 'my_contracts'));
-Route::get('contracts/(:num)/admin', array('uses' => 'contracts@admin', 'as' => 'contract_admin'));
-Route::post('contracts/(:num)/collaborators', array('uses' => 'contracts@add_collaborator', 'as' => 'contract_collaborators'));
-Route::delete('contracts/(:num)/collaborators/(:num)', array('uses' => 'contracts@destroy_collaborator', 'as' => 'contract_collaborators_destroy'));
-Route::get('contracts/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
-Route::get('contracts/(:num)/bids', array('uses' => 'bids@review', 'as' => 'bids'));
-Route::post('contracts/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));
-Route::get('contracts/(:num)/bids/(:num)', array('uses' => 'bids@show', 'as' => 'bid'));
-Route::get('contracts/(:num)/bids/(:num)/dismiss', array('uses' => 'bids@dismiss', 'as' => 'bid_dismiss'));
-Route::get('contracts/(:num)/bids/(:num)/star', array('uses' => 'bids@star', 'as' => 'bid_star'));
-Route::get('contracts/(:num)/bids/(:num)/destroy', array('uses' => 'bids@destroy', 'as' => 'bid_destroy'));
-Route::get('contracts/(:num)/bids/(:num)/sf1449.pdf', array('uses' => 'bids@sf1449', 'as' => 'bid_sf1449'));
+////////
+
+Route::resourceful('projects', array('new', 'create', 'edit', 'update', 'index', 'show'));
+
+// Route::get('contracts/mine', array('uses' => 'contracts@mine', 'as' => 'my_contracts'));
+
+// Route::get('contracts/(:num)/admin', array('uses' => 'contracts@admin', 'as' => 'contract_admin'));
+
+// Route::post('contracts/(:num)/collaborators', array('uses' => 'contracts@add_collaborator', 'as' => 'contract_collaborators'));
+// Route::delete('contracts/(:num)/collaborators/(:num)', array('uses' => 'contracts@destroy_collaborator', 'as' => 'contract_collaborators_destroy'));
+
+// Route::get('contracts/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
+// Route::get('contracts/(:num)/bids', array('uses' => 'bids@review', 'as' => 'bids'));
+// Route::post('contracts/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));
+// Route::get('contracts/(:num)/bids/(:num)', array('uses' => 'bids@show', 'as' => 'bid'));
+// Route::get('contracts/(:num)/bids/(:num)/dismiss', array('uses' => 'bids@dismiss', 'as' => 'bid_dismiss'));
+// Route::get('contracts/(:num)/bids/(:num)/star', array('uses' => 'bids@star', 'as' => 'bid_star'));
+// Route::get('contracts/(:num)/bids/(:num)/destroy', array('uses' => 'bids@destroy', 'as' => 'bid_destroy'));
+// Route::get('contracts/(:num)/bids/(:num)/sf1449.pdf', array('uses' => 'bids@sf1449', 'as' => 'bid_sf1449'));
 
 /*
 |--------------------------------------------------------------------------
@@ -59,28 +65,22 @@ Route::get('contracts/(:num)/bids/(:num)/sf1449.pdf', array('uses' => 'bids@sf14
 |--------------------------------------------------------------------------
 */
 
-Route::get('sows', array('uses' => 'sows@index', 'as' => 'sows'));
-Route::get('sows/mine', array('uses' => 'sows@mine', 'as' => 'my_sows'));
+Route::get('projects/(:num)/sow/start', array('uses' => 'sows@new', 'as' => 'new_sow'));
+Route::post('projects/(:num)/sow/start', array('uses' => 'sows@create', 'as' => 'new_sow'));
 
-Route::post('sows/(:num)/collaborators', array('uses' => 'sows@add_collaborator', 'as' => 'sow_collaborators'));
-Route::delete('sows/(:num)/collaborators/(:num)', array('uses' => 'sows@destroy_collaborator', 'as' => 'sow_collaborators_destroy'));
+Route::get('projects/(:num)/sow/background', array('uses' => 'sows@background', 'as' => 'sow_background'));
+Route::post('projects/(:num)/sow/background', array('uses' => 'sows@background_post', 'as' => 'sow_background'));
 
-Route::get('sows/new', array('uses' => 'sows@new', 'as' => 'new_sow'));
-Route::post('sows/new', array('uses' => 'sows@new_post', 'as' => 'new_sow_post'));
+Route::get('projects/(:num)/sow/sections/(:all)', array('uses' => 'sows@section', 'as' => 'sow_section'));
+Route::post('projects/(:num)/sow/sections/(:all)', array('uses' => 'sows@section_post', 'as' => 'sow_section_post'));
 
-Route::get('sows/(:num)/background', array('uses' => 'sows@background', 'as' => 'sow_background'));
-Route::post('sows/(:num)/background', array('uses' => 'sows@background_post', 'as' => 'sow_background'));
+Route::get('projects/(:num)/sow/fillinblanks', array('uses' => 'sows@fillinblanks', 'as' => 'sow_fillinblanks'));
+Route::post('projects/(:num)/sow/fillinblanks', array('uses' => 'sows@fillinblanks_post', 'as' => 'sow_fillinblanks'));
 
-Route::get('sows/(:num)/sections/(:all)', array('uses' => 'sows@section', 'as' => 'sow_section'));
-Route::post('sows/(:num)/sections/(:all)', array('uses' => 'sows@section_post', 'as' => 'sow_section_post'));
+Route::get('projects/(:num)/sow/editdoc', array('uses' => 'sows@editdoc', 'as' => 'sow_editdoc'));
+Route::post('projects/(:num)/sow/editdoc', array('uses' => 'sows@editdoc_post', 'as' => 'sow_editdoc'));
 
-Route::get('sows/(:num)/fillinblanks', array('uses' => 'sows@fillinblanks', 'as' => 'sow_fillinblanks'));
-Route::post('sows/(:num)/fillinblanks', array('uses' => 'sows@fillinblanks_post', 'as' => 'sow_fillinblanks'));
-
-Route::get('sows/(:num)/editdoc', array('uses' => 'sows@editdoc', 'as' => 'sow_editdoc'));
-Route::post('sows/(:num)/editdoc', array('uses' => 'sows@editdoc_post', 'as' => 'sow_editdoc'));
-
-Route::get('sows/(:num)', array('uses' => 'sows@show', 'as' => 'sow'));
+Route::get('projects/(:num)/sow/review', array('uses' => 'sows@review', 'as' => 'sow_review'));
 // Route::get('sows/(:num)/doc', array('uses' => 'sows@doc', 'as' => 'sow_doc'));
 // Route::get('sows/(:num)/print', array('uses' => 'sows@print', 'as' => 'sow_print'));
 // Route::get('sows/(:num)/view', array('uses' => 'sows@view', 'as' => 'sow_view'));

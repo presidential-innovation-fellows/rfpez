@@ -73,7 +73,10 @@ class Bid extends Eloquent {
   public function submit() {
     $this->submitted_at = new \DateTime;
     $this->save();
-    Notification::send('BidSubmit', array('bid' => $this));
+
+    foreach ($this->project->officers as $officer) {
+      Notification::send('BidSubmit', array('bid' => $this, 'target_id' => $officer->id));
+    }
   }
 
   public function total_price() {

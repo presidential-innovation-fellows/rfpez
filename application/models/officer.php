@@ -23,8 +23,8 @@ class Officer extends Eloquent {
     return $this->validator = $validator;
   }
 
-  public function contracts() {
-    return $this->has_many('Contract');
+  public function projects() {
+    return $this->has_many_and_belongs_to('Project', 'project_collaborators');
   }
 
   public function user() {

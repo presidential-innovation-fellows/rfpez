@@ -1,8 +1,8 @@
 - Section::inject('page_title', $sow->title)
 - Section::inject('active_nav', 'account')
-- Section::inject('active_subnav', 'section-'.$section_type)
+- Section::inject('active_subnav', 'sections')
 
-- Section::inject('subnav', View::make('sows.partials.sow_composer_toolbar')->with('sow', $sow))
+!{View::make('projects.partials.toolbar')->with('project', $sow->project)}
 
 .step.step-3
 
@@ -68,10 +68,10 @@
 
     .bottom-controls.well
       - if ($previous_template_section_type = $sow->template_section_type_before($section_type)):
-        a.btn(href="#{route('sow_section', array($sow->id, $previous_template_section_type))}")
+        a.btn(href="#{route('sow_section', array($sow->project->id, $previous_template_section_type))}")
           | &larr; #{$previous_template_section_type}
       - else:
-        a.btn(href="#{route('sow_background', array($sow->id))}")
+        a.btn(href="#{route('sow_background', array($sow->project->id))}")
           | &larr; Background &amp; Scope
       - endif;
 
