@@ -22,8 +22,8 @@ class Bids_Controller extends Base_Controller {
   public function action_review() {
     $view = View::make('bids.review');
     $view->project = Config::get('project');
-    $view->open_bids = $view->project->open_bids();
-    $view->dismissed_bids = $view->project->dismissed_bids();
+    $view->open_bids = $view->project->open_bids()->get();
+    $view->dismissed_bids = $view->project->dismissed_bids()->get();
     $this->layout->content = $view;
   }
 

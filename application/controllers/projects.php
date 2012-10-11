@@ -9,6 +9,8 @@ class Projects_Controller extends Base_Controller {
 
     $this->filter('before', 'project_exists')->except(array('new', 'create', 'mine', 'index'));
 
+    $this->filter('before', 'project_posted')->only(array('show'));
+
     $this->filter('before', 'i_am_collaborator')->except(array('new', 'create', 'mine', 'index', 'show'));
   }
 
@@ -224,6 +226,20 @@ Route::filter('project_exists', function() {
   $project = Project::find($id);
   if (!$project) return Redirect::to('/');
   Config::set('project', $project);
+});
+
+Route::filter('project_posted', function() {
+  $project = Config::get('project');
+
+  if ($project->status() != Project::STATUS_WRITING_SOW) return;
+
+  if (!Auth::officer()) return Redirect::to('/');
+
+  if ($project->sow->body) {
+    return Redirect::to_route('sow_review', array($project->id));
+  } else {
+    return Redirect::to_route('sow_background', array($project->id));
+  }
 });
 
 Route::filter('i_am_collaborator', function() {

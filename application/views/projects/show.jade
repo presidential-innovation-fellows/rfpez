@@ -1,4 +1,5 @@
 - Section::inject('page_title', "$project->title")
+- Section::inject('active_subnav', "view")
 
 - if ($project->is_mine()):
   !{View::make('projects.partials.toolbar')->with('project', $project)}
