@@ -1,6 +1,6 @@
 <?php
 
-class Contract extends Eloquent {
+class Project extends Eloquent {
 
   public static $timestamps = true;
 
@@ -14,16 +14,11 @@ class Contract extends Eloquent {
                                      541850 => 'Display advertising services',
                                      541840 => 'Media advertising representatives');
 
-  public static $accessible = array('agency', 'office', 'set_aside', 'classification_code',
-                                    'naics_code', 'proposals_due_at', 'posted_at',
-                                    'statement_of_work', 'title');
+  public static $accessible = array('agency', 'office', 'naics_code', 'proposals_due_at',
+                                    'body', 'title');
 
-  public function officer() {
-    return $this->belongs_to('Officer');
-  }
-
-  public function collaborators() {
-    return $this->has_many_and_belongs_to('Officer', 'contract_collaborators');
+  public function officers() {
+    return $this->has_many_and_belongs_to('Officer', 'project_collaborators');
   }
 
   public function bids() {
@@ -34,15 +29,9 @@ class Contract extends Eloquent {
     return $this->has_many('Question');
   }
 
-  public function is_mine_or_collaborates_on() {
-    if (!Auth::user() || !Auth::user()->officer) return false;
-    if ($this->is_mine() || Auth::user()->officer->collaborates_on($this->id)) return true;
-    return false;
-  }
-
   public function is_mine() {
-    if  (!Auth::user() || !Auth::user()->officer) return false;
-    if (Auth::user()->officer->id == $this->officer_id) return true;
+    if (!Auth::user() || !Auth::user()->officer) return false;
+    if (in_array(Auth::user()->officer->id, $this->officers()->lists('officer_id'))) return true;
     return false;
   }
 
@@ -50,7 +39,7 @@ class Contract extends Eloquent {
     if (!Auth::user() || !Auth::user()->vendor) return false;
 
     if ($bid = Auth::user()->vendor->bids()
-                           ->where_contract_id($this->id)
+                           ->where_project_id($this->id)
                            ->where_deleted_by_vendor(false)
                            ->first()) {
       return $bid;
@@ -60,7 +49,7 @@ class Contract extends Eloquent {
   }
 
   public function current_bid_from($vendor) {
-    $bid = Bid::where('contract_id', '=', $this->id)
+    $bid = Bid::where('project_id', '=', $this->id)
               ->where('vendor_id', '=', $vendor->id)
               ->where('deleted_by_vendor', '!=', true)
               ->where_not_null('submitted_at')
@@ -70,7 +59,7 @@ class Contract extends Eloquent {
   }
 
   public function current_bid_draft_from($vendor) {
-    $bid = Bid::where('contract_id', '=', $this->id)
+    $bid = Bid::where('project_id', '=', $this->id)
               ->where('vendor_id', '=', $vendor->id)
               ->where('deleted_by_vendor', '!=', true)
               ->where_null('submitted_at')
@@ -134,7 +123,7 @@ class Contract extends Eloquent {
                 ->get();
   }
 
-  public static function open_contracts() {
+  public static function open_projects() {
     return self::where('proposals_due_at', '>', \DB::raw('NOW()'));
   }
 

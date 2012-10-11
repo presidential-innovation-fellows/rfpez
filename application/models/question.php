@@ -4,11 +4,11 @@ class Question extends Eloquent {
 
   public static $timestamps = true;
 
-  public static $accessible = array('contract_id', 'question');
+  public static $accessible = array('project_id', 'question');
 
 
   public function validator() {
-    $rules = array('contract_id' => 'required',
+    $rules = array('project_id' => 'required',
                    'vendor_id' => 'required',
                    'question' => 'required');
 
@@ -18,8 +18,8 @@ class Question extends Eloquent {
     return $validator;
   }
 
-  public function contract() {
-    return $this->belongs_to('Contract');
+  public function project() {
+    return $this->belongs_to('Project');
   }
 
   public function vendor() {
