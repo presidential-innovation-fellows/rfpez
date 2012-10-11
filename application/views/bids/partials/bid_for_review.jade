@@ -1,0 +1,20 @@
+tbody.bid(data-project-id="#{$bid->project->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}")
+  tr
+    td
+      a(data-toggle="collapse", data-target="#bid#{$bid->id}") #{$bid->vendor->company_name}
+    td $#{intval($bid->total_price())}
+    td(class="star-td #{$bid->starred ? 'starred' : ''}")
+      a.btn.btn-inverse.unstar-button Starred
+      a.btn.star-button Star
+    td
+      - if($bid->dismissed()):
+        a(class="btn btn-info undismiss-button", data-move-to-table="true") Un-dismiss
+        div
+          em Dismissed: #{$bid->dismissal_reason}
+      - else:
+        a(class="btn btn-warning show-dismiss-modal", data-move-to-table="true") Dismiss?
+
+  tr
+    td.bid-details(colspan="4")
+      div(id="bid#{$bid->id}", class="collapse")
+        !{View::make('bids.partials.bid_details')->with('bid', $bid)}

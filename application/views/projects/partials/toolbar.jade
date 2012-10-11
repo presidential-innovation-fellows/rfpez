@@ -17,11 +17,12 @@ h4 #{$project->title}
         li(class="#{Helper::active_subnav('review') ? 'active':''}")
           a(href="#{route('sow_review', array($project->id))}") Review
 
-      - elseif ($project->status() == Project::STATUS_WAITING_TO_POST):
-        p
-
       - elseif ($project->status() == Project::STATUS_ACCEPTING_BIDS):
-        p
+        li
+          a(href="#{route('project', array($project->id))}") View Posting
+
+        li
+          a(href="#{route('review_bids', array($project->id))}") Review Bids (X)
 
       - elseif ($project->status() == Project::STATUS_REVIEWING_BIDS):
         p
@@ -31,5 +32,7 @@ h4 #{$project->title}
 
       - endif;
     ul.nav.pull-right
+      li
+        a Discuss (0)
       li(class="#{Helper::active_subnav('admin') ? 'active':''}")
         a(href="#{route('project_admin', array($project->id))}") Admin

@@ -3,10 +3,9 @@
 class Project extends Eloquent {
 
   const STATUS_WRITING_SOW = 1;
-  const STATUS_WAITING_TO_POST = 2;
-  const STATUS_ACCEPTING_BIDS = 3;
-  const STATUS_REVIEWING_BIDS = 4;
-  const STATUS_CONTRACT_AWARDED = 5;
+  const STATUS_ACCEPTING_BIDS = 2;
+  const STATUS_REVIEWING_BIDS = 3;
+  const STATUS_CONTRACT_AWARDED = 4;
 
   public static $timestamps = true;
 
@@ -64,8 +63,6 @@ class Project extends Eloquent {
   public function status() {
     if (!$this->body) {
       return self::STATUS_WRITING_SOW;
-    } elseif (!$this->fbo_solnbr) {
-      return self::STATUS_WAITING_TO_POST;
     } elseif (strtotime($this->proposals_due_at) > time()) {
       return self::STATUS_ACCEPTING_BIDS;
     } elseif (!$this->awarded_to()) {
@@ -83,8 +80,6 @@ class Project extends Eloquent {
     switch ($status) {
       case self::STATUS_WRITING_SOW:
         return "Writing SOW";
-      case self::STATUS_WAITING_TO_POST:
-        return "Waiting to post";
       case self::STATUS_ACCEPTING_BIDS:
         return "Accepting bids";
       case self::STATUS_REVIEWING_BIDS:

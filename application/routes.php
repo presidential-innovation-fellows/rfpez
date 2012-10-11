@@ -50,8 +50,9 @@ Route::get('projects/(:num)/admin', array('uses' => 'projects@admin', 'as' => 'p
 Route::post('projects/(:num)/collaborators', array('uses' => 'projects@add_collaborator', 'as' => 'project_collaborators'));
 Route::delete('projects/(:num)/collaborators/(:num)', array('uses' => 'projects@destroy_collaborator', 'as' => 'project_collaborators_destroy'));
 
+Route::get('projects/(:num)/bids', array('uses' => 'bids@review', 'as' => 'review_bids'));
+
 // Route::get('contracts/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
-// Route::get('contracts/(:num)/bids', array('uses' => 'bids@review', 'as' => 'bids'));
 // Route::post('contracts/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));
 // Route::get('contracts/(:num)/bids/(:num)', array('uses' => 'bids@show', 'as' => 'bid'));
 // Route::get('contracts/(:num)/bids/(:num)/dismiss', array('uses' => 'bids@dismiss', 'as' => 'bid_dismiss'));

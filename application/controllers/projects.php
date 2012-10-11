@@ -35,6 +35,13 @@ class Projects_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
+  public function action_update() {
+    $project = Config::get('project');
+    $project->fill(Input::get('project'));
+    $project->save();
+    return Redirect::to_route('project_admin', array($project->id));
+  }
+
   public function action_admin() {
     $view = View::make('projects.admin');
     $view->project = Config::get('project');
@@ -166,12 +173,6 @@ class Projects_Controller extends Base_Controller {
   //   $this->layout->content = $view;
   // }
 
-  // public function action_update() {
-  //   $contract = Config::get('contract');
-  //   $contract->fill(Input::get('contract'));
-  //   $contract->save();
-  //   return Redirect::to('/contracts/' . $contract->id);
-  // }
 
   // public function trySavingContract($attributes) {
   //   if (!isset($attributes["solnbr"])) {

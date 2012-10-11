@@ -1,18 +1,11 @@
-- Section::inject('page_title', "$contract->title")
+- Section::inject('page_title', "$project->title")
 - Section::inject('page_action', "Review Bids")
-- Section::inject('active_nav', $contract->is_mine_or_collaborates_on() ? 'account' : 'contracts')
+- Section::inject('active_nav', 'account')
 - Section::inject('active_subnav', 'review_bids')
+- Section::inject('no_page_header', true)
 
-- if ($contract->is_mine_or_collaborates_on()):
-  - Section::inject('subnav', View::make('partials.media.officer_contract_toolbar')->with('contract', $contract))
-  !{View::make('bids.dismiss_modal')}
-- endif;
-
-- if (Auth::user()->officer->collaborates_on($contract->id)):
-  .alert.alert-info
-    | <strong>You're a collaborator on this contract.</strong> When you
-    | star a bid, your contracting officer will see it too.
-- endif;
+!{View::make('projects.partials.toolbar')->with('project', $project)}
+!{View::make('bids.partials.dismiss_modal')}
 
 h3 Bids awaiting review
 
@@ -25,7 +18,7 @@ table.table.bids-table.open-bids
       th.actions Actions
 
   - foreach($open_bids as $bid):
-    !{View::make('partials.media.bid_for_review')->with('bid', $bid)}
+    !{View::make('bids.partials.bid_for_review')->with('bid', $bid)}
 
 h3 Dismissed bids
 
@@ -38,4 +31,4 @@ table.table.bids-table.dismissed-bids
       th.actions Actions
 
   - foreach($dismissed_bids as $bid):
-    !{View::make('partials.media.bid_for_review')->with('bid', $bid)}
+    !{View::make('bids.partials.bid_for_review')->with('bid', $bid)}
