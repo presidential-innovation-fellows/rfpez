@@ -29,12 +29,48 @@ class Projects_Controller extends Base_Controller {
     return Redirect::to_route('sow_background', array($project->id));
   }
 
-
-
   public function action_show() {
     $view = View::make('projects.show');
     $view->project = Config::get('project');
     $this->layout->content = $view;
+  }
+
+  public function action_admin() {
+    $view = View::make('projects.admin');
+    $view->project = Config::get('project');
+    $this->layout->content = $view;
+  }
+
+  public function action_add_collaborator() {
+    $project = Config::get('project');
+    $user = User::where_email(Input::get('email'))->first();
+
+    if (!$user) return Response::json(array("status" => "error"));
+    if ($user->officer->collaborates_on($project->id)) return Response::json(array("status" => "already exists"));
+
+    $project->officers()->attach($user->officer->id);
+
+    // Notification::send("ContractCollaboratorAdded", array("project" => $project,
+    //                                           "officer" => $user->officer));
+
+    return Response::json(array("status" => "success",
+                                "html" => View::make("projects.partials.collaborator_tr")
+                                              ->with('officer', $user->officer)
+                                              ->with('project', $project)
+                                              ->render() ));
+  }
+
+  public function action_destroy_collaborator($project_id, $officer_id) {
+    // Possible security risk: there is no owner to a project,
+    // so anyone can remove anyone else from a project.
+
+    $collaborator = ProjectCollaborator::where_project_id($project_id)
+                                       ->where_officer_id($officer_id)
+                                       ->first();
+
+    if ($collaborator) $collaborator->delete();
+
+    return Response::json(array("status" => "success"));
   }
 
   // public function action_index() {
@@ -50,34 +86,7 @@ class Projects_Controller extends Base_Controller {
   //   if (Auth::user()) Auth::user()->view_notification_payload('contract', $view->contract->id);
   // }
 
-  // public function action_admin() {
-  //   $view = View::make('contracts.admin');
-  //   $view->contract = Config::get('contract');
-  //   $this->layout->content = $view;
-  // }
 
-  // public function action_add_collaborator() {
-  //   $contract = Config::get('contract');
-  //   $user = User::where_email(Input::get('email'))->first();
-  //   if (!$user) return Response::json(array("status" => "error"));
-  //   if ($user->id === Auth::user()->id) return Response::json(array("status" => "can't add yourself"));
-  //   if ($user->officer->collaborates_on($contract->id)) return Response::json(array("status" => "already exists"));
-
-  //   $contract->collaborators()->attach($user->officer->id);
-  //   Notification::send("ContractCollaboratorAdded", array("contract" => $contract,
-  //                                             "officer" => $user->officer));
-  //   return Response::json(array("status" => "success",
-  //                               "html" => View::make("partials.media.contract_collaborator_tr")
-  //                                             ->with('officer', $user->officer)
-  //                                             ->with('contract', $contract)
-  //                                             ->render() ));
-  // }
-
-  // public function action_destroy_collaborator() {
-  //   $collaborator = Config::get('collaborator');
-  //   $collaborator->delete();
-  //   return Response::json(array("status" => "success"));
-  // }
 
 
   // public function action_mine() {

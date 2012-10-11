@@ -1,36 +1,27 @@
-- Section::inject('page_title', "$contract->title")
+- Section::inject('page_title', "$project->title")
 - Section::inject('page_action', "Admin")
-- Section::inject('active_nav', $contract->is_mine_or_collaborates_on() ? 'account' : 'contracts')
+- Section::inject('active_nav', 'account')
 - Section::inject('active_subnav', 'admin')
+- Section::inject('no_page_header', true)
 
-- if ($contract->is_mine_or_collaborates_on()):
-  - Section::inject('subnav', View::make('partials.media.officer_contract_toolbar')->with('contract', $contract))
-- endif;
-
-h3 Contracting Officer
-p
-  | #{$contract->officer->name}
-  br
-  | #{$contract->officer->user->email}
-  br
-  | #{$contract->officer->phone}
+!{View::make('projects.partials.toolbar')->with('project', $project)}
 
 h3 Collaborators
 
 p Collaborators can review bids, star and unstar them, and generally do everything <em>except</em> dismiss and award contracts.
 
-table.table.collaborators-table(data-contract-id="#{$contract->id}")
+table.table.collaborators-table(data-project-id="#{$project->id}")
   thead
     tr
       th Email
       th Actions
   tbody
-    - foreach ($contract->collaborators as $officer):
-      !{View::make('partials.media.contract_collaborator_tr')->with('officer', $officer)->with('contract', $contract)}
+    - foreach ($project->officers as $officer):
+      !{View::make('projects.partials.collaborator_tr')->with('officer', $officer)->with('project', $project)}
   tfoot
     tr
       td(colspan="2")
-        form#add-collaborator-form(action="#{route('contract_collaborators', array($contract->id))}", method="POST")
+        form#add-collaborator-form(action="#{route('project_collaborators', array($project->id))}", method="POST")
           .input-append
             input(type="text", name="email", placeholder="Email Address", autocomplete="off")
             button.btn.btn-success Add

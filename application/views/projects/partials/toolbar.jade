@@ -31,5 +31,5 @@ h4 #{$project->title}
 
       - endif;
     ul.nav.pull-right
-      li
-        a Admin
+      li(class="#{Helper::active_subnav('admin') ? 'active':''}")
+        a(href="#{route('project_admin', array($project->id))}") Admin

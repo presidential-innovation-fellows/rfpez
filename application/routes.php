@@ -45,10 +45,10 @@ Route::resourceful('projects', array('new', 'create', 'edit', 'update', 'index',
 
 // Route::get('contracts/mine', array('uses' => 'contracts@mine', 'as' => 'my_contracts'));
 
-// Route::get('contracts/(:num)/admin', array('uses' => 'contracts@admin', 'as' => 'contract_admin'));
+Route::get('projects/(:num)/admin', array('uses' => 'projects@admin', 'as' => 'project_admin'));
 
-// Route::post('contracts/(:num)/collaborators', array('uses' => 'contracts@add_collaborator', 'as' => 'contract_collaborators'));
-// Route::delete('contracts/(:num)/collaborators/(:num)', array('uses' => 'contracts@destroy_collaborator', 'as' => 'contract_collaborators_destroy'));
+Route::post('projects/(:num)/collaborators', array('uses' => 'projects@add_collaborator', 'as' => 'project_collaborators'));
+Route::delete('projects/(:num)/collaborators/(:num)', array('uses' => 'projects@destroy_collaborator', 'as' => 'project_collaborators_destroy'));
 
 // Route::get('contracts/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
 // Route::get('contracts/(:num)/bids', array('uses' => 'bids@review', 'as' => 'bids'));
