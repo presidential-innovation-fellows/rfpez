@@ -67,7 +67,6 @@ class Initial_Schema {
 
     Schema::create('projects', function($t){
       $t->increments('id');
-      $t->integer('officer_id')->nullable();
       $t->string('title');
       $t->text('body');
       $t->string('fbo_solnbr');
@@ -252,10 +251,6 @@ class Initial_Schema {
       $t->foreign('project_id')->references('id')->on('projects')->on_delete('CASCADE');
     });
 
-    Schema::table('projects', function($t){
-      $t->foreign('officer_id')->references('id')->on('officers')->on_delete('SET NULL');
-    });
-
     Schema::table('questions', function($t){
       $t->foreign('project_id')->references('id')->on('projects')->on_delete('CASCADE');
       $t->foreign('vendor_id')->references('id')->on('vendors')->on_delete('CASCADE');
@@ -311,10 +306,6 @@ class Initial_Schema {
     Schema::table('bids', function($t){
       $t->drop_foreign('bids_vendor_id_foreign');
       $t->drop_foreign('bids_project_id_foreign');
-    });
-
-    Schema::table('projects', function($t){
-      $t->drop_foreign('projects_officer_id_foreign');
     });
 
     Schema::table('questions', function($t){
