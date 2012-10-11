@@ -1,15 +1,13 @@
-.navbar.subnav
-  .navbar-inner
-    ul.nav
-      li(class="#{Helper::active_subnav('background') ? 'active':''}")
-        a(href="#{route('sow_background', array($sow->id))}") Background
-      - foreach ($sow->template_section_types() as $section_type):
-        - $active = Helper::active_subnav("section-" . $section_type)
-        li(class="#{$active ? 'active':''}")
-          a(href="#{route('sow_section', array($sow->id, $section_type))}") #{$section_type}
-      li(class="#{Helper::active_subnav('fillinblanks') ? 'active':''}")
-        a(href="#{route('sow_fillinblanks', array($sow->id))}") Fill in Variables
-      li(class="#{Helper::active_subnav('editdoc') ? 'active':''}")
-        a(href="#{route('sow_editdoc', array($sow->id))}") Edit Document
-      li(class="#{Helper::active_subnav('show') ? 'active':''}")
-        a(href="#{route('sow', array($sow->id))}") Finish and Share
+ul.nav.nav-tabs.sow-toolbar
+  li(class="#{Helper::active_subnav('background') ? 'active':''}")
+    a(href="#{route('sow_background', array($sow->id))}") Background
+  - foreach ($sow->template_section_types() as $section_type):
+    - $active = Helper::active_subnav("section-" . $section_type)
+    li(class="#{$active ? 'active':''}")
+      a(href="#{route('sow_section', array($sow->id, $section_type))}") #{$section_type}
+  li(class="#{Helper::active_subnav('fillinblanks') ? 'active':''}")
+    a(href="#{route('sow_fillinblanks', array($sow->id))}") Fill in Variables
+  li(class="#{Helper::active_subnav('editdoc') ? 'active':''}")
+    a(href="#{route('sow_editdoc', array($sow->id))}") Edit Document
+  li(class="#{Helper::active_subnav('show') ? 'active':''}")
+    a(href="#{route('sow', array($sow->id))}") Finish and Share

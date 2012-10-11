@@ -1,9 +1,7 @@
-.navbar.subnav
-  .navbar-inner
-    ul.nav
-      li(class="#{Helper::active_subnav('view_contract') ? 'active':''}")
-        a(href="#{route('contract', array($contract->id))}") View Contract
-      li(class="#{Helper::active_subnav('review_bids') ? 'active':''}")
-        a(href="#{route('bids', array($contract->id))}") Review #{$contract->submitted_bids()->count()} Bids
-      li(class="#{Helper::active_subnav('admin') ? 'active':''}")
-        a(href="#{route('contract_admin', array($contract->id))}") Admin
+ul.nav.nav-tabs.officer-toolbar
+  li(class="#{Helper::active_subnav('view_contract') ? 'active':''}")
+    a(href="#{route('contract', array($contract->id))}") View Contract
+  li(class="#{Helper::active_subnav('review_bids') ? 'active':''}")
+    a(href="#{route('bids', array($contract->id))}") Review #{$contract->submitted_bids()->count()} Bids
+  li(class="#{Helper::active_subnav('admin') ? 'active':''}")
+    a(href="#{route('contract_admin', array($contract->id))}") Admin

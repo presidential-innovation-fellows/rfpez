@@ -34,6 +34,9 @@ body {
   padding-top: 60px;
   margin-bottom: 25px;
 }
+.sneaky {
+  display: none;
+}
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
   display: none !important;
@@ -63,6 +66,12 @@ body.vendor .no-auth-only {
   position: absolute;
   top: 7px;
   right: -10px;
+}
+.officer-toolbar {
+  padding-top: 25px;
+}
+.sow-toolbar {
+  padding-top: 20px;
 }
 .bids-table {
   width: 100%;
@@ -455,7 +464,4 @@ textarea.composer {
 .step span.help-text {
   color: #aaa;
   font-size: 0.9em;
-}
-.sneaky {
-  display: none;
 }
