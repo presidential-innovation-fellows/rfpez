@@ -142,18 +142,20 @@ body.vendor .no-auth-only {
   float: right;
   color: #888;
 }
+.media.vendor .more-info {
+  line-height: 1.5em;
+  height: 4.5em;
+  overflow: hidden;
+}
 .vendor-image-preview-frame {
   overflow: hidden;
   text-align: center;
   width: 400px;
   height: 300px;
+  line-height: 301px;
   border: 1px solid #eee;
   padding: 2px;
   margin: 5px 0 15px;
-}
-.vendor-image-preview-frame img {
-  width: 400px;
-  height: 300px;
 }
 .question-wrapper {
   margin-bottom: 15px;
