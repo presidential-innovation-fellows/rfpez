@@ -37,7 +37,7 @@
           - foreach($project->questions as $question):
             !{View::make('projects.partials.question')->with('question', $question)}
         - else:
-          p No questions have been asked.
+          p.no-questions-asked No questions have been asked.
 
       .vendor-only
         h4 Ask a question about this project

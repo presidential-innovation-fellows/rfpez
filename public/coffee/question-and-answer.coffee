@@ -47,6 +47,7 @@ $(document).on "submit", "#ask-question-form", (e) ->
       button.button('reset')
       el.find("textarea[name=question]").val('')
       if data.status is "success"
+        $("p.no-questions-asked").hide()
         new_question = $(data.html)
         new_question.hide()
         $(".questions").append new_question
