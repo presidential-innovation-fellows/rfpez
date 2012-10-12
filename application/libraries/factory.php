@@ -178,7 +178,10 @@ Class Factory {
                             'question' => $faker->paragraph(3)));
 
     // Answer 1/2 of the questions
-    if (rand(0,1) === 0) $q->answer = (rand(0,1) === 0) ? $faker->sentence : $faker->paragraph;
+    if (rand(0,1) === 0) {
+      $q->answer = (rand(0,1) === 0) ? $faker->sentence : $faker->paragraph;
+      $q->answered_by = $p->owner()->id;
+    }
 
     $q->vendor_id = $v->id;
     $q->save();

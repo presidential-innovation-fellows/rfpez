@@ -190,6 +190,9 @@ body.vendor .no-auth-only {
 .question-wrapper .answer {
   padding-top: 10px;
 }
+.question-wrapper .answerer {
+  padding-top: 10px;
+}
 #answer-question-form {
   display: none;
 }
