@@ -2,7 +2,7 @@ $(document).on "click", ".bid .unstar-button, .bid .star-button", ->
   action = if $(this).hasClass('unstar-button') then "0" else "1"
   bid = $(this).closest(".bid")
   $.ajax
-    url: "/contracts/" + bid.data('contract-id') + "/bids/" + bid.data('bid-id') + "/star"
+    url: "/projects/" + bid.data('project-id') + "/bids/" + bid.data('bid-id') + "/star"
     data:
       starred: action
     type: "GET"
@@ -21,11 +21,11 @@ $(document).on "click", ".undismiss-button", ->
   el = $(this)
   bid = el.closest(".bid")
   data_el = el.closest("[data-bid-id]")
-  contract_id = data_el.data('contract-id')
+  project_id = data_el.data('project-id')
   bid_id = data_el.data('bid-id')
 
   $.ajax
-    url: "/contracts/#{contract_id}/bids/#{bid_id}/dismiss"
+    url: "/projects/#{project_id}/bids/#{bid_id}/dismiss"
     type: "GET"
     success: (data) ->
       if data.status is "success"
@@ -40,7 +40,7 @@ $(document).on "click", ".show-dismiss-modal", ->
   el = $(this)
   bid = el.closest(".bid")
   data_el = el.closest("[data-bid-id]")
-  contract_id = data_el.data('contract-id')
+  project_id = data_el.data('project-id')
   bid_id = data_el.data('bid-id')
   vendor_company_name = data_el.data('vendor-company-name');
   modal = $("#dismiss-modal")
@@ -54,7 +54,7 @@ $(document).on "click", ".show-dismiss-modal", ->
     e.preventDefault()
     $(this).find(".dismiss-btn").button('loading')
     $.ajax
-      url: "/contracts/#{contract_id}/bids/#{bid_id}/dismiss"
+      url: "/projects/#{project_id}/bids/#{bid_id}/dismiss"
       data:
         reason: modal.find("select[name=reason]").val()
         explanation: modal.find("textarea[name=explanation]").val()

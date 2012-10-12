@@ -5,15 +5,17 @@ class Bids_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->filter('before', 'vendor_only')->only(array('new', 'create'));
+    $this->filter('before', 'vendor_only')->only(array('new', 'create', 'mine', 'destroy'));
 
-    $this->filter('before', 'project_exists');
+    $this->filter('before', 'project_exists')->except(array('mine'));
 
-    $this->filter('before', 'i_am_collaborator')->only(array('review'));
+    $this->filter('before', 'i_am_collaborator')->only(array('review', 'star', 'dismiss'));
 
-    $this->filter('before', 'bid_exists')->only(array('show'));
+    $this->filter('before', 'bid_exists')->only(array('show', 'star', 'dismiss', 'destroy'));
 
     $this->filter('before', 'i_am_collaborator_or_bid_vendor')->only(array('show'));
+
+    $this->filter('before', 'i_am_bid_vendor')->only(array('destroy'));
 
     $this->filter('before', 'i_have_not_already_bid')->only(array('new', 'create'));
 
@@ -75,46 +77,44 @@ class Bids_Controller extends Base_Controller {
 
   }
 
+  public function action_star() {
+    $bid = Config::get('bid');
+    $bid->starred = Input::get('starred');
+    $bid->save();
+    return Response::json(array("status" => "success", "starred" => $bid->starred));
+  }
 
-  // public function action_mine() {
-  //   $view = View::make('bids.mine');
-  //   $view->bids = Bid::where_vendor_id(Auth::user()->vendor->id)->get();
-  //   $this->layout->content = $view;
-  // }
+  // @todo only COs can dismiss bids!
+  public function action_dismiss() {
+    $bid = Config::get('bid');
 
+    // if ($bid->dismissed()) return Response::json(array("status" => "already dismissed"));
+    // we can prevent them from doing this if we want, but i don't see why not.
 
-  // public function action_dismiss() {
-  //   $contract = Config::get('contract');
-  //   $bid = Config::get('bid');
-  //   // if ($bid->dismissed()) return Response::json(array("status" => "already dismissed"));
-  //   // we can prevent them from doing this if we want, but i don't see why not.
-  //   if ($bid->dismissed()) {
-  //     $bid->undismiss();
-  //   } else {
-  //     $bid->dismiss(Input::get('reason'), Input::get('explanation'));
-  //   }
-  //   return Response::json(array("status" => "success",
-  //                               "dismissed" => $bid->dismissed(),
-  //                               "html" => View::make("partials.media.bid_for_review")->with('bid', $bid)->render()));
-  // }
+    if ($bid->dismissed()) {
+      $bid->undismiss();
+    } else {
+      $bid->dismiss(Input::get('reason'), Input::get('explanation'));
+    }
+    return Response::json(array("status" => "success",
+                                "dismissed" => $bid->dismissed(),
+                                "html" => View::make("bids.partials.bid_for_review")->with('bid', $bid)->render()));
+  }
 
-  // public function action_star() {
-  //   $contract = Config::get('contract');
-  //   $bid = Config::get('bid');
-  //   $bid->starred = Input::get('starred');
-  //   $bid->save();
-  //   return Response::json(array("status" => "success", "starred" => $bid->starred));
-  // }
-
+  public function action_mine() {
+    $view = View::make('bids.mine');
+    $view->bids = Bid::where_vendor_id(Auth::vendor()->id)->get();
+    $this->layout->content = $view;
+  }
 
 
-  // public function action_destroy() {
-  //   $contract = Config::get('contract');
-  //   $bid = Config::get('bid');
-  //   $bid->deleted_by_vendor = true;
-  //   $bid->save();
-  //   return Redirect::to_route('contract', array($contract->id));
-  // }
+  public function action_destroy() {
+    $project = Config::get('project');
+    $bid = Config::get('bid');
+    $bid->deleted_by_vendor = true;
+    $bid->save();
+    return Redirect::to_route('project', array($project->id));
+  }
 
   // public function action_sf1449() {
 
@@ -174,6 +174,12 @@ Route::filter('i_am_collaborator_or_bid_vendor', function() {
   $bid = Config::get('bid');
   $project = Config::get('project');
   if (!$bid->is_mine() && !$project->is_mine()) return Redirect::to('/');
+});
+
+Route::filter('i_am_bid_vendor', function() {
+  $bid = Config::get('bid');
+  $project = Config::get('project');
+  if (!$bid->is_mine()) return Redirect::to('/');
 });
 
 Route::filter('i_have_not_already_bid', function() {

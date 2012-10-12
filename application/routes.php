@@ -54,9 +54,9 @@ Route::get('projects/(:num)/bids', array('uses' => 'bids@review', 'as' => 'revie
 Route::get('projects/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
 Route::post('projects/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));
 Route::get('projects/(:num)/bids/(:num)', array('uses' => 'bids@show', 'as' => 'bid'));
-// Route::get('contracts/(:num)/bids/(:num)/dismiss', array('uses' => 'bids@dismiss', 'as' => 'bid_dismiss'));
-// Route::get('contracts/(:num)/bids/(:num)/star', array('uses' => 'bids@star', 'as' => 'bid_star'));
-// Route::get('contracts/(:num)/bids/(:num)/destroy', array('uses' => 'bids@destroy', 'as' => 'bid_destroy'));
+Route::get('projects/(:num)/bids/(:num)/dismiss', array('uses' => 'bids@dismiss', 'as' => 'bid_dismiss'));
+Route::get('projects/(:num)/bids/(:num)/star', array('uses' => 'bids@star', 'as' => 'bid_star'));
+Route::get('projects/(:num)/bids/(:num)/destroy', array('uses' => 'bids@destroy', 'as' => 'bid_destroy'));
 // Route::get('contracts/(:num)/bids/(:num)/sf1449.pdf', array('uses' => 'bids@sf1449', 'as' => 'bid_sf1449'));
 
 /*
