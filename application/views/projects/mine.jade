@@ -2,7 +2,8 @@
 - Section::inject('active_nav', 'account')
 
 - Section::start('inside_header');
-  a.btn.btn-small.btn-success.pull-right(href="#{ route('new_projects') }")
+  a.officer-only.toggle-my-all-projects(href="#{route('projects')}") everybody's projects
+  a.btn.btn-small.btn-success.new-project-btn.pull-right(href="#{ route('new_projects') }")
     i.icon-plus-sign.icon-white
     | new project
 - Section::stop();

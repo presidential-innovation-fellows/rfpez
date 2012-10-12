@@ -1,8 +1,13 @@
-- Section::inject('page_title', 'Projects')
+- if (Auth::officer()):
+  - Section::inject('page_title', 'Everybody\'s Projects')
+- else:
+  - Section::inject('page_title', 'Projects')
+- endif;
+
 - Section::inject('active_nav', 'projects')
 
 - Section::start('inside_header');
-  a.officer-only.show-my-projects-btn(href="#{route('my_projects')}") show my projects only
+  a.officer-only.toggle-my-all-projects(href="#{route('my_projects')}") my projects only
   .search-projects.pull-right
     input.search-query#filter-projects-input(type="search", placeholder="Filter projects...")
 

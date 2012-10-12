@@ -279,13 +279,19 @@ body.vendor .no-auth-only {
 .project-list li {
   margin-bottom: 1.3em;
 }
-.show-my-projects-btn {
+.toggle-my-all-projects {
   font-size: 0.65em;
   font-weight: normal;
   padding-left: 12px;
 }
 .new-project-btn {
-  margin-left: 20px;
+  margin-right: 25px;
+}
+.my-project-table {
+  margin-top: 25px;
+}
+.projects-table {
+  margin-top: 25px;
 }
 .projects-table thead tr th.project-title {
   width: 45%;

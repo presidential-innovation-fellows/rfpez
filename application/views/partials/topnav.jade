@@ -3,12 +3,14 @@ div.nav-collapse.collapse
 - if (Auth::check()):
 
   ul.nav
-    li
-      a(href="#{ route('projects') }") Browse Projects
-
     - if (Auth::user()->officer):
       li
+        a(href="#{ route('my_projects') }") Projects
+      li
         a(href="#{ route('vendors') }") Vendors
+    - else:
+      li
+        a(href="#{ route('projects') }") Browse Projects
     - endif;
 
   ul.nav.pull-right
@@ -18,10 +20,7 @@ div.nav-collapse.collapse
         b.caret
 
       ul.dropdown-menu
-        - if (Auth::user()->officer):
-          li
-            a(href="#{ route('my_projects') }") My Projects
-        - else:
+        - if (!Auth::user()->officer):
           li
             a(href="#{ route('my_bids') }") My Bids
         - endif;
