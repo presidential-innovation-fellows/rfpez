@@ -2,7 +2,7 @@
 - Section::inject('active_nav', 'account')
 
 - Section::start('inside_header');
-  a.btn.btn-small.btn-success.pull-right(href="#{ route('new_contracts') }")
+  a.btn.btn-small.btn-success.new-contract-btn(href="#{ route('new_contracts') }")
     i.icon-plus-sign.icon-white
     | new contract
 - Section::stop();
@@ -23,6 +23,9 @@
           td #{RelativeTime::format($contract->proposals_due_at)}
           td #{$contract->submitted_bids()->count()}
           td
-            a.btn.btn-mini(href="#{ route('bids', array($contract->id)) }") View Bids
+            - if ($contract->submitted_bids()->count() === "0"):
+              span.muted no bids
+            - else:
+              a.btn.btn-mini(href="#{ route('bids', array($contract->id)) }") View Bids
 - else:
   p No contracts to display.
