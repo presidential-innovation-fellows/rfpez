@@ -10,9 +10,11 @@ class Seed_Task {
 
     for ($i = 0; $i < 5; $i++) Factory::vendor();
     for ($i = 0; $i < 5; $i++) Factory::officer();
-    for ($i = 0; $i < 10; $i++) Factory::contract();
+    for ($i = 0; $i < 10; $i++) Factory::project();
     for ($i = 0; $i < 15; $i++) Factory::bid();
     for ($i = 0; $i < 15; $i++) Factory::question();
+
+    for ($i = 0; $i < 10; $i++) Factory::vendor();
 
   }
 

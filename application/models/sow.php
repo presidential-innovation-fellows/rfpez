@@ -3,16 +3,12 @@
 class Sow extends Eloquent {
   public static $timestamps = true;
 
+  public function project() {
+    return $this->belongs_to('Project');
+  }
+
   public function sow_sections() {
     return $this->has_many('SowSection');
-  }
-
-  public function officer() {
-    return $this->belongs_to('Officer');
-  }
-
-  public function collaborators() {
-    return $this->has_many_and_belongs_to('Officer', 'sow_collaborators');
   }
 
   public function template() {

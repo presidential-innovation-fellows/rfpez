@@ -12,7 +12,7 @@
       - foreach($bids as $bid):
         tr(class="bid bid-#{strtolower($bid->status)}")
           td
-            a(href="#{route('bid', array($bid->contract->id, $bid->id))}") #{$bid->contract->title}
+            a(href="#{route('bid', array($bid->project->id, $bid->id))}") #{$bid->project->title}
           td $#{$bid->total_price()}
           td.status #{$bid->status}
 

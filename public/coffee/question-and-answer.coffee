@@ -5,13 +5,9 @@ $(document).on "submit", "#answer-question-form", (e) ->
   return unless answer_text
   el.find("button").button('loading')
   question = el.closest(".question-wrapper")
-  $.ajax
-    url: el.attr('action')
-    type: "post"
-    data:
-      id: el.find("input[name=id]").val()
-      answer: answer_text
-
+  question_id = el.closest("[data-question-id]").data('question-id')
+  el.ajaxSubmit
+    url: "/questions/#{question_id}"
     success: (data) ->
       if data.status is "success"
         el.hide()
@@ -44,13 +40,14 @@ $(document).on "submit", "#ask-question-form", (e) ->
   $.ajax
     url: "/questions"
     data:
-      contract_id: el.find("input[name=contract_id]").val()
+      project_id: el.find("input[name=project_id]").val()
       question: question_text
     type: "POST"
     success: (data) ->
       button.button('reset')
       el.find("textarea[name=question]").val('')
       if data.status is "success"
+        $("p.no-questions-asked").hide()
         new_question = $(data.html)
         new_question.hide()
         $(".questions").append new_question

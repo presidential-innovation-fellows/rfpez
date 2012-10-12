@@ -9,8 +9,6 @@ $(document).on "submit", "#add-collaborator-form", (e) ->
         $(".collaborators-table tbody").append(new_tr)
       else if data.status is "already exists"
         button.flash_button_message("warning", "Collaborator already exists")
-      else if data.status is "can't add yourself"
-        button.flash_button_message("warning", "Can't add yourself")
       else
         button.flash_button_message("warning", "Error occurred")
       el.resetForm()
@@ -18,8 +16,6 @@ $(document).on "submit", "#add-collaborator-form", (e) ->
 $(document).on "click", ".remove-collaborator-button", (e) ->
   e.preventDefault()
   el = $(this)
-  contract_id = el.closest("[data-contract-id]").data('contract-id')
-  officer_id = el.closest("[data-officer-id]").data('officer-id')
   $.ajax
     url: el.attr("href")
     type: "delete"

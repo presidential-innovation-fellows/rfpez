@@ -35,36 +35,31 @@ class Notification extends Eloquent {
 
     if ($this->notification_type == "Dismissal") {
       $bid = $this->payload["bid"];
-      $return_array["subject"] = "Your bid on ".$bid["contract"]["title"]." has been dismissed.";
-      $return_array["line1"] = "Your bid on <a href='".route('bid', array($bid["contract"]["id"], $bid["id"]))."'>".$bid["contract"]["title"].
+      $return_array["subject"] = "Your bid on ".$bid["project"]["title"]." has been dismissed.";
+      $return_array["line1"] = "Your bid on <a href='".route('bid', array($bid["project"]["id"], $bid["id"]))."'>".$bid["project"]["title"].
                 "</a> has been dismissed.";
       $return_array["line2"] = "Dismissal reason: \"" . $this->payload["bid"]["dismissal_reason"]."\"";
 
     } elseif ($this->notification_type == "Undismissal") {
       $bid = $this->payload["bid"];
-      $return_array["subject"] = "Your bid on ".$bid["contract"]["title"]." has been un-dismissed.";
-      $return_array["line1"] = "Your bid on <a href='".route('bid', array($bid["contract"]["id"], $bid["id"]))."'>".$bid["contract"]["title"].
+      $return_array["subject"] = "Your bid on ".$bid["project"]["title"]." has been un-dismissed.";
+      $return_array["line1"] = "Your bid on <a href='".route('bid', array($bid["project"]["id"], $bid["id"]))."'>".$bid["project"]["title"].
                 "</a> has been un-dismissed.";
       $return_array["line2"] = "Congrats, you're back in the running!";
 
     } elseif ($this->notification_type == "BidSubmit") {
       $bid = $this->payload["bid"];
-      $return_array["subject"] = $bid["vendor"]["company_name"]." has submitted a bid for ".$bid["contract"]["title"].".";
-      $return_array["line1"] = $bid["vendor"]["company_name"]." has <a href='".route('bid', array($bid["contract"]["id"], $bid["id"])).
-                "'>submitted a bid</a> for ".$bid["contract"]["title"].".";
+      $return_array["subject"] = $bid["vendor"]["company_name"]." has submitted a bid for ".$bid["project"]["title"].".";
+      $return_array["line1"] = $bid["vendor"]["company_name"]." has <a href='".route('bid', array($bid["project"]["id"], $bid["id"])).
+                "'>submitted a bid</a> for ".$bid["project"]["title"].".";
       $return_array["line2"] = Helper::truncate($bid["approach"], 20);
 
     } elseif ($this->notification_type == "ContractCollaboratorAdded") {
-      $contract = $this->payload["contract"];
-      $return_array["subject"] = "You have been added as a collaborator for ".$contract["title"].".";
-      $return_array["line1"] = "You have been added as a collaborator on  <a href='".route('contract', array($contract["id"]))."'>".$contract["title"]."</a>.";
-      $return_array["line2"] = "You can now review bids and answer questions about this contract.";
+      $project = $this->payload["project"];
+      $return_array["subject"] = "You have been added as a collaborator for ".$project["title"].".";
+      $return_array["line1"] = "You have been added as a collaborator on  <a href='".route('contract', array($project["id"]))."'>".$project["title"]."</a>.";
+      $return_array["line2"] = "You can now review bids and answer questions about this project.";
 
-    } elseif ($this->notification_type == "SowCollaboratorAdded") {
-      $sow = $this->payload["sow"];
-      $return_array["subject"] = "You have been added as a collaborator for a SOW, \"".$sow["title"]."\".";
-      $return_array["line1"] = "You have been added as a collaborator on <a href='".route('sow', array($sow["id"]))."'> a SOW, \"".$sow["title"]."\"</a>.";
-      $return_array["line2"] = "You can now review and edit this SOW.";
     }
 
     return $return_array;
@@ -77,18 +72,18 @@ class Notification extends Eloquent {
     if ($notification->notification_type == "Dismissal") {
       $bid = $attributes["bid"];
       $notification->fill(array('target_id' => $bid->vendor->user_id,
-                                'actor_id' => $bid->contract->officer->user_id,
+                                //'actor_id' => $bid->project->officer->user_id,
                                 'payload' => array('bid' => $bid->to_array())));
 
     } elseif ($notification->notification_type == "Undismissal") {
       $bid = $attributes["bid"];
       $notification->fill(array('target_id' => $bid->vendor->user_id,
-                                'actor_id' => $bid->contract->officer->user_id,
+                                //'actor_id' => $bid->contract->officer->user_id,
                                 'payload' => array('bid' => $bid->to_array())));
 
     } elseif ($notification->notification_type == "BidSubmit") {
       $bid = $attributes["bid"];
-      $notification->fill(array('target_id' => $bid->contract->officer->user_id,
+      $notification->fill(array('target_id' => $attributes["target_id"],
                                 'actor_id' => $bid->vendor->user_id,
                                 'payload' => array('bid' => $bid->to_array())));
 
@@ -96,15 +91,8 @@ class Notification extends Eloquent {
       $contract = $attributes["contract"];
       $officer = $attributes["officer"];
       $notification->fill(array('target_id' => $officer->user_id,
-                                'actor_id' => $contract->officer->user_id,
+                                //'actor_id' => $contract->officer->user_id,
                                 'payload' => array('contract' => $contract->to_array())));
-
-    } elseif ($notification->notification_type == "SowCollaboratorAdded") {
-      $sow = $attributes["sow"];
-      $officer = $attributes["officer"];
-      $notification->fill(array('target_id' => $officer->user_id,
-                                'actor_id' => $sow->officer->user_id,
-                                'payload' => array('sow' => $sow->to_array())));
 
     } else {
       throw new \Exception("Don't know how to handle that notification type.");

@@ -12,7 +12,7 @@ Class Factory {
   public static $offices = array("Office of Capital Access", "Office of Credit Risk Management", "Office of Investment",
                                  "Office of Field Operations", "Office of Surety Guarantees", "Office of Hearings & Appeals");
 
-  public static $contract_titles = array("Website Design for the Bluth Company");
+  public static $project_titles = array("Website Design for the Bluth Company");
 
   public static $solnbrs = array("VA24412Q1868", "VA256-12-Q-2266", "SPM7L413V0156", "N00183-12-T-0557-0001",
                                  "W911N2-12-R-0081", "SPRPA112QX020", "N0038307G002J7371");
@@ -35,7 +35,7 @@ Class Factory {
                               'state' => $faker->stateAbbr,
                               'zip' => $faker->postcode,
                               'ballpark_price' => rand(1,4),
-                              'image_url' => $image_urls[self::$vendor_count],
+                              'image_url' => $image_urls[array_rand($image_urls)],
                               'homepage_url' => $faker->url,
                               'more_info' => $faker->paragraph));
 
@@ -68,12 +68,12 @@ Class Factory {
     return $o;
   }
 
-  public static function contract() {
+  public static function project() {
     $faker = Faker\Factory::create();
 
     $o = Officer::order_by(\DB::raw('RAND()'))->first();
 
-    $naics = array_keys(Contract::$naics_codes);
+    $naics = array_keys(Project::$naics_codes);
 
     $due_at = new \DateTime();
     $due_at->setTimestamp(rand(1346475600, 1364792400));
@@ -85,33 +85,31 @@ Class Factory {
     $contents = ob_get_contents();
     ob_end_clean();
 
-    $c = new Contract(array('agency' => $o->agency,
-                            'office' => self::$offices[array_rand(self::$offices)],
-                            'title' => self::$contract_titles[array_rand(self::$contract_titles)],
-                            'statement_of_work' => $contents,
-                            'set_aside' => 'N/A',
-                            'classification_code' => 'X -- Lease or rental of facilities',
-                            'naics_code' => $naics[array_rand($naics)],
-                            'proposals_due_at' => $due_at,
-                            'posted_at' => $posted_at));
+    $p = new Project(array('agency' => $o->agency,
+                           'office' => self::$offices[array_rand(self::$offices)],
+                           'title' => self::$project_titles[array_rand(self::$project_titles)],
+                           'body' => $contents,
+                           'naics_code' => $naics[array_rand($naics)],
+                           'proposals_due_at' => $due_at));
 
-    $c->fbo_solnbr = self::$solnbrs[array_rand(self::$solnbrs)];
-    $c->officer_id = $o->id;
-    $c->save();
+    $p->fbo_solnbr = self::$solnbrs[array_rand(self::$solnbrs)];
+    $p->save();
+
+    $p->officers()->attach($o->id);
   }
 
   public static function bid() {
     $faker = Faker\Factory::create();
 
-    $c = Contract::order_by(\DB::raw('RAND()'))->first();
+    $p = Project::order_by(\DB::raw('RAND()'))->first();
     $v = Vendor::order_by(\DB::raw('RAND()'))->first();
 
     $prices = array();
-    foreach ($c->parsed_deliverables as $d) {
+    foreach ($p->parsed_deliverables as $d) {
       $prices[$d] = rand(100, 10000);
     }
 
-    $b = new Bid(array('contract_id' => $c->id,
+    $b = new Bid(array('project_id' => $p->id,
                        'approach' => $faker->paragraph,
                        'previous_work' => $faker->paragraph,
 
@@ -145,10 +143,10 @@ Class Factory {
   public static function question() {
     $faker = Faker\Factory::create();
 
-    $c = Contract::order_by(\DB::raw('RAND()'))->first();
+    $p = Project::order_by(\DB::raw('RAND()'))->first();
     $v = Vendor::order_by(\DB::raw('RAND()'))->first();
 
-    $q = new Question(array('contract_id' => $c->id,
+    $q = new Question(array('project_id' => $p->id,
                             'question' => $faker->paragraph(3)));
 
     // Answer 1/2 of the questions

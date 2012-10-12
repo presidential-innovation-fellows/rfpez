@@ -1,4 +1,4 @@
-.question-wrapper.well(data-id="#{$question->id}")
+.question-wrapper.well(data-question-id="#{$question->id}")
   .question Q: #{$question->question}
 
   .answer
@@ -6,7 +6,7 @@
       | A: #{$question->answer}
     - else:
       em This question has not been answered.
-      - if (Auth::user() && Auth::user()->officer && Auth::user()->officer->collaborates_on($question->contract->id)):
+      - if (Auth::officer() && Auth::officer()->collaborates_on($question->project->id)):
         div(class="answer-question")
           a.answer-question-toggle Answer Question
     - endif;

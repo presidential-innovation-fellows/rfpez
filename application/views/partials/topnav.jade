@@ -4,32 +4,33 @@ div.nav-collapse.collapse
 
   ul.nav
     li
-      a(href="#{ route('contracts') }") Contracts
+      a(href="#{ route('projects') }") Browse Projects
 
     - if (Auth::user()->officer):
       li
         a(href="#{ route('vendors') }") Vendors
+    - endif;
 
   ul.nav.pull-right
     li.dropdown
       a(href="#", class="dropdown-toggle", data-toggle="dropdown")
         | #{Auth::user()->email}
         b.caret
-        ul.dropdown-menu
-          - if (Auth::user()->officer):
-            li
-              a(href="#{ route('my_contracts') }") My Contracts
-            li
-              a(href="#{ route('my_sows') }") My SOWs
-          - else:
-            li
-              a(href="#{ route('my_bids') }") My Bids
-          - endif;
+
+      ul.dropdown-menu
+        - if (Auth::user()->officer):
           li
-            a(href="#{route('account')}") Account Settings
+            a(href="#{ route('my_projects') }") My Projects
+        - else:
           li
-            a(href="#{ route('signout') }") Sign Out
-    li.notification-nav-item
+            a(href="#{ route('my_bids') }") My Bids
+        - endif;
+        li
+          a(href="#{route('account')}") Account Settings
+        li
+          a(href="#{ route('signout') }") Sign Out
+
+    li(class="notification-nav-item")
       a(href="#{route('notifications')}")
         | &nbsp;
         i.icon-white.icon-envelope
@@ -37,12 +38,11 @@ div.nav-collapse.collapse
         span(class="badge badge-inverse unread-notification-badge #{$count == 0 ? 'hide' : ''}") #{$count}
         | &nbsp;
 
-
 - else:
 
   ul.nav
     li
-      a(href="#{ route('contracts') }") Contracts
+      a(href="#{ route('projects') }") Browse Projects
 
   ul.nav.pull-right
     li

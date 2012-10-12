@@ -4,9 +4,9 @@ class Bid extends Eloquent {
 
   public static $timestamps = true;
 
-  public $includes = array('contract', 'vendor');
+  public $includes = array('project', 'vendor');
 
-  public static $accessible = array('contract_id', 'approach', 'previous_work', 'employee_details', 'prices');
+  public static $accessible = array('project_id', 'approach', 'previous_work', 'employee_details', 'prices');
 
   public static $dismissal_reasons = array('Price too high');
 
@@ -26,8 +26,12 @@ class Bid extends Eloquent {
     return $this->belongs_to('Vendor');
   }
 
-  public function contract() {
-    return $this->belongs_to('Contract');
+  public function project() {
+    return $this->belongs_to('Project');
+  }
+
+  public function is_mine() {
+    return (Auth::vendor() && ($this->vendor == Auth::vendor())) ? true : false;
   }
 
   public function get_prices() {
@@ -73,7 +77,10 @@ class Bid extends Eloquent {
   public function submit() {
     $this->submitted_at = new \DateTime;
     $this->save();
-    Notification::send('BidSubmit', array('bid' => $this));
+
+    foreach ($this->project->officers as $officer) {
+      Notification::send('BidSubmit', array('bid' => $this, 'target_id' => $officer->id));
+    }
   }
 
   public function total_price() {

@@ -1,0 +1,60 @@
+- Section::inject('page_title', "$project->title")
+- Section::inject('page_action', "Admin")
+- Section::inject('active_nav', 'account')
+- Section::inject('active_subnav', 'admin')
+- Section::inject('no_page_header', true)
+
+!{View::make('projects.partials.toolbar')->with('project', $project)}
+
+.row
+  .span6
+
+    h3 Update Project
+
+    form(action="#{route('project', array($project->id))}", method="POST", id="update-project-form")
+      input(type="hidden", name="_method", value="PUT")
+      .control-group
+        label Project Title
+        input(type="text", name="project[title]", value="#{$project->title}")
+
+      .control-group
+        label Agency
+        input(type="text", name="project[agency]", value="#{$project->agency}")
+
+      .control-group
+        label Office
+        input(type="text", name="project[office]", value="#{$project->office}")
+
+      .control-group
+        label Naics
+        input(type="text", name="project[naics_code]", value="#{$project->naics_code}")
+
+      .control-group
+        label Proposals Due At
+        input(type="text", name="project[proposals_due_at]", value="#{$project->proposals_due_at}")
+
+      .form-actions
+        button.btn.btn-primary Save
+
+
+  .span6
+
+    h3 Collaborators
+
+    p Collaborators can review bids, star and unstar them, and generally do everything <em>except</em> dismiss and award contracts.
+
+    table.table.collaborators-table(data-project-id="#{$project->id}")
+      thead
+        tr
+          th Email
+          th Actions
+      tbody
+        - foreach ($project->officers as $officer):
+          !{View::make('projects.partials.collaborator_tr')->with('officer', $officer)->with('project', $project)}
+      tfoot
+        tr
+          td(colspan="2")
+            form#add-collaborator-form(action="#{route('project_collaborators', array($project->id))}", method="POST")
+              .input-append
+                input(type="text", name="email", placeholder="Email Address", autocomplete="off")
+                button.btn.btn-success Add

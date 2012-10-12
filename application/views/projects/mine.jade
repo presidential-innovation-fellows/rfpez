@@ -1,0 +1,26 @@
+- Section::inject('page_title', 'My Projects')
+- Section::inject('active_nav', 'account')
+
+- Section::start('inside_header');
+  a.btn.btn-small.btn-success.pull-right(href="#{ route('new_projects') }")
+    i.icon-plus-sign.icon-white
+    | new project
+- Section::stop();
+
+- if ($projects):
+  table.table.my-project-table
+    thead
+      tr
+        th Project
+        th Status
+        th Actions
+    tbody
+      - foreach($projects as $project):
+        tr
+          td
+            a(href="#{ route('project', array($project->id)) }") #{$project->title}
+          td #{$project->status_text()}
+          td
+            a.btn.btn-mini(href="#{ route('project_admin', array($project->id)) }") Admin
+- else:
+  p No contracts to display.

@@ -79,6 +79,17 @@ abstract class Driver {
 		return $this->user = $this->retrieve($this->token);
 	}
 
+	// @todo move these into our own auth driver
+	public function officer() {
+		if (!$this->user()) return false;
+		return $this->user()->officer ?: false;
+	}
+
+	public function vendor() {
+		if (!$this->user()) return false;
+		return $this->user()->vendor ?: false;
+	}
+
 	/**
 	 * Get the a given application user by ID.
 	 *

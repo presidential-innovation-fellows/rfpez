@@ -1,0 +1,23 @@
+- Section::inject('page_title', $sow->title)
+- Section::inject('active_nav', 'account')
+- Section::inject('active_subnav', 'review')
+
+!{View::make('projects.partials.toolbar')->with('project', $sow->project)}
+!{View::make('projects.partials.post_to_fbo_modal')->with('project', $sow->project)}
+
+.step.step-7
+
+  h1 #{$sow->title}
+
+  .row
+    .span7
+      | !{$sow->body ?: "&nbsp;"}
+
+
+    .span4.well.sidebar
+      h4 Add Collaborators
+      p In the admin tab you can add your CO and get this SOW out the door.
+
+      h4 Post to FBO
+      p Are you a contracting officer? If this SOW is ready, post it to FBO to get the EasyBid process rolling.
+      a.btn.btn-info(href="#post-to-fbo-modal", data-toggle='modal') Post to FBO

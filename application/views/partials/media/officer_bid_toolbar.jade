@@ -1,5 +1,0 @@
-.bid-toolbar(data-contract-id="#{$bid->contract->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}")
-  - if($bid->dismissed()):
-    a.btn.btn-info.undismiss-button Un-Dismiss
-  - else:
-    a(class="btn btn-warning show-dismiss-modal") Dismiss?

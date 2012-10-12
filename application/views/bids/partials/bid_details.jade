@@ -1,16 +1,5 @@
 .details-inner
 
-  h4.officer-only Bid from #{$bid->vendor->company_name} on
-    a(href="#{route('contract', array($bid->contract->id))}") #{$bid->contract->title}
-
-  h4.vendor-only My bid on
-    a(href="#{route('contract', array($bid->contract->id))}") #{$bid->contract->title}
-
-  a.btn.btn-danger.vendor-only(href="#{route('bid_destroy', array($bid->contract->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
-    i.icon-white.icon-trash
-    | Delete Bid
-
-  hr
   - if ($bid->dismissed()):
     .officer-only
       .alert.alert-danger.dismissed-alert
@@ -66,4 +55,7 @@
       .vendor-image-preview-frame
         img(src="#{$bid->vendor->image_url}")
 
+
+  a.vendor-only(href="#{route('bid_destroy', array($bid->project->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
+    | Delete Bid
 

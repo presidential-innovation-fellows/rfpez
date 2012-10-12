@@ -5,54 +5,17 @@ class Sows_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->filter('before', 'sow_exists')->except(array('mine', 'new', 'new_post'));
 
-    $this->filter('after', 'doc')->only(array('doc'));
+    $this->filter('before', 'officer_only')->except(array(/* ... */));
 
-    $this->filter('before', 'collaborator_exists')->only(array('destroy_collaborator'));
-  }
+    $this->filter('before', 'project_exists')->except(array());
 
-  public function action_add_collaborator() {
-    $sow = Config::get('sow');
-    $user = User::where_email(Input::get('email'))->first();
-    if (!$user) return Response::json(array("status" => "error"));
-    if ($user->id === Auth::user()->id) return Response::json(array("status" => "can't add yourself"));
-    if ($user->officer->collaborates_on_sow($sow->id)) return Response::json(array("status" => "already exists"));
+    $this->filter('before', 'i_am_collaborator')->except(array());
 
-    $sow->collaborators()->attach($user->officer->id);
-    Notification::send("SowCollaboratorAdded", array("sow" => $sow,
-                                                     "officer" => $user->officer));
+    $this->filter('before', 'sow_exists')->except(array());
 
-    return Response::json(array("status" => "success",
-                                "html" => View::make("partials.media.sow_collaborator_tr")
-                                              ->with('officer', $user->officer)
-                                              ->with('sow', $sow)
-                                              ->render() ));
-  }
 
-  public function action_destroy_collaborator() {
-    $collaborator = Config::get('collaborator');
-    $collaborator->delete();
-    return Response::json(array("status" => "success"));
-  }
-
-  public function action_mine() {
-    $view = View::make('sows.mine');
-    $this->layout->content = $view;
-  }
-
-  public function action_new() {
-    $view = View::make('sows.new');
-    $this->layout->content = $view;
-  }
-
-  public function action_new_post() {
-    $template = SowTemplate::find(Input::get('template_id'));
-    $sow = Sow::create(array('title' => $template->title . " for " . Auth::user()->officer->agency,
-                             'officer_id' => Auth::user()->officer->id,
-                             'based_on_sow_template_id' => $template->id));
-
-    return Redirect::to(route('sow_background', array($sow->id)));
+    // $this->filter('before', 'collaborator_exists')->only(array('destroy_collaborator'));
   }
 
   public function action_background() {
@@ -63,6 +26,7 @@ class Sows_Controller extends Base_Controller {
 
   public function action_background_post() {
     $sow = Config::get('sow');
+    $project = Config::get('project');
     $background_section = $sow->sow_sections()->where('section_type', '=', 'Background & Scope')
                                               ->first();
 
@@ -75,10 +39,10 @@ class Sows_Controller extends Base_Controller {
                                'body' => Input::get('body')));
     }
 
-    return Redirect::to(route('sow_section', array($sow->id, rawurlencode($sow->first_template_section_type()))));
+    return Redirect::to(route('sow_section', array($project->id, rawurlencode($sow->first_template_section_type()))));
   }
 
-  public function action_section($id, $section_type) {
+  public function action_section($project_id, $section_type) {
     $view = View::make('sows.section');
     $view->sow = Config::get('sow');
     $view->section_type = $section_type;
@@ -92,8 +56,9 @@ class Sows_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
-  public function action_section_post($id, $section_type) {
+  public function action_section_post($project_id, $section_type) {
     $sow = Config::get('sow');
+    $project = Config::get('project');
 
     foreach ($sow->sections($section_type) as $section) { $section->delete(); }
 
@@ -138,9 +103,9 @@ class Sows_Controller extends Base_Controller {
     $sow->save();
 
     if ($next_section_type = $sow->template_section_type_after($section_type)) {
-      return Redirect::to(route('sow_section', array($sow->id, $next_section_type)));
+      return Redirect::to(route('sow_section', array($project->id, $next_section_type)));
     } else {
-      return Redirect::to(route('sow_fillinblanks', array($sow->id)));
+      return Redirect::to(route('sow_fillinblanks', array($project->id)));
     }
   }
 
@@ -152,8 +117,7 @@ class Sows_Controller extends Base_Controller {
 
   public function action_fillinblanks_post() {
     $sow = Config::get('sow');
-    $sow->title = Input::get('title');
-    $sow->body = false;
+    $project = Config::get('project');
 
     if (Input::get('custom_sections')) {
       foreach(Input::get('custom_sections') as $key => $val) {
@@ -170,9 +134,8 @@ class Sows_Controller extends Base_Controller {
     }
 
     $sow->save();
-    return Redirect::to(route('sow_editdoc', array($sow->id)));
+    return Redirect::to(route('sow_editdoc', array($project->id)));
   }
-
 
   public function action_editdoc() {
     $view = View::make('sows.editdoc');
@@ -182,44 +145,49 @@ class Sows_Controller extends Base_Controller {
 
   public function action_editdoc_post() {
     $sow = Config::get('sow');
+    $project = Config::get('project');
     $sow->body = Input::get('body');
     $sow->save();
 
-    return Redirect::to(route('sow', array($sow->id)));
+    return Redirect::to(route('sow_review', array($project->id)));
   }
 
-  public function action_show() {
-    $view = View::make('sows.show');
+  public function action_review() {
+    $view = View::make('sows.review');
     $view->sow = Config::get('sow');
     $this->layout->content = $view;
-    if (Auth::user()) Auth::user()->view_notification_payload('sow', $view->sow->id);
   }
 
-  public function action_doc() {
-    $sow = Config::get('sow');
-    return View::make('partials.doc')->with('sow', $sow);
-  }
+  // public function action_doc() {
+  //   $sow = Config::get('sow');
+  //   return View::make('partials.doc')->with('sow', $sow);
+  // }
+
+
+
+  // public function action_mine() {
+  //   $view = View::make('sows.mine');
+  //   $this->layout->content = $view;
+  // }
+
 
 }
 
-Route::filter('sow_exists', function() {
+Route::filter('project_exists', function() {
   $id = Request::$route->parameters[0];
-  $sow = Sow::find($id);
+  $project = Project::find($id);
+  if (!$project) return Redirect::to('/');
+  Config::set('project', $project);
+});
+
+Route::filter('i_am_collaborator', function() {
+  $project = Config::get('project');
+  if (!$project->is_mine()) return Redirect::to('/');
+});
+
+Route::filter('sow_exists', function() {
+  $project = Config::get('project');
+  $sow = $project->sow;
   if (!$sow) return Redirect::to('/');
   Config::set('sow', $sow);
-});
-
-Route::filter('collaborator_exists', function() {
-  $sow_id = Request::$route->parameters[0];
-  $officer_id = Request::$route->parameters[1];
-  $collaborator = SowCollaborator::where_sow_id($sow_id)
-                                 ->where_officer_id($officer_id)
-                                 ->first();
-  if (!$collaborator) return Redirect::to('/');
-  Config::set('collaborator', $collaborator);
-});
-
-Route::filter('doc', function($response) {
-  $response->header('Content-type', 'application/vnd.ms-word');
-  $response->header('Content-Disposition', 'attachment;Filename='.Config::get('sow')->title.'.doc');
 });
