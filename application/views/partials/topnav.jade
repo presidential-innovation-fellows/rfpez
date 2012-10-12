@@ -11,24 +11,24 @@ div.nav-collapse.collapse
         a(href="#{ route('vendors') }") Vendors
 
   ul.nav.pull-right
-    li
+    li.dropdown
       a(href="#", class="dropdown-toggle", data-toggle="dropdown")
         | #{Auth::user()->email}
         b.caret
-      ul.dropdown-menu
-        - if (Auth::user()->officer):
+        ul.dropdown-menu
+          - if (Auth::user()->officer):
+            li
+              a(href="#{ route('my_contracts') }") My Contracts
+            li
+              a(href="#{ route('my_sows') }") My SOWs
+          - else:
+            li
+              a(href="#{ route('my_bids') }") My Bids
+          - endif;
           li
-            a(href="#{ route('my_contracts') }") My Contracts
+            a(href="#{route('account')}") Account Settings
           li
-            a(href="#{ route('my_sows') }") My SOWs
-        - else:
-          li
-            a(href="#{ route('my_bids') }") My Bids
-        - endif;
-        li
-          a(href="#{route('account')}") Account Settings
-        li
-          a(href="#{ route('signout') }") Sign Out
+            a(href="#{ route('signout') }") Sign Out
     li.notification-nav-item
       a(href="#{route('notifications')}")
         | &nbsp;
