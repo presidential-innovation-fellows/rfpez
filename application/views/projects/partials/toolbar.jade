@@ -16,6 +16,8 @@ h4 #{$project->title}
           a(href="#{route('sow_editdoc', array($project->id))}") Edit Document
         li(class="#{Helper::active_subnav('review') ? 'active':''}")
           a(href="#{route('sow_review', array($project->id))}") Review
+        li(class="#{Helper::active_subnav('post_on_fbo') ? 'active':''}")
+          a(href="#{route('project_post_on_fbo', array($project->id))}") Post on FBO
 
       - elseif ($project->status() == Project::STATUS_ACCEPTING_BIDS):
         li(class="#{Helper::active_subnav('view') ? 'active':''}")
