@@ -157,14 +157,15 @@ Class Factory {
       $submitted_at = new \DateTime;
       $b->submitted_at = (rand(0,1) === 0) ? $submitted_at : null;
       $b->submit();
+
+      // Dismiss 1/3 of the bids
+      if (rand(0,2) === 0) {
+        $b->dismiss(Bid::$dismissal_reasons[array_rand(Bid::$dismissal_reasons)], $faker->paragraph(2));
+        // Un-dismiss 1/2 of these
+        if (rand(0,1) === 0) $b->undismiss();
+      }
     }
 
-    // Dismiss 1/3 of the bids
-    if (rand(0,2) === 0) {
-      $b->dismiss(Bid::$dismissal_reasons[array_rand(Bid::$dismissal_reasons)], $faker->paragraph(2));
-      // Un-dismiss 1/2 of these
-      if (rand(0,1) === 0) $b->undismiss();
-    }
   }
 
   public static function question() {
