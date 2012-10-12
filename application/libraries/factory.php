@@ -94,8 +94,35 @@ Class Factory {
 
     $p->fbo_solnbr = self::$solnbrs[array_rand(self::$solnbrs)];
     $p->save();
-
     $p->officers()->attach($o->id);
+
+    $template = SowTemplate::where_title("Web Design")->where_visible(true)->first();
+
+    $s = Sow::create(array('project_id' => $p->id,
+                           'body' => $contents,
+                           'based_on_sow_template_id' => $template->id,
+                           'variables' => array("Deliverable Due Dates" => array("Page Templating" => "10/12/12"),
+                                                "WEBSITE" => "energy.gov",
+                                                "AGENCY" => "SBA",
+                                                "OFFICE" => "OCPL") ));
+
+    SowSection::create(array('sow_id' => $s->id,
+                             'display_order' => 0,
+                             'section_type' => 'Background & Scope',
+                             'body' => $faker->paragraph));
+
+    $i = 0;
+    foreach(SowTemplateSection::where_sow_template_id($template->id)->get() as $template_section) {
+      if (rand(0,1) == 0) continue;
+
+      SowSection::create(array('sow_id' => $s->id,
+                               'display_order' => $i,
+                               'section_type' => $template_section->section_type));
+
+      $i++;
+    }
+
+
   }
 
   public static function bid() {

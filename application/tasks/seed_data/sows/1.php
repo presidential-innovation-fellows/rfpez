@@ -1,10 +1,4 @@
 <?php $faker = Faker\Factory::create(); ?>
-<!--
-  deliverables="Site Surveys, Deliverable #2"
-  bgscope="<?= $faker->paragraph(7) ?>"
--->
-<h1>Web Video Development & Production</h1>
-<hr />
 
 <h3>Background &amp; Scope</h3>
 <p><?= $faker->paragraph ?></p>
