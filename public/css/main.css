@@ -35,7 +35,7 @@ hr.dark {
   width: 12px;
 }
 body {
-  padding-top: 60px;
+  padding-top: 0;
   margin-bottom: 25px;
 }
 .sneaky {
@@ -62,6 +62,9 @@ body.vendor .no-vendor {
 }
 body.vendor .no-auth-only {
   display: none !important;
+}
+.navbar-static-top {
+  margin-bottom: 20px;
 }
 .notification-nav-item {
   position: relative;
@@ -308,13 +311,6 @@ body.vendor .no-auth-only {
 }
 .vendor-image-form-row {
   margin-top: 30px;
-}
-body {
-  padding-top: 60px;
-  background-color: #f6f6f6;
-}
-a {
-  cursor: pointer;
 }
 .nav-right-text {
   padding: 10px 0 10px 0;
