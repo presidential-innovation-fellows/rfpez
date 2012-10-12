@@ -100,8 +100,6 @@ class Projects_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
-  // @todo add string that is unique to this contract, instead of just relying on CO's email being in FBO.
-  // as it is currently, once a CO is verified, they can post any contract to RFPEZ.
   public function action_post_on_fbo_post() {
     $solnbr = Input::get('fbo_solnbr');
     $project = Config::get('project');
@@ -151,8 +149,6 @@ class Projects_Controller extends Base_Controller {
       $email = "";
     }
 
-
-
     if ($this->trySavingContract(array('solnbr' => $result["SOLNBR"],
                                        'email' => $email,
                                        'agency' => @$result["AGENCY"],
@@ -168,7 +164,6 @@ class Projects_Controller extends Base_Controller {
     } else {
       return Redirect::to_route('project_post_on_fbo', array($project->id));
     }
-
   }
 
   public function trySavingContract($attributes) {

@@ -86,12 +86,8 @@ class Bids_Controller extends Base_Controller {
     return Response::json(array("status" => "success", "starred" => $bid->starred));
   }
 
-  // @todo only COs can dismiss bids!
   public function action_dismiss() {
     $bid = Config::get('bid');
-
-    // if ($bid->dismissed()) return Response::json(array("status" => "already dismissed"));
-    // we can prevent them from doing this if we want, but i don't see why not.
 
     if ($bid->dismissed()) {
       $bid->undismiss();

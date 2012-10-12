@@ -66,7 +66,6 @@ class Notification extends Eloquent {
   }
 
   public static function send($notification_type, $attributes) {
-    // @todo More info can be "cached" in the payload for better performance when reading notifications.
     $notification = new Notification(array('notification_type' => $notification_type));
 
     if ($notification->notification_type == "Dismissal") {
