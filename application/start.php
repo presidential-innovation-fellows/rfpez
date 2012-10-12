@@ -188,3 +188,7 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 }
 
 require 'assets.php';
+
+Auth::extend('rfpez', function(){
+	return new Laravel\Auth\Drivers\Rfpez;
+});

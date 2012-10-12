@@ -56,14 +56,14 @@ class Bid extends Eloquent {
     $this->dismissal_explanation = $explanation;
     $this->save();
 
-    Notification::send('Dismissal', array('bid' => $this));
+    Notification::send('Dismissal', array('bid' => $this, 'actor_id' => Auth::user() ? Auth::user()->id : null));
   }
 
   public function undismiss() {
     $this->dismissal_reason = NULL;
     $this->dismissal_explanation = NULL;
     $this->save();
-    Notification::send('Undismissal', array('bid' => $this));
+    Notification::send('Undismissal', array('bid' => $this, 'actor_id' => Auth::user() ? Auth::user()->id : null));
   }
 
   public function dismissed() {
@@ -79,7 +79,7 @@ class Bid extends Eloquent {
     $this->save();
 
     foreach ($this->project->officers as $officer) {
-      Notification::send('BidSubmit', array('bid' => $this, 'target_id' => $officer->id));
+      Notification::send('BidSubmit', array('bid' => $this, 'target_id' => $officer->user_id));
     }
   }
 
