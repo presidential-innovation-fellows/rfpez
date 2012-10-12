@@ -51,7 +51,8 @@ Route::delete('projects/(:num)/collaborators/(:num)', array('uses' => 'projects@
 
 Route::get('projects/(:num)/bids', array('uses' => 'bids@review', 'as' => 'review_bids'));
 
-Route::put('projects/(:num)/syncwithfbo', array('uses' => 'projects@sync_with_fbo', 'as' => 'project_sync_with_fbo'));
+Route::get('projects/(:num)/postonfbo', array('uses' => 'projects@post_on_fbo', 'as' => 'project_post_on_fbo'));
+Route::post('projects/(:num)/postonfbo', array('uses' => 'projects@post_on_fbo_post', 'as' => 'project_post_on_fbo'));
 
 Route::get('projects/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
 Route::post('projects/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));

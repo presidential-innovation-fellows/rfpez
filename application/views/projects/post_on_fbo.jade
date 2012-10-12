@@ -1,0 +1,24 @@
+- Section::inject('page_title', "$project->title")
+- Section::inject('page_action', "Admin")
+- Section::inject('active_nav', 'account')
+- Section::inject('active_subnav', 'post_on_fbo')
+- Section::inject('no_page_header', true)
+
+!{View::make('projects.partials.toolbar')->with('project', $project)}
+
+h3 Step 1
+p
+  | Copy the html below and paste it into the FedBizOpps site. MAKE SURE that the email
+  | address you use on EasyBid is in the "contact info" section of the post.
+
+textarea !{$project->sow->body}
+
+h3 Step 2
+p Enter the Solicitation Number assigned by FBO.
+
+form(method="POST")
+
+  .control-group
+    .input-append
+      input(type="text", name="fbo_solnbr", placeholder="Solitication Number")
+      button.btn.btn-primary Sync with FBO

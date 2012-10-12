@@ -7,12 +7,16 @@ tbody.bid(data-project-id="#{$bid->project->id}", data-bid-id="#{$bid->id}", dat
       a.btn.btn-inverse.unstar-button Starred
       a.btn.star-button Star
     td
-      - if($bid->dismissed()):
-        a(class="btn btn-info undismiss-button", data-move-to-table="true") Un-dismiss
-        div
-          em Dismissed: #{$bid->dismissal_reason}
+      - if (Auth::officer()->is_verified()):
+        - if($bid->dismissed()):
+          a(class="btn btn-info undismiss-button", data-move-to-table="true") Un-dismiss
+          div
+            em Dismissed: #{$bid->dismissal_reason}
+        - else:
+          a(class="btn btn-warning show-dismiss-modal", data-move-to-table="true") Dismiss?
       - else:
-        a(class="btn btn-warning show-dismiss-modal", data-move-to-table="true") Dismiss?
+        | Only COs can dismiss bids.
+      - endif;
 
   tr
     td.bid-details(colspan="4")

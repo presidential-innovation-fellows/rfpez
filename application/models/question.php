@@ -26,4 +26,8 @@ class Question extends Eloquent {
     return $this->belongs_to('Vendor');
   }
 
+  public function answerer() {
+    return $this->belongs_to('Officer', 'answered_by');
+  }
+
 }

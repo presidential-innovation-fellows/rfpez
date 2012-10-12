@@ -63,6 +63,10 @@ Class Factory {
                                'title' => (rand(1,2) == 1) ? "Contracting Officer" : "Program Officer",
                                'agency' => self::$agencies[array_rand(self::$agencies)]));
 
+    $o->verified_at = new \DateTime;
+    $o->verified_solnbr = "SEED";
+    $o->save();
+
     self::$officer_count++;
 
     return $o;
@@ -178,7 +182,10 @@ Class Factory {
                             'question' => $faker->paragraph(3)));
 
     // Answer 1/2 of the questions
-    if (rand(0,1) === 0) $q->answer = (rand(0,1) === 0) ? $faker->sentence : $faker->paragraph;
+    if (rand(0,1) === 0) {
+      $q->answer = (rand(0,1) === 0) ? $faker->sentence : $faker->paragraph;
+      $q->answered_by = $p->owner()->id;
+    }
 
     $q->vendor_id = $v->id;
     $q->save();

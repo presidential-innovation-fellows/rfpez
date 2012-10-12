@@ -1,6 +1,5 @@
 <?php
 
-// @todo don't let user edit full sow body?
 class Sow extends Eloquent {
   public static $timestamps = true;
 

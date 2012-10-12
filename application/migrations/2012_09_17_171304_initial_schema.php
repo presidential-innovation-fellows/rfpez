@@ -112,10 +112,6 @@ class Initial_Schema {
       $t->string('portfolio_url')->nullable();
       $t->string('sourcecode_url')->nullable();
 
-      // @todo
-      // We'll also need some way to identify the
-      // vendors that have registered on SAM.gov.
-
       $t->timestamps();
     });
 

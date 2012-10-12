@@ -5,7 +5,7 @@ class Projects_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->filter('before', 'officer_only')->except(array('show', 'index', 'sync_with_fbo'));
+    $this->filter('before', 'officer_only')->except(array('show', 'index'));
 
     $this->filter('before', 'project_exists')->except(array('new', 'create', 'mine', 'index'));
 
@@ -94,15 +94,19 @@ class Projects_Controller extends Base_Controller {
     return Response::json(array("status" => "success"));
   }
 
-  // @todo add string that is unique to this contract, instead of just relying on CO's email being in FBO.
-  // as it is currently, once a CO is verified, they can post any contract to RFPEZ.
-  public function action_sync_with_fbo() {
+  public function action_post_on_fbo() {
+    $view = View::make('projects.post_on_fbo');
+    $view->project = Config::get('project');
+    $this->layout->content = $view;
+  }
+
+  public function action_post_on_fbo_post() {
     $solnbr = Input::get('fbo_solnbr');
     $project = Config::get('project');
 
     if (!preg_match('/^[0-9A-Za-z\-\_\s]+$/', $solnbr)) {
       Session::flash('errors', array('Invalid Sol Nbr.'));
-      return Redirect::to_route('sow_review', array($project->id))->with_input();
+      return Redirect::to_route('project_post_on_fbo', array($project->id))->with_input();
     }
 
     $context = stream_context_create(array('http'=>array('timeout' => 20)));
@@ -117,7 +121,7 @@ class Projects_Controller extends Base_Controller {
     $response = json_decode($contents, true);
 
     if ($this->trySavingContract($response)) {
-      return Redirect::to_route('project', array($project->id));
+      return Redirect::to_route('project_post_on_fbo', array($project->id));
     } else {
       return $this->try_fbo_api($solnbr);
     }
@@ -128,13 +132,13 @@ class Projects_Controller extends Base_Controller {
     $contents = file_get_contents('http://rfpez-apis.presidentialinnovationfellows.org/opportunities?SOLNBR='.$solnbr);
     if ($contents === false) {
       Session::flash('errors', array("FBO timed out and FBO API timed out."));
-      return Redirect::to_route('sow_review', array($project->id))->with_input();
+      return Redirect::to_route('project_post_on_fbo', array($project->id))->with_input();
     }
     $json = json_decode($contents, true);
 
     if (count($json["results"]) === 0) {
       Session::flash('errors', array("Couldn't find contract on FBO or FBO API."));
-      return Redirect::to_route('sow_review', array($project->id))->with_input();
+      return Redirect::to_route('project_post_on_fbo', array($project->id))->with_input();
     }
 
     $result = $json["results"][0];
@@ -144,8 +148,6 @@ class Projects_Controller extends Base_Controller {
     } else {
       $email = "";
     }
-
-
 
     if ($this->trySavingContract(array('solnbr' => $result["SOLNBR"],
                                        'email' => $email,
@@ -160,9 +162,8 @@ class Projects_Controller extends Base_Controller {
                                        'posted_date' => @$result["DATE"]))) {
       return Redirect::to_route('project', array($project->id));
     } else {
-      return Redirect::to_route('sow_review', array($project->id));
+      return Redirect::to_route('project_post_on_fbo', array($project->id));
     }
-
   }
 
   public function trySavingContract($attributes) {
