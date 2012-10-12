@@ -15,6 +15,8 @@ class Bids_Controller extends Base_Controller {
 
     $this->filter('before', 'i_am_collaborator_or_bid_vendor')->only(array('show'));
 
+    $this->filter('before', 'i_am_contracting_officer')->only(array('dismiss'));
+
     $this->filter('before', 'i_am_bid_vendor')->only(array('destroy'));
 
     $this->filter('before', 'i_have_not_already_bid')->only(array('new', 'create'));
@@ -174,6 +176,10 @@ Route::filter('i_am_collaborator_or_bid_vendor', function() {
   $bid = Config::get('bid');
   $project = Config::get('project');
   if (!$bid->is_mine() && !$project->is_mine()) return Redirect::to('/');
+});
+
+Route::filter('i_am_contracting_officer', function() {
+  if (!Auth::officer()->is_verified()) return Redirect::to('/');
 });
 
 Route::filter('i_am_bid_vendor', function() {

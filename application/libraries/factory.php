@@ -63,6 +63,10 @@ Class Factory {
                                'title' => (rand(1,2) == 1) ? "Contracting Officer" : "Program Officer",
                                'agency' => self::$agencies[array_rand(self::$agencies)]));
 
+    $o->verified_at = new \DateTime;
+    $o->verified_solnbr = "SEED";
+    $o->save();
+
     self::$officer_count++;
 
     return $o;
