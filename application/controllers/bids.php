@@ -101,7 +101,9 @@ class Bids_Controller extends Base_Controller {
 
   public function action_mine() {
     $view = View::make('bids.mine');
-    $view->bids = Bid::where_vendor_id(Auth::vendor()->id)->get();
+    $view->bids = Bid::where_vendor_id(Auth::vendor()->id)
+                     ->where_deleted_by_vendor(false)
+                     ->get();
     $this->layout->content = $view;
   }
 
