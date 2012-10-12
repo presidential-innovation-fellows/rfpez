@@ -1,8 +1,6 @@
 $ = jQuery
 
-# Adds plugin object to jQuery
 $.fn.extend
-  # Change pluginName to your plugin's name.
   flash_button_message: (button_class, message, timeout) ->
     timeout ||= 1000
 

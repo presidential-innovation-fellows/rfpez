@@ -14,6 +14,8 @@ class Seed_Task {
     for ($i = 0; $i < 15; $i++) Factory::bid();
     for ($i = 0; $i < 15; $i++) Factory::question();
 
+    for ($i = 0; $i < 10; $i++) Factory::vendor();
+
   }
 
 }

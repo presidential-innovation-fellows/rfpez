@@ -35,7 +35,7 @@ Class Factory {
                               'state' => $faker->stateAbbr,
                               'zip' => $faker->postcode,
                               'ballpark_price' => rand(1,4),
-                              'image_url' => $image_urls[self::$vendor_count],
+                              'image_url' => $image_urls[array_rand($image_urls)],
                               'homepage_url' => $faker->url,
                               'more_info' => $faker->paragraph));
 

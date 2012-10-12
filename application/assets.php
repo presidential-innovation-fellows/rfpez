@@ -25,7 +25,7 @@ Basset::scripts('website', function($basset)
          ->add('bid-review', 'js/bid-review.js')
          ->add('new-bid', 'js/new-bid.js')
          ->add('validation', 'js/validation.js')
-         ->add('filter-contracts', 'js/filter-contracts.js')
+         ->add('filter-projects', 'js/filter-projects.js')
          ->add('collaborators', 'js/collaborators.js')
          ->add('sows', 'js/sows.js')
          ->add('notifications', 'js/notifications.js');

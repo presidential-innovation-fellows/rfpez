@@ -3,6 +3,7 @@
 - Section::inject('active_subnav', 'review')
 
 !{View::make('projects.partials.toolbar')->with('project', $sow->project)}
+!{View::make('projects.partials.post_to_fbo_modal')->with('project', $sow->project)}
 
 .step.step-7
 
@@ -10,7 +11,7 @@
 
   .row
     .span7
-      | !{$sow->body | "&nbsp;"}
+      | !{$sow->body ?: "&nbsp;"}
 
 
     .span4.well.sidebar
@@ -19,4 +20,4 @@
 
       h4 Post to FBO
       p Are you a contracting officer? If this SOW is ready, post it to FBO to get the EasyBid process rolling.
-      a.btn.btn-info Post to FBO
+      a.btn.btn-info(href="#post-to-fbo-modal", data-toggle='modal') Post to FBO

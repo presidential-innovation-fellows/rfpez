@@ -14,8 +14,6 @@
           $(".collaborators-table tbody").append(new_tr);
         } else if (data.status === "already exists") {
           button.flash_button_message("warning", "Collaborator already exists");
-        } else if (data.status === "can't add yourself") {
-          button.flash_button_message("warning", "Can't add yourself");
         } else {
           button.flash_button_message("warning", "Error occurred");
         }
@@ -25,11 +23,9 @@
   });
 
   $(document).on("click", ".remove-collaborator-button", function(e) {
-    var contract_id, el, officer_id;
+    var el;
     e.preventDefault();
     el = $(this);
-    contract_id = el.closest("[data-contract-id]").data('contract-id');
-    officer_id = el.closest("[data-officer-id]").data('officer-id');
     return $.ajax({
       url: el.attr("href"),
       type: "delete",

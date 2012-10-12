@@ -1,0 +1,22 @@
+.modal.hide#post-to-fbo-modal(tabindex="-1", role="dialog")
+  .modal-header
+    button.close(type='button', data-dismiss='modal') &times;
+    h3 Post to FBO
+  .modal-body
+    h3 Step 1
+    p
+      | Copy the html below and paste it into the FedBizOpps site. MAKE SURE that the email
+      | address you use on EasyBid is in the "contact info" section of the post.
+
+    textarea !{$project->sow->body}
+
+    h3 Step 2
+    p Enter the Solicitation Number assigned by FBO.
+
+    form(action="#{route('project_sync_with_fbo', array($project->id))}", method="POST")
+      input(type="hidden", name="_method", value="PUT")
+
+      .control-group
+        .input-append
+          input(type="text", name="fbo_solnbr", placeholder="Solitication Number")
+          button.btn.btn-primary Sync with FBO
