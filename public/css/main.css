@@ -204,6 +204,9 @@ body.vendor .no-auth-only {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.comments-list .comment .body .author {
+  font-weight: bold;
+}
 .vendors-wrapper .loading-spinner {
   text-align: center;
   margin: 0 0 35px;

@@ -15,3 +15,4 @@ $(document).on "submit", "#new-contract-form", (e) ->
 
 $ ->
   $("[data-onload-focus]:eq(0)").focus()
+  $("span.timeago").timeago()

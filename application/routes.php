@@ -54,6 +54,9 @@ Route::get('projects/(:num)/bids', array('uses' => 'bids@review', 'as' => 'revie
 Route::get('projects/(:num)/postonfbo', array('uses' => 'projects@post_on_fbo', 'as' => 'project_post_on_fbo'));
 Route::post('projects/(:num)/postonfbo', array('uses' => 'projects@post_on_fbo_post', 'as' => 'project_post_on_fbo'));
 
+Route::get('projects/(:num)/comments', array('uses' => 'comments@index', 'as' => 'comments'));
+Route::post('projects/(:num)/comments', array('uses' => 'comments@create', 'as' => 'comments'));
+
 Route::get('projects/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
 Route::post('projects/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));
 Route::get('projects/(:num)/bids/(:num)', array('uses' => 'bids@show', 'as' => 'bid'));

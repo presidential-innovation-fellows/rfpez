@@ -26,6 +26,10 @@ class Project extends Eloquent {
     return $this->has_many_and_belongs_to('Officer', 'project_collaborators');
   }
 
+  public function comments() {
+    return $this->has_many('Comment')->order_by('created_at');
+  }
+
   public function owner() {
     return $this->officers()->where_owner(true)->first();
   }

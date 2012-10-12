@@ -1,5 +1,10 @@
 <?php
 
+function timeago($timestamp) {
+	$str = strtotime($timestamp);
+	return "<span class='timeago' title='".date('c', $str)."'>".date('r', $str)."</abbr>";
+}
+
 /**
  * Convert HTML characters to entities.
  *

@@ -24,7 +24,8 @@
   });
 
   $(function() {
-    return $("[data-onload-focus]:eq(0)").focus();
+    $("[data-onload-focus]:eq(0)").focus();
+    return $("span.timeago").timeago();
   });
 
 }).call(this);

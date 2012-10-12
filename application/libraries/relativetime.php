@@ -3,6 +3,7 @@
 Class RelativeTime {
   public static function format($date) {
     if (empty($date)) throw new Exception("No date provided");
+    if (is_object($date)) return false;
 
     $periods = array("second", "minute", "hour", "day", "week", "month", "year", "decade");
     $lengths = array("60","60","24","7","4.35","12","10");

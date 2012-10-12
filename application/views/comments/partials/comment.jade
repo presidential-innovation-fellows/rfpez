@@ -1,0 +1,7 @@
+.well.comment
+  .body
+    span.author #{$comment->officer->name} -
+    | #{$comment->body}
+
+  .timestamp
+    .posted-at Posted !{timeago($comment->created_at)}

@@ -15,6 +15,7 @@ Basset::scripts('website', function($basset)
   $basset->add('bootstrapjs', 'js/vendor/bootstrap.min.js')
          ->add('bootstrap-datepicker', 'js/vendor/bootstrap-datepicker.js')
          ->add('autogrow-input', 'js/vendor/autogrow-input.js')
+         ->add('jquerytimeago', 'js/vendor/jquery.timeago.js')
          ->add('jqueryvalidate', 'js/vendor/jquery.validate.js')
          ->add('jqueryvalidaterfpez', 'js/vendor/jquery.validate_rfpez.js')
          ->add('jqueryform', 'js/vendor/jquery.form.js')
@@ -28,7 +29,8 @@ Basset::scripts('website', function($basset)
          ->add('filter-projects', 'js/filter-projects.js')
          ->add('collaborators', 'js/collaborators.js')
          ->add('sows', 'js/sows.js')
-         ->add('notifications', 'js/notifications.js');
+         ->add('notifications', 'js/notifications.js')
+         ->add('project-comments', 'js/project-comments.js');
 });
 
 Basset::styles('website', function($basset)
