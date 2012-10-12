@@ -37,6 +37,7 @@ class Projects_Controller extends Base_Controller {
     $view = View::make('projects.show');
     $view->project = Config::get('project');
     $this->layout->content = $view;
+    Auth::user()->view_notification_payload('project', $view->project->id);
   }
 
   public function action_update() {
@@ -73,8 +74,9 @@ class Projects_Controller extends Base_Controller {
 
     $project->officers()->attach($user->officer->id);
 
-    // Notification::send("ContractCollaboratorAdded", array("project" => $project,
-    //                                           "officer" => $user->officer));
+    Notification::send("ProjectCollaboratorAdded", array("project" => $project,
+                                                         "officer" => $user->officer,
+                                                         "actor_id" => Auth::user()->id));
 
     return Response::json(array("status" => "success",
                                 "html" => View::make("projects.partials.collaborator_tr")
