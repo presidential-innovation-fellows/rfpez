@@ -26,6 +26,14 @@ class Project extends Eloquent {
     return $this->has_many_and_belongs_to('Officer', 'project_collaborators');
   }
 
+  public function owner() {
+    return $this->officers()->where_owner(true)->first();
+  }
+
+  public function i_am_owner() {
+    return (Auth::officer() && Auth::officer()->id == $this->owner()->id) ? true : false;
+  }
+
   public function sow() {
     return $this->has_one('Sow');
   }

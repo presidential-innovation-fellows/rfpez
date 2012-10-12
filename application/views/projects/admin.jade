@@ -47,13 +47,14 @@
       thead
         tr
           th Email
+          th Owner
           th Actions
       tbody
         - foreach ($project->officers as $officer):
           !{View::make('projects.partials.collaborator_tr')->with('officer', $officer)->with('project', $project)}
       tfoot
         tr
-          td(colspan="2")
+          td(colspan="3")
             form#add-collaborator-form(action="#{route('project_collaborators', array($project->id))}", method="POST")
               .input-append
                 input(type="text", name="email", placeholder="Email Address", autocomplete="off")

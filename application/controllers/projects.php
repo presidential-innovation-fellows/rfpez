@@ -11,7 +11,9 @@ class Projects_Controller extends Base_Controller {
 
     $this->filter('before', 'project_posted')->only(array('show'));
 
-    $this->filter('before', 'i_am_collaborator')->except(array('new', 'create', 'mine', 'index', 'show'));
+    $this->filter('before', 'i_am_collaborator')->except(array('new', 'create', 'mine', 'index', 'show', 'destroy_collaborator'));
+
+    $this->filter('before', 'i_am_owner')->only(array('destroy_collaborator'));
   }
 
   public function action_new() {
@@ -23,7 +25,7 @@ class Projects_Controller extends Base_Controller {
     $project = new Project(Input::get('project'));
     $project->save();
 
-    $project->officers()->attach(Auth::officer()->id);
+    $project->officers()->attach(Auth::officer()->id, array('owner' => true));
 
     $sow = Sow::create(array('based_on_sow_template_id' => Input::get('template_id'),
                              'project_id' => $project->id));
@@ -82,12 +84,9 @@ class Projects_Controller extends Base_Controller {
   }
 
   public function action_destroy_collaborator($project_id, $officer_id) {
-    // @todo
-    // Possible security risk: there is no owner to a project,
-    // so anyone can remove anyone else from a project.
-
     $collaborator = ProjectCollaborator::where_project_id($project_id)
                                        ->where_officer_id($officer_id)
+                                       ->where_owner(false)
                                        ->first();
 
     if ($collaborator) $collaborator->delete();
@@ -222,4 +221,9 @@ Route::filter('project_posted', function() {
 Route::filter('i_am_collaborator', function() {
   $project = Config::get('project');
   if (!$project->is_mine()) return Redirect::to('/');
+});
+
+Route::filter('i_am_owner', function() {
+  $project = Config::get('project');
+  if (!$project->i_am_owner()) return Redirect::to('/');
 });

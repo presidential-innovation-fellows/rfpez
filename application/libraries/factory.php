@@ -94,7 +94,7 @@ Class Factory {
 
     $p->fbo_solnbr = self::$solnbrs[array_rand(self::$solnbrs)];
     $p->save();
-    $p->officers()->attach($o->id);
+    $p->officers()->attach($o->id, array('owner' => true));
 
     $template = SowTemplate::where_title("Web Design")->where_visible(true)->first();
 

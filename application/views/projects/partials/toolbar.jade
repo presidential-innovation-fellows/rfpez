@@ -25,7 +25,11 @@ h4 #{$project->title}
           a(href="#{route('review_bids', array($project->id))}") Review Bids (#{$project->open_bids()->count()})
 
       - elseif ($project->status() == Project::STATUS_REVIEWING_BIDS):
-        p
+        li(class="#{Helper::active_subnav('view') ? 'active':''}")
+          a(href="#{route('project', array($project->id))}") View Posting
+
+        li(class="#{Helper::active_subnav('review_bids') ? 'active':''}")
+          a(href="#{route('review_bids', array($project->id))}") Review Bids (#{$project->open_bids()->count()})
 
       - elseif ($project->status() == Project::STATUS_CONTRACT_AWARDED):
         p
