@@ -18,4 +18,20 @@
     });
   });
 
+  $(document).on("click", ".delete-comment", function(e) {
+    var el;
+    e.preventDefault();
+    el = $(this);
+    return $.ajax({
+      url: el.attr('href'),
+      success: function(data) {
+        if (data.status === "success") {
+          return el.closest(".comment").fadeOut(300, function() {
+            return el.remove();
+          });
+        }
+      }
+    });
+  });
+
 }).call(this);

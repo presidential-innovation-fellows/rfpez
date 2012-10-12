@@ -12,4 +12,9 @@ class Comment extends Eloquent {
     return $this->belongs_to('Officer');
   }
 
+  public function is_mine() {
+    if (!Auth::officer()) return false;
+    return (Auth::officer()->id == $this->officer->id) ? true : false;
+  }
+
 }

@@ -8,6 +8,10 @@ class Comments_Controller extends Base_Controller {
     $this->filter('before', 'project_exists');
 
     $this->filter('before', 'i_am_collaborator');
+
+    $this->filter('before', 'comment_exists')->only(array('destroy'));
+
+    $this->filter('before', 'comment_is_mine')->only(array('destroy'));
   }
 
   public function action_index() {
@@ -27,6 +31,13 @@ class Comments_Controller extends Base_Controller {
     return Response::json(array('status' => 'success',
                                 'html' => View::make('comments.partials.comment')->with('comment', $c)->render() ));
   }
+
+  public function action_destroy() {
+    $comment = Config::get('comment');
+    $comment->delete();
+    return Response::json(array('status' => 'success'));
+  }
+
 }
 
 Route::filter('project_exists', function() {
@@ -39,4 +50,18 @@ Route::filter('project_exists', function() {
 Route::filter('i_am_collaborator', function() {
   $project = Config::get('project');
   if (!$project->is_mine()) return Redirect::to('/');
+});
+
+Route::filter('comment_exists', function() {
+  $id = Request::$route->parameters[1];
+  $comment = Comment::where_project_id(Config::get('project')->id)
+                    ->where_id($id)
+                    ->first();
+  if (!$comment) return Redirect::to('/');
+  Config::set('comment', $comment);
+});
+
+Route::filter('comment_is_mine', function() {
+  $comment = Config::get('comment');
+  if (!$comment->is_mine()) return Redirect::to('/');
 });

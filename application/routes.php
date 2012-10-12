@@ -56,6 +56,7 @@ Route::post('projects/(:num)/postonfbo', array('uses' => 'projects@post_on_fbo_p
 
 Route::get('projects/(:num)/comments', array('uses' => 'comments@index', 'as' => 'comments'));
 Route::post('projects/(:num)/comments', array('uses' => 'comments@create', 'as' => 'comments'));
+Route::get('projects/(:num)/comments/(:num)/destroy', array('uses' => 'comments@destroy', 'as' => 'comment_destroy'));
 
 Route::get('projects/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
 Route::post('projects/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));
