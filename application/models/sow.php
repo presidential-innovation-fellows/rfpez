@@ -1,5 +1,6 @@
 <?php
 
+// @todo don't let user edit full sow body?
 class Sow extends Eloquent {
   public static $timestamps = true;
 
@@ -13,6 +14,12 @@ class Sow extends Eloquent {
 
   public function template() {
     return $this->belongs_to('SowTemplate', 'based_on_sow_template_id');
+  }
+
+  public function deliverables() {
+    $variables = $this->variables;
+    if (!isset($variables["Deliverable Due Dates"])) return array();
+    return array_keys($variables["Deliverable Due Dates"]);
   }
 
   public function get_variables() {

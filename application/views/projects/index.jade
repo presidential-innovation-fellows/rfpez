@@ -39,7 +39,7 @@ table.table.projects-table
         td #{$project->agency}
 
       tr.project-details
-        td(colspan="3") #{$project->sow_variable('bgscope')}
+        td(colspan="3") #{$project->sow->background_and_scope()}
 
       tr.deliverables
         td(colspan="3")

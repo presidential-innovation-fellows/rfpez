@@ -123,20 +123,8 @@ class Project extends Eloquent {
     return $this->current_bid_draft_from(Auth::user()->vendor);
   }
 
-  public function sow_variable($var) {
-    if (preg_match('/'.$var.'\=\"(.*)\"/', $this->body, $matches)) {
-      return $matches[1];
-    } else {
-      return false;
-    }
-  }
-
   public function get_parsed_deliverables() {
-    if ($deliverables = $this->sow_variable('deliverables')) {
-      return explode(',', $deliverables);
-    } else {
-      return false;
-    }
+    return $this->sow ? $this->sow->deliverables() : false;
   }
 
   public function get_parsed_deliverables_list() {
