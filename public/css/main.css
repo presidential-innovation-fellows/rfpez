@@ -20,6 +20,10 @@ h1 {
   color: #999;
   font-size: 1.5em;
 }
+hr.dark {
+  border-top-color: #eee;
+  border-bottom-color: #ccc;
+}
 .fit3wells .span4 {
   width: 250px;
 }
@@ -31,8 +35,11 @@ h1 {
   width: 12px;
 }
 body {
-  padding-top: 60px;
+  padding-top: 0;
   margin-bottom: 25px;
+}
+.sneaky {
+  display: none;
 }
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
@@ -56,6 +63,9 @@ body.vendor .no-vendor {
 body.vendor .no-auth-only {
   display: none !important;
 }
+.navbar-static-top {
+  margin-bottom: 20px;
+}
 .notification-nav-item {
   position: relative;
 }
@@ -63,6 +73,12 @@ body.vendor .no-auth-only {
   position: absolute;
   top: 7px;
   right: -10px;
+}
+.officer-toolbar {
+  padding-top: 25px;
+}
+.sow-toolbar {
+  padding-top: 20px;
 }
 .bids-table {
   width: 100%;
@@ -115,36 +131,55 @@ body.vendor .no-auth-only {
 .dismissed-alert .dismissal-reason {
   padding-top: 10px;
 }
-.media.vendor {
-  width: 400px;
-  display: inline-block;
-  vertical-align: top;
-  margin: 10px 10px 40px;
-}
-.media.vendor .company-name {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-.media.vendor .homepage-url {
-  float: left;
-}
-.media.vendor .ballpark-price {
-  float: right;
-  color: #888;
-}
 .vendor-image-preview-frame {
+  background-color: #fff;
   overflow: hidden;
   text-align: center;
   width: 400px;
   height: 300px;
+  line-height: 301px;
   border: 1px solid #eee;
   padding: 2px;
   margin: 5px 0 15px;
 }
-.vendor-image-preview-frame img {
+.vendor.media {
   width: 400px;
-  height: 300px;
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px 10px 40px;
+  -webkit-box-shadow: 1px 2px 7px #aaa;
+  box-shadow: 1px 2px 7px #aaa;
+  -webkit-border-radius: 9px;
+  border-radius: 9px;
+}
+.vendor.media .company-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  width: 250px;
+}
+.vendor.media .ballpark-price {
+  color: #888;
+}
+.vendor.media .more-info {
+  line-height: 1.5em;
+  height: 4.5em;
+  overflow: hidden;
+}
+.vendor-detail {
+  padding-top: 40px;
+}
+.vendor-detail .company-name {
+  color: #888;
+  font-size: 24px;
+  font-weight: bold;
+}
+.vendor-detail .ballpark-price {
+  margin-bottom: 25px;
+}
+.vendor-detail .more-info {
+  font-size: 1.2em;
+  line-height: 1.4em;
 }
 .question-wrapper {
   margin-bottom: 15px;
@@ -249,6 +284,9 @@ body.vendor .no-auth-only {
   font-weight: normal;
   padding-left: 12px;
 }
+.new-contract-btn {
+  margin-left: 20px;
+}
 .contracts-table thead tr th.contract-title {
   width: 45%;
 }
@@ -273,13 +311,6 @@ body.vendor .no-auth-only {
 }
 .vendor-image-form-row {
   margin-top: 30px;
-}
-body {
-  padding-top: 60px;
-  background-color: #f6f6f6;
-}
-a {
-  cursor: pointer;
 }
 .nav-right-text {
   padding: 10px 0 10px 0;
@@ -455,7 +486,4 @@ textarea.composer {
 .step span.help-text {
   color: #aaa;
   font-size: 0.9em;
-}
-.sneaky {
-  display: none;
 }

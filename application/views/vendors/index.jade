@@ -5,20 +5,18 @@
   .vendors
     - foreach($vendors as $vendor):
       .media.vendor.well
-        .company-name
+        .company-name.pull-left
           a(href="#{route('vendor', array($vendor->id))}") #{$vendor->company_name}
 
-        .homepage-url
-          a(href="#{$vendor->homepage_url}") #{$vendor->homepage_url_pretty}
-
-        .ballpark-price #{$vendor->ballpark_price_display}
+        .ballpark-price.pull-right #{$vendor->ballpark_price_display}
 
         .clearfix
 
         .vendor-image-preview-frame
-          img(src="#{$vendor->image_url}")
+          a(href="#{route('vendor', array($vendor->id))}")
+            img(src="#{$vendor->image_url}")
 
-        .more_info #{$vendor->more_info}
+        .more-info #{$vendor->more_info}
 
 
   .loading-spinner

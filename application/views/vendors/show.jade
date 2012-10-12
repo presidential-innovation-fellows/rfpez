@@ -2,19 +2,21 @@
 - Section::inject('no_page_header', true)
 - Section::inject('active_nav', 'vendors')
 
-.vendor-wrapper
-  .vendor.well
-    .company-name
-      a(href="#") #{$vendor->company_name}
+.vendor-detail
+  .company-name.pull-left #{$vendor->company_name}
 
-    .homepage-url
-      a(href="#{$vendor->homepage_url}") #{$vendor->homepage_url_pretty}
+  .homepage-url.btn.pull-right
+    a(href="#{$vendor->homepage_url}") view company website
 
-    .ballpark-price #{$vendor->ballpark_price_display}
+  .clearfix
 
-    .clearfix
+  .ballpark-price #{$vendor->ballpark_price_display}
 
-    .vendor-image-preview-frame
-      img(src="#{$vendor->image_url}")
+  hr.dark
 
-    .more_info #{$vendor->more_info}
+  .vendor-image-preview-frame.pull-left
+    img(src="#{$vendor->image_url}")
+
+  .more-info.pull-left.span5.offset1 #{$vendor->more_info}
+
+  .clearfix

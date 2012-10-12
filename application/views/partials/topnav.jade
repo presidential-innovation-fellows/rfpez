@@ -9,12 +9,14 @@ div.nav-collapse.collapse
     - if (Auth::user()->officer):
       li
         a(href="#{ route('vendors') }") Vendors
+    - endif;
 
   ul.nav.pull-right
     li.dropdown
       a(href="#", class="dropdown-toggle", data-toggle="dropdown")
         | #{Auth::user()->email}
         b.caret
+
       ul.dropdown-menu
         - if (Auth::user()->officer):
           li
@@ -27,6 +29,7 @@ div.nav-collapse.collapse
           a(href="#{route('account')}") Account Settings
         li
           a(href="#{ route('signout') }") Sign Out
+
     li(class="notification-nav-item")
       a(href="#{route('notifications')}")
         | &nbsp;
