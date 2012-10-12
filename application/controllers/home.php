@@ -9,7 +9,11 @@ class Home_Controller extends Base_Controller {
         return Redirect::to_route('my_projects');
       } else {
         Session::reflash();
-        return Redirect::to_route('projects');
+        if (Auth::user()->vendor && Bid::where_vendor_id(Auth::vendor()->id)->where_deleted_by_vendor(0)->count() ) {
+          return Redirect::to_route('my_bids');
+        } else {
+          return Redirect::to_route('projects');
+        }
       }
       // When we have something better...
       //$view = View::make('home.index_signed_in');

@@ -1,16 +1,19 @@
 div.nav-collapse.collapse
 
 - if (Auth::check()):
-
   ul.nav
     - if (Auth::user()->officer):
       li
-        a(href="#{ route('my_projects') }") Projects
-      li
         a(href="#{ route('vendors') }") Vendors
-    - else:
       li
-        a(href="#{ route('projects') }") Browse Projects
+        a(href="#{ route('my_projects') }") Projects
+    - else:
+      - if (Auth::user()->vendor && Bid::where_vendor_id(Auth::vendor()->id)->where_deleted_by_vendor(0)->count() ):
+        li
+          a(href="#{ route('my_bids') }") Bids
+      - endif;
+      li
+        a(href="#{ route('projects') }") Projects
     - endif;
 
   ul.nav.pull-right
@@ -20,10 +23,6 @@ div.nav-collapse.collapse
         b.caret
 
       ul.dropdown-menu
-        - if (!Auth::user()->officer):
-          li
-            a(href="#{ route('my_bids') }") My Bids
-        - endif;
         li
           a(href="#{route('account')}") Account Settings
         li
