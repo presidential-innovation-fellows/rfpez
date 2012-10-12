@@ -272,41 +272,41 @@ body.vendor .no-auth-only {
 .notification-item .timestamp {
   font-weight: normal;
 }
-.contract-list {
+.project-list {
   list-style: none;
   font-size: 1.4em;
 }
-.contract-list li {
+.project-list li {
   margin-bottom: 1.3em;
 }
-.show-my-contracts-btn {
+.show-my-projects-btn {
   font-size: 0.65em;
   font-weight: normal;
   padding-left: 12px;
 }
-.new-contract-btn {
+.new-project-btn {
   margin-left: 20px;
 }
-.contracts-table thead tr th.contract-title {
+.projects-table thead tr th.project-title {
   width: 45%;
 }
-.contracts-table thead tr th.type {
+.projects-table thead tr th.type {
   width: 30%;
 }
-.contracts-table thead tr th.agency {
+.projects-table thead tr th.agency {
   width: 25%;
 }
-.contracts-table tbody.contract {
+.projects-table tbody.project {
   border-top: 1px solid #ddd;
 }
-.contracts-table tbody.contract .admin-star {
+.projects-table tbody.project .admin-star {
   font-size: 11px;
 }
-.contracts-table tbody.contract .admin-star i {
+.projects-table tbody.project .admin-star i {
   line-height: 12px;
   margin-top: -1px;
 }
-.contracts-table tr td {
+.projects-table tr td {
   border: 0;
 }
 .vendor-image-form-row {
