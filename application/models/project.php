@@ -23,7 +23,7 @@ class Project extends Eloquent {
                                     'body', 'title');
 
   public function officers() {
-    return $this->has_many_and_belongs_to('Officer', 'project_collaborators');
+    return $this->has_many_and_belongs_to('Officer', 'project_collaborators')->order_by('owner', 'desc');
   }
 
   public function comments() {
