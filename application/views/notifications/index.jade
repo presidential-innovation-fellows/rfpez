@@ -3,7 +3,7 @@
 - if ($notifications):
   ul.notification-list
     - foreach ($notifications as $notification):
-      !{View::make('partials.media.notification')->with('notification', $notification)}
+      !{View::make('notifications.partials.notification')->with('notification', $notification)}
 - else:
   p No notifications to show.
 - endif;

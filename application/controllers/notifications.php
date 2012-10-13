@@ -24,7 +24,7 @@ class Notifications_Controller extends Base_Controller {
     }
     return Response::json(array("status" => "success",
                                 "unread_count" => Auth::user()->unread_notification_count(),
-                                "html" => View::make('partials.media.notification')->with('notification', $notification)->render()));
+                                "html" => View::make('notifications.partials.notification')->with('notification', $notification)->render()));
   }
 
 }
