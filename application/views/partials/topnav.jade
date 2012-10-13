@@ -8,10 +8,8 @@ div.nav-collapse.collapse
       li
         a(href="#{ route('my_projects') }") Projects
     - else:
-      - if (Auth::user()->vendor && Bid::where_vendor_id(Auth::vendor()->id)->where_deleted_by_vendor(0)->count() ):
-        li
-          a(href="#{ route('my_bids') }") Bids
-      - endif;
+      li
+        a(href="#{ route('my_bids') }") Bids
       li
         a(href="#{ route('projects') }") Projects
     - endif;
