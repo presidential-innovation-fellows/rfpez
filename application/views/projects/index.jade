@@ -1,10 +1,4 @@
-- if (Auth::officer()):
-  - Section::inject('page_title', 'Everybody\'s Projects')
-- else:
-  - Section::inject('page_title', 'Projects')
-- endif;
-
-- Section::inject('active_nav', 'projects')
+- Section::inject('page_title', (Auth::officer() ? 'Everybody\'s Projects' : 'Projects' ))
 
 - Section::start('inside_header');
   a.officer-only.toggle-my-all-projects(href="#{route('my_projects')}") my projects only

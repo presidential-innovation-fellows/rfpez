@@ -8,8 +8,6 @@
     input(type="text", name="user[email]", value="#{$user['email']}")
 - else:
 
-  h1 Credentials
-
   label.larger #{Auth::user()->email}
     a.smaller(href="#{route('change_email')}") change email
 
