@@ -20,6 +20,10 @@
         .dismissal-explanation
           strong Explanation:
           span #{$bid->dismissal_explanation}
+  - else:
+    .vendor-only
+      .alert.alert-info
+        | Your bid is currently being reviewed. We'll let you know when the status changes.
   - endif;
 
   h4 Approach

@@ -32,11 +32,27 @@ class Bids_Controller extends Base_Controller {
   }
 
   public function action_show() {
-    $view = View::make('bids.show');
-    $view->project = Config::get('project');
-    $view->bid = Config::get('bid');
-    $this->layout->content = $view;
+    $project = Config::get('project');
+    $bid = Config::get('bid');
+
+    if ($project->is_mine()) {
+      // officer's view
+      $view = View::make('bids.show_officers_view');
+      $view->project = $project;
+      $view->bid = $bid;
+
+    } else {
+      // vendor's view
+      if (!$bid->submitted_at) return Redirect::to_route('new_bids', array($project->id));
+      $view = View::make('bids.show_vendors_view');
+      $view->project = $project;
+      $view->bid = $bid;
+
+    }
+
     Auth::user()->view_notification_payload('bid', $view->bid->id);
+    $this->layout->content = $view;
+
   }
 
   public function action_new() {

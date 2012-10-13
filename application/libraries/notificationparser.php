@@ -22,7 +22,7 @@ Class NotificationParser {
     } elseif ($notification->notification_type == "BidSubmit") {
       $bid = $notification->payload["bid"];
       $return_array["subject"] = $bid["vendor"]["company_name"]." has submitted a bid for ".$bid["project"]["title"].".";
-      $return_array["line1"] = $bid["vendor"]["company_name"]." has <a href='".route('review_bids', array($bid["project"]["id"])).
+      $return_array["line1"] = $bid["vendor"]["company_name"]." has <a href='".route('bid', array($bid["project"]["id"], $bid["id"])).
                 "'>submitted a bid</a> for ".$bid["project"]["title"].".";
       $return_array["line2"] = Helper::truncate($bid["approach"], 20);
 
