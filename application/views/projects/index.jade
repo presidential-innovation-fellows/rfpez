@@ -2,9 +2,6 @@
 
 - Section::start('inside_header');
   a.officer-only.toggle-my-all-projects(href="#{route('my_projects')}") my projects only
-  - if (Auth::vendor() && Bid::where_vendor_id(Auth::vendor()->id)->get()):
-    a.vendor-only.toggle-my-all-projects(href="#{route('my_bids')}") my bids only
-  - endif
   .search-projects.pull-right
     input.search-query#filter-projects-input(type="search", placeholder="Filter projects...")
 
