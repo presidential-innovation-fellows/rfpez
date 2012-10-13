@@ -77,7 +77,8 @@ class User extends Eloquent {
     $columns = array(
       'id', 'user_id', 'company_name', 'contact_name', 'address', 'city', 'state',
       'zip', 'latitude', 'longitude', 'ballpark_price', 'portfolio_url', 'more_info',
-      'created_at', 'updated_at', 'homepage_url', 'sourcecode_url', 'image_url',
+      'created_at', 'updated_at', 'homepage_url', 'sourcecode_url', 'image_url', 'duns',
+      'sam_entity_name', 'dsbs_user_id',
     );
 
     return array_map(function($v) { return 'vendors.'.$v.' as vendor_alias_'.$v; }, $columns);

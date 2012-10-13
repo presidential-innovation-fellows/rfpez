@@ -1,6 +1,6 @@
 
 - if (!isset($vendor) && Auth::user() && Auth::user()->vendor)
-  - $vendor = Input::old('vendor') ?: Auth::user()->vendor->to_array();
+  - $vendor = Input::old('vendor') ?: Auth::vendor()->to_array();
 
 - if (!isset($services) && Auth::user() && Auth::user()->vendor)
   - $services_list = Auth::user()->vendor->services()->lists('id')
@@ -82,6 +82,10 @@
       h3 Contact Info
 
     - endif;
+
+    .control-group
+      label DUNS Number
+      input(type="text", name="vendor[duns]", value="#{ $vendor['duns'] }")
 
     .control-group
       label Company Name

@@ -69,3 +69,22 @@ class Vendor extends Eloquent {
   }
 
 }
+
+// If DUNS number is updated, search for related DSBS and SAM records.
+Event::listen('eloquent.saving: Vendor', function($model){
+  if ($model->changed('duns')) {
+
+    // Get DSBS data
+    if ($duns_contents = @file_get_contents("http://rfpez-apis.presidentialinnovationfellows.org/bizs?duns=" . $model->duns)) {
+      $duns_json = json_decode($duns_contents, true);
+      if (isset($duns_json["results"]) && isset($duns_json["results"][0])) {
+        if (trim($duns_json["results"][0]["name"]) != "") $model->dsbs_name = trim($duns_json["results"][0]["name"]);
+        if ($duns_json["results"][0]["user_id"]) $model->dsbs_user_id = $duns_json["results"][0]["user_id"];
+      }
+    }
+
+    // Get SAM.gov data
+
+
+  }
+});
