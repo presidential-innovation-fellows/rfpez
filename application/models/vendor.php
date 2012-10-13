@@ -80,10 +80,21 @@ Event::listen('eloquent.saving: Vendor', function($model){
       if (isset($duns_json["results"]) && isset($duns_json["results"][0])) {
         if (trim($duns_json["results"][0]["name"]) != "") $model->dsbs_name = trim($duns_json["results"][0]["name"]);
         if ($duns_json["results"][0]["user_id"]) $model->dsbs_user_id = $duns_json["results"][0]["user_id"];
+      } else {
+        $model->dsbs_name = null;
+        $model->dsbs_user_id = null;
       }
     }
 
     // Get SAM.gov data
+    if ($sam_contents = @file_get_contents("http://rfpez-apis.presidentialinnovationfellows.org/samzombie/" . $model->duns)) {
+      $sam_json = json_decode($sam_contents, true);
+      if (isset($sam_json["name"]) && $sam_json["duns"] == $model->duns) {
+        if (trim($sam_json["name"]) != "") $model->sam_entity_name = trim($sam_json["name"]);
+      } else {
+        $model->sam_entity_name = null;
+      }
+    }
 
 
   }

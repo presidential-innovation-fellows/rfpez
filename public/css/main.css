@@ -41,6 +41,12 @@ body {
 .sneaky {
   display: none;
 }
+.red {
+  color: #f00;
+}
+.green {
+  color: #008000;
+}
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
   display: none !important;
@@ -206,6 +212,16 @@ body.vendor .no-auth-only {
 }
 .comments-list .comment .body .author {
   font-weight: bold;
+}
+.dsbs-certifications {
+  min-height: 70px;
+  width: 100%;
+}
+.dsbs-certifications .loading-text {
+  display: none;
+}
+.dsbs-certifications.loading .loading-text {
+  display: block;
 }
 .vendors-wrapper .loading-spinner {
   text-align: center;

@@ -30,6 +30,7 @@ Basset::scripts('website', function($basset)
          ->add('collaborators', 'js/collaborators.js')
          ->add('sows', 'js/sows.js')
          ->add('notifications', 'js/notifications.js')
+         ->add('dsbs-lookup', 'js/dsbs-lookup.js')
          ->add('project-comments', 'js/project-comments.js');
 });
 
