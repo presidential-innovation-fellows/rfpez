@@ -136,7 +136,7 @@ Class Factory {
     $v = Vendor::order_by(\DB::raw('RAND()'))->first();
 
     $prices = array();
-    foreach ($p->parsed_deliverables as $d) {
+    foreach ($p->parsed_deliverables() as $d) {
       $prices[$d] = rand(100, 10000);
     }
 

@@ -1,4 +1,4 @@
-<?php $parsed = $notification->parsed; ?>
+<?php $parsed = $notification->parsed(); ?>
 
 <p>
   <strong><?= $parsed["line1"] ?></strong>

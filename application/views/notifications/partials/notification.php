@@ -1,4 +1,4 @@
-<?php $parsed = $notification->parsed; ?>
+<?php $parsed = $notification->parsed(); ?>
 
 <li class="notification-item <?= $notification->read ? '' : 'unread' ?>" data-notification-id="<?= $notification->id ?>">
   <div class="unread-button-wrapper">

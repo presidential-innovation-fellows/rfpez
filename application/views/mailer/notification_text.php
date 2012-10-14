@@ -1,4 +1,4 @@
-<?php $parsed = $notification->parsed; ?>
+<?php $parsed = $notification->parsed(); ?>
 
 <?= $parsed["subject"] ?>
 

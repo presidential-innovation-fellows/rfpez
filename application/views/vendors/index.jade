@@ -7,7 +7,7 @@
         .company-name.pull-left
           a(href="#{route('vendor', array($vendor->id))}") #{$vendor->company_name}
 
-        .ballpark-price.pull-right #{$vendor->ballpark_price_display}
+        .ballpark-price.pull-right #{$vendor->ballpark_price_display()}
 
         .clearfix
 

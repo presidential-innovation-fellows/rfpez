@@ -135,11 +135,11 @@ class Project extends Eloquent {
     return $this->current_bid_draft_from(Auth::user()->vendor);
   }
 
-  public function get_parsed_deliverables() {
+  public function parsed_deliverables() {
     return $this->sow ? $this->sow->deliverables() : false;
   }
 
-  public function get_parsed_deliverables_list() {
+  public function parsed_deliverables_list() {
     if ($parsed_deliverables = $this->get_parsed_deliverables()) {
       return implode(', ', $parsed_deliverables);
     } else {

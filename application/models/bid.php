@@ -42,11 +42,11 @@ class Bid extends Eloquent {
     $this->attributes['prices'] = json_encode($value);
   }
 
-  public function get_deliverable_names() {
+  public function deliverable_names() {
     return $this->get_prices() ? array_keys($this->get_prices()) : false;
   }
 
-  public function get_deliverable_prices() {
+  public function deliverable_prices() {
     return $this->get_prices() ? array_values($this->get_prices()) : false;
   }
 

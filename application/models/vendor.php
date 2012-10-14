@@ -48,12 +48,8 @@ class Vendor extends Eloquent {
     $this->attributes['sourcecode_url'] = (!$value || preg_match('/^https?\:\/\//i', $value)) ? $value : 'http://' . $value;
   }
 
-  public function get_ballpark_price_display() {
+  public function ballpark_price_display() {
     return self::$ballpark_prices[$this->ballpark_price];
-  }
-
-  public function get_homepage_url_pretty() {
-    return preg_replace('/http\:\/\/(www.)?/', '', $this->homepage_url);
   }
 
   public function user() {
@@ -68,34 +64,33 @@ class Vendor extends Eloquent {
     return $this->has_many('Bid');
   }
 
-}
-
-// If DUNS number is updated, search for related DSBS and SAM records.
-Event::listen('eloquent.saving: Vendor', function($model){
-  if ($model->changed('duns')) {
-
+  public function sync_with_dsbs_and_sam() {
     // Get DSBS data
-    if ($duns_contents = @file_get_contents("http://rfpez-apis.presidentialinnovationfellows.org/bizs?duns=" . $model->duns)) {
+    if ($duns_contents = @file_get_contents("http://rfpez-apis.presidentialinnovationfellows.org/bizs?duns=" . $this->duns)) {
       $duns_json = json_decode($duns_contents, true);
       if (isset($duns_json["results"]) && isset($duns_json["results"][0])) {
-        if (trim($duns_json["results"][0]["name"]) != "") $model->dsbs_name = trim($duns_json["results"][0]["name"]);
-        if ($duns_json["results"][0]["user_id"]) $model->dsbs_user_id = $duns_json["results"][0]["user_id"];
+        if (trim($duns_json["results"][0]["name"]) != "") $this->dsbs_name = trim($duns_json["results"][0]["name"]);
+        if ($duns_json["results"][0]["user_id"]) $this->dsbs_user_id = $duns_json["results"][0]["user_id"];
       } else {
-        $model->dsbs_name = null;
-        $model->dsbs_user_id = null;
+        $this->dsbs_name = null;
+        $this->dsbs_user_id = null;
       }
     }
 
     // Get SAM.gov data
-    if ($sam_contents = @file_get_contents("http://rfpez-apis.presidentialinnovationfellows.org/samzombie/" . $model->duns)) {
+    if ($sam_contents = @file_get_contents("http://rfpez-apis.presidentialinnovationfellows.org/samzombie/" . $this->duns)) {
       $sam_json = json_decode($sam_contents, true);
-      if (isset($sam_json["name"]) && $sam_json["duns"] == $model->duns) {
-        if (trim($sam_json["name"]) != "") $model->sam_entity_name = trim($sam_json["name"]);
+      if (isset($sam_json["name"]) && $sam_json["duns"] == $this->duns) {
+        if (trim($sam_json["name"]) != "") $this->sam_entity_name = trim($sam_json["name"]);
       } else {
-        $model->sam_entity_name = null;
+        $this->sam_entity_name = null;
       }
     }
-
-
   }
+
+}
+
+// If DUNS number is updated, search for related DSBS and SAM records.
+Event::listen('eloquent.saving: Vendor', function($model){
+  if ($model->changed('duns')) $model->sync_with_dsbs_and_sam();
 });

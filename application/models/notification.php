@@ -30,7 +30,7 @@ class Notification extends Eloquent {
     $this->save();
   }
 
-  public function get_parsed() {
+  public function parsed() {
     return NotificationParser::parse($this);
   }
 
@@ -77,7 +77,9 @@ class Notification extends Eloquent {
     $message = Swift_Message::newInstance();
     $message->setFrom(array('noreply@sba.gov'=>'EasyBid'));
 
-    $message->setSubject($this->parsed["subject"])
+    $parsed = $this->parsed();
+
+    $message->setSubject($parsed["subject"])
             ->setTo($this->target->email)
             ->addPart(View::make('mailer.notification_text')->with('notification', $this), 'text/plain')
             ->setBody(View::make('mailer.notification_html')->with('notification', $this), 'text/html');

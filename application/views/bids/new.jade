@@ -52,10 +52,10 @@
         tbody
 
           - $i = 0;
-          - $draft_deliverable_names = $draft ? $draft->deliverable_names : false
-          - $draft_deliverable_prices = $draft ? $draft->deliverable_prices : false
+          - $draft_deliverable_names = $draft ? $draft->deliverable_names() : false
+          - $draft_deliverable_prices = $draft ? $draft->deliverable_prices() : false
           - $deliverable_prices = Input::old('deliverable_prices') ?: $draft_deliverable_prices
-          - $deliverable_names = Input::old('deliverable_names') ?: $draft_deliverable_names ?: $project->parsed_deliverables
+          - $deliverable_names = Input::old('deliverable_names') ?: $draft_deliverable_names ?: $project->parsed_deliverables()
           - if ($deliverable_names):
             - foreach($deliverable_names as $deliverable_name):
               tr.deliverables-row
