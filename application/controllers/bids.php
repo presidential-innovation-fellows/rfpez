@@ -193,7 +193,7 @@ Route::filter('i_am_collaborator_or_bid_vendor', function() {
 });
 
 Route::filter('i_am_contracting_officer', function() {
-  if (!Auth::officer()->is_verified()) return Redirect::to('/');
+  if (!Auth::officer()->is_verified_contracting_officer()) return Redirect::to('/');
 });
 
 Route::filter('i_am_bid_vendor', function() {

@@ -39,7 +39,7 @@ class Officer extends Eloquent {
     return in_array($project_id, $this->projects()->lists('id'));
   }
 
-  public function is_verified() {
+  public function is_verified_contracting_officer() {
     return $this->verified_solnbr ? true : false;
   }
 

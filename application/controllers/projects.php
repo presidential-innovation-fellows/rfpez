@@ -180,7 +180,7 @@ class Projects_Controller extends Base_Controller {
       return false;
     }
 
-    if (!Auth::officer()->is_verified()) {
+    if (!Auth::officer()->is_verified_contracting_officer()) {
       Auth::officer()->verify_with_solnbr($attributes["solnbr"]);
     }
 
