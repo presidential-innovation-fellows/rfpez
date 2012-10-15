@@ -7,4 +7,4 @@
 
 a(href="#{route('review_bids', array($project->id))}") &larr; Back to bid review list
 h1 Bid from #{$bid->vendor->company_name}
-!{View::make('bids.partials.bid_details')->with('bid', $bid)}
+!{View::make('bids.partials.bid_details_officers_view')->with('bid', $bid)}
