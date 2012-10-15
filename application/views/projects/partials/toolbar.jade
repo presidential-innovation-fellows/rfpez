@@ -22,7 +22,7 @@
     p
 
   - endif;
-    li.pull-right(class="#{Helper::active_subnav('comments') ? 'active':''}")
-      a(href="#{route('comments', array($project->id))}") Comments (#{$project->comments()->count()})
     li.pull-right(class="#{Helper::active_subnav('admin') ? 'active':''}")
       a(href="#{route('project_admin', array($project->id))}") Admin
+    li.pull-right(class="#{Helper::active_subnav('comments') ? 'active':''}")
+      a(href="#{route('comments', array($project->id))}") Comments (#{$project->comments()->count()})
