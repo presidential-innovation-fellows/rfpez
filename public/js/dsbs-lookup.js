@@ -6,25 +6,30 @@
       var el, user_id;
       el = $(this);
       user_id = el.data('dsbs-user-id');
-      return $.ajax({
-        url: "http://rfpez-apis.presidentialinnovationfellows.org/bizs?user_id=" + user_id,
-        dataType: "json",
-        success: function(data) {
-          var key, result, _results;
-          result = data.results[0];
-          if (!result) {
-            return;
-          }
-          if (result.user_id === user_id) {
-            el.removeClass('loading');
-            _results = [];
-            for (key in result) {
-              _results.push(el.find("[data-key=" + key + "]").text(result[key]));
+      el.on('load-dsbs', function() {
+        return $.ajax({
+          url: "http://rfpez-apis.presidentialinnovationfellows.org/bizs?user_id=" + user_id,
+          dataType: "json",
+          success: function(data) {
+            var key, result, _results;
+            result = data.results[0];
+            if (!result) {
+              return;
             }
-            return _results;
+            if (result.user_id === user_id) {
+              el.removeClass('loading');
+              _results = [];
+              for (key in result) {
+                _results.push(el.find("[data-key=" + key + "]").text(result[key]));
+              }
+              return _results;
+            }
           }
-        }
+        });
       });
+      if (el.data('defer') === false) {
+        return el.trigger('load-dsbs');
+      }
     });
   });
 

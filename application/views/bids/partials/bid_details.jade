@@ -26,17 +26,19 @@
         | Your bid is currently being reviewed. We'll let you know when the status changes.
   - endif;
 
-  h4 Approach
-  p #{$bid->approach}
+  .row-fluid
 
-  h4 Previous Work
-  p #{$bid->previous_work}
+    .span6
 
-  h4 Employee Details
-  p #{$bid->employee_details}
+      h4 Approach
+      p #{$bid->approach}
 
-  .row
-    .span6.prices
+      h4 Previous Work
+      p #{$bid->previous_work}
+
+      h4 Employee Details
+      p #{$bid->employee_details}
+
       h4 Prices
       table.table
         thead
@@ -54,12 +56,32 @@
             td Total Price
             td $#{$bid->total_price()}
 
-    .span6.example-work
+      a.vendor-only(href="#{route('bid_destroy', array($bid->project->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
+        | Delete Bid
+
+
+    .span6
+      h4 #{$bid->vendor->company_name}
+      div Contact: #{$bid->vendor->contact_name}
+      div Email: #{$bid->vendor->user->email}
+
+      div SAM.gov:
+        - if ($bid->vendor->sam_entity_name):
+          span.green Yes, under "#{$bid->vendor->sam_entity_name}"
+        - else:
+          span.red No
+        - endif;
+
+      div DSBS:
+        - if ($bid->vendor->dsbs_name):
+          span.green Yes, under "#{$bid->vendor->dsbs_name}"
+          !{View::make('vendors.partials.dsbs_certifications')->with('user_id', $bid->vendor->dsbs_user_id)->with('defer', true)}
+        - else:
+          span.red No
+        - endif;
+
+
       h4 Example Work
       .vendor-image-preview-frame
         img(src="#{$bid->vendor->image_url}")
-
-
-  a.vendor-only(href="#{route('bid_destroy', array($bid->project->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
-    | Delete Bid
 
