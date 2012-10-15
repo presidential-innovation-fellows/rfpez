@@ -10,6 +10,10 @@
       p
         input.span3(type='password', name='password', placeholder='Password')
       p
+        label.checkbox
+          input(type='checkbox', checked, name='remember')
+          | Remember Me?
+      p
         button.btn.btn-primary(type='submit') Sign in
         a(href="#{route('forgot_password')}") Forgot Password?
   .modal-footer

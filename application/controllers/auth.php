@@ -16,7 +16,9 @@ class Auth_Controller extends Base_Controller {
   }
 
   public function action_create() {
-    $credentials = array('username' => Input::get('email'), 'password' => Input::get('password'));
+    $credentials = array('username' => Input::get('email'),
+                         'password' => Input::get('password'),
+                         'remember' => Input::has('remember') ? true : false);
 
     if (Auth::attempt($credentials)) {
       Auth::user()->track_signin();
