@@ -22,8 +22,6 @@ class Project extends Eloquent {
   public static $accessible = array('agency', 'office', 'naics_code', 'proposals_due_at',
                                     'body', 'title');
 
-  public $includes = array('sow', 'sow.sow_sections');
-
   public static $my_project_ids = false;
 
   public function officers() {
@@ -171,7 +169,7 @@ class Project extends Eloquent {
   }
 
   public static function open_projects() {
-    return self::where('proposals_due_at', '>', \DB::raw('NOW()'));
+    return self::with(array('sow', 'sow.sow_sections'))->where('proposals_due_at', '>', \DB::raw('NOW()'));
   }
 
 }
