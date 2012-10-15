@@ -10,7 +10,7 @@ class Add_Ccr_Columns_To_Vendors {
 	public function up()
 	{
 		Schema::table('vendors', function($t){
-      $t->integer('duns')->nullable();
+      $t->string('duns')->nullable();
       $t->string('sam_entity_name')->nullable();
       $t->string('dsbs_name')->nullable();
       $t->string('dsbs_user_id')->nullable();
