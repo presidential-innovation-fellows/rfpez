@@ -11,4 +11,4 @@ p #{$sow->background_and_scope()}
         | #{$section->template_section->body}
       - else:
         textarea.composer(name="custom_sections[#{$section->id}]") #{$section->body}
-  - ++$i;
+    - ++$i;
