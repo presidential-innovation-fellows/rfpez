@@ -301,6 +301,9 @@ body.vendor .no-auth-only {
 .project-list li {
   margin-bottom: 1.3em;
 }
+.project-subnav {
+  margin-top: 25px;
+}
 .toggle-my-all-projects {
   font-size: 0.65em;
   font-weight: normal;
