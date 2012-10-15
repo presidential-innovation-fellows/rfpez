@@ -1,29 +1,14 @@
 .details-inner
 
   - if ($bid->dismissed()):
-    .officer-only
-      .alert.alert-danger.dismissed-alert
-        .dismissal-notice You have dismissed this bid.
-        .dismissal-reason
-          strong Reason:
-          span #{$bid->dismissal_reason}
-        .dismissal-explanation
-          strong Explanation:
-          span #{$bid->dismissal_explanation}
-
-    .vendor-only
-      .alert.alert-danger.dismissed-alert
-        .dismissal-notice Your bid has been dismissed.
-        .dismissal-reason
-          strong Reason:
-          span #{$bid->dismissal_reason}
-        .dismissal-explanation
-          strong Explanation:
-          span #{$bid->dismissal_explanation}
-  - else:
-    .vendor-only
-      .alert.alert-info
-        | Your bid is currently being reviewed. We'll let you know when the status changes.
+    .alert.alert-danger.dismissed-alert
+      .dismissal-notice You have dismissed this bid.
+      .dismissal-reason
+        strong Reason:
+        span #{$bid->dismissal_reason}
+      .dismissal-explanation
+        strong Explanation:
+        span #{$bid->dismissal_explanation}
   - endif;
 
   .row-fluid
@@ -56,10 +41,6 @@
             td Total Price
             td $#{$bid->total_price()}
 
-      a.vendor-only(href="#{route('bid_destroy', array($bid->project->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
-        | Delete Bid
-
-
     .span6
       h4 #{$bid->vendor->company_name}
       div Contact: #{$bid->vendor->contact_name}
@@ -84,4 +65,3 @@
       h4 Example Work
       .vendor-image-preview-frame
         img(src="#{$bid->vendor->image_url}")
-

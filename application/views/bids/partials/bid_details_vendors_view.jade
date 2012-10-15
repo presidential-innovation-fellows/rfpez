@@ -1,0 +1,53 @@
+.details-inner
+
+  - if ($bid->dismissed()):
+    .alert.alert-danger.dismissed-alert
+      .dismissal-notice Your bid has been dismissed.
+      .dismissal-reason
+        strong Reason:
+        span #{$bid->dismissal_reason}
+      .dismissal-explanation
+        strong Explanation:
+        span #{$bid->dismissal_explanation}
+  - else:
+    .alert.alert-info
+      | Your bid is currently being reviewed. We'll let you know when the status changes.
+  - endif;
+
+  h4 Approach
+  p #{$bid->approach}
+
+  h4 Previous Work
+  p #{$bid->previous_work}
+
+  h4 Employee Details
+  p #{$bid->employee_details}
+
+  .row
+    .span6.prices
+      h4 Prices
+      table.table
+        thead
+          tr
+            th Deliverable
+            th Price
+        - if ($bid->prices):
+          - foreach($bid->prices as $deliverable => $price):
+            tr
+              td #{$deliverable}
+              td $#{$price}
+        - endif;
+        tfoot
+          tr.info
+            td Total Price
+            td $#{$bid->total_price()}
+
+    .span6.example-work
+      h4 Example Work
+      .vendor-image-preview-frame
+        img(src="#{$bid->vendor->image_url}")
+
+
+  a(href="#{route('bid_destroy', array($bid->project->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
+    | Delete Bid
+

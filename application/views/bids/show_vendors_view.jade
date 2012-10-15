@@ -9,4 +9,4 @@ a(href="#{route('project', array($project->id))}") &larr; Back to project page
 
   .span5.offset1
     h1 My Bid
-    !{View::make('bids.partials.bid_details')->with('bid', $bid)}
+    !{View::make('bids.partials.bid_details_vendors_view')->with('bid', $bid)}

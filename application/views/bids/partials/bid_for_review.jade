@@ -21,4 +21,4 @@ tbody.bid(data-project-id="#{$bid->project->id}", data-bid-id="#{$bid->id}", dat
   tr
     td.bid-details(colspan="4")
       div(id="bid#{$bid->id}", class="collapse")
-        !{View::make('bids.partials.bid_details')->with('bid', $bid)}
+        !{View::make('bids.partials.bid_details_officers_view')->with('bid', $bid)}
