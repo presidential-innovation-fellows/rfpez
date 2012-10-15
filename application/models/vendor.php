@@ -69,6 +69,9 @@ class Vendor extends Eloquent {
   }
 
   public function sync_with_dsbs_and_sam() {
+
+    if (!$this->duns) return;
+
     // Get DSBS data
     if ($duns_contents = @file_get_contents("http://rfpez-apis.presidentialinnovationfellows.org/bizs?duns=" . $this->duns)) {
       $duns_json = json_decode($duns_contents, true);
@@ -96,5 +99,6 @@ class Vendor extends Eloquent {
 
 // If DUNS number is updated, search for related DSBS and SAM records.
 Event::listen('eloquent.saving: Vendor', function($model){
-  if ($model->changed('duns')) $model->sync_with_dsbs_and_sam();
+  if ($model->changed('duns') || ($model->duns && (!$model->sam_entity_name || !$model->dsbs_user_id)))
+    $model->sync_with_dsbs_and_sam();
 });
