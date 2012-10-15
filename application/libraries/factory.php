@@ -27,17 +27,19 @@ Class Factory {
     $u = User::create(array('email' => 'vendor'.self::$vendor_count.'@example.com',
                             'password' => 'password'));
 
-    $v = Vendor::create(array('user_id' => $u->id,
-                              'company_name' => $faker->company,
-                              'contact_name' => $faker->name,
-                              'address' => $faker->streetAddress,
-                              'city' => $faker->city,
-                              'state' => $faker->stateAbbr,
-                              'zip' => $faker->postcode,
-                              'ballpark_price' => rand(1,4),
-                              'image_url' => $image_urls[array_rand($image_urls)],
-                              'homepage_url' => $faker->url,
-                              'more_info' => $faker->paragraph));
+    $v = new Vendor(array('company_name' => $faker->company,
+                          'contact_name' => $faker->name,
+                          'address' => $faker->streetAddress,
+                          'city' => $faker->city,
+                          'state' => $faker->stateAbbr,
+                          'zip' => $faker->postcode,
+                          'ballpark_price' => rand(1,4),
+                          'image_url' => $image_urls[array_rand($image_urls)],
+                          'homepage_url' => $faker->url,
+                          'more_info' => $faker->paragraph));
+
+    $v->user_id = $u->id;
+    $v->save();
 
     foreach (Service::all() as $service) {
       if (rand(1,2) == 2) $v->services()->attach($service->id);
