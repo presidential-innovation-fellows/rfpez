@@ -107,7 +107,7 @@ class Projects_Controller extends Base_Controller {
     $project = Config::get('project');
 
     if (!preg_match('/^[0-9A-Za-z\-\_\s]+$/', $solnbr)) {
-      Session::flash('errors', array('Invalid Sol Nbr.'));
+      Helper::flash_errors('Invalid solicitation number format.');
       return Redirect::to_route('project_post_on_fbo', array($project->id))->with_input();
     }
 
@@ -116,14 +116,14 @@ class Projects_Controller extends Base_Controller {
                                               . $solnbr, false, $context);
 
     if ($contents === false) {
-      Session::flash('errors', array("FBO timed out."));
+      Helper::flash_errors("FBO timed out.");
       return $this->try_fbo_api($solnbr);
     }
 
     $response = json_decode($contents, true);
 
     if ($this->trySavingContract($response)) {
-      return Redirect::to_route('project_post_on_fbo', array($project->id));
+      return Redirect::to_route('project', array($project->id));
     } else {
       return $this->try_fbo_api($solnbr);
     }
@@ -131,15 +131,15 @@ class Projects_Controller extends Base_Controller {
 
   public function try_fbo_api($solnbr) {
     $project = Config::get('project');
-    $contents = file_get_contents('http://rfpez-apis.presidentialinnovationfellows.org/opportunities?SOLNBR='.$solnbr);
+    $contents = @file_get_contents('http://rfpez-apis.presidentialinnovationfellows.org/opportunities?SOLNBR='.$solnbr);
     if ($contents === false) {
-      Session::flash('errors', array("FBO timed out and FBO API timed out."));
+      Helper::flash_errors('FBO API timed out.');
       return Redirect::to_route('project_post_on_fbo', array($project->id))->with_input();
     }
     $json = json_decode($contents, true);
 
     if (count($json["results"]) === 0) {
-      Session::flash('errors', array("Couldn't find contract on FBO or FBO API."));
+      Helper::flash_errors("Couldn't find contract on FBO API.");
       return Redirect::to_route('project_post_on_fbo', array($project->id))->with_input();
     }
 
@@ -169,14 +169,23 @@ class Projects_Controller extends Base_Controller {
   }
 
   public function trySavingContract($attributes) {
+
+    $project = Config::get('project');
+
+    preg_match('/([0-9]+) for more info/', implode($attributes), $matches);
+    $parsed_solnbr = isset($matches[1]) ? $matches[1] : false;
+
     if (!isset($attributes["solnbr"])) {
-      Session::flash('errors', array("Couldn't find that contract on FBO."));
+      Helper::flash_errors("Couldn't find that contract on FBO.");
       return false;
     } else if (Project::where_fbo_solnbr($attributes["solnbr"])->first()) {
-      Session::flash('errors', array("That contract already exists in EasyBid."));
+      Helper::flash_errors("That contract already exists in EasyBid.");
       return false;
     } else if (!preg_match('/'.preg_quote(Auth::user()->email).'/i', implode($attributes))) {
-      Session::flash('errors', array("Couldn't verify email address."));
+      Helper::flash_errors("Couldn't verify email address.");
+      return false;
+    } else if ($parsed_solnbr != $project->id) {
+      Helper::flash_errors("Couldn't verify notice. Make sure you copy the body text exactly as-is.");
       return false;
     }
 
@@ -194,7 +203,7 @@ class Projects_Controller extends Base_Controller {
 
     $project->save();
 
-    Session::flash('errors', array());
+    Session::forget('errors');
     return true;
   }
 

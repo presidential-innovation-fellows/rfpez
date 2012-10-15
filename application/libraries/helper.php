@@ -1,6 +1,17 @@
 <?php
 
 Class Helper {
+
+  public static function flash_errors($errors) {
+    if (!is_array($errors)) $errors = array($errors);
+
+    if (Session::has('errors')) {
+      Session::flash('errors', array_merge(Session::get('errors'), $errors));
+    } else {
+      Session::flash('errors', $errors);
+    }
+  }
+
   public static function active_nav($section) {
     return (Section::yield('active_nav') == $section) ? true : false;
   }
