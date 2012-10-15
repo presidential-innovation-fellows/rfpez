@@ -46,6 +46,11 @@ class Users_Controller extends Base_Controller {
     if ($user->reset_password_to(Input::get('password'))) {
       Auth::login($user->id);
       $user->track_signin();
+
+      // redirect to account page if this user is an officer who was invited
+      // to the site and needs to finish their officer profile.
+      if ($user->officer && !$user->officer->name) return Redirect::to('account');
+
       return Redirect::to('/');
     } else {
       Session::flash('errors', array('New password not valid.'));

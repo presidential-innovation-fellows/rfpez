@@ -34,7 +34,7 @@ class Notification extends Eloquent {
     return NotificationParser::parse($this);
   }
 
-  public static function send($notification_type, $attributes) {
+  public static function send($notification_type, $attributes, $send_email = true) {
     $notification = new Notification(array('notification_type' => $notification_type));
 
     if ($notification->notification_type == "Dismissal") {
@@ -67,31 +67,7 @@ class Notification extends Eloquent {
     }
 
     $notification->save();
-    $notification->send_email();
-  }
-
-  public function send_email() {
-    $transport = Config::get('mailer.transport');
-    if (!$transport) return;
-    $mailer = Swift_Mailer::newInstance($transport);
-    $message = Swift_Message::newInstance();
-    $message->setFrom(array('noreply@sba.gov'=>'EasyBid'));
-
-    $parsed = $this->parsed();
-
-    $message->setSubject($parsed["subject"])
-            ->setTo($this->target->email)
-            ->addPart(View::make('mailer.notification_text')->with('notification', $this), 'text/plain')
-            ->setBody(View::make('mailer.notification_html')->with('notification', $this), 'text/html');
-
-    // If mailer.send_all_to is set in the config files, ignore the original
-    // recipient and instead, send to the email address specified.
-    if (Config::has('mailer.send_all_to')) {
-      $message->setSubject("(".$message->getHeaders()->get('To').") ".$message->getSubject());
-      $message->setTo(Config::get('mailer.send_all_to'));
-    }
-
-    $mailer->send($message);
+    if ($send_email) Mailer::send("Notification", array('notification' => $notification));
   }
 
 }

@@ -69,15 +69,21 @@ class Projects_Controller extends Base_Controller {
     $project = Config::get('project');
     $user = User::where_email(Input::get('email'))->first();
 
-    if (!$user) $user = User::new_officer_from_invite(Input::get('email'), Auth::user()->id);
-    if (!$user) return Response::json(array("status" => "dotgovonly"));
+    if (!$user) {
+      $user = User::new_officer_from_invite(Input::get('email'), Auth::user(), $project);
+      if (!$user) return Response::json(array("status" => "dotgovonly"));
+      $send_email = false;
+    } else {
+      $send_email = true;
+    }
+
     if ($user->officer->collaborates_on($project->id)) return Response::json(array("status" => "already exists"));
 
     $project->officers()->attach($user->officer->id);
 
     Notification::send("ProjectCollaboratorAdded", array("project" => $project,
                                                          "officer" => $user->officer,
-                                                         "actor_id" => Auth::user()->id));
+                                                         "actor_id" => Auth::user()->id), $send_email);
 
     return Response::json(array("status" => "success",
                                 "html" => View::make("projects.partials.collaborator_tr")

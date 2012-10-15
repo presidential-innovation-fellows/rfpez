@@ -178,15 +178,20 @@ class User extends Eloquent {
     $this->save();
   }
 
-  public static function new_officer_from_invite($email, $invited_by) {
+  public static function new_officer_from_invite($email, $invited_by, $project) {
     if (!preg_match('/\.gov$/', $email)) return false;
 
     $user = new User(array('email' => $email,
-                           'invited_by' => $invited_by));
+                           'invited_by' => $invited_by->id));
 
     $officer = new Officer();
     $user->generate_reset_password_token();
     $user->officer()->insert($officer);
+
+    Mailer::send("NewOfficerInvited", array('new_user' => $user,
+                                            'invited_by' => $invited_by,
+                                            'project' => $project));
+
     return $user;
   }
 
