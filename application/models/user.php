@@ -178,6 +178,18 @@ class User extends Eloquent {
     $this->save();
   }
 
+  public static function new_officer_from_invite($email, $invited_by) {
+    if (!preg_match('/\.gov$/', $email)) return false;
+
+    $user = new User(array('email' => $email,
+                           'invited_by' => $invited_by));
+
+    $officer = new Officer();
+    $user->generate_reset_password_token();
+    $user->officer()->insert($officer);
+    return $user;
+  }
+
 }
 
 Event::listen('eloquent.saving: User', function($model) {

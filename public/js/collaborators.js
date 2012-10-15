@@ -14,6 +14,8 @@
           $(".collaborators-table tbody").append(new_tr);
         } else if (data.status === "already exists") {
           button.flash_button_message("warning", "Collaborator already exists");
+        } else if (data.status === "dotgovonly") {
+          button.flash_button_message("warning", ".gov email addresses only!");
         } else {
           button.flash_button_message("warning", "Error occurred");
         }

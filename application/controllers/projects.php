@@ -69,7 +69,8 @@ class Projects_Controller extends Base_Controller {
     $project = Config::get('project');
     $user = User::where_email(Input::get('email'))->first();
 
-    if (!$user) return Response::json(array("status" => "error"));
+    if (!$user) $user = User::new_officer_from_invite(Input::get('email'), Auth::user()->id);
+    if (!$user) return Response::json(array("status" => "dotgovonly"));
     if ($user->officer->collaborates_on($project->id)) return Response::json(array("status" => "already exists"));
 
     $project->officers()->attach($user->officer->id);
