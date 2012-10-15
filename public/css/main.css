@@ -366,6 +366,32 @@ textarea.composer {
   box-sizing: border-box;
   color: #424242;
 }
+.sow-sidebar {
+  width: 200px;
+  margin: 0 0 20px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  padding-left: 0;
+}
+.sow-sidebar li a {
+  display: block;
+  margin: 0 0 -1px;
+  padding: 8px 14px;
+  border: 1px solid #e5e5e5;
+}
+.sow-sidebar li a .icon-chevron-right {
+  opacity: 0.5;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  filter: alpha(opacity=50);
+  float: right;
+  margin-top: 2px;
+  margin-right: -6px;
+}
+.sow-sidebar li.active .icon-chevron-right {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+}
 .step.step-1 {
   width: 700px;
   margin: 0 auto;

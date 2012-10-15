@@ -1,44 +1,28 @@
-h4 #{$project->title}
+.nav.nav-tabs
+  - if ($project->status() == Project::STATUS_WRITING_SOW):
+    li(class="#{Helper::active_subnav('view') ? 'active':''}")
+      a(href="#{route('project', array($project->id))}") Create
+    li(class="#{Helper::active_subnav('review') ? 'active':''}")
+      a(href="#{route('sow_review', array($project->id))}") Review
+    li(class="#{Helper::active_subnav('post_on_fbo') ? 'active':''}")
+      a(href="#{route('project_post_on_fbo', array($project->id))}") Post on FBO
+  - elseif ($project->status() == Project::STATUS_ACCEPTING_BIDS):
+    li(class="#{Helper::active_subnav('view') ? 'active':''}")
+      a(href="#{route('project', array($project->id))}") View Posting
+    li(class="#{Helper::active_subnav('review_bids') ? 'active':''}")
+      a(href="#{route('review_bids', array($project->id))}") Review Bids (#{$project->submitted_bids()->count()})
 
-  span.pull-right Status: #{$project->status_text()}
+  - elseif ($project->status() == Project::STATUS_REVIEWING_BIDS):
+    li(class="#{Helper::active_subnav('view') ? 'active':''}")
+      a(href="#{route('project', array($project->id))}") View Posting
+    li(class="#{Helper::active_subnav('review_bids') ? 'active':''}")
+      a(href="#{route('review_bids', array($project->id))}") Review Bids (#{$project->submitted_bids()->count()})
 
-.navbar.subnav
-  .navbar-inner
-    ul.nav
-      - if ($project->status() == Project::STATUS_WRITING_SOW):
-        li(class="#{Helper::active_subnav('background') ? 'active':''}")
-          a(href="#{route('sow_background', array($project->id))}") Background
-        li(class="#{Helper::active_subnav('sections') ? 'active':''}")
-          a(href="#{route('sow_section', array($project->id, $project->sow->first_template_section_type()))}") Sections
-        li(class="#{Helper::active_subnav('fillinblanks') ? 'active':''}")
-          a(href="#{route('sow_fillinblanks', array($project->id))}") Fill in Variables
-        li(class="#{Helper::active_subnav('editdoc') ? 'active':''}")
-          a(href="#{route('sow_editdoc', array($project->id))}") Edit Document
-        li(class="#{Helper::active_subnav('review') ? 'active':''}")
-          a(href="#{route('sow_review', array($project->id))}") Review
-        li(class="#{Helper::active_subnav('post_on_fbo') ? 'active':''}")
-          a(href="#{route('project_post_on_fbo', array($project->id))}") Post on FBO
+  - elseif ($project->status() == Project::STATUS_CONTRACT_AWARDED):
+    p
 
-      - elseif ($project->status() == Project::STATUS_ACCEPTING_BIDS):
-        li(class="#{Helper::active_subnav('view') ? 'active':''}")
-          a(href="#{route('project', array($project->id))}") View Posting
-
-        li(class="#{Helper::active_subnav('review_bids') ? 'active':''}")
-          a(href="#{route('review_bids', array($project->id))}") Review Bids (#{$project->submitted_bids()->count()})
-
-      - elseif ($project->status() == Project::STATUS_REVIEWING_BIDS):
-        li(class="#{Helper::active_subnav('view') ? 'active':''}")
-          a(href="#{route('project', array($project->id))}") View Posting
-
-        li(class="#{Helper::active_subnav('review_bids') ? 'active':''}")
-          a(href="#{route('review_bids', array($project->id))}") Review Bids (#{$project->submitted_bids()->count()})
-
-      - elseif ($project->status() == Project::STATUS_CONTRACT_AWARDED):
-        p
-
-      - endif;
-    ul.nav.pull-right
-      li(class="#{Helper::active_subnav('comments') ? 'active':''}")
-        a(href="#{route('comments', array($project->id))}") Comments (#{$project->comments()->count()})
-      li(class="#{Helper::active_subnav('admin') ? 'active':''}")
-        a(href="#{route('project_admin', array($project->id))}") Admin
+  - endif;
+    li.pull-right(class="#{Helper::active_subnav('comments') ? 'active':''}")
+      a(href="#{route('comments', array($project->id))}") Comments (#{$project->comments()->count()})
+    li.pull-right(class="#{Helper::active_subnav('admin') ? 'active':''}")
+      a(href="#{route('project_admin', array($project->id))}") Admin

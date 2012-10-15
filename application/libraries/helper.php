@@ -9,6 +9,10 @@ Class Helper {
     return (Section::yield('active_subnav') == $section) ? true : false;
   }
 
+  public static function active_sidebar($section) {
+    return (Section::yield('active_sidebar') == $section) ? true : false;
+  }
+
   public static function truncate($phrase, $max_words) {
     $phrase_array = explode(' ',$phrase);
     if(count($phrase_array) > $max_words && $max_words > 0) $phrase = implode(' ',array_slice($phrase_array, 0, $max_words)).'...';
