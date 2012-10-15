@@ -22,6 +22,10 @@ class Project extends Eloquent {
   public static $accessible = array('agency', 'office', 'naics_code', 'proposals_due_at',
                                     'body', 'title');
 
+  public $includes = array('sow', 'sow.sow_sections');
+
+  public static $my_project_ids = false;
+
   public function officers() {
     return $this->has_many_and_belongs_to('Officer', 'project_collaborators')->order_by('owner', 'desc');
   }
@@ -52,8 +56,11 @@ class Project extends Eloquent {
 
   public function is_mine() {
     if (!Auth::user() || !Auth::user()->officer) return false;
+    if (self::$my_project_ids === false)
+      self::$my_project_ids = ProjectCollaborator::where_officer_id(Auth::officer()->id)
+                                                 ->lists('project_id');
 
-    if (in_array(Auth::officer()->id, ProjectCollaborator::where_project_id($this->id)->lists('officer_id')))
+    if (in_array($this->id, self::$my_project_ids))
       return true;
 
     return false;

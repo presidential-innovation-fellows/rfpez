@@ -3,6 +3,8 @@
 class Sow extends Eloquent {
   public static $timestamps = true;
 
+  public $includes = array('sow_sections');
+
   public function project() {
     return $this->belongs_to('Project');
   }
@@ -51,13 +53,10 @@ class Sow extends Eloquent {
 
 
   public function background_and_scope() {
-    $section = SowSection::where('sow_id', '=', $this->id)
-                         ->where('section_type', '=', 'Background & Scope')
-                         ->first();
-
-    if ($section) {
-      return $section->body;
+    foreach($this->sow_sections as $sow_section) {
+      if ($sow_section->section_type == "Background & Scope") return $sow_section->body;
     }
+    return false;
   }
 
   public function sections($section_type) {
