@@ -72,9 +72,6 @@ Route::get('projects/(:num)/bids/(:num)/destroy', array('uses' => 'bids@destroy'
 |--------------------------------------------------------------------------
 */
 
-Route::get('projects/(:num)/sow/start', array('uses' => 'sows@new', 'as' => 'new_sow'));
-Route::post('projects/(:num)/sow/start', array('uses' => 'sows@create', 'as' => 'new_sow'));
-
 Route::get('projects/(:num)/sow/background', array('uses' => 'sows@background', 'as' => 'sow_background'));
 Route::post('projects/(:num)/sow/background', array('uses' => 'sows@background_post', 'as' => 'sow_background'));
 
