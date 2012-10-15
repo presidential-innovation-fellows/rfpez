@@ -25,6 +25,7 @@
     var bid_id, data_el;
     data_el = $(this).closest("[data-bid-id]");
     bid_id = data_el.data('bid-id');
+    $(this).find(".dsbs-certifications").trigger('load-dsbs');
     return Rfpez.view_notification_payload('bid', bid_id);
   });
 

@@ -4,6 +4,10 @@ class Vendor extends Eloquent {
 
   public static $timestamps = true;
 
+  public static $accessible = array('company_name', 'contact_name', 'address', 'city', 'state', 'zip',
+                                    'latitude', 'longitude', 'ballpark_price', 'more_info', 'homepage_url',
+                                    'image_url', 'portfolio_url', 'sourcecode_url', 'duns');
+
   public static $ballpark_prices = array(1 => "$10,000 - $25,000",
                                          2 => "$25,000 - $50,000",
                                          3 => "$50,000 - $100,000",

@@ -1,0 +1,67 @@
+.details-inner
+
+  - if ($bid->dismissed()):
+    .alert.alert-danger.dismissed-alert
+      .dismissal-notice You have dismissed this bid.
+      .dismissal-reason
+        strong Reason:
+        span #{$bid->dismissal_reason}
+      .dismissal-explanation
+        strong Explanation:
+        span #{$bid->dismissal_explanation}
+  - endif;
+
+  .row-fluid
+
+    .span6
+
+      h4 Approach
+      p #{$bid->approach}
+
+      h4 Previous Work
+      p #{$bid->previous_work}
+
+      h4 Employee Details
+      p #{$bid->employee_details}
+
+      h4 Prices
+      table.table
+        thead
+          tr
+            th Deliverable
+            th Price
+        - if ($bid->prices):
+          - foreach($bid->prices as $deliverable => $price):
+            tr
+              td #{$deliverable}
+              td $#{$price}
+        - endif;
+        tfoot
+          tr.info
+            td Total Price
+            td $#{$bid->total_price()}
+
+    .span6
+      h4 #{$bid->vendor->company_name}
+      div Contact: #{$bid->vendor->contact_name}
+      div Email: #{$bid->vendor->user->email}
+
+      div SAM.gov:
+        - if ($bid->vendor->sam_entity_name):
+          span.green Yes, under "#{$bid->vendor->sam_entity_name}"
+        - else:
+          span.red No
+        - endif;
+
+      div DSBS:
+        - if ($bid->vendor->dsbs_name):
+          span.green Yes, under "#{$bid->vendor->dsbs_name}"
+          !{View::make('vendors.partials.dsbs_certifications')->with('user_id', $bid->vendor->dsbs_user_id)->with('defer', true)}
+        - else:
+          span.red No
+        - endif;
+
+
+      h4 Example Work
+      .vendor-image-preview-frame
+        img(src="#{$bid->vendor->image_url}")

@@ -15,6 +15,7 @@ $(document).on "click", ".bid .unstar-button, .bid .star-button", ->
 $(document).on 'show', '.bid-details .collapse', ->
   data_el = $(this).closest("[data-bid-id]")
   bid_id = data_el.data('bid-id')
+  $(this).find(".dsbs-certifications").trigger('load-dsbs')
   Rfpez.view_notification_payload('bid', bid_id)
 
 $(document).on "click", ".undismiss-button", ->
