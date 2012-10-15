@@ -7,13 +7,14 @@
 
 h3 Step 1
 p
-  | Copy the html below and paste it into the FedBizOpps site. MAKE SURE that the email
-  | address you use on EasyBid is in the "contact info" section of the post.
+  | Create a new notice on FBO like you normally do. Be sure to use a unique solicitation number,
+  | which you will need in the next step. When it comes time to enter the body, just
+  | copy and paste the text below exactly as-is.
 
-textarea !{$project->sow->body}
+textarea !{View::make('sows.partials.fbo_body')->with('project', $project)}
 
 h3 Step 2
-p Enter the Solicitation Number assigned by FBO.
+p Enter the solicitation number that you used on FBO.
 
 form(method="POST")
 

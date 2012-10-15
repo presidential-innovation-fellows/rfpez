@@ -4,7 +4,7 @@ h4 #{$project->title}
 .nav.nav-tabs.project-subnav
   - if ($project->status() == Project::STATUS_WRITING_SOW):
     li(class="#{Helper::active_subnav('view') ? 'active':''}")
-      a(href="#{route('project', array($project->id))}") Create
+      a(href="#{route('sow_background', array($project->id))}") Create
     li(class="#{Helper::active_subnav('review') ? 'active':''}")
       a(href="#{route('sow_review', array($project->id))}") Review
     li(class="#{Helper::active_subnav('post_on_fbo') ? 'active':''}")
@@ -25,7 +25,7 @@ h4 #{$project->title}
     p
 
   - endif;
-    li.pull-right(class="#{Helper::active_subnav('admin') ? 'active':''}")
-      a(href="#{route('project_admin', array($project->id))}") Admin
-    li.pull-right(class="#{Helper::active_subnav('comments') ? 'active':''}")
+    li(class="pull-right #{Helper::active_subnav('comments') ? 'active':''}")
       a(href="#{route('comments', array($project->id))}") Comments (#{$project->comments()->count()})
+    li(class="pull-right #{Helper::active_subnav('admin') ? 'active':''}")
+      a(href="#{route('project_admin', array($project->id))}") Admin
