@@ -4,8 +4,6 @@ class User extends Eloquent {
 
   public static $timestamps = true;
 
-  public $includes = array('vendor', 'officer');
-
   public function _find($id, $columns = array('*'))
   {
     // Uncomment this to switch back to three query version...
