@@ -10,6 +10,10 @@ class Bid extends Eloquent {
 
   public static $dismissal_reasons = array('Price too high');
 
+  public $total_price = false;
+
+  public $cached_prices = false;
+
   public function validator() {
     $rules = array('approach' => 'required',
                    'previous_work' => 'required',
@@ -35,7 +39,8 @@ class Bid extends Eloquent {
   }
 
   public function get_prices() {
-    return json_decode($this->attributes['prices'], true);
+    if ($this->cached_prices !== false) return $this->cached_prices;
+    return $this->cached_prices = json_decode($this->attributes['prices'], true);
   }
 
   public function set_prices($value) {
@@ -120,11 +125,13 @@ class Bid extends Eloquent {
   }
 
   public function total_price() {
+    if ($this->total_price !== false) return $this->total_price;
+    Log::info('total price ' . $this->id);
     $total = 0;
     foreach($this->prices as $deliv => $price) {
       $total += floatVal($price);
     }
-    return $total;
+    return $this->total_price = $total;
   }
 
 }
