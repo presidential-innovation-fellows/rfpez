@@ -5,6 +5,25 @@
 
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 !{View::make('bids.partials.dismiss_modal')}
+!{View::make('bids.partials.award_modal')->with('project', $project)}
+
+
+div(class="winning-bid-table-wrapper #{$project->winning_bid() ? '' : 'hide'}")
+
+  h3 Winning Bid
+
+  table.table.bids-table.winning-bid
+    thead
+      tr
+        th.vendor-name Vendor Name
+        th.price Price
+        th.starred Starred
+        th.actions Actions
+
+    - if ($project->winning_bid()):
+      !{View::make('bids.partials.bid_for_review')->with('bid', $project->winning_bid())}
+    - endif;
+
 
 h3 Bids awaiting review
 

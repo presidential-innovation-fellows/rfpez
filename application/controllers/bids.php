@@ -9,19 +9,23 @@ class Bids_Controller extends Base_Controller {
 
     $this->filter('before', 'project_exists')->except(array('mine'));
 
-    $this->filter('before', 'i_am_collaborator')->only(array('review', 'star', 'dismiss'));
+    $this->filter('before', 'i_am_collaborator')->only(array('review', 'star', 'dismiss', 'award'));
 
-    $this->filter('before', 'bid_exists')->only(array('show', 'star', 'dismiss', 'destroy'));
+    $this->filter('before', 'bid_exists')->only(array('show', 'star', 'dismiss', 'destroy', 'award'));
 
-    $this->filter('before', 'bid_is_submitted_and_not_deleted')->only(array('show', 'star', 'dismiss'));
+    $this->filter('before', 'bid_is_submitted_and_not_deleted')->only(array('show', 'star', 'dismiss', 'award'));
+
+    $this->filter('before', 'bid_is_not_awarded')->only(array('dismiss'));
 
     $this->filter('before', 'i_am_collaborator_or_bid_vendor')->only(array('show'));
 
-    $this->filter('before', 'i_am_contracting_officer')->only(array('dismiss'));
+    $this->filter('before', 'i_am_contracting_officer')->only(array('dismiss', 'award'));
 
     $this->filter('before', 'i_am_bid_vendor')->only(array('destroy'));
 
     $this->filter('before', 'i_have_not_already_bid')->only(array('new', 'create'));
+
+    $this->filter('before', 'project_has_not_already_been_awarded')->only(array('award'));
 
   }
 
@@ -117,6 +121,13 @@ class Bids_Controller extends Base_Controller {
                                 "html" => View::make("bids.partials.bid_for_review")->with('bid', $bid)->render()));
   }
 
+  public function action_award() {
+    $bid = Config::get('bid');
+    $bid->award(Input::get('awarded_message'));
+    return Response::json(array("status" => "success",
+                                "html" => View::make("bids.partials.bid_for_review")->with('bid', $bid)->render()));
+  }
+
   public function action_mine() {
     $view = View::make('bids.mine');
     $view->bids = Bid::where_vendor_id(Auth::vendor()->id)
@@ -194,6 +205,12 @@ Route::filter('bid_is_submitted_and_not_deleted', function() {
   if (!$bid->submitted_at || $bid->deleted_by_vendor) return Redirect::to_route('review_bids', array($project->id));
 });
 
+Route::filter('bid_is_not_awarded', function() {
+  $bid = Config::get('bid');
+  $project = Config::get('project');
+  if ($bid->awarded_at) return Redirect::to_route('project', array($project->id));
+});
+
 Route::filter('i_am_collaborator_or_bid_vendor', function() {
   $bid = Config::get('bid');
   $project = Config::get('project');
@@ -218,4 +235,10 @@ Route::filter('i_have_not_already_bid', function() {
     Session::flash('notice', 'Sorry, but you already placed a bid on this project.');
     return Redirect::to_route('project', array($project->id));
   }
+});
+
+Route::filter('project_has_not_already_been_awarded', function() {
+  $project = Config::get('project');
+  if ($project->winning_bid())
+    return Redirect::to_route('project', array($project->id))->with('errors', array('That project has already been awarded.'));
 });

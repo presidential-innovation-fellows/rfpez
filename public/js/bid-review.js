@@ -78,6 +78,7 @@
           explanation: modal.find("textarea[name=explanation]").val()
         },
         type: "GET",
+        dataType: "json",
         success: function(data) {
           var new_bid;
           if (data.status === "already dismissed" || "success") {
@@ -86,6 +87,47 @@
               bid.remove();
               new_bid = $(data.html);
               return $(".bids-table.dismissed-bids > thead").after(new_bid);
+            } else {
+              return window.location.reload();
+            }
+          }
+        }
+      });
+    });
+  });
+
+  $(document).on("click", ".show-award-modal", function() {
+    var bid, bid_id, data_el, el, modal, project_id, vendor_company_name;
+    el = $(this);
+    bid = el.closest(".bid");
+    data_el = el.closest("[data-bid-id]");
+    project_id = data_el.data('project-id');
+    bid_id = data_el.data('bid-id');
+    vendor_company_name = data_el.data('vendor-company-name');
+    modal = $("#award-modal");
+    modal.find(".company-name").text(vendor_company_name);
+    modal.find(".award-btn").button('reset');
+    modal.modal('show');
+    modal.off(".rfpez-award");
+    return modal.on("submit.rfpez-award", "form", function(e) {
+      e.preventDefault();
+      $(this).find(".award-btn").button('loading');
+      return $.ajax({
+        url: "/projects/" + project_id + "/bids/" + bid_id + "/award",
+        data: {
+          awarded_message: modal.find("textarea[name=awarded_message]").val()
+        },
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+          var new_bid;
+          if (data.status === "success") {
+            modal.modal('hide');
+            if (el.data('move-to-table')) {
+              bid.remove();
+              new_bid = $(data.html);
+              $(".bids-table.winning-bid > thead").after(new_bid);
+              return $(".winning-bid-table-wrapper").removeClass('hide');
             } else {
               return window.location.reload();
             }

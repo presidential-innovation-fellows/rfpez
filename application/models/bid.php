@@ -89,6 +89,13 @@ class Bid extends Eloquent {
     }
   }
 
+  public function award($message) {
+    $this->awarded_at = new \DateTime;
+    $this->awarded_message = $message;
+    $this->awarded_by = Auth::officer()->id;
+    $this->save();
+  }
+
   public function total_price() {
     $total = 0;
     foreach($this->prices as $deliv => $price) {

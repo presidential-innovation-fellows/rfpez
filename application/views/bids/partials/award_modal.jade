@@ -1,0 +1,32 @@
+#award-modal.modal.hide(tabindex='-1', role='dialog')
+  form.form-horizontal
+    .modal-header
+      button.close(type='button', data-dismiss='modal') ×
+      h3
+        | Award bid from
+        span.company-name
+
+    .modal-body
+
+      p
+        strong Congrats on finding a great vendor on EasyBid!
+        | When you award this contract, we'll send the message below to the vendor
+        | that you have accepted their bid and are ready to start working with them.
+        | Be sure that you're totally sure before clicking the button below.
+
+
+      .alert.alert-danger
+        | Awarding contracts is for
+        strong registered contracting officers
+        | only. If you're not a CO, turn back now.
+
+      - if ($project->is_open_for_bids()):
+        .alert.alert-danger <strong>Careful!</strong> The due date for proposals hasn't passed.
+      - endif;
+
+      label Message to vendor:
+      textarea.awarded-message(name='awarded_message') !{View::make('bids.partials.award_message')->with('project', $project)->with('officer', Auth::officer())}
+
+    .modal-footer
+      button.btn(data-dismiss='modal') Cancel
+      button.btn.btn-primary.award-btn(data-loading-text='Awarding...') Award

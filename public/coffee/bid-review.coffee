@@ -60,6 +60,7 @@ $(document).on "click", ".show-dismiss-modal", ->
         reason: modal.find("select[name=reason]").val()
         explanation: modal.find("textarea[name=explanation]").val()
       type: "GET"
+      dataType: "json"
       success: (data) ->
         if data.status is "already dismissed" or "success"
           modal.modal('hide')
@@ -70,3 +71,35 @@ $(document).on "click", ".show-dismiss-modal", ->
           else
             window.location.reload()
 
+$(document).on "click", ".show-award-modal", ->
+  el = $(this)
+  bid = el.closest(".bid")
+  data_el = el.closest("[data-bid-id]")
+  project_id = data_el.data('project-id')
+  bid_id = data_el.data('bid-id')
+  vendor_company_name = data_el.data('vendor-company-name');
+  modal = $("#award-modal")
+  modal.find(".company-name").text(vendor_company_name)
+  modal.find(".award-btn").button('reset')
+  modal.modal('show')
+
+  modal.off ".rfpez-award"
+  modal.on "submit.rfpez-award", "form", (e) ->
+    e.preventDefault()
+    $(this).find(".award-btn").button('loading')
+    $.ajax
+      url: "/projects/#{project_id}/bids/#{bid_id}/award"
+      data:
+        awarded_message: modal.find("textarea[name=awarded_message]").val()
+      type: "GET"
+      dataType: "json"
+      success: (data) ->
+        if data.status is "success"
+          modal.modal('hide')
+          if el.data('move-to-table')
+            bid.remove()
+            new_bid = $(data.html)
+            $(".bids-table.winning-bid > thead").after(new_bid)
+            $(".winning-bid-table-wrapper").removeClass('hide')
+          else
+            window.location.reload()

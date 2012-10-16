@@ -24,6 +24,8 @@ class Project extends Eloquent {
 
   public static $my_project_ids = false;
 
+  public static $winning_bid = false;
+
   public function officers() {
     return $this->has_many_and_belongs_to('Officer', 'project_collaborators')->order_by('owner', 'desc');
   }
@@ -46,6 +48,11 @@ class Project extends Eloquent {
 
   public function bids() {
     return $this->has_many('Bid');
+  }
+
+  public function winning_bid() {
+    if (self::$winning_bid !== false) return self::$winning_bid;
+    return self::$winning_bid = $this->bids()->where_not_null('awarded_at')->first();
   }
 
   public function questions() {
@@ -82,11 +89,15 @@ class Project extends Eloquent {
       return self::STATUS_WRITING_SOW;
     } elseif (strtotime($this->proposals_due_at) > time()) {
       return self::STATUS_ACCEPTING_BIDS;
-    } elseif (!$this->awarded_to()) {
+    } elseif (!$this->winning_bid()) {
       return self::STATUS_REVIEWING_BIDS;
     } else {
       return self::STATUS_CONTRACT_AWARDED;
     }
+  }
+
+  public function is_open_for_bids() {
+    return $this->status() == self::STATUS_ACCEPTING_BIDS;
   }
 
   public function status_text() {
@@ -104,10 +115,6 @@ class Project extends Eloquent {
       case self::STATUS_CONTRACT_AWARDED:
         return "Contract Awarded";
     }
-  }
-
-  public function awarded_to() {
-    return false;
   }
 
   public function current_bid_from($vendor) {
@@ -160,7 +167,8 @@ class Project extends Eloquent {
 
   public function open_bids() {
     return $this->submitted_bids()
-                ->where_null('dismissal_reason');
+                ->where_null('dismissal_reason')
+                ->where_null('awarded_at');
   }
 
   public function dismissed_bids() {

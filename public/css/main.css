@@ -130,6 +130,19 @@ body.vendor .no-auth-only {
   box-sizing: border-box;
   min-height: 100px;
 }
+#award-modal {
+  width: 600px;
+}
+#award-modal textarea {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-height: 100px;
+}
+#award-modal .modal-body label {
+  font-weight: bold;
+}
 .dismissed-alert .dismissal-notice {
   border-bottom: 1px dotted #ccc;
   padding-bottom: 10px;

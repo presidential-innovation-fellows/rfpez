@@ -2,18 +2,28 @@ tbody.bid(data-project-id="#{$bid->project->id}", data-bid-id="#{$bid->id}", dat
   tr
     td
       a(data-toggle="collapse", data-target="#bid#{$bid->id}") #{$bid->vendor->company_name}
+      - if ($bid->awarded_at):
+        span.label.label-success Winning Bid!
+      - endif;
     td $#{intval($bid->total_price())}
     td(class="star-td #{$bid->starred ? 'starred' : ''}")
       a.btn.btn-inverse.unstar-button Starred
       a.btn.star-button Star
     td
       - if (Auth::officer()->is_verified_contracting_officer()):
-        - if($bid->dismissed()):
-          a(class="btn btn-info undismiss-button", data-move-to-table="true") Un-dismiss
-          div
-            em Dismissed: #{$bid->dismissal_reason}
+        - if (!$bid->awarded_at):
+          - if($bid->dismissed()):
+            a(class="btn btn-info undismiss-button", data-move-to-table="true") Un-dismiss
+            div
+              em Dismissed: #{$bid->dismissal_reason}
+          - else:
+            a(class="btn btn-warning show-dismiss-modal", data-move-to-table="true") Dismiss?
+            - if (!$bid->project->winning_bid()):
+              a(class="btn btn-primary show-award-modal", data-move-to-table="true") Award
+            - endif;
         - else:
-          a(class="btn btn-warning show-dismiss-modal", data-move-to-table="true") Dismiss?
+          | Congrats on finding a great bid!
+        - endif;
       - else:
         | Only COs can dismiss bids.
       - endif;
