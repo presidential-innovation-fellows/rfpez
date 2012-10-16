@@ -112,6 +112,11 @@ abstract class Model {
 		$this->fill($attributes);
 	}
 
+	public function cache_key(){
+		return strtolower(get_class($this)) . "-" . $this->id . "-" . preg_replace("/-|:|\s/", "", $this->updated_at);
+	}
+
+
 	/**
 	 * Hydrate the model with an array of attributes.
 	 *
