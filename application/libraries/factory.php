@@ -74,7 +74,7 @@ Class Factory {
     return $o;
   }
 
-  public static function project() {
+  public static function project($attributes = array()) {
     $faker = Faker\Factory::create();
 
     $o = Officer::order_by(\DB::raw('RAND()'))->first();
@@ -91,12 +91,12 @@ Class Factory {
     $contents = ob_get_contents();
     ob_end_clean();
 
-    $p = new Project(array('agency' => $o->agency,
-                           'office' => self::$offices[array_rand(self::$offices)],
-                           'title' => self::$project_titles[array_rand(self::$project_titles)],
-                           'body' => $contents,
-                           'naics_code' => $naics[array_rand($naics)],
-                           'proposals_due_at' => $due_at));
+    $p = new Project(array('agency' =>  @$attributes["agency"] ?: $o->agency,
+                           'office' => @$attributes["office"] ?: self::$offices[array_rand(self::$offices)],
+                           'title' => @$attributes["title"] ?: self::$project_titles[array_rand(self::$project_titles)],
+                           'body' =>  @$attributes["body"] ?: $contents,
+                           'naics_code' =>  @$attributes["naics_code"] ?: $naics[array_rand($naics)],
+                           'proposals_due_at' =>  @$attributes["proposals_due_at"] ?: $due_at));
 
     $p->fbo_solnbr = self::$solnbrs[array_rand(self::$solnbrs)];
     $p->save();
@@ -128,13 +128,14 @@ Class Factory {
       $i++;
     }
 
+    return $p;
 
   }
 
-  public static function bid() {
+  public static function bid($attributes = array(), $project_id = false) {
     $faker = Faker\Factory::create();
 
-    $p = Project::order_by(\DB::raw('RAND()'))->first();
+    $p = $project_id ? Project::find($project_id) : Project::order_by(\DB::raw('RAND()'))->first();
     $v = Vendor::order_by(\DB::raw('RAND()'))->first();
 
     $prices = array();
