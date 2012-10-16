@@ -38,7 +38,7 @@ Class NotificationParser {
 
     }
 
-    $return_array["timestamp"] = date('c', strtotime($notification->created_at));
+    $return_array["timestamp"] = date('c', is_object($notification->created_at) ? $notification->created_at->getTimestamp() : strtotime($notification->created_at));
     return $return_array;
   }
 
