@@ -9,10 +9,10 @@
     .modal-body
 
       p
-        strong Congrats on finding a great vendor on EasyBid!
+        strong You've selected a vendor!
         | When you award this contract, we'll send the message below to the vendor
         | that you have accepted their bid and are ready to start working with them.
-        | Be sure that you're totally sure before clicking the button below.
+        | Make sure all your "i"s are dotted and "t"s are crossed before you hit the button below.
 
 
       .alert.alert-danger
@@ -21,7 +21,7 @@
         | only. If you're not a CO, turn back now.
 
       - if ($project->is_open_for_bids()):
-        .alert.alert-danger <strong>Careful!</strong> The due date for proposals hasn't passed.
+        .alert.alert-danger <strong>Careful!</strong> The due date for proposals hasn't passed. Awarding now may yield a protest.
       - endif;
 
       label.bold-label Message to vendor:

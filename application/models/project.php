@@ -9,15 +9,17 @@ class Project extends Eloquent {
 
   public static $timestamps = true;
 
-  public static $naics_codes = array(541430 => 'Graphic Design Services',
-                                     54151 => 'Computer Systems Design and Related Services',
-                                     541511 => 'Custom Computer Programming Services',
+  public static $naics_codes = array(541430 => 'Graphic Design',
+                                     541511 => 'Web or Mobile App Development',
                                      518210 => 'Data Processing, Hosting, and Related Services',
                                      512110 => 'Video production',
                                      512191 => 'Video post-production services',
                                      518210 => 'Web hosting',
                                      541850 => 'Display advertising services',
-                                     541840 => 'Media advertising representatives');
+                                     541840 => 'Media advertising representatives',
+                                     541613 => 'Marketing Consulting',
+                                     561410 => 'Editing & Transcription'
+                                    );
 
   public static $accessible = array('agency', 'office', 'naics_code', 'proposals_due_at',
                                     'body', 'title');
