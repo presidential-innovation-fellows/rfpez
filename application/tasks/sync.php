@@ -4,10 +4,9 @@ class Sync_Task {
 
   public function run()
   {
-    chdir(path('base'));
-    passthru('php artisan migrate:reset --env=local');
-    passthru('php artisan migrate --env=local');
-    passthru('php artisan seed --env=local');
+    Laravel\CLI\Command::run(array('migrate:reset'));
+    Laravel\CLI\Command::run(array('migrate'));
+    Laravel\CLI\Command::run(array('seed'));
   }
 
 }
