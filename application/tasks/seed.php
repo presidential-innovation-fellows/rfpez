@@ -21,8 +21,6 @@ class Seed_Task {
     $p = Factory::project(array('title' => 'New Website for SBA.gov'));
     for ($i = 0; $i < 40; $i++) Factory::bid(array(), $p->id);
 
-    foreach(Officer::all() as $officer) $p->officers()->attach($officer->id);
-
   }
 
 }

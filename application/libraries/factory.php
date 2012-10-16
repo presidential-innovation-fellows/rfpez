@@ -77,7 +77,7 @@ Class Factory {
   public static function project($attributes = array()) {
     $faker = Faker\Factory::create();
 
-    $o = Officer::order_by(\DB::raw('RAND()'))->first();
+    $o = User::where_email("officer1@example.gov")->first()->officer;
 
     $naics = array_keys(Project::$naics_codes);
 
