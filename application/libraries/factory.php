@@ -155,9 +155,10 @@ Class Factory {
 
 
     $b->starred = rand(0,1);
-    $b->deleted_by_vendor = (rand(0,6) === 0) ? true : false;
     $b->vendor_id = $v->id;
     $b->save();
+
+    if (rand(0,6) === 0) $b->delete_by_vendor();
 
     if (rand(0,1) === 0) {
       $submitted_at = new \DateTime;
