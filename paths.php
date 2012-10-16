@@ -22,7 +22,7 @@
 */
 
 $environments = array(
-
+  'test' => array('http://*-test*'),
 	'local' => array('http://localhost*', '*.dev'),
   'production' => array('http://rfpez-staging.presidentialinnovationfellows.org*')
 
