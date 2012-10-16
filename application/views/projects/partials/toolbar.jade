@@ -25,7 +25,8 @@ h4 #{$project->title}
     p
 
   - endif;
-    li(class="pull-right #{Helper::active_subnav('comments') ? 'active':''}")
-      a(href="#{route('comments', array($project->id))}") Comments (#{$project->comments()->count()})
     li(class="pull-right #{Helper::active_subnav('admin') ? 'active':''}")
       a(href="#{route('project_admin', array($project->id))}") Admin
+    li(class="pull-right #{Helper::active_subnav('comments') ? 'active':''}")
+      a(href="#{route('comments', array($project->id))}") Comments (#{$project->comments()->count()})
+
