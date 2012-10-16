@@ -11,10 +11,10 @@ modules:
     enabled:
         - PhpBrowser
         - WebHelper
-        - ZombieJS
+        # - ZombieJS #not until we need it, because PhpBrowser is faster
     config:
         PhpBrowser:
-            url: 'http://rfpez.dev/'
+            url: 'http://rfpez-test.dev/'
         ZombieJS:
-            url: 'http://rfpez.dev/'
-            port: 3003
+            url: 'http://rfpez-test.dev/'
+            port: 3333
