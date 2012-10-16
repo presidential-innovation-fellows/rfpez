@@ -223,6 +223,41 @@ body.vendor .no-auth-only {
 .dsbs-certifications.loading .loading-text {
   display: block;
 }
+#notifications-dropdown {
+  width: 300px;
+  padding: 0;
+}
+#notifications-dropdown.loading {
+  background: url("/img/spinner.gif") no-repeat center;
+  min-height: 50px;
+}
+#notifications-dropdown li a {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+#notifications-dropdown li:first-child a {
+  -webkit-border-radius: 6px 6px 0 0;
+  border-radius: 6px 6px 0 0;
+}
+#notifications-dropdown li:last-child a {
+  -webkit-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+}
+#notifications-dropdown li.unread .line1 {
+  font-weight: bold;
+}
+#notifications-dropdown li a {
+  white-space: normal;
+}
+#notifications-dropdown li a .timeago {
+  color: #999;
+  display: block;
+}
+#notifications-dropdown li.view-all {
+  background-color: #ccc;
+  text-align: center;
+  font-size: 12px;
+}
 .vendors-wrapper .loading-spinner {
   text-align: center;
   margin: 0 0 35px;

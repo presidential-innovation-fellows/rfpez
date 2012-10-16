@@ -1,0 +1,37 @@
+#notifications-dropdown
+  width 300px
+  padding 0
+
+  &.loading
+    background url('/img/spinner.gif') no-repeat center
+    min-height 50px
+
+  li
+
+    a
+      padding-top 7px
+      padding-bottom 7px
+
+    &:first-child a
+      border-radius 6px 6px 0 0
+
+    &:last-child a
+      border-radius 0 0 6px 6px
+
+    &.unread
+      .line1
+        font-weight bold
+
+
+    a
+      white-space normal
+
+      .timeago
+        color #999
+        display block
+
+
+    &.view-all
+      background-color #ccc
+      text-align center
+      font-size 12px

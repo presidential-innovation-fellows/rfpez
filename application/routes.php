@@ -34,6 +34,7 @@ Route::get('officers/typeahead', array('uses' => 'officers@typeahead', 'as' => '
 Route::resourceful('questions', array('create', 'update'));
 
 Route::resourceful('notifications', array('index'));
+Route::get('notifications/json', array('uses' => 'notifications@json', 'as' => 'notifications_json'));
 Route::put('notifications/(:num)/markasread', array('uses' => 'notifications@mark_as_read', 'as' => 'notification_mark_as_read'));
 
 Route::get('bids/mine', array('uses' => 'bids@mine', 'as' => 'my_bids'));

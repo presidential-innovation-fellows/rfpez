@@ -27,6 +27,17 @@ class Notifications_Controller extends Base_Controller {
                                 "html" => View::make('notifications.partials.notification')->with('notification', $notification)->render()));
   }
 
+  public function action_json() {
+    $return_array = array();
+    foreach(Auth::user()->notifications_received()->take(3)->get() as $notification) {
+      $return_array[] = array('object' => $notification->to_array(),
+                              'parsed' => NotificationParser::parse($notification));
+    }
+    return Response::json(array('status' => 'success',
+                                'results' => $return_array,
+                                'count' => Auth::user()->notifications_received()->count()));
+  }
+
 }
 
 Route::filter('i_am_notification_target', function() {

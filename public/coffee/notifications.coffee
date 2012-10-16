@@ -19,6 +19,18 @@ Rfpez.view_notification_payload = (key, val) ->
     success: (data) ->
       Rfpez.update_notification_badge(data.unread_count)
 
+render_notification = (notification) ->
+  """
+  <li class="notification #{if notification.object.read is '0' then 'unread' else 'read'}">
+    <a href="#{notification.parsed.link}">
+      <span class="line1">#{notification.parsed.subject}</span>
+      <span class="timeago" title="#{notification.parsed.timestamp}"></span>
+    </a>
+  </li>
+  """
+
+notifications_loaded = false
+
 $(document).on "click", ".notification-item .mark-as-read, .notification-item .mark-as-unread", ->
   el = $(this)
   notification_item = el.closest(".notification-item")
@@ -35,3 +47,22 @@ $(document).on "click", ".notification-item .mark-as-read, .notification-item .m
         new_notification_item = $(data.html)
         notification_item.replaceWith(new_notification_item)
         Rfpez.update_notification_badge(data.unread_count)
+
+$("#notifications-dropdown-trigger").on "click", ->
+  return if notifications_loaded
+  $.ajax
+    url: "/notifications/json"
+    dataType: "json"
+    success: (data) ->
+      if data.status is "success"
+        str = ""
+        $(data.results).each ->
+          str += render_notification(this)
+        str += """
+          <li class="view-all"><a href="/notifications">view all #{data.count} notifications</a></li>
+        """
+        $("#notifications-dropdown").removeClass("loading")
+        $("#notifications-dropdown").html(str)
+        $("#notifications-dropdown span.timeago").timeago()
+        notifications_loaded = true
+
