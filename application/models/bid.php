@@ -96,6 +96,23 @@ class Bid extends Eloquent {
     $this->save();
   }
 
+  public function delete_by_vendor() {
+    $this->deleted_by_vendor = true;
+    $this->save();
+
+    // remove all notifications pertaining to this bid
+    // this could get slow if a vendor has bid on 100s of projects,
+    $notifications = Notification::where_actor_id($this->vendor->user->id)
+                                 ->where_notification_type("BidSubmit")
+                                 ->get();
+
+    foreach($notifications as $notification) {
+      if ($notification->payload["bid"] && $notification->payload["bid"]["id"] == $this->id) {
+        $notification->delete();
+      }
+    }
+  }
+
   public function total_price() {
     $total = 0;
     foreach($this->prices as $deliv => $price) {

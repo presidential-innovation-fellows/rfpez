@@ -140,8 +140,7 @@ class Bids_Controller extends Base_Controller {
   public function action_destroy() {
     $project = Config::get('project');
     $bid = Config::get('bid');
-    $bid->deleted_by_vendor = true;
-    $bid->save();
+    $bid->delete_by_vendor();
     return Redirect::to_route('project', array($project->id));
   }
 
