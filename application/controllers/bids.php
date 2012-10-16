@@ -13,6 +13,8 @@ class Bids_Controller extends Base_Controller {
 
     $this->filter('before', 'bid_exists')->only(array('show', 'star', 'dismiss', 'destroy'));
 
+    $this->filter('before', 'bid_is_submitted_and_not_deleted')->only(array('show', 'star', 'dismiss'));
+
     $this->filter('before', 'i_am_collaborator_or_bid_vendor')->only(array('show'));
 
     $this->filter('before', 'i_am_contracting_officer')->only(array('dismiss'));
@@ -184,6 +186,12 @@ Route::filter('bid_exists', function() {
   $bid = Bid::find($id);
   if (!$bid) return Redirect::to('/');
   Config::set('bid', $bid);
+});
+
+Route::filter('bid_is_submitted_and_not_deleted', function() {
+  $bid = Config::get('bid');
+  $project = Config::get('project');
+  if (!$bid->submitted_at || $bid->deleted_by_vendor) return Redirect::to_route('review_bids', array($project->id));
 });
 
 Route::filter('i_am_collaborator_or_bid_vendor', function() {
