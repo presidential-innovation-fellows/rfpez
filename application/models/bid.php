@@ -94,6 +94,12 @@ class Bid extends Eloquent {
     $this->awarded_message = $message;
     $this->awarded_by = Auth::officer()->id;
     $this->save();
+
+    Notification::send("Award", array('actor_id' => Auth::user()->id, 'bid' => $this));
+
+    if (trim($message) != "") {
+      Mailer::send("BidAwarded", array('bid' => $this));
+    }
   }
 
   public function delete_by_vendor() {

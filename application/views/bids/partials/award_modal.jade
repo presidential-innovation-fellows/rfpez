@@ -24,8 +24,11 @@
         .alert.alert-danger <strong>Careful!</strong> The due date for proposals hasn't passed.
       - endif;
 
-      label Message to vendor:
+      label.bold-label Message to vendor:
       textarea.awarded-message(name='awarded_message') !{View::make('bids.partials.award_message')->with('project', $project)->with('officer', Auth::officer())}
+
+      label.checkbox No thanks, I'd prefer to send an email to the vendor by myself
+        input.manual-awarded-message-checkbox(type="checkbox")
 
     .modal-footer
       button.btn(data-dismiss='modal') Cancel

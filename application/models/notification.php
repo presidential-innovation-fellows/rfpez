@@ -49,6 +49,12 @@ class Notification extends Eloquent {
                                 'actor_id' => $attributes["actor_id"],
                                 'payload' => array('bid' => $bid->to_array())));
 
+    } elseif ($notification->notification_type == "Award") {
+      $bid = $attributes["bid"];
+      $notification->fill(array('target_id' => $bid->vendor->user_id,
+                                'actor_id' => $attributes["actor_id"],
+                                'payload' => array('bid' => $bid->to_array())));
+
     } elseif ($notification->notification_type == "BidSubmit") {
       $bid = $attributes["bid"];
       $notification->fill(array('target_id' => $attributes["target_id"],

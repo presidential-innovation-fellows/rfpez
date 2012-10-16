@@ -21,6 +21,14 @@ Class NotificationParser {
       $return_array["line2"] = "Congrats, you're back in the running!";
       $return_array["link"] = route('bid', array($bid["project"]["id"], $bid["id"]));
 
+    } elseif ($notification->notification_type == "Award") {
+      $bid = $notification->payload["bid"];
+      $return_array["subject"] = "Your bid on ".$bid["project"]["title"]." has won!";
+      $return_array["line1"] = "Your bid on <a href='".route('bid', array($bid["project"]["id"], $bid["id"]))."'>".$bid["project"]["title"].
+                "</a> has won!";
+      $return_array["line2"] = "Congrats! You'll be receiving another email shortly with more details about next steps.";
+      $return_array["link"] = route('bid', array($bid["project"]["id"], $bid["id"]));
+
     } elseif ($notification->notification_type == "BidSubmit") {
       $bid = $notification->payload["bid"];
       $return_array["subject"] = $bid["vendor"]["company_name"]." has submitted a bid for ".$bid["project"]["title"].".";

@@ -137,4 +137,16 @@
     });
   });
 
+  $(document).on("click", ".manual-awarded-message-checkbox", function() {
+    var awarded_message, el, modal;
+    el = $(this);
+    modal = $("#award-modal");
+    awarded_message = modal.find(".awarded-message");
+    if (el.is(":checked")) {
+      return awarded_message.data('original-val', awarded_message.val()).val("").attr('disabled', true);
+    } else {
+      return awarded_message.val(awarded_message.data('original-val')).removeAttr('disabled');
+    }
+  });
+
 }).call(this);

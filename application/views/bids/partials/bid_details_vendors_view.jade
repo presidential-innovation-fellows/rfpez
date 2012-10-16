@@ -9,9 +9,17 @@
       .dismissal-explanation
         strong Explanation:
         span #{$bid->dismissal_explanation}
-  - else:
+  - elseif (!$bid->awarded_at):
     .alert.alert-info
       | Your bid is currently being reviewed. We'll let you know when the status changes.
+  - else:
+    .alert.alert-success
+      | <strong>Your bid won!</strong>
+      - if (trim($bid->awarded_message) != ""):
+        | Here's what the government officer said:
+        | <br /><br />
+        | <em>"#{$bid->awarded_message}"</em>
+      - endif;
   - endif;
 
   h4 Approach

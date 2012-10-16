@@ -103,3 +103,15 @@ $(document).on "click", ".show-award-modal", ->
             $(".winning-bid-table-wrapper").removeClass('hide')
           else
             window.location.reload()
+
+$(document).on "click", ".manual-awarded-message-checkbox", ->
+  el = $(this)
+  modal = $("#award-modal")
+  awarded_message = modal.find(".awarded-message")
+  if el.is(":checked")
+    awarded_message.data('original-val', awarded_message.val())
+                   .val("")
+                   .attr('disabled', true)
+  else
+    awarded_message.val(awarded_message.data('original-val'))
+                   .removeAttr('disabled')

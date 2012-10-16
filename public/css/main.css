@@ -140,7 +140,7 @@ body.vendor .no-auth-only {
   box-sizing: border-box;
   min-height: 100px;
 }
-#award-modal .modal-body label {
+#award-modal .modal-body label.bold-label {
   font-weight: bold;
 }
 .dismissed-alert .dismissal-notice {

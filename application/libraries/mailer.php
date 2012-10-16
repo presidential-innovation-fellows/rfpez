@@ -36,6 +36,14 @@ Class Mailer {
                 ->with('invited_by', $invited_by)
                 ->with('project', $project), 'text/html');
 
+    } elseif ($template_name == "BidAwarded") {
+      $bid = $attributes["bid"];
+
+      $message->setSubject("Message from ".$bid->project->agency." about \"".$bid->project->title."\"")
+              ->setTo($bid->vendor->user->email)
+              ->addPart(View::make('mailer.bid_awarded_text')->with('bid', $bid), 'text/plain')
+              ->setBody(View::make('mailer.bid_awarded_html')->with('bid', $bid), 'text/html');
+
     } else {
       throw new \Exception("Can't find the template you specified.");
     }
