@@ -26,7 +26,7 @@ class Project extends Eloquent {
 
   public static $my_project_ids = false;
 
-  public static $winning_bid = false;
+  public $winning_bid = false;
 
   public function officers() {
     return $this->has_many_and_belongs_to('Officer', 'project_collaborators')->order_by('owner', 'desc');
@@ -53,8 +53,8 @@ class Project extends Eloquent {
   }
 
   public function winning_bid() {
-    if (self::$winning_bid !== false) return self::$winning_bid;
-    return self::$winning_bid = $this->bids()->where_not_null('awarded_at')->first();
+    if ($this->winning_bid !== false) return $this->winning_bid;
+    return $this->winning_bid = $this->bids()->where_not_null('awarded_at')->first();
   }
 
   public function questions() {
