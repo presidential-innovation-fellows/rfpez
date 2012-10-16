@@ -1,1 +1,1 @@
-Congrats, your bid won! You've been accepted to work on "<?= $project->title ?>". The contracting officer, <?= $officer->name ?> (<?= $officer->user->email ?>), will be in touch with you via email.
+Congratulations, your bid won! You've been accepted to work on "<?= $project->title ?>". The contracting officer, <?= $officer->name ?> (<?= $officer->user->email ?>), will follow up with you with details, shortly.
