@@ -65,7 +65,7 @@ open_selection = ->
 
 dismiss_selection = ->
   selected_bid = $(".bid.selected:eq(0)")
-  selected_bid.find(".show-dismiss-modal").click()
+  selected_bid.find(".show-dismiss-modal, .undismiss-button").filter(":visible").click()
 
 $(document).bind 'keydown', 'i', ->
   Rfpez.move_bid_selection("up")

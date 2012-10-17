@@ -74,7 +74,7 @@
   dismiss_selection = function() {
     var selected_bid;
     selected_bid = $(".bid.selected:eq(0)");
-    return selected_bid.find(".show-dismiss-modal").click();
+    return selected_bid.find(".show-dismiss-modal, .undismiss-button").filter(":visible").click();
   };
 
   $(document).bind('keydown', 'i', function() {
