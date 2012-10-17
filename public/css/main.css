@@ -151,6 +151,9 @@ body.vendor .no-auth-only {
 .bids-table .bid .bid-details div .details-inner {
   margin-bottom: 10px;
 }
+.bids-table .bid .bid-details div .details-inner .col2 {
+  margin-left: 50px;
+}
 .bids-table .bid .bid-details .example-work {
   padding-left: 20px;
 }

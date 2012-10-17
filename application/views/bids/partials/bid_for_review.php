@@ -43,7 +43,7 @@
     </td>
   </tr>
   <tr>
-    <td class="bid-details" colspan="4">
+    <td class="bid-details" colspan="6">
       <div id="bid<?php echo Jade\Dumper::_text($bid->id); ?>" class="collapse">
         <?php echo Jade\Dumper::_html(View::make('bids.partials.bid_details_officers_view')->with('bid', $bid)); ?>
       </div>

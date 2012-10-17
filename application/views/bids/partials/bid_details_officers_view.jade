@@ -13,7 +13,7 @@
 
   .row-fluid
 
-    .span6
+    .span5.col1
 
       h4 Approach
       p #{$bid->approach}
@@ -41,7 +41,7 @@
             td Total Price
             td $#{$bid->total_price()}
 
-    .span6
+    .span5.col2
       h4 #{$bid->vendor->company_name}
       div Contact: #{$bid->vendor->contact_name}
       div Email: <a href="mailto:#{$bid->vendor->user->email}">#{$bid->vendor->user->email}</a>

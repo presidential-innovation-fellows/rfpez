@@ -36,6 +36,6 @@ tbody(class="bid #{$unread ? 'unread' : ''}", data-project-id="#{$bid->project->
       - endif;
 
   tr
-    td.bid-details(colspan="4")
+    td.bid-details(colspan="6")
       div(id="bid#{$bid->id}", class="collapse")
         !{View::make('bids.partials.bid_details_officers_view')->with('bid', $bid)}

@@ -13,7 +13,7 @@
     </div>
   <?php endif; ?>
   <div class="row-fluid">
-    <div class="span6">
+    <div class="span5 col1">
       <h4>Approach</h4>
       <p><?php echo Jade\Dumper::_text($bid->approach); ?></p>
       <h4>Previous Work</h4>
@@ -44,7 +44,7 @@
         </tfoot>
       </table>
     </div>
-    <div class="span6">
+    <div class="span5 col2">
       <h4><?php echo Jade\Dumper::_text($bid->vendor->company_name); ?></h4>
       <div>Contact: <?php echo Jade\Dumper::_text($bid->vendor->contact_name); ?></div>
       <div>Email: <a href="mailto:<?php echo Jade\Dumper::_text($bid->vendor->user->email); ?>"><?php echo Jade\Dumper::_text($bid->vendor->user->email); ?></a></div>
