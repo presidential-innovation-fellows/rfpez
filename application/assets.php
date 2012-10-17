@@ -12,7 +12,7 @@ if (Config::get('basset')) Basset\Config::extend(Config::get('basset'));
 
 Basset::scripts('website', function($basset)
 {
-  $basset->add('bootstrapjs', 'js/vendor/bootstrap.min.js')
+  $basset->add('bootstrapjs', 'js/vendor/bootstrap.js')
          ->add('bootstrap-datepicker', 'js/vendor/bootstrap-datepicker.js')
          ->add('autogrow-input', 'js/vendor/autogrow-input.js')
          ->add('jquerytimeago', 'js/vendor/jquery.timeago.js')
