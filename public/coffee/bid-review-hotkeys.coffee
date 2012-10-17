@@ -3,11 +3,12 @@
 #   i   move selection up
 #   k   move selection down
 
+on_mouseover_select = true
 
 # Hack to keep us from "selecting" a new bid when the window is automatically scrolled.
 # Suggestions for better solutions welcomed.
 keep_bid_in_view = (bid, scrollTo) ->
-  $(document).off "mouseover.selectbidmouseover"
+  on_mouseover_select = false
 
   if scrollTo is "bid"
     bottom = bid.offset().top + bid.height()
@@ -23,17 +24,14 @@ keep_bid_in_view = (bid, scrollTo) ->
     $('html, body').scrollTop(0)
 
   setTimeout ->
-    $(document).on "mouseover.selectbidmouseover", ".bid", select_this_bid
-  , 200
+    on_mouseover_select = true
+  , 500
 
 
 select_bid = (bid, scrollTo) ->
   $(".bid").removeClass('selected')
   bid.addClass('selected')
   if scrollTo then keep_bid_in_view(bid, scrollTo)
-
-select_this_bid = ->
-  select_bid($(this), false)
 
 move_selection = (direction) ->
   selected_bid = $(".bid.selected:eq(0)")
@@ -58,4 +56,5 @@ $(document).bind 'keydown', 'i', ->
 $(document).bind 'keydown', 'k', ->
   move_selection("down")
 
-$(document).on "mouseover.selectbidmouseover", ".bid", select_this_bid
+$(document).on "mouseover.selectbidmouseover", ".bid", ->
+  if on_mouseover_select then select_bid($(this), false)
