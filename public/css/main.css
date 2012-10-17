@@ -47,6 +47,9 @@ body {
 .green {
   color: #008000;
 }
+.pagination-wrapper {
+  text-align: center;
+}
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
   display: none !important;
@@ -303,7 +306,7 @@ body.vendor .no-auth-only {
 .my-bid-table tr.bid.bid-dismissed td.status {
   color: #f00;
 }
-.notification-list {
+.notification-table {
   margin: 0;
 }
 .notification-item {
@@ -311,36 +314,34 @@ body.vendor .no-auth-only {
   padding: 10px 0 10px 30px;
   position: relative;
 }
-.notification-item.unread {
-  font-weight: bold;
-}
-.notification-item.unread .unread-button-wrapper {
-  display: block;
-}
-.notification-item.unread .read-button-wrapper {
-  display: none !important;
-}
-.notification-item:hover .read-button-wrapper {
-  display: block;
-}
-.notification-item .unread-button-wrapper,
-.notification-item .read-button-wrapper {
-  position: absolute;
-  top: 28px;
-  left: 0;
-}
-.notification-item .unread-button-wrapper {
-  display: none;
-}
-.notification-item .read-button-wrapper {
-  display: none;
+.notification-item .unread-td {
+  width: 15px;
+  text-align: center;
+  vertical-align: middle;
 }
 .notification-item .line2 {
-  color: #999;
-  font-weight: normal;
+  font-size: 13px;
 }
 .notification-item .timestamp {
   font-weight: normal;
+  font-size: 11px;
+}
+.notification-item .mark-as-read,
+.notification-item .mark-as-unread {
+  margin: 0 auto;
+  display: none;
+}
+.notification-item.unread .line1 {
+  font-weight: bold;
+}
+.notification-item.unread .mark-as-read {
+  display: block;
+}
+.notification-item.unread .mark-as-unread {
+  display: none !important;
+}
+.notification-item:hover .mark-as-unread {
+  display: block;
 }
 .project-list {
   list-style: none;

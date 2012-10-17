@@ -11,7 +11,7 @@ class Notifications_Controller extends Base_Controller {
 
   public function action_index() {
     $view = View::make('notifications.index');
-    $view->notifications = Auth::user()->notifications_received;
+    $view->notifications = Auth::user()->notifications_received()->paginate(10);
     $this->layout->content = $view;
   }
 

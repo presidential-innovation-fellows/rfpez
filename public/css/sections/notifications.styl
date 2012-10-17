@@ -1,4 +1,4 @@
-.notification-list
+.notification-table
   margin 0
 
 .notification-item
@@ -6,33 +6,36 @@
   padding 10px 0 10px 30px
   position relative
 
-  &.unread
-    font-weight bold
+  .unread-td
+    width 15px
+    text-align center
+    vertical-align middle
 
-    .unread-button-wrapper
-      display block
-
-    .read-button-wrapper
-      display none !important
-
-  &:hover
-    .read-button-wrapper
-      display block
-
-  .unread-button-wrapper, .read-button-wrapper
-    position absolute
-    top 28px
-    left 0
-
-  .unread-button-wrapper
-    display none
-
-  .read-button-wrapper
-    display none
+  .line1
+    //
 
   .line2
-    color #999
-    font-weight normal
+    font-size 13px
 
   .timestamp
     font-weight normal
+    font-size 11px
+
+
+  .mark-as-read, .mark-as-unread
+    margin 0 auto
+    display none
+
+  &.unread
+    .line1
+      font-weight bold
+
+    .mark-as-read
+      display block
+
+    .mark-as-unread
+      display none !important
+
+  &:hover
+    .mark-as-unread
+      display block
