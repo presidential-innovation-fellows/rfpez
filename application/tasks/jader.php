@@ -1,6 +1,6 @@
 <?php
 
-class Convertfromjade_Task {
+class Jader_Task {
 
   public function run() {
     $jade = new Jade\Jade;
@@ -10,7 +10,7 @@ class Convertfromjade_Task {
     foreach($template_files as $tf) {
       $phpver = str_replace(".jade", ".php", $tf);
       if (!file_exists($dir . $phpver) || filemtime($dir . $tf) > filemtime($dir . $phpver) ) {
-        echo $dir . $tf . " has changed \n\n";
+        echo "compiling " . $dir . $tf . "\n";
         $output = $jade->render(File::get($dir.$tf));
         file_put_contents($dir.$phpver, $output);
       }
