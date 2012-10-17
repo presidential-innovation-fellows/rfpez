@@ -159,18 +159,20 @@ Class Factory {
     $b->vendor_id = $v->id;
     $b->save();
 
-    if (rand(0,6) === 0) $b->delete_by_vendor();
+    if (rand(0,6) === 0) {
+      $b->delete_by_vendor();
+    } else {
+      if (rand(0,1) === 0) {
+        $submitted_at = new \DateTime;
+        $b->submitted_at = (rand(0,1) === 0) ? $submitted_at : null;
+        $b->submit();
 
-    if (rand(0,1) === 0) {
-      $submitted_at = new \DateTime;
-      $b->submitted_at = (rand(0,1) === 0) ? $submitted_at : null;
-      $b->submit();
-
-      // Dismiss 1/3 of the bids
-      if (rand(0,2) === 0) {
-        $b->dismiss(Bid::$dismissal_reasons[array_rand(Bid::$dismissal_reasons)], $faker->paragraph(2));
-        // Un-dismiss 1/2 of these
-        if (rand(0,1) === 0) $b->undismiss();
+        // Dismiss 1/3 of the bids
+        if (rand(0,2) === 0) {
+          $b->dismiss(Bid::$dismissal_reasons[array_rand(Bid::$dismissal_reasons)], $faker->paragraph(2));
+          // Un-dismiss 1/2 of these
+          if (rand(0,1) === 0) $b->undismiss();
+        }
       }
     }
 
