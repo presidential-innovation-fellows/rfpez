@@ -107,6 +107,9 @@ body.vendor .no-auth-only {
 .bids-table thead th.actions {
   width: 25%;
 }
+.bids-table .bid.selected {
+  background-color: #fff6db;
+}
 .bids-table .bid.unread .line1 {
   font-weight: bold;
 }

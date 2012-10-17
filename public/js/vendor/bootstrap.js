@@ -874,6 +874,8 @@
           .trigger('hidden')
 
         this.backdrop()
+
+        $("a.brand").focus().blur()
       }
 
     , removeBackdrop: function () {
