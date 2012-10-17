@@ -126,7 +126,6 @@ class Bid extends Eloquent {
 
   public function total_price() {
     if ($this->total_price !== false) return $this->total_price;
-    Log::info('total price ' . $this->id);
     $total = 0;
     foreach($this->prices as $deliv => $price) {
       $total += floatVal($price);
