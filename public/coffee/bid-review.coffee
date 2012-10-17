@@ -1,3 +1,6 @@
+$(document).on 'shown', '#dismiss-modal', ->
+  $(this).find("select").focus()
+
 $(document).on "click", ".bid-notification-td .mark-as-read, .bid-notification-td .mark-as-unread", ->
   el = $(this)
   bid = el.closest(".bid")
@@ -49,6 +52,7 @@ $(document).on "click", ".undismiss-button", ->
           new_bid = $(data.html)
           bid.remove()
           $(".bids-table.open-bids > thead").after(new_bid)
+          Rfpez.move_bid_selection("down")
         else
           window.location.reload()
 
@@ -83,6 +87,7 @@ $(document).on "click", ".show-dismiss-modal", ->
             bid.remove()
             new_bid = $(data.html)
             $(".bids-table.dismissed-bids > thead").after(new_bid)
+            Rfpez.move_bid_selection("down")
           else
             window.location.reload()
 

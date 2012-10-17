@@ -1,7 +1,10 @@
 #  Key  Description
 #
-#   i   move selection up
-#   k   move selection down
+#   i       move selection up
+#   k       move selection down
+#   s       star selection
+#   return  open selection
+#   d       dismiss selection
 
 on_mouseover_select = true
 
@@ -28,12 +31,12 @@ keep_bid_in_view = (bid, scrollTo) ->
   , 500
 
 
-select_bid = (bid, scrollTo) ->
+Rfpez.select_bid = (bid, scrollTo) ->
   $(".bid").removeClass('selected')
   bid.addClass('selected')
   if scrollTo then keep_bid_in_view(bid, scrollTo)
 
-move_selection = (direction) ->
+Rfpez.move_bid_selection = (direction) ->
   selected_bid = $(".bid.selected:eq(0)")
   return if !selected_bid
   all_bids = $(".bid")
@@ -41,20 +44,36 @@ move_selection = (direction) ->
 
   if direction is "up"
     if selected_index is 0
-      return select_bid(selected_bid, "top")
+      return Rfpez.select_bid(selected_bid, "top")
 
     new_index = selected_index - 1
   else # direction is "down"
     new_index = selected_index + 1
 
   new_selection = $(".bid:eq(#{new_index})")
-  if new_selection.length > 0 then select_bid(new_selection, "bid")
+  if new_selection.length > 0 then Rfpez.select_bid(new_selection, "bid")
+
+star_selection = ->
+  selected_bid = $(".bid.selected:eq(0)")
+  selected_bid.find(".star-td .btn:visible").click()
+
+open_selection = ->
+  selected_bid = $(".bid.selected:eq(0)")
+  selected_bid.find("a[data-toggle=collapse]").click()
+
+dismiss_selection = ->
+  selected_bid = $(".bid.selected:eq(0)")
+  selected_bid.find(".show-dismiss-modal").click()
 
 $(document).bind 'keydown', 'i', ->
-  move_selection("up")
+  Rfpez.move_bid_selection("up")
 
 $(document).bind 'keydown', 'k', ->
-  move_selection("down")
+  Rfpez.move_bid_selection("down")
+
+$(document).bind 'keydown', 's', star_selection
+$(document).bind 'keydown', 'return', open_selection
+$(document).bind 'keydown', 'd', dismiss_selection
 
 $(document).on "mouseover.selectbidmouseover", ".bid", ->
-  if on_mouseover_select then select_bid($(this), false)
+  if on_mouseover_select then Rfpez.select_bid($(this), false)
