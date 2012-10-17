@@ -7,11 +7,13 @@
 #   d       dismiss selection
 
 on_mouseover_select = true
+mouseover_select_timeout = false
 
 # Hack to keep us from "selecting" a new bid when the window is automatically scrolled.
 # Suggestions for better solutions welcomed.
 keep_bid_in_view = (bid, scrollTo) ->
   on_mouseover_select = false
+  clearTimeout(mouseover_select_timeout)
 
   if scrollTo is "bid"
     bottom = bid.offset().top + bid.height()
@@ -26,9 +28,9 @@ keep_bid_in_view = (bid, scrollTo) ->
   else if scrollTo is "top"
     $('html, body').scrollTop(0)
 
-  setTimeout ->
+  mouseover_select_timeout = setTimeout ->
     on_mouseover_select = true
-  , 500
+  , 200
 
 
 Rfpez.select_bid = (bid, scrollTo) ->
