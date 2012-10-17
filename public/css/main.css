@@ -92,8 +92,11 @@ body.vendor .no-auth-only {
 .bids-table {
   width: 100%;
 }
+.bids-table thead th.unread {
+  width: 5%;
+}
 .bids-table thead th.vendor-name {
-  width: 50%;
+  width: 45%;
 }
 .bids-table thead th.price {
   width: 10%;
@@ -103,6 +106,23 @@ body.vendor .no-auth-only {
 }
 .bids-table thead th.actions {
   width: 25%;
+}
+.bids-table .bid.unread .line1 {
+  font-weight: bold;
+}
+.bids-table .bid.unread .mark-as-read {
+  display: block;
+}
+.bids-table .bid.unread .mark-as-unread {
+  display: none !important;
+}
+.bids-table .bid:hover .mark-as-unread {
+  display: block;
+}
+.bids-table .bid .mark-as-read,
+.bids-table .bid .mark-as-unread {
+  margin: 0 auto;
+  display: none;
 }
 .bids-table .bid .star-td .unstar-button {
   display: none;

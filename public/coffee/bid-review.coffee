@@ -1,3 +1,17 @@
+$(document).on "click", ".bid-notification-td .mark-as-read, .bid-notification-td .mark-as-unread", ->
+  el = $(this)
+  bid = el.closest(".bid")
+  bid_id = bid.data('bid-id')
+  action = if el.hasClass('mark-as-read') then "read" else "unread"
+
+  Rfpez.view_notification_payload("bid", bid_id, action)
+
+  if action is "read"
+    bid.removeClass('unread')
+  else
+    bid.addClass('unread')
+
+
 $(document).on "click", ".bid .unstar-button, .bid .star-button", ->
   action = if $(this).hasClass('unstar-button') then "0" else "1"
   bid = $(this).closest(".bid")
@@ -13,10 +27,11 @@ $(document).on "click", ".bid .unstar-button, .bid .star-button", ->
         bid.find(".star-td").addClass("starred")
 
 $(document).on 'show', '.bid-details .collapse', ->
-  data_el = $(this).closest("[data-bid-id]")
-  bid_id = data_el.data('bid-id')
+  bid = $(this).closest(".bid")
+  bid_id = bid.data('bid-id')
   $(this).find(".dsbs-certifications").trigger('load-dsbs')
-  Rfpez.view_notification_payload('bid', bid_id)
+  bid.removeClass('unread')
+  Rfpez.view_notification_payload('bid', bid_id, "read")
 
 $(document).on "click", ".undismiss-button", ->
   el = $(this)

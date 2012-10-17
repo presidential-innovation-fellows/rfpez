@@ -56,7 +56,7 @@ class Bids_Controller extends Base_Controller {
 
     }
 
-    Auth::user()->view_notification_payload('bid', $view->bid->id);
+    Auth::user()->view_notification_payload('bid', $view->bid->id, "read");
     $this->layout->content = $view;
 
   }

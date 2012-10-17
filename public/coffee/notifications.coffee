@@ -11,11 +11,14 @@ Rfpez.update_notification_badge = (count) ->
     badge.text(0)
     badge.addClass('hide')
 
-Rfpez.view_notification_payload = (key, val) ->
-  return unless Rfpez.unread_notification_count() > 0
+Rfpez.view_notification_payload = (key, val, mark_as) ->
+  mark_as ||= "read"
+  return if mark_as is "read" and Rfpez.unread_notification_count() is 0
   $.ajax
     url: "/account/viewnotifications/#{key}/#{val}"
     type: "PUT"
+    data:
+      action: mark_as
     success: (data) ->
       Rfpez.update_notification_badge(data.unread_count)
 

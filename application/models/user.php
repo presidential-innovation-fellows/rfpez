@@ -4,6 +4,8 @@ class User extends Eloquent {
 
   public static $timestamps = true;
 
+  public $unread_notifications = false;
+
   public function _find($id, $columns = array('*'))
   {
     // Uncomment this to switch back to three query version...
@@ -107,7 +109,8 @@ class User extends Eloquent {
   }
 
   public function unread_notifications() {
-    return $this->notifications_received()->where_read(false)->get();
+    if ($this->unread_notifications !== false) return $this->unread_notifications;
+    return $this->unread_notifications = $this->notifications_received()->where_read(false)->get();
   }
 
   public function unread_notification_count() {
@@ -122,18 +125,25 @@ class User extends Eloquent {
     return $this->has_many('Notification', 'actor_id');
   }
 
-  public function view_notification_payload($key, $val) {
+  public function unread_notification_for_payload($payload_type, $payload_id) {
     foreach ($this->unread_notifications() as $notification) {
-      if ($key == "bid") {
-        if (isset($notification->payload["bid"]) && $notification->payload["bid"]["id"] == $val)
-          $notification->mark_as_read();
-      } elseif ($key == "project") {
-        if (isset($notification->payload["project"]) && $notification->payload["project"]["id"] == $val)
-          $notification->mark_as_read();
-      } elseif ($key == "sow") {
-        if (isset($notification->payload["sow"]) && $notification->payload["sow"]["id"] == $val)
-          $notification->mark_as_read();
-      }
+      if ($notification->payload_type == $payload_type && $notification->payload_id == $payload_id) return $notification;
+    }
+    return false;
+  }
+
+  public function view_notification_payload($key, $val, $mark_as) {
+    $notification = $this->notifications_received()
+                         ->where_payload_type($key)
+                         ->where_payload_id($val)
+                         ->first();
+
+    if (!$notification) return;
+
+    if ($mark_as == "read") {
+      $notification->mark_as_read();
+    } else {
+      $notification->mark_as_unread();
     }
   }
 

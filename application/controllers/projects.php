@@ -37,7 +37,7 @@ class Projects_Controller extends Base_Controller {
     $view = View::make('projects.show');
     $view->project = Config::get('project');
     $this->layout->content = $view;
-    if (Auth::user()) Auth::user()->view_notification_payload('project', $view->project->id);
+    if (Auth::user()) Auth::user()->view_notification_payload('project', $view->project->id, "read");
   }
 
   public function action_update() {

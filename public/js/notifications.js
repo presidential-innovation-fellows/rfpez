@@ -19,13 +19,17 @@
     }
   };
 
-  Rfpez.view_notification_payload = function(key, val) {
-    if (!(Rfpez.unread_notification_count() > 0)) {
+  Rfpez.view_notification_payload = function(key, val, mark_as) {
+    mark_as || (mark_as = "read");
+    if (mark_as === "read" && Rfpez.unread_notification_count() === 0) {
       return;
     }
     return $.ajax({
       url: "/account/viewnotifications/" + key + "/" + val,
       type: "PUT",
+      data: {
+        action: mark_as
+      },
       success: function(data) {
         return Rfpez.update_notification_badge(data.unread_count);
       }

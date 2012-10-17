@@ -177,7 +177,7 @@ class Users_Controller extends Base_Controller {
 
   public function action_view_notification_payload($key, $val) {
     $user = Auth::user();
-    $user->view_notification_payload($key, $val);
+    $user->view_notification_payload($key, $val, Input::get('action'));
     return Response::json(array("status" => "success",
                                 "unread_count" => $user->unread_notification_count()));
   }

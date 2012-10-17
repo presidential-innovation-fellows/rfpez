@@ -1,5 +1,10 @@
-tbody.bid(data-project-id="#{$bid->project->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}")
+- $unread = Auth::user()->unread_notification_for_payload("bid", $bid->id)
+
+tbody(class="bid #{$unread ? 'unread' : ''}", data-project-id="#{$bid->project->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}")
   tr
+    td.bid-notification-td
+      a(class="btn btn-small btn-primary btn-circle mark-as-read") &nbsp;
+      a(class="btn btn-small btn-circle mark-as-unread") &nbsp;
     td
       a(data-toggle="collapse", data-target="#bid#{$bid->id}") #{$bid->vendor->company_name}
       - if ($bid->awarded_at):

@@ -15,6 +15,7 @@ div(class="winning-bid-table-wrapper #{$project->winning_bid() ? '' : 'hide'}")
   table.table.bids-table.winning-bid
     thead
       tr
+        th.unread
         th.vendor-name Vendor Name
         th.price Price
         th.starred Starred
@@ -30,6 +31,7 @@ h3 Bids awaiting review
 table.table.bids-table.open-bids
   thead
     tr
+      th.unread
       th.vendor-name Vendor Name
       th.price Price
       th.starred Starred
@@ -43,6 +45,7 @@ h3 Dismissed bids
 table.table.bids-table.dismissed-bids
   thead
     tr
+      th.unread
       th.vendor-name Vendor Name
       th.price Price
       th.starred Starred
