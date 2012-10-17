@@ -27,7 +27,7 @@ div.nav-collapse.collapse
           a(href="#{ route('signout') }") Sign Out
 
     li.dropdown.notification-nav-item
-      a#notifications-dropdown-trigger.dropdown-toggle(data-toggle="dropdown")
+      a#notifications-dropdown-trigger.dropdown-toggle(data-toggle="dropdown", href="#")
         | &nbsp;
         i.icon-white.icon-envelope
         - $count = Auth::user()->unread_notification_count()
