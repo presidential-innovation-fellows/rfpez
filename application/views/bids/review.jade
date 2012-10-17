@@ -15,10 +15,9 @@ div(class="winning-bid-table-wrapper #{$project->winning_bid() ? '' : 'hide'}")
   table.table.bids-table.winning-bid
     thead
       tr
-        th.unread
+        th.unread-and-star(colspan="2")
         th.vendor-name Vendor Name
         th.price Price
-        th.starred Starred
         th.actions Actions
 
     - if ($project->winning_bid()):
@@ -31,10 +30,9 @@ h3 Bids awaiting review
 table.table.bids-table.open-bids
   thead
     tr
-      th.unread
+      th.unread-and-star(colspan="2")
       th.vendor-name Vendor Name
       th.price Price
-      th.starred Starred
       th.actions Actions
 
   - foreach($open_bids as $bid):
@@ -45,10 +43,9 @@ h3 Dismissed bids
 table.table.bids-table.dismissed-bids
   thead
     tr
-      th.unread
+      th.unread-and-star(colspan="2")
       th.vendor-name Vendor Name
       th.price Price
-      th.starred Starred
       th.actions Actions
 
   - foreach($dismissed_bids as $bid):

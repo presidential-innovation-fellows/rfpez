@@ -2,13 +2,11 @@
   width 100%
 
   thead
-    th.unread
+    th.unread-and-star
       width 5%
     th.vendor-name
-      width 45%
+      width 55%
     th.price
-      width 10%
-    th.starred
       width 15%
     th.actions
       width 25%
@@ -29,10 +27,20 @@
         display block
 
     .mark-as-read, .mark-as-unread
-      margin 0 auto
+      margin 2px auto 0
       display none
 
+    .bid-notification-td
+      padding-left 0
+      padding-right 5px
+
     .star-td
+      padding-left 0
+
+      .btn
+        i
+          margin-top -1px
+
       .unstar-button
         display none
 

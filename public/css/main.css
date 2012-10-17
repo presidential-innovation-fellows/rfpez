@@ -92,16 +92,13 @@ body.vendor .no-auth-only {
 .bids-table {
   width: 100%;
 }
-.bids-table thead th.unread {
+.bids-table thead th.unread-and-star {
   width: 5%;
 }
 .bids-table thead th.vendor-name {
-  width: 45%;
+  width: 55%;
 }
 .bids-table thead th.price {
-  width: 10%;
-}
-.bids-table thead th.starred {
   width: 15%;
 }
 .bids-table thead th.actions {
@@ -121,8 +118,18 @@ body.vendor .no-auth-only {
 }
 .bids-table .bid .mark-as-read,
 .bids-table .bid .mark-as-unread {
-  margin: 0 auto;
+  margin: 2px auto 0;
   display: none;
+}
+.bids-table .bid .bid-notification-td {
+  padding-left: 0;
+  padding-right: 5px;
+}
+.bids-table .bid .star-td {
+  padding-left: 0;
+}
+.bids-table .bid .star-td .btn i {
+  margin-top: -1px;
 }
 .bids-table .bid .star-td .unstar-button {
   display: none;

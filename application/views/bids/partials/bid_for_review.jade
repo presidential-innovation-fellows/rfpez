@@ -5,15 +5,17 @@ tbody(class="bid #{$unread ? 'unread' : ''}", data-project-id="#{$bid->project->
     td.bid-notification-td
       a(class="btn btn-small btn-primary btn-circle mark-as-read") &nbsp;
       a(class="btn btn-small btn-circle mark-as-unread") &nbsp;
+    td(class="star-td #{$bid->starred ? 'starred' : ''}")
+      a.btn.btn-inverse.btn-mini.unstar-button
+        i.icon-star
+      a.btn.btn-mini.star-button
+        i.icon-star-empty
     td
       a(data-toggle="collapse", data-target="#bid#{$bid->id}") #{$bid->vendor->company_name}
       - if ($bid->awarded_at):
         span.label.label-success Winning Bid!
       - endif;
     td $#{intval($bid->total_price())}
-    td(class="star-td #{$bid->starred ? 'starred' : ''}")
-      a.btn.btn-inverse.unstar-button Starred
-      a.btn.star-button Star
     td
       - if (Auth::officer()->is_verified_contracting_officer()):
         - if (!$bid->awarded_at):
