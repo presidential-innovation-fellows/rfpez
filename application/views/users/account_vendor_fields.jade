@@ -8,6 +8,8 @@
   - foreach ($services_list as $key => $val)
     - $services[intval($val)] = true;
 
+- $signup = isset($signup) && $signup;
+
 .row
 
   fieldset.span5
@@ -59,7 +61,7 @@
 
   fieldset.span5
 
-    - if (isset($signup) && $signup):
+    - if ($signup):
 
       h3 Contact Info
 
@@ -87,22 +89,24 @@
       label DUNS Number
       input(type="text", name="vendor[duns]", value="#{ $vendor['duns'] }")
 
-    .control-group
-      label Registered in SAM.gov?
-      - if ($vendor["sam_entity_name"]):
-        .green Yes, under "#{$vendor["sam_entity_name"]}"
-      - else:
-        .red No
-      - endif;
+    - if (!$signup):
+      .control-group
+        label Registered in SAM.gov?
+        - if ($vendor["sam_entity_name"]):
+          .green Yes, under "#{$vendor["sam_entity_name"]}"
+        - else:
+          .red No
+        - endif;
 
-    .control-group
-      label Registered in DSBS?
-      - if ($vendor["dsbs_name"]):
-        .green Yes, under "#{$vendor["dsbs_name"]}"
-        !{View::make('vendors.partials.dsbs_certifications')->with('user_id', $vendor["dsbs_user_id"])}
-      - else:
-        .red No
-      - endif;
+      .control-group
+        label Registered in DSBS?
+        - if ($vendor["dsbs_name"]):
+          .green Yes, under "#{$vendor["dsbs_name"]}"
+          !{View::make('vendors.partials.dsbs_certifications')->with('user_id', $vendor["dsbs_user_id"])}
+        - else:
+          .red No
+        - endif;
+    - endif;
 
     .control-group
       label Company Name
