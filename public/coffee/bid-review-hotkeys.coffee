@@ -28,15 +28,12 @@ keep_bid_in_view = (bid, scrollTo) ->
 
 
 select_bid = (bid, scrollTo) ->
-  scrollTo ||= "bid"
   $(".bid").removeClass('selected')
   bid.addClass('selected')
-  keep_bid_in_view(bid, scrollTo)
-
-
+  if scrollTo then keep_bid_in_view(bid, scrollTo)
 
 select_this_bid = ->
-  select_bid($(this))
+  select_bid($(this), false)
 
 move_selection = (direction) ->
   selected_bid = $(".bid.selected:eq(0)")
@@ -53,7 +50,7 @@ move_selection = (direction) ->
     new_index = selected_index + 1
 
   new_selection = $(".bid:eq(#{new_index})")
-  if new_selection.length > 0 then select_bid(new_selection)
+  if new_selection.length > 0 then select_bid(new_selection, "bid")
 
 $(document).bind 'keydown', 'i', ->
   move_selection("up")

@@ -25,14 +25,15 @@
   };
 
   select_bid = function(bid, scrollTo) {
-    scrollTo || (scrollTo = "bid");
     $(".bid").removeClass('selected');
     bid.addClass('selected');
-    return keep_bid_in_view(bid, scrollTo);
+    if (scrollTo) {
+      return keep_bid_in_view(bid, scrollTo);
+    }
   };
 
   select_this_bid = function() {
-    return select_bid($(this));
+    return select_bid($(this), false);
   };
 
   move_selection = function(direction) {
@@ -53,7 +54,7 @@
     }
     new_selection = $(".bid:eq(" + new_index + ")");
     if (new_selection.length > 0) {
-      return select_bid(new_selection);
+      return select_bid(new_selection, "bid");
     }
   };
 
