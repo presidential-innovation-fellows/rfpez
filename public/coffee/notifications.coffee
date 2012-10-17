@@ -21,6 +21,7 @@ Rfpez.view_notification_payload = (key, val, mark_as) ->
       action: mark_as
     success: (data) ->
       Rfpez.update_notification_badge(data.unread_count)
+      reset_notification_dropdown()
 
 render_notification = (notification) ->
   """
@@ -33,6 +34,12 @@ render_notification = (notification) ->
   """
 
 notifications_loaded = false
+
+reset_notification_dropdown = ->
+  notifications_loaded = false
+  $("#notifications-dropdown").addClass('loading')
+  $("#notifications-dropdown").html('')
+
 
 $(document).on "click", ".notification-item .mark-as-read, .notification-item .mark-as-unread", ->
   el = $(this)
