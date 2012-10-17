@@ -8,7 +8,7 @@ class Bid extends Eloquent {
 
   public static $accessible = array('project_id', 'approach', 'previous_work', 'employee_details', 'prices');
 
-  public static $dismissal_reasons = array('Price too high');
+  public static $dismissal_reasons = array('Price Too high', 'Not Qualified','Irrelevant Proposal','Excluded Party','Low Value','Poor Work History','Other');
 
   public $total_price = false;
 
