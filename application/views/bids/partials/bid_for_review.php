@@ -1,5 +1,18 @@
-<tbody class="bid" data-project-id="<?php echo Jade\Dumper::_text($bid->project->id); ?>" data-bid-id="<?php echo Jade\Dumper::_text($bid->id); ?>" data-vendor-company-name="<?php echo Jade\Dumper::_text($bid->vendor->company_name); ?>">
+<?php $unread = Auth::user()->unread_notification_for_payload("bid", $bid->id) ?>
+<tbody class="bid <?php echo Jade\Dumper::_text($unread ? 'unread' : ''); ?>" data-project-id="<?php echo Jade\Dumper::_text($bid->project->id); ?>" data-bid-id="<?php echo Jade\Dumper::_text($bid->id); ?>" data-vendor-company-name="<?php echo Jade\Dumper::_text($bid->vendor->company_name); ?>">
   <tr>
+    <td class="bid-notification-td">
+      <a class="btn btn-small btn-primary btn-circle mark-as-read">&nbsp;</a>
+      <a class="btn btn-small btn-circle mark-as-unread">&nbsp;</a>
+    </td>
+    <td class="star-td <?php echo Jade\Dumper::_text($bid->starred ? 'starred' : ''); ?>">
+      <a class="btn btn-inverse btn-mini unstar-button">
+        <i class="icon-star"></i>
+      </a>
+      <a class="btn btn-mini star-button">
+        <i class="icon-star-empty"></i>
+      </a>
+    </td>
     <td>
       <a data-toggle="collapse" data-target="#bid<?php echo Jade\Dumper::_text($bid->id); ?>"><?php echo Jade\Dumper::_text($bid->vendor->company_name); ?></a>
       <?php if ($bid->awarded_at): ?>
@@ -7,10 +20,6 @@
       <?php endif; ?>
     </td>
     <td>$<?php echo Jade\Dumper::_text(intval($bid->total_price())); ?></td>
-    <td class="star-td <?php echo Jade\Dumper::_text($bid->starred ? 'starred' : ''); ?>">
-      <a class="btn btn-inverse unstar-button">Starred</a>
-      <a class="btn star-button">Star</a>
-    </td>
     <td>
       <?php if (Auth::officer()->is_verified_contracting_officer()): ?>
         <?php if (!$bid->awarded_at): ?>

@@ -47,7 +47,7 @@
     <div class="span6">
       <h4><?php echo Jade\Dumper::_text($bid->vendor->company_name); ?></h4>
       <div>Contact: <?php echo Jade\Dumper::_text($bid->vendor->contact_name); ?></div>
-      <div>Email: <?php echo Jade\Dumper::_text($bid->vendor->user->email); ?></div>
+      <div>Email: <a href="mailto:<?php echo Jade\Dumper::_text($bid->vendor->user->email); ?>"><?php echo Jade\Dumper::_text($bid->vendor->user->email); ?></a></div>
       <div>
         SAM.gov:
         <?php if ($bid->vendor->sam_entity_name): ?>

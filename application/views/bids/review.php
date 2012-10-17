@@ -10,9 +10,9 @@
   <table class="table bids-table winning-bid">
     <thead>
       <tr>
+        <th class="unread-and-star" colspan="2"></th>
         <th class="vendor-name">Vendor Name</th>
         <th class="price">Price</th>
-        <th class="starred">Starred</th>
         <th class="actions">Actions</th>
       </tr>
     </thead>
@@ -25,9 +25,9 @@
 <table class="table bids-table open-bids">
   <thead>
     <tr>
+      <th class="unread-and-star" colspan="2"></th>
       <th class="vendor-name">Vendor Name</th>
       <th class="price">Price</th>
-      <th class="starred">Starred</th>
       <th class="actions">Actions</th>
     </tr>
   </thead>
@@ -39,9 +39,9 @@
 <table class="table bids-table dismissed-bids">
   <thead>
     <tr>
+      <th class="unread-and-star" colspan="2"></th>
       <th class="vendor-name">Vendor Name</th>
       <th class="price">Price</th>
-      <th class="starred">Starred</th>
       <th class="actions">Actions</th>
     </tr>
   </thead>

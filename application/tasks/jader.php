@@ -2,19 +2,23 @@
 
 class Jader_Task {
 
-  public function run() {
+  public function run($force = false) {
     $jade = new Jade\Jade;
     $dir = "application/views/";
 
     $template_files = getJadeFiles($dir);
     foreach($template_files as $tf) {
       $phpver = str_replace(".jade", ".php", $tf);
-      if (!file_exists($dir . $phpver) || filemtime($dir . $tf) > filemtime($dir . $phpver) ) {
-        echo "compiling " . $dir . $tf . "\n";
+      if ($force || !file_exists($dir . $phpver) || filemtime($dir . $tf) > filemtime($dir . $phpver) ) {
+        echo "compiling " . $dir . $phpver . "\n";
         $output = $jade->render(File::get($dir.$tf));
         file_put_contents($dir.$phpver, $output);
       }
     }
+  }
+
+  public function force() {
+    $this->run(true);
   }
 
 }

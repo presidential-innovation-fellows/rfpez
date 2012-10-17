@@ -33,7 +33,7 @@
       </ul>
     </li>
     <li class="dropdown notification-nav-item">
-      <a id="notifications-dropdown-trigger" class="dropdown-toggle" data-toggle="dropdown">
+      <a id="notifications-dropdown-trigger" class="dropdown-toggle" data-toggle="dropdown" href="#">
         &nbsp;
         <i class="icon-white icon-envelope"></i>
         <?php $count = Auth::user()->unread_notification_count() ?>
