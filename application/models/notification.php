@@ -41,32 +41,42 @@ class Notification extends Eloquent {
       $bid = $attributes["bid"];
       $notification->fill(array('target_id' => $bid->vendor->user_id,
                                 'actor_id' => $attributes["actor_id"],
-                                'payload' => array('bid' => $bid->to_array())));
+                                'payload' => array('bid' => $bid->to_array()),
+                                'payload_type' => 'bid',
+                                'payload_id' => $bid->id));
 
     } elseif ($notification->notification_type == "Undismissal") {
       $bid = $attributes["bid"];
       $notification->fill(array('target_id' => $bid->vendor->user_id,
                                 'actor_id' => $attributes["actor_id"],
-                                'payload' => array('bid' => $bid->to_array())));
+                                'payload' => array('bid' => $bid->to_array()),
+                                'payload_type' => 'bid',
+                                'payload_id' => $bid->id));
 
     } elseif ($notification->notification_type == "Award") {
       $bid = $attributes["bid"];
       $notification->fill(array('target_id' => $bid->vendor->user_id,
                                 'actor_id' => $attributes["actor_id"],
-                                'payload' => array('bid' => $bid->to_array())));
+                                'payload' => array('bid' => $bid->to_array()),
+                                'payload_type' => 'bid',
+                                'payload_id' => $bid->id));
 
     } elseif ($notification->notification_type == "BidSubmit") {
       $bid = $attributes["bid"];
       $notification->fill(array('target_id' => $attributes["target_id"],
                                 'actor_id' => $bid->vendor->user_id,
-                                'payload' => array('bid' => $bid->to_array())));
+                                'payload' => array('bid' => $bid->to_array()),
+                                'payload_type' => 'bid',
+                                'payload_id' => $bid->id));
 
     } elseif ($notification->notification_type == "ProjectCollaboratorAdded") {
       $project = $attributes["project"];
       $officer = $attributes["officer"];
       $notification->fill(array('target_id' => $officer->user_id,
                                 'actor_id' => $attributes["actor_id"],
-                                'payload' => array('project' => $project->to_array())));
+                                'payload' => array('project' => $project->to_array()),
+                                'payload_type' => 'project',
+                                'payload_id' => $project->id));
 
     } else {
       throw new \Exception("Don't know how to handle that notification type.");
