@@ -6,12 +6,12 @@
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 
 h3 Step 1
-p
+p.readable-width
   | Create a new notice on FBO like you normally do. Be sure to use a unique solicitation number,
   | which you will need in the next step. When it comes time to enter the body, just
   | copy and paste the text below exactly as-is.
 
-textarea !{View::make('sows.partials.fbo_body')->with('project', $project)}
+input.input-xxlarge.fbo-link(type="text", value="!{View::make('sows.partials.fbo_body')->with('project', $project)}")
 
 h3 Step 2
 p Enter the solicitation number that you used on FBO.

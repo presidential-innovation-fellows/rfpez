@@ -50,6 +50,9 @@ body {
 .pagination-wrapper {
   text-align: center;
 }
+.readable-width {
+  width: 550px;
+}
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
   display: none !important;
