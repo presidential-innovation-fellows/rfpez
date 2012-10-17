@@ -29,7 +29,7 @@ class Notifications_Controller extends Base_Controller {
 
   public function action_json() {
     $return_array = array();
-    foreach(Auth::user()->notifications_received()->take(3)->get() as $notification) {
+    foreach(Auth::user()->notifications_received()->order_by('read')->take(3)->get() as $notification) {
       $return_array[] = array('object' => $notification->to_array(),
                               'parsed' => NotificationParser::parse($notification));
     }
