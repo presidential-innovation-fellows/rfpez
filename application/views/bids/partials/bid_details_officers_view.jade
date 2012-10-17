@@ -44,7 +44,7 @@
     .span6
       h4 #{$bid->vendor->company_name}
       div Contact: #{$bid->vendor->contact_name}
-      div Email: #{$bid->vendor->user->email}
+      div Email: <a href="mailto:#{$bid->vendor->user->email}">#{$bid->vendor->user->email}</a>
 
       div SAM.gov:
         - if ($bid->vendor->sam_entity_name):
