@@ -118,7 +118,7 @@ class User extends Eloquent {
   }
 
   public function notifications_received() {
-    return $this->has_many('Notification', 'target_id')->order_by('created_at', 'desc');
+    return $this->has_many('Notification', 'target_id');
   }
 
   public function notifications_sent() {
