@@ -1,10 +1,10 @@
 #  Key  Description
 #
-#   i       move selection up
-#   k       move selection down
-#   s       star selection
-#   return  open selection
-#   d       dismiss selection
+#   k         move selection up
+#   j         move selection down
+#   s         star selection
+#   o, return open selection
+#   d         dismiss selection
 
 on_mouseover_select = true
 mouseover_select_timeout = false
@@ -67,14 +67,15 @@ dismiss_selection = ->
   selected_bid = $(".bid.selected:eq(0)")
   selected_bid.find(".show-dismiss-modal, .undismiss-button").filter(":visible").click()
 
-$(document).bind 'keydown', 'i', ->
+$(document).bind 'keydown', 'k', ->
   Rfpez.move_bid_selection("up")
 
-$(document).bind 'keydown', 'k', ->
+$(document).bind 'keydown', 'j', ->
   Rfpez.move_bid_selection("down")
 
 $(document).bind 'keydown', 's', star_selection
 $(document).bind 'keydown', 'return', open_selection
+$(document).bind 'keydown', 'o', open_selection
 $(document).bind 'keydown', 'd', dismiss_selection
 
 $(document).on "mouseover.selectbidmouseover", ".bid", ->

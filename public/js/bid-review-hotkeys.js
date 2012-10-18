@@ -77,17 +77,19 @@
     return selected_bid.find(".show-dismiss-modal, .undismiss-button").filter(":visible").click();
   };
 
-  $(document).bind('keydown', 'i', function() {
+  $(document).bind('keydown', 'k', function() {
     return Rfpez.move_bid_selection("up");
   });
 
-  $(document).bind('keydown', 'k', function() {
+  $(document).bind('keydown', 'j', function() {
     return Rfpez.move_bid_selection("down");
   });
 
   $(document).bind('keydown', 's', star_selection);
 
   $(document).bind('keydown', 'return', open_selection);
+
+  $(document).bind('keydown', 'o', open_selection);
 
   $(document).bind('keydown', 'd', dismiss_selection);
 
