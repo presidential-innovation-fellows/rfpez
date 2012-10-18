@@ -21,6 +21,18 @@ class Project extends Eloquent {
                                      561410 => 'Editing & Transcription'
                                     );
 
+  public static $naics_icons = array(541430 => '/img/graphics.png',
+                                     541511 => '/img/development.png',
+                                     518210 => '/img/hosting.png',
+                                     512110 => '/img/video.png',
+                                     512191 => '/img/postproduction.png',
+                                     518210 => '/img/hosting.png',
+                                     541850 => '/img/advertising.png',
+                                     541840 => '/img/advertising.png',
+                                     541613 => '/img/marketing.png',
+                                     561410 => '/img/editing.png'
+                                    );
+
   public static $accessible = array('agency', 'office', 'naics_code', 'proposals_due_at',
                                     'body', 'title');
 

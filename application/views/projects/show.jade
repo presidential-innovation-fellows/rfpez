@@ -13,7 +13,7 @@
 
   .span5.offset1
 
-    h4 Proposals due #{RelativeTime::format($project->proposals_due_at)}
+    h4 Bids due in #{RelativeTime::format($project->proposals_due_at)}
 
     - if (Auth::vendor()):
       - if ($bid = $project->my_current_bid()):

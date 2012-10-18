@@ -10,7 +10,7 @@
     <?php echo Jade\Dumper::_html($project->body); ?>
   </div>
   <div class="span5 offset1">
-    <h4>Proposals due <?php echo Jade\Dumper::_text(RelativeTime::format($project->proposals_due_at)); ?></h4>
+    <h4>Bids due in <?php echo Jade\Dumper::_text(RelativeTime::format($project->proposals_due_at)); ?></h4>
     <?php if (Auth::vendor()): ?>
       <?php if ($bid = $project->my_current_bid()): ?>
         <a class="btn btn-small btn-primary" href="<?php echo Jade\Dumper::_text(route('bid', array($project->id, $bid->id))); ?>">View my bid</a>

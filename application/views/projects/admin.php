@@ -25,7 +25,7 @@
         <input type="text" name="project[naics_code]" value="<?php echo Jade\Dumper::_text($project->naics_code); ?>" />
       </div>
       <div class="control-group">
-        <label>Proposals Due At</label>
+        <label>Bids Due At</label>
         <input type="text" name="project[proposals_due_at]" value="<?php echo Jade\Dumper::_text($project->proposals_due_at); ?>" />
       </div>
       <div class="form-actions">

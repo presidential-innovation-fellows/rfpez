@@ -23,16 +23,31 @@
   thead
     tr
       th.project-title
-        width 45%
+        width 55%
 
       th.type
-        width 30%
+        width 8%
 
       th.agency
         width 25%
 
+      th.due
+        width 12%
+
   tbody.project
     border-top 1px solid #DDD
+
+    .project-meta
+      td
+        vertical-align middle
+
+    .project-title
+      fs 1.1em
+      fw bold
+
+    .project-description-truncated
+      width 475px
+      overflow ellipsis
 
     .admin-star
       font-size 11px

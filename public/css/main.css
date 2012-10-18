@@ -411,16 +411,33 @@ body.vendor .no-auth-only {
   margin-top: 25px;
 }
 .projects-table thead tr th.project-title {
-  width: 45%;
+  width: 55%;
 }
 .projects-table thead tr th.type {
-  width: 30%;
+  width: 8%;
 }
 .projects-table thead tr th.agency {
   width: 25%;
 }
+.projects-table thead tr th.due {
+  width: 12%;
+}
 .projects-table tbody.project {
   border-top: 1px solid #ddd;
+}
+.projects-table tbody.project .project-meta td {
+  vertical-align: middle;
+}
+.projects-table tbody.project .project-title {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+.projects-table tbody.project .project-description-truncated {
+  width: 475px;
+  white-space: nowrap;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 .projects-table tbody.project .admin-star {
   font-size: 11px;

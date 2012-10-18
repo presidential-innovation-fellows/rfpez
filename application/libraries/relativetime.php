@@ -17,7 +17,7 @@ Class RelativeTime {
       $tense = "ago";
     } else {
       $difference = $unix_date - $now;
-      $tense  = "from now";
+      $tense  = "";
     }
 
     for($j = 0; $difference >= $lengths[$j] && $j < count($lengths)-1; $j++) {

@@ -10,15 +10,18 @@
 table.table.projects-table
   thead
     tr
-      th.project-title Project Title
       th.type Type
+      th.project-title Project Title
       th.agency Agency
+      th.agency Bids Due
 
   - foreach($projects as $project):
     tbody.project
-      tr
+      tr.project-meta
         td
-          a(href="#{route('project', array($project->id))}") #{$project->title}
+          img(src="#{@Project::$naics_icons[$project->naics_code]}", title="#{@Project::$naics_codes[$project->naics_code] ?: $project->naics_code", alt="#{@Project::$naics_codes[$project->naics_code] ?: $project->naics_code}")
+        td
+          a.project-title(href="#{route('project', array($project->id))}") #{$project->title}
           - if ($project->is_mine()):
             span.admin-star
               i.icon-star
@@ -33,15 +36,11 @@ table.table.projects-table
               - else:
                 a(href="#{route('new_bids', array($project->id))}") Continue Writing Bid
               - endif;
+          - endif;
 
-        td #{@Project::$naics_codes[$project->naics_code] ?: $project->naics_code}
+          p.project-description-truncated #{$project->sow->background_and_scope()}
+
         td #{$project->agency}
 
-      tr.project-details
-        td(colspan="3") #{$project->sow->background_and_scope()}
-
-      tr.deliverables
-        td(colspan="3")
-          strong Deliverables:
-          #{$project->parsed_deliverables_list()}
+        td #{RelativeTime::format($project->proposals_due_at)}
 

@@ -9,16 +9,20 @@
 <table class="table projects-table">
   <thead>
     <tr>
-      <th class="project-title">Project Title</th>
       <th class="type">Type</th>
+      <th class="project-title">Project Title</th>
       <th class="agency">Agency</th>
+      <th class="agency">Bids Due</th>
     </tr>
   </thead>
   <?php foreach($projects as $project): ?>
     <tbody class="project">
-      <tr>
+      <tr class="project-meta">
         <td>
-          <a href="<?php echo Jade\Dumper::_text(route('project', array($project->id))); ?>"><?php echo Jade\Dumper::_text($project->title); ?></a>
+          <img src="<?php echo Jade\Dumper::_text(@Project::$naics_icons[$project->naics_code]); ?>" title="#{@Project::$naics_codes[$project->naics_code] ?: $project->naics_code" alt="<?php echo Jade\Dumper::_text(@Project::$naics_codes[$project->naics_code] ?: $project->naics_code); ?>" />
+        </td>
+        <td>
+          <a class="project-title" href="<?php echo Jade\Dumper::_text(route('project', array($project->id))); ?>"><?php echo Jade\Dumper::_text($project->title); ?></a>
           <?php if ($project->is_mine()): ?>
             <span class="admin-star">
               <i class="icon-star"></i>
@@ -35,19 +39,10 @@
               <?php endif; ?>
             </span>
           <?php endif; ?>
+          <p class="project-description-truncated"><?php echo Jade\Dumper::_text($project->sow->background_and_scope()); ?></p>
         </td>
-        <td><?php echo Jade\Dumper::_text(@Project::$naics_codes[$project->naics_code] ?: $project->naics_code); ?></td>
         <td><?php echo Jade\Dumper::_text($project->agency); ?></td>
-      </tr>
-      <tr class="project-details">
-        <td colspan="3"><?php echo Jade\Dumper::_text($project->sow->background_and_scope()); ?></td>
-      </tr>
-      <tr class="deliverables">
-        <td colspan="3">
-          <strong>Deliverables:
-</strong>
-          <?php echo Jade\Dumper::_text($project->parsed_deliverables_list()); ?>
-        </td>
+        <td><?php echo Jade\Dumper::_text(RelativeTime::format($project->proposals_due_at)); ?></td>
       </tr>
     </tbody>
   <?php endforeach; ?>
