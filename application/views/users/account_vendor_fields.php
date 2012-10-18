@@ -88,7 +88,10 @@
       <h3>Contact Info</h3>
     <?php endif; ?>
     <div class="control-group">
-      <label>DUNS Number</label>
+      <label>
+        DUNS Number
+        <a class="explain-duns-link" href="#explain-duns-modal" data-toggle="modal">what's this?</a>
+      </label>
       <input type="text" name="vendor[duns]" value="<?php echo Jade\Dumper::_text( $vendor['duns'] ); ?>" />
     </div>
     <?php if (!$signup): ?>
@@ -138,6 +141,7 @@
     <div class="control-group">
       <label>Zip</label>
       <input type="text" name="vendor[zip]" value="<?php echo Jade\Dumper::_text( $vendor['zip'] ); ?>" />
+      <form></form>
     </div>
   </fieldset>
 </div>

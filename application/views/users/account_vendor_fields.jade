@@ -87,6 +87,7 @@
 
     .control-group
       label DUNS Number
+        a.explain-duns-link(href="#explain-duns-modal", data-toggle="modal") what's this?
       input(type="text", name="vendor[duns]", value="#{ $vendor['duns'] }")
 
     - if (!$signup):
@@ -132,4 +133,4 @@
 
     .control-group
       label Zip
-      input(type="text", name="vendor[zip]", value="#{ $vendor['zip'] }")
+      input(type="text", name="vendor[zip]", value="#{ $vendor['zip'] }")form

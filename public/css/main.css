@@ -449,8 +449,10 @@ body.vendor .no-auth-only {
 .projects-table tr td {
   border: 0;
 }
-.vendor-image-form-row {
-  margin-top: 30px;
+.explain-duns-link {
+  text-decoration: underline;
+  padding-left: 10px;
+  font-size: 0.9em;
 }
 .nav-right-text {
   padding: 10px 0 10px 0;
