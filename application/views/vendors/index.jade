@@ -1,18 +1,19 @@
 - Section::inject('page_title', 'Browse Vendors')
+- Section::inject('current_page', 'vendors-index')
 
 .vendors-wrapper
   .vendors
     - foreach($vendors as $vendor):
       .media.vendor.well
         .company-name.pull-left
-          a(href="#{route('vendor', array($vendor->id))}") #{$vendor->company_name}
+          a(href="#{route('vendor', array($vendor->id))}", data-pjax) #{$vendor->company_name}
 
         .ballpark-price.pull-right #{$vendor->ballpark_price_display()}
 
         .clearfix
 
         .vendor-image-preview-frame
-          a(href="#{route('vendor', array($vendor->id))}")
+          a(href="#{route('vendor', array($vendor->id))}", data-pjax)
             img(src="#{$vendor->image_url}")
 
         .more-info #{$vendor->more_info}
@@ -22,9 +23,3 @@
     <?= HTML::image('img/spinner.gif') ?>
 
   .finished-loading-text You're currently viewing all vendors.
-
-<?php Section::start('additional_scripts') ?>
-
-<?= HTML::script('js/infinite-vendor-scroll.js') ?>
-
-<?php Section::stop() ?>

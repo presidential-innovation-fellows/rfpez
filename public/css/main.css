@@ -276,10 +276,18 @@ body.vendor .no-auth-only {
   min-height: 70px;
   width: 100%;
 }
-.dsbs-certifications .loading-text {
+.dsbs-certifications tbody.loading,
+.dsbs-certifications tbody.no-certs {
   display: none;
 }
-.dsbs-certifications.loading .loading-text {
+.dsbs-certifications.loading tbody.certs,
+.dsbs-certifications.no-certs tbody.certs {
+  display: none;
+}
+.dsbs-certifications.loading tbody.loading {
+  display: block;
+}
+.dsbs-certifications.no-certs tbody.no-certs {
   display: block;
 }
 #notifications-dropdown {

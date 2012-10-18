@@ -1,9 +1,16 @@
 <div class="dsbs-certifications loading" data-dsbs-user-id="<?php echo Jade\Dumper::_text($user_id); ?>" data-defer="<?php echo Jade\Dumper::_text(isset($defer) ? 'true' : 'false'); ?>">
   <table class="table table-bordered">
-    <tbody>
-      <tr class="loading-text">
+    <tbody class="loading">
+      <tr>
         <td colspan="2">Certifications loading...</td>
       </tr>
+    </tbody>
+    <tbody class="no-certs">
+      <tr>
+        <td colspan="2">No record found.</td>
+      </tr>
+    </tbody>
+    <tbody class="certs">
       <tr>
         <th>vietnam</th>
         <td data-key="vietnam"></td>

@@ -5,6 +5,9 @@
     var el;
     e.preventDefault();
     el = $(this);
+    if (!el.find("textarea").val()) {
+      return;
+    }
     return el.ajaxSubmit({
       success: function(data) {
         var new_comment;

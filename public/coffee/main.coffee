@@ -16,6 +16,9 @@ $(document).on "submit", "#new-contract-form", (e) ->
 $(document).on "click", "[data-select-text-on-focus]", (e) ->
   $(this).select()
 
-$ ->
+$(document).on "click", "a[data-pjax]", (e) ->
+  $.pjax.click e, "#pjax-container"
+
+$(document).on "ready pjax:success", ->
   $("[data-onload-focus]:eq(0)").focus()
   $("span.timeago").timeago()

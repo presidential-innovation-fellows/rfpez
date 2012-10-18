@@ -37,7 +37,7 @@
     });
   });
 
-  $(function() {
+  $(document).on("ready pjax:success", function() {
     var typeahead_searching;
     typeahead_searching = false;
     return $("#add-collaborator-form input[name=email]").typeahead({

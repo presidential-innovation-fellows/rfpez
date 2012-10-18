@@ -4,14 +4,14 @@ div.nav-collapse.collapse
   ul.nav
     - if (Auth::user()->officer):
       li
-        a(href="#{ route('vendors') }") Vendors
+        a(href="#{ route('vendors') }", data-pjax) Vendors
       li
-        a(href="#{ route('my_projects') }") Projects
+        a(href="#{ route('my_projects') }", data-pjax) Projects
     - else:
       li
-        a(href="#{ route('my_bids') }") Bids
+        a(href="#{ route('my_bids') }", data-pjax) Bids
       li
-        a(href="#{ route('projects') }") Projects
+        a(href="#{ route('projects') }", data-pjax) Projects
     - endif;
 
   ul.nav.pull-right
@@ -22,9 +22,9 @@ div.nav-collapse.collapse
 
       ul.dropdown-menu
         li
-          a(href="#{route('account')}") Account Settings
+          a(href="#{route('account')}", data-pjax) Account Settings
         li
-          a(href="#{ route('signout') }") Sign Out
+          a(href="#{ route('signout') }", data-pjax) Sign Out
 
     li.dropdown.notification-nav-item
       a#notifications-dropdown-trigger.dropdown-toggle(data-toggle="dropdown", href="#")
@@ -42,7 +42,7 @@ div.nav-collapse.collapse
 
   ul.nav
     li
-      a(href="#{ route('projects') }") Browse Projects
+      a(href="#{ route('projects') }", data-pjax) Browse Projects
 
   ul.nav.pull-right
     li

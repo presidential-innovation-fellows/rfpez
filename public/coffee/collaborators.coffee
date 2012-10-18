@@ -24,7 +24,8 @@ $(document).on "click", ".remove-collaborator-button", (e) ->
     success: ->
       el.closest("tr").remove()
 
-$ ->
+$(document).on "ready pjax:success", ->
+
   typeahead_searching = false
 
   $("#add-collaborator-form input[name=email]").typeahead

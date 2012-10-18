@@ -133,17 +133,17 @@ class User extends Eloquent {
   }
 
   public function view_notification_payload($key, $val, $mark_as) {
-    $notification = $this->notifications_received()
-                         ->where_payload_type($key)
-                         ->where_payload_id($val)
-                         ->first();
+    $notifications = $this->notifications_received()
+                          ->where_payload_type($key)
+                          ->where_payload_id($val)
+                          ->get();
 
-    if (!$notification) return;
+    if (count($notifications) == 0) return;
 
     if ($mark_as == "read") {
-      $notification->mark_as_read();
+      foreach($notifications as $notification) $notification->mark_as_read();
     } else {
-      $notification->mark_as_unread();
+      foreach($notifications as $notification) $notification->mark_as_unread();
     }
   }
 

@@ -22,7 +22,7 @@ form.form-horizontal(action="#{ route('signin') }", method="POST")
   .control-group
     label.control-label &nbsp;
     .controls
-      a(href="#{route('forgot_password')}") Forgot Password?
+      a(href="#{route('forgot_password')}", data-pjax) Forgot Password?
 
   .form-actions
     button.btn.btn-primary(type='submit') Sign In

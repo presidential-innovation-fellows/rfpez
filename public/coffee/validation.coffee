@@ -13,7 +13,7 @@ $.validator.addMethod 'urladdhttp', (value, element) ->
 , 'Please enter a valid URL.'
 
 
-$ ->
+$(document).on "ready pjax:success", ->
 
   $(".new-bid-form").validate_rfpez
     rules:

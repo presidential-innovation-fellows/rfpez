@@ -1,8 +1,6 @@
 <?php Section::inject('page_title', $project->title) ?>
 <?php Section::inject('page_action', 'New Bid') ?>
-<?php Section::start('additional_scripts') ?>
-<?= HTML::script('js/save-bid-draft.js') ?>
-<?php Section::stop() ?>
+<?php Section::inject('current_page', 'new-bid') ?>
 <div class="row">
   <div class="span6">
     <?php echo Jade\Dumper::_html( $project->body ); ?>

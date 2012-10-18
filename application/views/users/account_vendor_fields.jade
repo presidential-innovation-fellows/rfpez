@@ -76,10 +76,10 @@
       h3 Credentials
 
       label.larger #{Auth::user()->email}
-        a.smaller(href="#{route('change_email')}") change email
+        a.smaller(href="#{route('change_email')}", data-pjax) change email
 
       label.larger (password hidden)
-        a.smaller(href="#{route('change_password')}") change password
+        a.smaller(href="#{route('change_password')}", data-pjax) change password
 
       h3 Contact Info
 

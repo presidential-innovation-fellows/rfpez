@@ -20,6 +20,7 @@ Basset::scripts('website', function($basset)
          ->add('jqueryvalidaterfpez', 'js/vendor/jquery.validate_rfpez.js')
          ->add('jqueryform', 'js/vendor/jquery.form.js')
          ->add('jqueryhotkeys', 'js/vendor/jquery.hotkeys.js')
+         ->add('jquerypjax', 'js/vendor/jquery.pjax.js')
          ->add('flashbutton', 'js/flash-button.js')
          ->add('main', 'js/main.js')
          ->add('question-and-answer', 'js/question-and-answer.js')
@@ -32,6 +33,9 @@ Basset::scripts('website', function($basset)
          ->add('sows', 'js/sows.js')
          ->add('notifications', 'js/notifications.js')
          ->add('dsbs-lookup', 'js/dsbs-lookup.js')
+         ->add('infinite-vendor-scroll', 'js/infinite-vendor-scroll.js')
+         ->add('save-bid-draft', 'js/save-bid-draft.js')
+         ->add('bid-review-hotkeys', 'js/bid-review-hotkeys.js')
          ->add('project-comments', 'js/project-comments.js');
 });
 

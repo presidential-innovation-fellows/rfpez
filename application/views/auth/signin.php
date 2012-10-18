@@ -24,7 +24,7 @@
   <div class="control-group">
     <label class="control-label">&nbsp;</label>
     <div class="controls">
-      <a href="<?php echo Jade\Dumper::_text(route('forgot_password')); ?>">Forgot Password?</a>
+      <a href="<?php echo Jade\Dumper::_text(route('forgot_password')); ?>" data-pjax="data-pjax">Forgot Password?</a>
     </div>
   </div>
   <div class="form-actions">

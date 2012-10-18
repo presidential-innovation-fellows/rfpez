@@ -27,7 +27,11 @@
     return $(this).select();
   });
 
-  $(function() {
+  $(document).on("click", "a[data-pjax]", function(e) {
+    return $.pjax.click(e, "#pjax-container");
+  });
+
+  $(document).on("ready pjax:success", function() {
     $("[data-onload-focus]:eq(0)").focus();
     return $("span.timeago").timeago();
   });

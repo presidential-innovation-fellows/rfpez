@@ -5,6 +5,6 @@
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 !{View::make('bids.partials.dismiss_modal')}
 
-a(href="#{route('review_bids', array($project->id))}") &larr; Back to bid review list
+a(href="#{route('review_bids', array($project->id))}", data-pjax) &larr; Back to bid review list
 h1 Bid from #{$bid->vendor->company_name}
 !{View::make('bids.partials.bid_details_officers_view')->with('bid', $bid)}

@@ -1,7 +1,7 @@
 - Section::inject('page_title', $bid->project->title)
 - Section::inject('page_action', 'Show Bid')
 
-a(href="#{route('project', array($project->id))}") &larr; Back to project page
+a(href="#{route('project', array($project->id))}", data-pjax) &larr; Back to project page
 
 .row
   .span6

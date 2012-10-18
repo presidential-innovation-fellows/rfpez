@@ -1,8 +1,12 @@
 .dsbs-certifications.loading(data-dsbs-user-id="#{$user_id}", data-defer="#{isset($defer) ? 'true' : 'false'}")
   table.table.table-bordered
-    tbody
-      tr.loading-text
+    tbody.loading
+      tr
         td(colspan="2") Certifications loading...
+    tbody.no-certs
+      tr
+        td(colspan="2") No record found.
+    tbody.certs
       tr
         th vietnam
         td(data-key="vietnam")

@@ -106,7 +106,7 @@
   $(document).bind('keydown', 'u', toggle_unread_selection);
 
   $(document).on("mouseover.selectbidmouseover", ".bid", function() {
-    if (on_mouseover_select) {
+    if ($("#current-page").val() === "bid-review" && on_mouseover_select) {
       return Rfpez.select_bid($(this), false);
     }
   });
