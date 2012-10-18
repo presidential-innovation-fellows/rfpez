@@ -9,11 +9,11 @@
 <?php else: ?>
   <label class="larger">
     <?php echo Jade\Dumper::_text(Auth::user()->email); ?>
-    <a class="smaller" href="<?php echo Jade\Dumper::_text(route('change_email')); ?>">change email</a>
+    <a class="smaller" href="<?php echo Jade\Dumper::_text(route('change_email')); ?>" data-pjax="data-pjax">change email</a>
   </label>
   <label class="larger">
     (password hidden)
-    <a class="smaller" href="<?php echo Jade\Dumper::_text(route('change_password')); ?>">change password</a>
+    <a class="smaller" href="<?php echo Jade\Dumper::_text(route('change_password')); ?>" data-pjax="data-pjax">change password</a>
   </label>
 <?php endif; ?>
 <div class="control-group">

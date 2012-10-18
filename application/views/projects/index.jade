@@ -1,7 +1,7 @@
 - Section::inject('page_title', (Auth::officer() ? 'Everybody\'s Projects' : 'Projects' ))
 
 - Section::start('inside_header');
-  a.officer-only.toggle-my-all-projects(href="#{route('my_projects')}") my projects only
+  a.officer-only.toggle-my-all-projects(href="#{route('my_projects')}", data-pjax) my projects only
   .search-projects.pull-right
     input.search-query#filter-projects-input(type="search", placeholder="Filter projects...")
 
@@ -18,20 +18,20 @@ table.table.projects-table
     tbody.project
       tr
         td
-          a(href="#{route('project', array($project->id))}") #{$project->title}
+          a(href="#{route('project', array($project->id))}", data-pjax) #{$project->title}
           - if ($project->is_mine()):
             span.admin-star
               i.icon-star
-              a(href="#{route('review_bids', array($project->id))}") Review Bids
+              a(href="#{route('review_bids', array($project->id))}", data-pjax) Review Bids
           - endif;
 
           - if ($bid = $project->my_bid()):
             span.admin-star
               i.icon-star
               - if ($bid->submitted_at):
-                a(href="#{route('bid', array($project->id, $project->my_bid()->id))}") View my bid
+                a(href="#{route('bid', array($project->id, $project->my_bid()->id))}", data-pjax) View my bid
               - else:
-                a(href="#{route('new_bids', array($project->id))}") Continue Writing Bid
+                a(href="#{route('new_bids', array($project->id))}", data-pjax) Continue Writing Bid
               - endif;
 
         td #{@Project::$naics_codes[$project->naics_code] ?: $project->naics_code}

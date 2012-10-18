@@ -17,4 +17,4 @@ h1 #{$sow->title}
 
     h4 Post to FBO
     p Are you a contracting officer? If this SOW is ready, post it to FBO to get the EasyBid process rolling.
-    a.btn.btn-info(href="#{route('project_post_on_fbo', array($sow->project->id))}") Post to FBO
+    a.btn.btn-info(href="#{route('project_post_on_fbo', array($sow->project->id))}", data-pjax) Post to FBO

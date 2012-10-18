@@ -11,10 +11,10 @@
       - foreach($bids as $bid):
         tr(class="bid bid-#{strtolower($bid->status)}")
           td
-            a(href="#{$bid->submitted_at ? route('bid', array($bid->project->id, $bid->id)) : route('new_bids', array($bid->project->id))}") #{$bid->project->title}
+            a(href="#{$bid->submitted_at ? route('bid', array($bid->project->id, $bid->id)) : route('new_bids', array($bid->project->id))}", data-pjax) #{$bid->project->title}
           td $#{$bid->total_price()}
           td.status #{$bid->status}
 
 - else:
   p No bids.
-  p:a.btn.btn-success(href="#{route('projects')") Find some projects!
+  p:a.btn.btn-success(href="#{route('projects')", data-pjax) Find some projects!
