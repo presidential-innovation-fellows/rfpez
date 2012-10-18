@@ -11,18 +11,24 @@
   <table class="table my-project-table">
     <thead>
       <tr>
-        <th>Project</th>
-        <th>Status</th>
-        <th>Actions</th>
+        <th class="type"></th>
+        <th class="project-title">Project</th>
+        <th class="status">Status</th>
+        <th class="due">Bids Due</th>
+        <th class="actions">Actions</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="project">
       <?php foreach($projects as $project): ?>
-        <tr>
+        <tr class="project-meta">
           <td>
-            <a href="<?php echo Jade\Dumper::_text( route('project', array($project->id)) ); ?>" data-pjax="data-pjax"><?php echo Jade\Dumper::_text($project->title); ?></a>
+            <img class="my-project-icon" src="<?php echo Jade\Dumper::_text(@Project::$naics_icons[$project->naics_code]); ?>" title="#{@Project::$naics_codes[$project->naics_code] ?: $project->naics_code" alt="<?php echo Jade\Dumper::_text(@Project::$naics_codes[$project->naics_code] ?: $project->naics_code); ?>" />
+          </td>
+          <td>
+            <a class="project-title" href="<?php echo Jade\Dumper::_text( route('project', array($project->id)) ); ?>" data-pjax="data-pjax"><?php echo Jade\Dumper::_text($project->title); ?></a>
           </td>
           <td><?php echo Jade\Dumper::_text($project->status_text()); ?></td>
+          <td><?php echo Jade\Dumper::_text(RelativeTime::format($project->proposals_due_at)); ?></td>
           <td>
             <a class="btn btn-mini" href="<?php echo Jade\Dumper::_text( route('project_admin', array($project->id)) ); ?>" data-pjax="data-pjax">Admin</a>
           </td>

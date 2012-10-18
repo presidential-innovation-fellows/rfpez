@@ -12,7 +12,7 @@
       <th class="type">Type</th>
       <th class="project-title">Project Title</th>
       <th class="agency">Agency</th>
-      <th class="agency">Bids Due</th>
+      <th class="due">Bids Due</th>
     </tr>
   </thead>
   <?php foreach($projects as $project): ?>

@@ -394,13 +394,6 @@ body.vendor .no-auth-only {
 .notification-item:hover .mark-as-unread {
   display: block;
 }
-.project-list {
-  list-style: none;
-  font-size: 1.4em;
-}
-.project-list li {
-  margin-bottom: 1.3em;
-}
 .project-subnav {
   margin-top: 25px;
 }
@@ -415,14 +408,33 @@ body.vendor .no-auth-only {
 .my-project-table {
   margin-top: 25px;
 }
+.my-project-table thead tr th.type {
+  width: 5%;
+}
+.my-project-table thead tr th.project-title {
+  width: 49%;
+}
+.my-project-table thead tr th.status {
+  width: 19%;
+}
+.my-project-table thead tr th.due {
+  width: 18%;
+}
+.my-project-table thead tr th.actions {
+  width: 9%;
+}
+.my-project-table img.my-project-icon {
+  width: 24px;
+  height: 24px;
+}
 .projects-table {
   margin-top: 25px;
 }
-.projects-table thead tr th.project-title {
-  width: 55%;
-}
 .projects-table thead tr th.type {
   width: 8%;
+}
+.projects-table thead tr th.project-title {
+  width: 55%;
 }
 .projects-table thead tr th.agency {
   width: 25%;
@@ -430,32 +442,32 @@ body.vendor .no-auth-only {
 .projects-table thead tr th.due {
   width: 12%;
 }
-.projects-table tbody.project {
+.projects-table tr td {
+  border: 0;
+}
+tbody.project {
   border-top: 1px solid #ddd;
 }
-.projects-table tbody.project .project-meta td {
+tbody.project .project-meta td {
   vertical-align: middle;
 }
-.projects-table tbody.project .project-title {
+tbody.project .project-title {
   font-size: 1.1em;
   font-weight: bold;
 }
-.projects-table tbody.project .project-description-truncated {
+tbody.project .project-description-truncated {
   width: 475px;
   white-space: nowrap;
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
-.projects-table tbody.project .admin-star {
+tbody.project .admin-star {
   font-size: 11px;
 }
-.projects-table tbody.project .admin-star i {
+tbody.project .admin-star i {
   line-height: 12px;
   margin-top: -1px;
-}
-.projects-table tr td {
-  border: 0;
 }
 .explain-duns-link {
   text-decoration: underline;
