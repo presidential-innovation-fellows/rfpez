@@ -27,8 +27,8 @@ class Project extends Eloquent {
                                      512110 => '/img/video.png',
                                      512191 => '/img/postproduction.png',
                                      518210 => '/img/hosting.png',
-                                     541850 => '/img/advertising.png',
-                                     541840 => '/img/advertising.png',
+                                     541850 => '/img/ad.png',
+                                     541840 => '/img/ad.png',
                                      541613 => '/img/marketing.png',
                                      561410 => '/img/editing.png'
                                     );
