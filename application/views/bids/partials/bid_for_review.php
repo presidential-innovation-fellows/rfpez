@@ -29,7 +29,7 @@
               <em>Dismissed: <?php echo Jade\Dumper::_text($bid->dismissal_reason); ?></em>
             </div>
           <?php else: ?>
-            <a class="btn btn-warning show-dismiss-modal" data-move-to-table="true">Dismiss?</a>
+            <a class="btn btn-warning show-dismiss-modal" data-move-to-table="true">Dismiss</a>
             <?php if (!$bid->project->winning_bid()): ?>
               <a class="btn btn-primary show-award-modal" data-move-to-table="true">Award</a>
             <?php endif; ?>

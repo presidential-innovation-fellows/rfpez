@@ -24,7 +24,7 @@ tbody(class="bid #{$unread ? 'unread' : ''}", data-project-id="#{$bid->project->
             div
               em Dismissed: #{$bid->dismissal_reason}
           - else:
-            a(class="btn btn-warning show-dismiss-modal", data-move-to-table="true") Dismiss?
+            a(class="btn btn-warning show-dismiss-modal", data-move-to-table="true") Dismiss
             - if (!$bid->project->winning_bid()):
               a(class="btn btn-primary show-award-modal", data-move-to-table="true") Award
             - endif;
