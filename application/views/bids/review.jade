@@ -3,6 +3,10 @@
 - Section::inject('active_subnav', 'review_bids')
 - Section::inject('no_page_header', true)
 
+- Section::start('additional_scripts');
+!{HTML::script('js/bid-review-hotkeys.js')}
+- Section::stop();
+
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 !{View::make('bids.partials.dismiss_modal')}
 !{View::make('bids.partials.award_modal')->with('project', $project)}
