@@ -26,7 +26,7 @@ Rfpez.view_notification_payload = (key, val, mark_as) ->
 render_notification = (notification) ->
   """
   <li class="notification #{if notification.object.read is '0' then 'unread' else 'read'}">
-    <a href="#{notification.parsed.link}">
+    <a href="#{notification.parsed.link}" data-pjax>
       <span class="line1">#{notification.parsed.subject}</span>
       <span class="timeago" title="#{notification.parsed.timestamp}"></span>
     </a>
@@ -73,7 +73,7 @@ $(document).on "ready pjax:success", ->
           $(data.results).each ->
             str += render_notification(this)
           str += """
-            <li class="view-all"><a href="/notifications">view all #{data.count} notifications</a></li>
+            <li class="view-all"><a href="/notifications" data-pjax>view all #{data.count} notifications</a></li>
           """
           $("#notifications-dropdown").removeClass("loading")
           $("#notifications-dropdown").html(str)
