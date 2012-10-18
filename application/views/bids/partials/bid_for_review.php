@@ -13,7 +13,7 @@
         <i class="icon-star-empty"></i>
       </a>
     </td>
-    <td>
+    <td class="bid-vendor-td">
       <a data-toggle="collapse" data-target="#bid<?php echo Jade\Dumper::_text($bid->id); ?>"><?php echo Jade\Dumper::_text($bid->vendor->company_name); ?></a>
       <?php if ($bid->awarded_at): ?>
         <span class="label label-success">Winning Bid!</span>

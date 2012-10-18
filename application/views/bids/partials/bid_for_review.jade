@@ -10,7 +10,7 @@ tbody(class="bid #{$unread ? 'unread' : ''}", data-project-id="#{$bid->project->
         i.icon-star
       a.btn.btn-mini.star-button
         i.icon-star-empty
-    td
+    td.bid-vendor-td
       a(data-toggle="collapse", data-target="#bid#{$bid->id}") #{$bid->vendor->company_name}
       - if ($bid->awarded_at):
         span.label.label-success Winning Bid!

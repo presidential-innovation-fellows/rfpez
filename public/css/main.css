@@ -132,6 +132,12 @@ body.vendor .no-auth-only {
   padding-right: 5px;
   width: 20px;
 }
+.bids-table .bid .bid-vendor-td a {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: block;
+  width: 100%;
+}
 .bids-table .bid .star-td {
   padding-left: 0;
 }
