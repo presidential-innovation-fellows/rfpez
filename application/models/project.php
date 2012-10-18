@@ -58,7 +58,7 @@ class Project extends Eloquent {
   }
 
   public function questions() {
-    return $this->has_many('Question');
+    return $this->has_many('Question')->order_by('created_at', 'desc');
   }
 
   public function is_mine() {
