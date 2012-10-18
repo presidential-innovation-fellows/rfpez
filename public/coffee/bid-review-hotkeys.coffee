@@ -67,6 +67,13 @@ dismiss_selection = ->
   selected_bid = $(".bid.selected:eq(0)")
   selected_bid.find(".show-dismiss-modal, .undismiss-button").filter(":visible").click()
 
+toggle_unread_selection = ->
+  selected_bid = $(".bid.selected:eq(0)")
+  if selected_bid.find(".mark-as-read").is(":visible")
+    selected_bid.find(".mark-as-read").click()
+  else
+    selected_bid.find(".mark-as-unread").click()
+
 $(document).bind 'keydown', 'k', ->
   Rfpez.move_bid_selection("up")
 
@@ -77,6 +84,7 @@ $(document).bind 'keydown', 's', star_selection
 $(document).bind 'keydown', 'return', open_selection
 $(document).bind 'keydown', 'o', open_selection
 $(document).bind 'keydown', 'd', dismiss_selection
+$(document).bind 'keydown', 'u', toggle_unread_selection
 
 $(document).on "mouseover.selectbidmouseover", ".bid", ->
   if on_mouseover_select then Rfpez.select_bid($(this), false)
