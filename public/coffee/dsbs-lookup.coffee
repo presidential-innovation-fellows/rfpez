@@ -1,4 +1,5 @@
-$ ->
+$(document).on "ready pjax:success", ->
+
   $("[data-dsbs-user-id]").each ->
     el = $(this)
     user_id = el.data('dsbs-user-id')
@@ -8,11 +9,14 @@ $ ->
         dataType: "json"
         success: (data) ->
           result = data.results[0]
-          return if !result
-          if result.user_id is user_id
+          if !result
             el.removeClass('loading')
-            for key of result
-              el.find("[data-key=#{key}]").text(result[key])
+            el.addClass('no-certs')
+          else
+            if result.user_id is user_id
+              el.removeClass('loading')
+              for key of result
+                el.find("[data-key=#{key}]").text(result[key])
 
 
     if el.data('defer') is false

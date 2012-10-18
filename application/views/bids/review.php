@@ -2,9 +2,7 @@
 <?php Section::inject('page_action', "Review Bids") ?>
 <?php Section::inject('active_subnav', 'review_bids') ?>
 <?php Section::inject('no_page_header', true) ?>
-<?php Section::start('additional_scripts'); ?>
-<?php echo Jade\Dumper::_html(HTML::script('js/bid-review-hotkeys.js')); ?>
-<?php Section::stop(); ?>
+<?php Section::inject('current_page', 'bid-review') ?>
 <?php echo Jade\Dumper::_html(View::make('projects.partials.toolbar')->with('project', $project)); ?>
 <?php echo Jade\Dumper::_html(View::make('bids.partials.dismiss_modal')); ?>
 <?php echo Jade\Dumper::_html(View::make('bids.partials.award_modal')->with('project', $project)); ?>

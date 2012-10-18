@@ -42,6 +42,10 @@
     });
   };
 
-  $(document).on('ready scroll', check_for_scroll_position);
+  $(document).on('ready scroll', function() {
+    if ($("#current-page").val() === 'vendors-index') {
+      return check_for_scroll_position();
+    }
+  });
 
 }).call(this);

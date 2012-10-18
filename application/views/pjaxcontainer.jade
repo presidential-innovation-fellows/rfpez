@@ -1,0 +1,35 @@
+input#current-page(type="hidden", value="#{Section::yield('current_page')}")
+
+.navbar.navbar-static-top
+  .navbar-inner
+    .container
+      a(class="brand", href="#{route('root')}") EasyBid
+
+      !{View::make('partials.topnav')}
+
+
+.container
+
+  - if (Auth::guest()):
+    !{View::make('partials.signin_modal')}
+  - endif;
+
+  - if (Session::has('errors')):
+    .alert.alert-error
+      ul
+        - foreach(Session::get('errors') as $error):
+          li #{$error}
+  - endif;
+
+  - if (Session::has('notice')):
+    .alert.alert-success #{Session::get('notice')}
+  - endif;
+
+  - if (!Section::yield('no_page_header'))
+    h4 #{Section::yield('page_title')}
+      | !{Section::yield('inside_header')}
+
+  !{Section::yield('subnav')}
+
+  !{$content}
+

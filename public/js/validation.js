@@ -17,7 +17,7 @@
     }
   }, 'Please enter a valid URL.');
 
-  $(function() {
+  $(document).on("ready pjax:success", function() {
     $(".new-bid-form").validate_rfpez({
       rules: {
         "bid[approach]": {

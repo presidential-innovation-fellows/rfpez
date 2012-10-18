@@ -1,4 +1,5 @@
-$ ->
+$(document).on "ready pjax:success", ->
+
   $('.datepicker').datepicker
     autoclose: true
 
@@ -86,6 +87,3 @@ $(document).on "click", "#add-custom-choice-btn", (e) ->
 
 $(document).on "click", ".custom-choices li a", ->
   $(this).closest("li").remove()
-
-$(document).on "click", ".select-on-click", ->
-  $(this).select()

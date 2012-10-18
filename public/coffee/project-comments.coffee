@@ -1,6 +1,7 @@
 $(document).on "submit", "#add-comment-form", (e) ->
   e.preventDefault()
   el = $(this)
+  return if !el.find("textarea").val()
   el.ajaxSubmit
     success: (data) ->
       if data.status is "success"

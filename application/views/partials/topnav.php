@@ -3,17 +3,17 @@
   <ul class="nav">
     <?php if (Auth::user()->officer): ?>
       <li>
-        <a href="<?php echo Jade\Dumper::_text( route('vendors') ); ?>">Vendors</a>
+        <a href="<?php echo Jade\Dumper::_text( route('vendors') ); ?>" data-pjax="data-pjax">Vendors</a>
       </li>
       <li>
-        <a href="<?php echo Jade\Dumper::_text( route('my_projects') ); ?>">Projects</a>
+        <a href="<?php echo Jade\Dumper::_text( route('my_projects') ); ?>" data-pjax="data-pjax">Projects</a>
       </li>
     <?php else: ?>
       <li>
-        <a href="<?php echo Jade\Dumper::_text( route('my_bids') ); ?>">Bids</a>
+        <a href="<?php echo Jade\Dumper::_text( route('my_bids') ); ?>" data-pjax="data-pjax">Bids</a>
       </li>
       <li>
-        <a href="<?php echo Jade\Dumper::_text( route('projects') ); ?>">Projects</a>
+        <a href="<?php echo Jade\Dumper::_text( route('projects') ); ?>" data-pjax="data-pjax">Projects</a>
       </li>
     <?php endif; ?>
   </ul>
@@ -25,10 +25,10 @@
       </a>
       <ul class="dropdown-menu">
         <li>
-          <a href="<?php echo Jade\Dumper::_text(route('account')); ?>">Account Settings</a>
+          <a href="<?php echo Jade\Dumper::_text(route('account')); ?>" data-pjax="data-pjax">Account Settings</a>
         </li>
         <li>
-          <a href="<?php echo Jade\Dumper::_text( route('signout') ); ?>">Sign Out</a>
+          <a href="<?php echo Jade\Dumper::_text( route('signout') ); ?>" data-pjax="data-pjax">Sign Out</a>
         </li>
       </ul>
     </li>
@@ -47,7 +47,7 @@
 <?php else: ?>
   <ul class="nav">
     <li>
-      <a href="<?php echo Jade\Dumper::_text( route('projects') ); ?>">Browse Projects</a>
+      <a href="<?php echo Jade\Dumper::_text( route('projects') ); ?>" data-pjax="data-pjax">Browse Projects</a>
     </li>
   </ul>
   <ul class="nav pull-right">

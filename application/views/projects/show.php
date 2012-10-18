@@ -13,11 +13,11 @@
     <h4>Proposals due <?php echo Jade\Dumper::_text(RelativeTime::format($project->proposals_due_at)); ?></h4>
     <?php if (Auth::vendor()): ?>
       <?php if ($bid = $project->my_current_bid()): ?>
-        <a class="btn btn-small btn-primary" href="<?php echo Jade\Dumper::_text(route('bid', array($project->id, $bid->id))); ?>">View my bid</a>
+        <a class="btn btn-small btn-primary" href="<?php echo Jade\Dumper::_text(route('bid', array($project->id, $bid->id))); ?>" data-pjax="data-pjax">View my bid</a>
       <?php elseif ($bid = $project->my_current_bid_draft()): ?>
-        <a class="btn btn-success" href="<?php echo Jade\Dumper::_text(route('new_bids', array($project->id))); ?>">Continue Writing Bid</a>
+        <a class="btn btn-success" href="<?php echo Jade\Dumper::_text(route('new_bids', array($project->id))); ?>" data-pjax="data-pjax">Continue Writing Bid</a>
       <?php else: ?>
-        <a class="btn btn-success" href="<?php echo Jade\Dumper::_text(route('new_bids', array($project->id))); ?>">Bid on this Contract</a>
+        <a class="btn btn-success" href="<?php echo Jade\Dumper::_text(route('new_bids', array($project->id))); ?>" data-pjax="data-pjax">Bid on this Contract</a>
       <?php endif; ?>
     <?php endif; ?>
     <div class="no-auth-only">

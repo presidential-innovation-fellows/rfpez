@@ -2,7 +2,12 @@
 
 class Base_Controller extends Controller {
 
-	public $layout = 'layout';
+	public $layout;
+
+	public function __construct() {
+		$this->layout = Request::header('x-pjax') ? 'pjaxcontainer' : 'layout';
+		parent::__construct();
+	}
 
 	/**
 	 * Catch-all method for requests that can't be matched.

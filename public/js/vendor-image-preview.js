@@ -32,7 +32,7 @@
 
   $(document).on("keydown", ".vendor-image-url input", vendor_image_keydown);
 
-  $(function() {
+  $(document).on("ready pjax:success", function() {
     return update_vendor_image_preview();
   });
 

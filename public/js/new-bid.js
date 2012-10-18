@@ -29,8 +29,10 @@
 
   $(document).on("input", ".deliverable-price", update_total_price);
 
-  $(function() {
-    return update_total_price();
+  $(document).on("ready pjax:success", function() {
+    if ($("#current-page").val() === "new-bid") {
+      return update_total_price();
+    }
   });
 
 }).call(this);

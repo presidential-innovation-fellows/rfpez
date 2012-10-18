@@ -2,9 +2,17 @@
   min-height 70px
   width 100%
 
-  .loading-text
+  tbody.loading, tbody.no-certs
     display none
 
+  &.loading, &.no-certs
+    tbody.certs
+      display none
+
   &.loading
-    .loading-text
+    tbody.loading
+      display block
+
+  &.no-certs
+    tbody.no-certs
       display block

@@ -1,4 +1,5 @@
 - Section::inject('page_title', 'Browse Vendors')
+- Section::inject('current_page', 'vendors-index')
 
 .vendors-wrapper
   .vendors
@@ -22,9 +23,3 @@
     <?= HTML::image('img/spinner.gif') ?>
 
   .finished-loading-text You're currently viewing all vendors.
-
-<?php Section::start('additional_scripts') ?>
-
-<?= HTML::script('js/infinite-vendor-scroll.js') ?>
-
-<?php Section::stop() ?>

@@ -58,21 +58,25 @@ $(document).on "click", ".notification-item .mark-as-read, .notification-item .m
         notification_item.replaceWith(new_notification_item)
         Rfpez.update_notification_badge(data.unread_count)
 
-$("#notifications-dropdown-trigger").on "click", ->
-  return if notifications_loaded
-  $.ajax
-    url: "/notifications/json"
-    dataType: "json"
-    success: (data) ->
-      if data.status is "success"
-        str = ""
-        $(data.results).each ->
-          str += render_notification(this)
-        str += """
-          <li class="view-all"><a href="/notifications">view all #{data.count} notifications</a></li>
-        """
-        $("#notifications-dropdown").removeClass("loading")
-        $("#notifications-dropdown").html(str)
-        $("#notifications-dropdown span.timeago").timeago()
-        notifications_loaded = true
+$(document).on "ready pjax:success", ->
+
+  notifications_loaded = false
+
+  $("#notifications-dropdown-trigger").on "click", ->
+    return if notifications_loaded
+    $.ajax
+      url: "/notifications/json"
+      dataType: "json"
+      success: (data) ->
+        if data.status is "success"
+          str = ""
+          $(data.results).each ->
+            str += render_notification(this)
+          str += """
+            <li class="view-all"><a href="/notifications">view all #{data.count} notifications</a></li>
+          """
+          $("#notifications-dropdown").removeClass("loading")
+          $("#notifications-dropdown").html(str)
+          $("#notifications-dropdown span.timeago").timeago()
+          notifications_loaded = true
 

@@ -1,4 +1,5 @@
 <?php Section::inject('page_title', 'Browse Vendors') ?>
+<?php Section::inject('current_page', 'vendors-index') ?>
 <div class="vendors-wrapper">
   <div class="vendors">
     <?php foreach($vendors as $vendor): ?>
@@ -22,6 +23,3 @@
   </div>
   <div class="finished-loading-text">You're currently viewing all vendors.</div>
 </div>
-<?php Section::start('additional_scripts') ?>
-<?= HTML::script('js/infinite-vendor-scroll.js') ?>
-<?php Section::stop() ?>
