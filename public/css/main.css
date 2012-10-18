@@ -95,6 +95,9 @@ body.vendor .no-auth-only {
 .bids-table {
   width: 100%;
 }
+.bids-table td {
+  vertical-align: middle;
+}
 .bids-table thead th.unread-and-star {
   width: 5%;
 }
