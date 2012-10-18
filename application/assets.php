@@ -32,8 +32,7 @@ Basset::scripts('website', function($basset)
          ->add('sows', 'js/sows.js')
          ->add('notifications', 'js/notifications.js')
          ->add('dsbs-lookup', 'js/dsbs-lookup.js')
-         ->add('project-comments', 'js/project-comments.js')
-         ->add('project-comments', 'js/project-fbo.js');
+         ->add('project-comments', 'js/project-comments.js');
 });
 
 Basset::styles('website', function($basset)

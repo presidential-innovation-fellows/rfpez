@@ -9,7 +9,7 @@
   which you will need in the next step. When it comes time to enter the body, just
   copy and paste the text below exactly as-is.
 </p>
-<input class="input-xxlarge fbo-link" type="text" value="<?php echo Jade\Dumper::_html(View::make('sows.partials.fbo_body')->with('project', $project)); ?>" />
+<input class="input-xxlarge" type="text" value="<?php echo Jade\Dumper::_text(View::make('sows.partials.fbo_body')->with('project', $project)); ?>" data-select-text-on-focus="true" />
 <h3>Step 2</h3>
 <p>Enter the solicitation number that you used on FBO.</p>
 <form method="POST">

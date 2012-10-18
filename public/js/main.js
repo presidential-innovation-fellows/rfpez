@@ -23,6 +23,10 @@
     return $(this).find("button[type=submit]").button('loading');
   });
 
+  $(document).on("click", "[data-select-text-on-focus]", function(e) {
+    return $(this).select();
+  });
+
   $(function() {
     $("[data-onload-focus]:eq(0)").focus();
     return $("span.timeago").timeago();
