@@ -295,7 +295,7 @@ body.vendor .no-auth-only {
   padding: 0;
 }
 #notifications-dropdown.loading {
-  background: url("/img/spinner.gif") no-repeat center;
+  background: #fff url("/img/spinner.gif") no-repeat center;
   min-height: 50px;
 }
 #notifications-dropdown li a {
