@@ -136,6 +136,7 @@ class User extends Eloquent {
     $query = $this->notifications_received()->where_payload_type($key);
 
     if (is_array($val)) {
+      if (empty($val)) return;
       $query = $query->where_in('payload_id', $val);
     } else {
       $query = $query->where_payload_id($val);
