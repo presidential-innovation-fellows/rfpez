@@ -1,3 +1,6 @@
+<?php if (Request::header('x-pjax')): ?>
+  <title><?php echo Jade\Dumper::_text(Helper::full_title(Section::yield('page_title'), Section::yield('page_action'))); ?></title>
+<?php endif; ?>
 <input id="current-page" type="hidden" value="<?php echo Jade\Dumper::_text(Section::yield('current_page')); ?>" />
 <div class="navbar navbar-static-top">
   <div class="navbar-inner">
