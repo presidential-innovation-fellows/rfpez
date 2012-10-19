@@ -60,6 +60,14 @@ Class Mailer {
               ->addPart(View::make('mailer.finish_officer_registration_text')->with('user', $user), 'text/plain')
               ->setBody(View::make('mailer.finish_officer_registration_html')->with('user', $user), 'text/html');
 
+    } elseif ($template_name == "ForgotPassword") {
+      $user = $attributes["user"];
+
+      $message->setSubject("EasyBid Reset Password Request")
+              ->setTo($user->email)
+              ->addPart(View::make('mailer.forgot_password_text')->with('user', $user), 'text/plain')
+              ->setBody(View::make('mailer.forgot_password_html')->with('user', $user), 'text/html');
+
     } else {
       throw new \Exception("Can't find the template you specified.");
     }
