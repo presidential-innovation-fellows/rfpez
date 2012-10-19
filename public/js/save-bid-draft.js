@@ -3,7 +3,7 @@
 
   $(document).on("ready pjax:success", function() {
     var draft_saved, form_update_handler, save_draft, save_draft_button;
-    if ($("#current-page").val() !== "new-bid") {
+    if (!Rfpez.current_page("new-bid")) {
       return;
     }
     draft_saved = true;

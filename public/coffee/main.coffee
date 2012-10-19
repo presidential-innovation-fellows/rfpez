@@ -1,5 +1,11 @@
 window.Rfpez ||= {}
 
+Rfpez.current_page = (str) ->
+  if str is Rfpez.current_page_string
+    true
+  else
+    false
+
 $(document).on 'shown', '#signinModal', ->
   $("#signinModal #email").focus()
 
@@ -22,3 +28,5 @@ $(document).on "click", "a[data-pjax]", (e) ->
 $(document).on "ready pjax:success", ->
   $("[data-onload-focus]:eq(0)").focus()
   $("span.timeago").timeago()
+
+  Rfpez.current_page_string = $("#current-page").val()

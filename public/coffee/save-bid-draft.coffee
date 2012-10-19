@@ -1,6 +1,6 @@
 $(document).on "ready pjax:success", ->
 
-  return unless $("#current-page").val() is "new-bid"
+  return unless Rfpez.current_page("new-bid")
 
   draft_saved = true
   save_draft_button = $("#save-draft-button")

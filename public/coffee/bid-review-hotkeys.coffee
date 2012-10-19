@@ -87,5 +87,5 @@ $(document).bind 'keydown', 'd', dismiss_selection
 $(document).bind 'keydown', 'u', toggle_unread_selection
 
 $(document).on "mouseover.selectbidmouseover", ".bid", ->
-  if $("#current-page").val() is "bid-review" and on_mouseover_select
+  if Rfpez.current_page("bid-review") and on_mouseover_select
     Rfpez.select_bid($(this), false)

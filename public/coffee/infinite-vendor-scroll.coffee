@@ -30,5 +30,5 @@ load_more_vendors = ->
 
 
 $(document).on 'ready scroll', ->
-  if $("#current-page").val() is 'vendors-index'
+  if Rfpez.current_page("vendors-index")
     check_for_scroll_position()

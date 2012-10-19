@@ -3,6 +3,14 @@
 
   window.Rfpez || (window.Rfpez = {});
 
+  Rfpez.current_page = function(str) {
+    if (str === Rfpez.current_page_string) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   $(document).on('shown', '#signinModal', function() {
     return $("#signinModal #email").focus();
   });
@@ -33,7 +41,8 @@
 
   $(document).on("ready pjax:success", function() {
     $("[data-onload-focus]:eq(0)").focus();
-    return $("span.timeago").timeago();
+    $("span.timeago").timeago();
+    return Rfpez.current_page_string = $("#current-page").val();
   });
 
 }).call(this);

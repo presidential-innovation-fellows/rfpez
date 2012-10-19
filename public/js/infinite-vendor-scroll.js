@@ -43,7 +43,7 @@
   };
 
   $(document).on('ready scroll', function() {
-    if ($("#current-page").val() === 'vendors-index') {
+    if (Rfpez.current_page("vendors-index")) {
       return check_for_scroll_position();
     }
   });
