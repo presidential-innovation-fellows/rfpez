@@ -21,10 +21,12 @@ class Vendors_Controller extends Base_Controller {
 
     if ($user->validator()->passes() && $vendor->validator()->passes()) {
       $user->save();
-      $user->vendor()->insert($vendor);
+      $vendor->user_id = $user->id;
+      $vendor->save();
       $services = Input::get('services') ? array_keys(Input::get('services')) : array();
       $user->vendor->services()->sync($services);
       Auth::login($user->id);
+      Mailer::send("NewVendorRegistered", array("user" => $user));
       return Redirect::to('/');
     } else {
       Session::flash('errors', array_merge($user->validator()->errors->all(), $vendor->validator()->errors->all()));

@@ -31,6 +31,7 @@ class Officers_Controller extends Base_Controller {
       $user->save();
       $user->officer()->insert($officer);
       $user->generate_reset_password_token();
+      Mailer::send("FinishOfficerRegistration", array("user" => $user));
       return Redirect::to('/')->with('notice', 'Please check your email for a link to finish signup.');
     } else {
       Session::flash('errors', array_merge($user->validator(false, true)->errors->all(), $officer->validator()->errors->all()));

@@ -44,6 +44,22 @@ Class Mailer {
               ->addPart(View::make('mailer.bid_awarded_text')->with('bid', $bid), 'text/plain')
               ->setBody(View::make('mailer.bid_awarded_html')->with('bid', $bid), 'text/html');
 
+    } elseif ($template_name == "NewVendorRegistered") {
+      $user = $attributes["user"];
+
+      $message->setSubject("Thanks for signing up on Easybid!")
+              ->setTo($user->email)
+              ->addPart(View::make('mailer.new_vendor_registered_text')->with('user', $user), 'text/plain')
+              ->setBody(View::make('mailer.new_vendor_registered_html')->with('user', $user), 'text/html');
+
+    } elseif ($template_name == "FinishOfficerRegistration") {
+      $user = $attributes["user"];
+
+      $message->setSubject("Complete your EasyBid Registration")
+              ->setTo($user->email)
+              ->addPart(View::make('mailer.finish_officer_registration_text')->with('user', $user), 'text/plain')
+              ->setBody(View::make('mailer.finish_officer_registration_html')->with('user', $user), 'text/html');
+
     } else {
       throw new \Exception("Can't find the template you specified.");
     }
