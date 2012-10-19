@@ -6,7 +6,7 @@
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 
 .comments-list
-  - foreach ($project->comments as $comment)
+  - foreach ($comments as $comment)
     !{View::make('comments.partials.comment')->with('comment', $comment)}
 
 

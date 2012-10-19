@@ -133,10 +133,15 @@ class User extends Eloquent {
   }
 
   public function view_notification_payload($key, $val, $mark_as) {
-    $notifications = $this->notifications_received()
-                          ->where_payload_type($key)
-                          ->where_payload_id($val)
-                          ->get();
+    $query = $this->notifications_received()->where_payload_type($key);
+
+    if (is_array($val)) {
+      $query = $query->where_in('payload_id', $val);
+    } else {
+      $query = $query->where_payload_id($val);
+    }
+
+    $notifications = $query->get();
 
     if (count($notifications) == 0) return;
 

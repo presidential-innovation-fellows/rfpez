@@ -17,7 +17,12 @@ class Comments_Controller extends Base_Controller {
   public function action_index() {
     $view = View::make('comments.index');
     $view->project = Config::get('project');
+    $view->comments = $view->project->comments;
     $this->layout->content = $view;
+
+    $comment_ids = array();
+    foreach($view->comments as $comment) $comment_ids[] = $comment->id;
+    Auth::user()->view_notification_payload("comment", $comment_ids, "read");
   }
 
   public function action_create() {
@@ -27,6 +32,11 @@ class Comments_Controller extends Base_Controller {
     $comment->save();
 
     $c = Comment::find($comment->id);
+
+    foreach($c->project->officers as $officer) {
+      Notification::send("Comment", array('comment' => $c,
+                                          'target_id' => $officer->user->id));
+    }
 
     return Response::json(array('status' => 'success',
                                 'html' => View::make('comments.partials.comment')->with('comment', $c)->render() ));

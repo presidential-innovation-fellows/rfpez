@@ -78,6 +78,14 @@ class Notification extends Eloquent {
                                 'payload_type' => 'project',
                                 'payload_id' => $project->id));
 
+    } elseif ($notification->notification_type == "Comment") {
+      $comment = $attributes["comment"];
+      $notification->fill(array('target_id' => $attributes["target_id"],
+                                'actor_id' => $comment->officer->user->id,
+                                'payload' => array('comment' => $comment->to_array()),
+                                'payload_type' => 'comment',
+                                'payload_id' => $comment->id));
+
     } else {
       throw new \Exception("Don't know how to handle that notification type.");
     }

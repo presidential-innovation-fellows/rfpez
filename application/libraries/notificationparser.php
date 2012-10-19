@@ -44,6 +44,13 @@ Class NotificationParser {
       $return_array["line2"] = "You can now review bids and answer questions about this project.";
       $return_array["link"] = route('project', array($project["id"]));
 
+    } elseif ($notification->notification_type == "Comment") {
+      $comment = $notification->payload["comment"];
+      $return_array["subject"] = $comment["officer"]["name"]." has commented on ".$comment["project"]["title"].".";
+      $return_array["line1"] = $comment["officer"]["name"]." has commented on <a data-pjax href='".route('comments', array($comment["project"]["id"]))."'>".$comment["project"]["title"]."</a>.";
+      $return_array["line2"] = Helper::truncate($comment["body"], 18);
+      $return_array["link"] = route('comments', array($comment["id"]));
+
     }
 
     $return_array["timestamp"] = date('c', is_object($notification->created_at) ? $notification->created_at->getTimestamp() : strtotime($notification->created_at));
