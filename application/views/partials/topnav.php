@@ -41,7 +41,9 @@
 </span>
         &nbsp;
       </a>
-      <ul id="notifications-dropdown" class="dropdown-menu loading"></ul>
+      <ul id="notifications-dropdown" class="dropdown-menu loading">
+        <li class="no-notifications">No notifications to display.</li>
+      </ul>
     </li>
   </ul>
 <?php else: ?>

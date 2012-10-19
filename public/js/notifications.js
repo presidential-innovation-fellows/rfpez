@@ -85,6 +85,9 @@
         success: function(data) {
           var str;
           if (data.status === "success") {
+            if (data.count < 1) {
+              return $("#notifications-dropdown").removeClass('loading').addClass('none');
+            }
             str = "";
             $(data.results).each(function() {
               return str += render_notification(this);

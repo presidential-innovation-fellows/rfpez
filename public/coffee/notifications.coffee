@@ -69,6 +69,8 @@ $(document).on "ready pjax:success", ->
       dataType: "json"
       success: (data) ->
         if data.status is "success"
+          if data.count < 1
+            return $("#notifications-dropdown").removeClass('loading').addClass('none')
           str = ""
           $(data.results).each ->
             str += render_notification(this)
