@@ -62,10 +62,10 @@
         var new_bid;
         if (data.status === "success") {
           if (el.data('move-to-table')) {
+            Rfpez.move_bid_selection("down");
             new_bid = $(data.html);
             bid.remove();
-            $(".bids-table.open-bids > thead").after(new_bid);
-            return Rfpez.move_bid_selection("down");
+            return $(".bids-table.open-bids > thead").after(new_bid);
           } else {
             return window.location.reload();
           }
@@ -104,10 +104,10 @@
           if (data.status === "already dismissed" || "success") {
             modal.modal('hide');
             if (el.data('move-to-table')) {
+              Rfpez.move_bid_selection("down");
               bid.remove();
               new_bid = $(data.html);
-              $(".bids-table.dismissed-bids > thead").after(new_bid);
-              return Rfpez.move_bid_selection("down");
+              return $(".bids-table.dismissed-bids > thead").after(new_bid);
             } else {
               return window.location.reload();
             }

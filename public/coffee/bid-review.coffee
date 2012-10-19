@@ -14,7 +14,6 @@ $(document).on "click", ".bid-notification-td .mark-as-read, .bid-notification-t
   else
     bid.addClass('unread')
 
-
 $(document).on "click", ".bid .unstar-button, .bid .star-button", ->
   action = if $(this).hasClass('unstar-button') then "0" else "1"
   bid = $(this).closest(".bid")
@@ -49,10 +48,10 @@ $(document).on "click", ".undismiss-button", ->
     success: (data) ->
       if data.status is "success"
         if el.data('move-to-table')
+          Rfpez.move_bid_selection("down")
           new_bid = $(data.html)
           bid.remove()
           $(".bids-table.open-bids > thead").after(new_bid)
-          Rfpez.move_bid_selection("down")
         else
           window.location.reload()
 
@@ -84,10 +83,10 @@ $(document).on "click", ".show-dismiss-modal", ->
         if data.status is "already dismissed" or "success"
           modal.modal('hide')
           if el.data('move-to-table')
+            Rfpez.move_bid_selection("down")
             bid.remove()
             new_bid = $(data.html)
             $(".bids-table.dismissed-bids > thead").after(new_bid)
-            Rfpez.move_bid_selection("down")
           else
             window.location.reload()
 
