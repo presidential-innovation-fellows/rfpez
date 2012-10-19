@@ -34,8 +34,9 @@ class Comments_Controller extends Base_Controller {
     $c = Comment::find($comment->id);
 
     foreach($c->project->officers as $officer) {
-      Notification::send("Comment", array('comment' => $c,
-                                          'target_id' => $officer->user->id));
+      if (Auth::officer()->id != $officer->id)
+        Notification::send("Comment", array('comment' => $c,
+                                            'target_id' => $officer->user->id));
     }
 
     return Response::json(array('status' => 'success',
