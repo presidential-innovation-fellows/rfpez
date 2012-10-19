@@ -56,6 +56,8 @@
         img(src="#{$bid->vendor->image_url}")
 
 
-  a(href="#{route('bid_destroy', array($bid->project->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
-    | Delete Bid
+  - if (!$bid->dismissal_reason && !$bid->awarded_at):
+    a(href="#{route('bid_destroy', array($bid->project->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
+      | Delete Bid
+  - endif;
 

@@ -64,7 +64,9 @@
       </div>
     </div>
   </div>
-  <a href="<?php echo Jade\Dumper::_text(route('bid_destroy', array($bid->project->id, $bid->id))); ?>" data-confirm="Are you sure you want to delete your bid?">
-    Delete Bid
-  </a>
+  <?php if (!$bid->dismissal_reason && !$bid->awarded_at): ?>
+    <a href="<?php echo Jade\Dumper::_text(route('bid_destroy', array($bid->project->id, $bid->id))); ?>" data-confirm="Are you sure you want to delete your bid?">
+      Delete Bid
+    </a>
+  <?php endif; ?>
 </div>

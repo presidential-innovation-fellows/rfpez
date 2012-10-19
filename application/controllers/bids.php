@@ -27,6 +27,8 @@ class Bids_Controller extends Base_Controller {
 
     $this->filter('before', 'project_has_not_already_been_awarded')->only(array('award'));
 
+    $this->filter('before', 'bid_has_not_been_dismissed_or_awarded')->only(array('destroy'));
+
   }
 
   public function action_review() {
@@ -240,4 +242,9 @@ Route::filter('project_has_not_already_been_awarded', function() {
   $project = Config::get('project');
   if ($project->winning_bid())
     return Redirect::to_route('project', array($project->id))->with('errors', array('That project has already been awarded.'));
+});
+
+Route::filter('bid_has_not_been_dismissed_or_awarded', function(){
+  $bid = Config::get('bid');
+  if ($bid->awarded_at || $bid->dismissal_reason) return Redirect::to_route('bid', array($bid->project->id, $bid->id));
 });

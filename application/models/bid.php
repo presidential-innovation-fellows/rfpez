@@ -78,10 +78,12 @@ class Bid extends Eloquent {
   public function get_status() {
     if (!$this->submitted_at) {
       return "Draft Saved";
-    } elseif (!$this->dismissed()) {
-      return "Pending Review";
-    } else {
+    } elseif ($this->dismissed()) {
       return "Dismissed";
+    } elseif ($this->awarded_at) {
+      return "Won!";
+    } else {
+      return "Pending Review";
     }
   }
 
