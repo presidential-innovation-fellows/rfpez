@@ -49,7 +49,7 @@ Class NotificationParser {
       $return_array["subject"] = $comment["officer"]["name"]." has commented on ".$comment["project"]["title"].".";
       $return_array["line1"] = $comment["officer"]["name"]." has commented on <a data-pjax href='".route('comments', array($comment["project"]["id"]))."'>".$comment["project"]["title"]."</a>.";
       $return_array["line2"] = Helper::truncate($comment["body"], 18);
-      $return_array["link"] = route('comments', array($comment["id"]));
+      $return_array["link"] = route('comments', array($comment["project"]["id"]));
 
     }
 
