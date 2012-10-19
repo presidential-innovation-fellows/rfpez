@@ -23,8 +23,8 @@ class Auth_Controller extends Base_Controller {
     if (Auth::attempt($credentials)) {
       Auth::user()->track_signin();
 
-      if (Input::has('modal')) return Redirect::back();
-      if ($url = Input::get('redirect_to')) return Redirect::to($url);
+      if (Input::has('modal') && Request::referrer() != route('signout')) return Redirect::back();
+      if ($url = Input::get('redirect_to') && Input::get('redirect_to') != route('signout')) return Redirect::to($url);
       return Redirect::to('/');
     } else {
       return Redirect::to_route('signin')
