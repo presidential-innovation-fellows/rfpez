@@ -141,7 +141,7 @@
     <div class="control-group">
       <label>Zip</label>
       <input type="text" name="vendor[zip]" value="<?php echo Jade\Dumper::_text( $vendor['zip'] ); ?>" />
-      <form></form>
     </div>
   </fieldset>
 </div>
+<?php echo Jade\Dumper::_html(View::make('vendors.partials.explain_duns_modal')); ?>

@@ -6,14 +6,3 @@ form#new-vendor-form(action="#{route('vendors')}", method="POST")
 
   .form-actions
     button.btn.btn-primary(type="submit") Save Profile
-
-#explain-duns-modal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='explain-duns-modal-la', aria-hidden='true')
-  .modal-header
-    button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-    h3#explain-duns-modal-label DUNS Number
-  .modal-body
-    p If your company doesn't have a DUNS number, or you don't even know what one is, that's okay.
-      | You don't have to worry about it for now. Eventually you'll need one, but it's a fairly painless
-      | process and doesn't cost any money.
-  .modal-footer
-    button.btn(data-dismiss='modal', aria-hidden='true') Okay

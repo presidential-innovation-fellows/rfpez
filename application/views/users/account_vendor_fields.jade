@@ -133,4 +133,6 @@
 
     .control-group
       label Zip
-      input(type="text", name="vendor[zip]", value="#{ $vendor['zip'] }")form
+      input(type="text", name="vendor[zip]", value="#{ $vendor['zip'] }")
+
+!{View::make('vendors.partials.explain_duns_modal')}
