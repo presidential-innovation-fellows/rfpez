@@ -29,7 +29,6 @@ hr.dark {
 }
 .btn-circle {
   -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
   border-radius: 6px;
   padding: 0;
   height: 12px;
@@ -56,25 +55,25 @@ body {
 }
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
-  display: none;
+  display: none !important;
 }
 body.officer .vendor-only {
-  display: none;
+  display: none !important;
 }
 body.officer .no-officer {
-  display: none;
+  display: none !important;
 }
 body.officer .no-auth-only {
-  display: none;
+  display: none !important;
 }
 body.vendor .officer-only {
-  display: none;
+  display: none !important;
 }
 body.vendor .no-vendor {
-  display: none;
+  display: none !important;
 }
 body.vendor .no-auth-only {
-  display: none;
+  display: none !important;
 }
 .navbar-static-top {
   margin-bottom: 20px;
@@ -121,7 +120,7 @@ body.vendor .no-auth-only {
   display: block;
 }
 .bids-table .bid.unread .mark-as-unread {
-  display: none;
+  display: none !important;
 }
 .bids-table .bid:hover .mark-as-unread {
   display: block;
@@ -217,10 +216,8 @@ body.vendor .no-auth-only {
   vertical-align: top;
   margin: 10px 10px 40px;
   -webkit-box-shadow: 1px 2px 7px #aaa;
-  -moz-box-shadow: 1px 2px 7px #aaa;
   box-shadow: 1px 2px 7px #aaa;
   -webkit-border-radius: 9px;
-  -moz-border-radius: 9px;
   border-radius: 9px;
 }
 .vendor.media .company-name {
@@ -318,12 +315,10 @@ body.vendor .no-auth-only {
 }
 #notifications-dropdown li:first-child a {
   -webkit-border-radius: 6px 6px 0 0;
-  -moz-border-radius: 6px 6px 0 0;
   border-radius: 6px 6px 0 0;
 }
 #notifications-dropdown li:last-child a {
   -webkit-border-radius: 0 0 6px 6px;
-  -moz-border-radius: 0 0 6px 6px;
   border-radius: 0 0 6px 6px;
 }
 #notifications-dropdown li.unread .line1 {
@@ -405,7 +400,7 @@ body.vendor .no-auth-only {
   display: block;
 }
 .notification-item.unread .mark-as-unread {
-  display: none;
+  display: none !important;
 }
 .notification-item:hover .mark-as-unread {
   display: block;
@@ -475,6 +470,7 @@ tbody.project .project-description-truncated {
   width: 475px;
   white-space: nowrap;
   overflow: hidden;
+  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
 tbody.project .admin-star {
@@ -519,7 +515,6 @@ textarea.composer {
   width: 200px;
   margin: 0 0 20px;
   -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
   border-radius: 6px;
   padding-left: 0;
 }
@@ -531,14 +526,16 @@ textarea.composer {
 }
 .sow-sidebar li a .icon-chevron-right {
   opacity: 0.5;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  filter: alpha(opacity=50);
   float: right;
   margin-top: 2px;
   margin-right: -6px;
 }
 .sow-sidebar li.active .icon-chevron-right {
   opacity: 1;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  -ms-filter: none;
+  filter: none;
 }
 .step.step-1 {
   width: 700px;
