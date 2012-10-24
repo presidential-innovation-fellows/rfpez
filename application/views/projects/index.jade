@@ -19,7 +19,7 @@ table.table.projects-table
     tbody.project
       tr.project-meta
         td
-          img(src="#{@Project::$naics_icons[$project->naics_code]}", title="#{@Project::$naics_codes[$project->naics_code] ?: $project->naics_code", alt="#{@Project::$naics_codes[$project->naics_code] ?: $project->naics_code}")
+          img(src="#{@Project::$naics_icons[$project->naics_code]}", title="#{@Project::$naics_codes[$project->naics_code] ?: $project->naics_code}", alt="#{@Project::$naics_codes[$project->naics_code] ?: $project->naics_code}")
         td
           a.project-title(href="#{route('project', array($project->id))}", data-pjax) #{$project->title}
           - if ($project->is_mine()):
