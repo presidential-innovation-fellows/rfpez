@@ -11,6 +11,9 @@ class Seed_Task {
     Service::create(array('name' => 'Web Development', 'description' => 'This is the description for web development.'));
     Service::create(array('name' => 'Content Management ', 'description' => 'This is the description for content management.'));
 
+    for ($i = 0; $i < 5; $i++) Factory::vendor();
+    for ($i = 0; $i < 5; $i++) Factory::officer();
+
     // Create project types
     ProjectType::create(array('name' => 'Website Design', 'naics' => 541092));
     $api_project_type = ProjectType::create(array('name' => 'API Design and Development', 'naics' => 541093));
@@ -46,16 +49,15 @@ class Seed_Task {
                                      'proposals_due_at' => new \DateTime('12/31/2012')
                                      ));
 
-    for ($i = 0; $i < 5; $i++) Factory::vendor();
-    for ($i = 0; $i < 5; $i++) Factory::officer();
+    // ...And give it to officer1
+    $project->officers()->attach(Officer::first()->id, array('owner' => true));
+
     for ($i = 0; $i < 5; $i++) Factory::project($project->id);
-    // for ($i = 0; $i < 15; $i++) Factory::bid();
-    // for ($i = 0; $i < 15; $i++) Factory::question();
+    for ($i = 0; $i < 15; $i++) Factory::bid();
+    for ($i = 0; $i < 15; $i++) Factory::question();
+    for ($i = 0; $i < 10; $i++) Factory::vendor();
 
-    // for ($i = 0; $i < 10; $i++) Factory::vendor();
-
-    // $p = Factory::project(array('title' => 'New Website for SBA.gov'));
-    // for ($i = 0; $i < 40; $i++) Factory::bid(array(), $p->id);
+    for ($i = 0; $i < 40; $i++) Factory::bid(array(), $project->id);
 
   }
 

@@ -93,7 +93,7 @@ Class Factory {
                                'deliverables' => $original_project->deliverables,
                                'proposals_due_at' => $due_at
                                ));
-
+    $p->officers()->attach(Officer::first()->id, array('owner' => true));
     return $p;
   }
 
@@ -104,7 +104,7 @@ Class Factory {
     $v = Vendor::order_by(\DB::raw('RAND()'))->first();
 
     $prices = array();
-    foreach ($p->parsed_deliverables() as $d) {
+    foreach (array_keys($p->deliverables) as $d) {
       $prices[$d] = rand(100, 10000);
     }
 
