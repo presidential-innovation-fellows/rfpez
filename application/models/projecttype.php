@@ -11,6 +11,6 @@ class ProjectType extends Eloquent {
   }
 
   public function project_sections() {
-    return $this->has_many_and_belongs_to('ProjectSection', 'project_section_type');
+    return $this->has_many_and_belongs_to('ProjectSection', 'project_section_type', 'project_type_id', 'project_section_id');
   }
 }

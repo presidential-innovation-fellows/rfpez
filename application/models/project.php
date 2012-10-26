@@ -9,33 +9,6 @@ class Project extends Eloquent {
 
   public static $timestamps = true;
 
-  public static $naics_codes = array(541430 => 'Graphic Design',
-                                     541511 => 'Web or Mobile App Development',
-                                     518210 => 'Data Processing, Hosting, and Related Services',
-                                     512110 => 'Video production',
-                                     512191 => 'Video post-production services',
-                                     518210 => 'Web hosting',
-                                     541850 => 'Display advertising services',
-                                     541840 => 'Media advertising representatives',
-                                     541613 => 'Marketing Consulting',
-                                     561410 => 'Editing & Transcription'
-                                    );
-
-  public static $naics_icons = array(541430 => '/img/graphics.png',
-                                     541511 => '/img/development.png',
-                                     518210 => '/img/hosting.png',
-                                     512110 => '/img/video.png',
-                                     512191 => '/img/postproduction.png',
-                                     518210 => '/img/hosting.png',
-                                     541850 => '/img/ad.png',
-                                     541840 => '/img/ad.png',
-                                     541613 => '/img/marketing.png',
-                                     561410 => '/img/editing.png'
-                                    );
-
-  public static $accessible = array('agency', 'office', 'naics_code', 'proposals_due_at',
-                                    'body', 'title');
-
   public static $my_project_ids = false;
 
   public $winning_bid = false;
@@ -48,16 +21,20 @@ class Project extends Eloquent {
     return $this->has_many('Comment')->order_by('created_at');
   }
 
+  public function project_type() {
+    return $this->belongs_to('ProjectType');
+  }
+
+  public function forked_from_project() {
+    return $this->belongs_to('Project', 'forked_from_project_id');
+  }
+
   public function owner() {
     return $this->officers()->where_owner(true)->first();
   }
 
   public function i_am_owner() {
     return (Auth::officer() && Auth::officer()->id == $this->owner()->id) ? true : false;
-  }
-
-  public function sow() {
-    return $this->has_one('Sow');
   }
 
   public function bids() {
@@ -99,7 +76,7 @@ class Project extends Eloquent {
   }
 
   public function status() {
-    if (!$this->body) {
+    if (!$this->fbo_solnbr) {
       return self::STATUS_WRITING_SOW;
     } elseif (strtotime($this->proposals_due_at) > time()) {
       return self::STATUS_ACCEPTING_BIDS;
@@ -161,18 +138,6 @@ class Project extends Eloquent {
     return $this->current_bid_draft_from(Auth::user()->vendor);
   }
 
-  public function parsed_deliverables() {
-    return $this->sow ? $this->sow->deliverables() : false;
-  }
-
-  public function parsed_deliverables_list() {
-    if ($parsed_deliverables = $this->get_parsed_deliverables()) {
-      return implode(', ', $parsed_deliverables);
-    } else {
-      return '';
-    }
-  }
-
   public function submitted_bids() {
     return $this->bids()
                 ->where_deleted_by_vendor(false)
@@ -189,6 +154,37 @@ class Project extends Eloquent {
     return $this->submitted_bids()
                 ->where_not_null('dismissal_reason');
   }
+
+  //////////// GETTERS AND SETTERS FOR SERIALIZED FIELDS ////////////
+
+  public function get_sections() {
+    return json_decode($this->get_attribute('sections'), true);
+  }
+
+  public function set_sections($sections) {
+    if (is_array($sections)) $sections = json_encode($sections);
+    $this->set_attribute('sections', $sections);
+  }
+
+  public function get_variables() {
+    return json_decode($this->get_attribute('variables'), true);
+  }
+
+  public function set_variables($vars) {
+    if (is_array($vars)) $vars = json_encode($vars);
+    $this->set_attribute('variables', $vars);
+  }
+
+  public function get_deliverables() {
+    return json_decode($this->get_attribute('deliverables'), true);
+  }
+
+  public function set_deliverables($deliverables) {
+    if (is_array($deliverables)) $deliverables = json_encode($deliverables);
+    $this->set_attribute('deliverables', $deliverables);
+  }
+
+  //////////// STATIC FUNCTIONS ////////////
 
   public static function open_projects() {
     return self::with(array('sow', 'sow.sow_sections'))->where('proposals_due_at', '>', \DB::raw('NOW()'));

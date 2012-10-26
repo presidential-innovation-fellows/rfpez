@@ -101,9 +101,11 @@ class Initial_Schema {
     });
 
     Schema::create('project_section_type', function($t){
-      $t->integer('id');
+      $t->increments('id');
       $t->integer('project_type_id');
       $t->integer('project_section_id');
+
+      $t->timestamps();
     });
 
     Schema::create('project_sections', function($t){
