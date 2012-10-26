@@ -76,59 +76,7 @@ Class Factory {
   public static function project($attributes = array()) {
     $faker = Faker\Factory::create();
 
-    $o = User::where_email("officer1@example.gov")->first()->officer;
-
-    $naics = array_keys(Project::$naics_codes);
-
-    $due_at = new \DateTime();
-    $due_at->setTimestamp(rand(1346475600, 1364792400));
-    $posted_at = new \DateTime();
-    $posted_at->setTimestamp(rand(1333256400, 1346475600));
-
-    ob_start();
-    require("./application/tasks/seed_data/sows/".rand(1,1).".php");
-    $contents = ob_get_contents();
-    ob_end_clean();
-
-    $p = new Project(array('agency' =>  @$attributes["agency"] ?: $o->agency,
-                           'office' => @$attributes["office"] ?: self::$offices[array_rand(self::$offices)],
-                           'title' => @$attributes["title"] ?: self::$project_titles[array_rand(self::$project_titles)],
-                           'body' =>  @$attributes["body"] ?: $contents,
-                           'naics_code' =>  @$attributes["naics_code"] ?: $naics[array_rand($naics)],
-                           'proposals_due_at' =>  @$attributes["proposals_due_at"] ?: $due_at));
-
-    $p->fbo_solnbr = self::$solnbrs[array_rand(self::$solnbrs)];
-    $p->save();
-    $p->officers()->attach($o->id, array('owner' => true));
-
-    $template = SowTemplate::where_title("Web Design")->where_visible(true)->first();
-
-    $s = Sow::create(array('project_id' => $p->id,
-                           'body' => $contents,
-                           'based_on_sow_template_id' => $template->id,
-                           'variables' => array("Deliverable Due Dates" => array("Page Templating" => "10/12/12"),
-                                                "WEBSITE" => "energy.gov",
-                                                "AGENCY" => "SBA",
-                                                "OFFICE" => "OCPL") ));
-
-    SowSection::create(array('sow_id' => $s->id,
-                             'display_order' => 0,
-                             'section_type' => 'Background & Scope',
-                             'body' => $faker->paragraph));
-
-    $i = 0;
-    foreach(SowTemplateSection::where_sow_template_id($template->id)->get() as $template_section) {
-      if (rand(0,1) == 0) continue;
-
-      SowSection::create(array('sow_id' => $s->id,
-                               'display_order' => $i,
-                               'section_type' => $template_section->section_type));
-
-      $i++;
-    }
-
-    return $p;
-
+    return false;
   }
 
   public static function bid($attributes = array(), $project_id = false) {

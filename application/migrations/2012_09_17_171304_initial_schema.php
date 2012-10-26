@@ -65,15 +65,54 @@ class Initial_Schema {
       $t->timestamps();
     });
 
+    Schema::create('project_types', function($t){
+      $t->increments('id');
+      $t->string('name');
+      $t->integer('naics');
+      $t->timestamps();
+    });
+
     Schema::create('projects', function($t){
       $t->increments('id');
+      $t->integer('forked_from_project_id')->nullable();
+      $t->integer('project_type_id');
       $t->string('title');
-      $t->text('body');
       $t->string('fbo_solnbr');
       $t->string('agency');
       $t->string('office');
-      $t->integer('naics_code');
+
+      $t->integer('fork_count')->default(0);
+      $t->boolean('recommended')->default(0);
+      $t->boolean('public')->default(0);
+      $t->text('background');
+
+      /* [section_id, section_id, section_id] */
+      $t->text('sections');
+
+      /* {key: "value", foo: "bar"} */
+      $t->text('variables');
+
+      /* {"Initial Wireframing": "12/10/12", "Content Management": "12/12/12"} */
+      $t->text('deliverables');
+
       $t->date('proposals_due_at');
+
+      $t->timestamps();
+    });
+
+    Schema::create('project_section_type', function($t){
+      $t->integer('id');
+      $t->integer('project_type_id');
+      $t->integer('project_section_id');
+    });
+
+    Schema::create('project_sections', function($t){
+      $t->increments('id');
+      $t->integer('based_on_project_section_id')->nullable();
+      $t->integer('times_used')->default(0);
+      $t->string('section_category');
+      $t->string('title');
+      $t->text('body');
 
       $t->timestamps();
     });
@@ -170,57 +209,20 @@ class Initial_Schema {
       $t->timestamps();
     });
 
-    Schema::create('sows', function($t) {
-      $t->increments('id');
-      $t->text('body');
-      $t->integer('project_id');
-      $t->integer('based_on_sow_template_id')->nullable();
-      $t->text('variables'); // {Website Url: "energy.gov", Name: "Energy"}]
-      $t->timestamps();
+    ////////////// FOREIGN KEYS //////////////////
+
+    Schema::table('projects', function($t){
+      $t->foreign('forked_from_project_id')->references('id')->on('projects')->on_delete('SET NULL');
+      $t->foreign('project_type_id')->references('id')->on('project_types')->on_delete('CASCADE');
     });
 
-    Schema::create('sow_sections', function($t) {
-      $t->increments('id');
-      $t->integer('sow_id');
-      $t->integer('based_on_sow_template_section_id')->nullable();
-      $t->integer('display_order');
-      $t->string('section_type');
-      $t->string('title');
-      $t->text('body');
-      $t->timestamps();
+    Schema::table('project_section_type', function($t){
+      $t->foreign('project_type_id')->references('id')->on('project_types')->on_delete('CASCADE');
+      $t->foreign('project_section_id')->references('id')->on('project_sections')->on_delete('CASCADE');
     });
 
-    Schema::create('sow_templates', function($t) {
-      $t->increments('id');
-      $t->string('title');
-      $t->text('variables');
-      $t->boolean('visible')->default(1);
-      $t->timestamps();
-    });
-
-    Schema::create('sow_template_sections', function($t) {
-      $t->increments('id');
-      $t->integer('sow_template_id');
-      $t->integer('display_order');
-      $t->string('section_type');
-      $t->string('help_text');
-      $t->string('title');
-      $t->text('body');
-      $t->timestamps();
-    });
-
-    Schema::table('sows', function($t){
-      $t->foreign('project_id')->references('id')->on('projects')->on_delete('CASCADE');
-      $t->foreign('based_on_sow_template_id')->references('id')->on('sow_templates')->on_delete('SET NULL');
-    });
-
-    Schema::table('sow_sections', function($t){
-      $t->foreign('sow_id')->references('id')->on('sows')->on_delete('cascade');
-      $t->foreign('based_on_sow_template_section_id')->references('id')->on('sow_template_sections')->on_delete('SET NULL');
-    });
-
-    Schema::table('sow_template_sections', function($t){
-      $t->foreign('sow_template_id')->references('id')->on('sow_templates')->on_delete('cascade');
+    Schema::table('project_sections', function($t){
+      $t->foreign('based_on_project_section_id')->references('id')->on('project_sections')->on_delete('SET NULL');
     });
 
     Schema::table('project_collaborators', function($t){
@@ -266,24 +268,25 @@ class Initial_Schema {
    */
   public function down()
   {
-    Schema::table('sows', function($t){
-      $t->drop_foreign('sows_project_id_foreign');
-      $t->drop_foreign('sows_based_on_sow_template_id_foreign');
+    Schema::table('projects', function($t){
+      $t->drop_foreign('projects_forked_from_project_id_foreign');
+      $t->drop_foreign('projects_project_type_id_foreign');
     });
 
-    Schema::table('sow_sections', function($t){
-      $t->drop_foreign('sow_sections_sow_id_foreign');
-      $t->drop_foreign('sow_sections_based_on_sow_template_section_id_foreign');
+    Schema::table('project_section_type', function($t){
+      $t->drop_foreign('project_section_type_project_type_id_foreign');
+      $t->drop_foreign('project_section_type_project_section_id_foreign');
     });
 
-    Schema::table('sow_template_sections', function($t){
-      $t->drop_foreign('sow_template_sections_sow_template_id_foreign');
+    Schema::table('project_sections', function($t){
+      $t->drop_foreign('project_sections_based_on_project_section_id_foreign');
     });
 
     Schema::table('project_collaborators', function($t){
       $t->drop_foreign('project_collaborators_officer_id_foreign');
       $t->drop_foreign('project_collaborators_project_id_foreign');
     });
+
 
     Schema::table('notifications', function($t){
       $t->drop_foreign('notifications_target_id_foreign');
@@ -322,11 +325,10 @@ class Initial_Schema {
     Schema::drop('service_vendor');
     Schema::drop('officers');
     Schema::drop('users');
-    Schema::drop('sows');
-    Schema::drop('sow_sections');
-    Schema::drop('sow_templates');
-    Schema::drop('sow_template_sections');
     Schema::drop('projects');
+    Schema::drop('project_sections');
+    Schema::drop('project_types');
+    Schema::drop('project_section_type');
     Schema::drop('project_collaborators');
   }
 
