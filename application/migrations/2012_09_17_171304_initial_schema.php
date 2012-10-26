@@ -77,7 +77,7 @@ class Initial_Schema {
       $t->integer('forked_from_project_id')->nullable();
       $t->integer('project_type_id');
       $t->string('title');
-      $t->string('fbo_solnbr');
+      $t->string('fbo_solnbr')->nullable();
       $t->string('agency');
       $t->string('office');
 
