@@ -2,6 +2,10 @@
 
 class Officer extends Eloquent {
 
+  const ROLE_PROGRAM_OFFICER = 0;
+  const ROLE_CONTRACTING_OFFICER = 1;
+  const ROLE_SUPER_ADMIN = 2;
+
   public static $timestamps = true;
 
   public static $accessible = array('user_id', 'phone', 'fax', 'name', 'title', 'agency');
@@ -40,12 +44,13 @@ class Officer extends Eloquent {
   }
 
   public function is_verified_contracting_officer() {
-    return $this->verified_solnbr ? true : false;
+    return $this->role == self::ROLE_CONTRACTING_OFFICER ? true : false;
   }
 
   public function verify_with_solnbr($solnbr) {
     $this->verified_solnbr = $solnbr;
     $this->verified_at = new \DateTime;
+    $this->role = self::ROLE_CONTRACTING_OFFICER;
     $this->save();
   }
 

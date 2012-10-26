@@ -66,7 +66,7 @@ class User extends Eloquent {
   {
     $columns = array(
       'id', 'user_id', 'phone', 'fax', 'name', 'title', 'agency', 'verified_at',
-      'verified_solnbr', 'created_at', 'updated_at',
+      'verified_solnbr', 'created_at', 'updated_at', 'role'
     );
 
     return array_map(function($v) { return 'officers.'.$v.' as officer_alias_'.$v; }, $columns);
