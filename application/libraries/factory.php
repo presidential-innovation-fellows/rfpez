@@ -12,7 +12,7 @@ Class Factory {
   public static $offices = array("Office of Capital Access", "Office of Credit Risk Management", "Office of Investment",
                                  "Office of Field Operations", "Office of Surety Guarantees", "Office of Hearings & Appeals");
 
-  public static $project_titles = array("Website Design for the Bluth Company");
+  public static $project_titles = array("API for Energy.gov", "Census API", "MyGov's Sweet API", "Bluth Banana Stand API");
 
   public static $solnbrs = array("VA24412Q1868", "VA256-12-Q-2266", "SPM7L413V0156", "N00183-12-T-0557-0001",
                                  "W911N2-12-R-0081", "SPRPA112QX020", "N0038307G002J7371");
@@ -73,10 +73,28 @@ Class Factory {
     return $o;
   }
 
-  public static function project($attributes = array()) {
+  public static function project($fork_from_project_id) {
     $faker = Faker\Factory::create();
 
-    return false;
+    $original_project = Project::find($fork_from_project_id);
+
+    $due_at = new \DateTime();
+    $due_at->setTimestamp(rand(1346475600, 1364792400));
+
+    $p = Project::create(array('forked_from_project_id' => $original_project->id,
+                               'project_type_id' => $original_project->project_type_id,
+                               'title' => self::$project_titles[array_rand(self::$project_titles)],
+                               'fbo_solnbr' => rand(0,1) == 0 ? 'SEED-DATA' : null,
+                               'agency' => self::$agencies[array_rand(self::$agencies)],
+                               'office' => self::$offices[array_rand(self::$offices)],
+                               'background' => $faker->paragraph,
+                               'sections' => $original_project->sections,
+                               'variables' => $original_project->variables,
+                               'deliverables' => $original_project->deliverables,
+                               'proposals_due_at' => $due_at
+                               ));
+
+    return $p;
   }
 
   public static function bid($attributes = array(), $project_id = false) {
