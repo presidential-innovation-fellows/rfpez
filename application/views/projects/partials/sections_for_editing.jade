@@ -1,0 +1,9 @@
+.sections-for-editing
+  - foreach ($project->sections_by_category() as $category => $sections):
+    .category(data-name="#{$category}")
+      h4 #{$category}
+
+      - foreach ($sections as $section):
+        .section(data-section-id="#{$section->id}")
+          strong #{$section->title}
+          p #{$section->body}

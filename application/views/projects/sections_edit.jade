@@ -1,0 +1,18 @@
+- Section::inject('page_title', $project->title)
+- Section::inject('page_action', "Edit Sections")
+- Section::inject('active_subnav', 'view')
+- Section::inject('no_page_header', true)
+
+!{View::make('projects.partials.toolbar')->with('project', $project)}
+!{View::make('projects.partials.edit_section_modal')->with('project', $project)}
+
+h4 Edit Sections
+  button.btn.btn-success.pull-right.add-section-button Add Section
+    i.icon-white.icon-plus-sign
+
+hr
+
+!{View::make('projects.partials.sections_for_editing')->with('project', $project)}
+
+.form-actions
+  a.btn.btn-primary Next &rarr;

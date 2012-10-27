@@ -1,0 +1,26 @@
+#edit-section-modal.modal.hide(tabindex='-1', role='dialog')
+  form.form-horizontal(action="#{route('project_sections_edit', array($project->id))}", method="POST")#edit-section-form
+    input(type="hidden", name="section_id")
+
+    .modal-header
+      button.close(type='button', data-dismiss='modal') ×
+      h3 &nbsp;
+
+    .modal-body
+      .control-group
+        label.control-label Section Category
+        .controls
+          input(type="text", name='project_section[section_category]')
+
+      .control-group
+        label.control-label Title
+        .controls
+          input(type="text", name='project_section[title]')
+
+      .control-group
+        .controls
+          textarea(name='project_section[body]', placeholder='Body')
+
+    .modal-footer
+      button.btn(data-dismiss='modal') Cancel
+      button.btn.btn-primary.save-button(data-loading-text="Saving...") Save

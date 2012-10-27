@@ -40,3 +40,19 @@ $(document).on "click", ".section .add-button", (e) ->
       $(".selected-sections").replaceWith(new_selected_sections)
       el.button('reset')
       hide_already_selected_sections()
+
+$(document).on "click", ".add-section-button", ->
+  $("#edit-section-modal").find(".modal-header h3").text("Add Section")
+  $("#edit-section-modal").modal('show')
+
+$(document).on "submit", "#edit-section-form", (e) ->
+  e.preventDefault()
+  el = $(this)
+  button = el.find(".save-button")
+  button.button('loading')
+  el.ajaxSubmit
+    success: (data) ->
+      new_sections_for_editing = $(data.sections_for_editing_html)
+      $(".sections-for-editing").replaceWith(new_sections_for_editing)
+      $("#edit-section-modal").modal('hide')
+      button.button('reset')

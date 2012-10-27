@@ -55,5 +55,5 @@
   </div>
 </div>
 <div class="form-actions">
-  <a class="btn btn-primary">Continue</a>
+  <a class="btn btn-primary" href="<?php echo Jade\Dumper::_text(route('project_sections_edit', array($project->id))); ?>">Continue</a>
 </div>

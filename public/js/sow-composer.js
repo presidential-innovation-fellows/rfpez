@@ -59,4 +59,26 @@
     });
   });
 
+  $(document).on("click", ".add-section-button", function() {
+    $("#edit-section-modal").find(".modal-header h3").text("Add Section");
+    return $("#edit-section-modal").modal('show');
+  });
+
+  $(document).on("submit", "#edit-section-form", function(e) {
+    var button, el;
+    e.preventDefault();
+    el = $(this);
+    button = el.find(".save-button");
+    button.button('loading');
+    return el.ajaxSubmit({
+      success: function(data) {
+        var new_sections_for_editing;
+        new_sections_for_editing = $(data.sections_for_editing_html);
+        $(".sections-for-editing").replaceWith(new_sections_for_editing);
+        $("#edit-section-modal").modal('hide');
+        return button.button('reset');
+      }
+    });
+  });
+
 }).call(this);

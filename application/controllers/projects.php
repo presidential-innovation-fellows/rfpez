@@ -88,6 +88,34 @@ class Projects_Controller extends Base_Controller {
                                                                 ->render() ));
   }
 
+  public function action_sections_edit() {
+    $view = View::make('projects.sections_edit');
+    $view->project = Config::get('project');
+    $this->layout->content = $view;
+  }
+
+  // This is for adding a new section or updating the text of an existing one.
+  public function action_sections_edit_post() {
+    $project = Config::get('project');
+    $section_id = Input::get('section_id');
+    $section_input = Input::get('project_section');
+
+    if ($section_id) {
+      // we're editing an existing section
+
+    } else {
+      // we're adding a new sction
+      $section = new ProjectSection($section_input);
+      $section->save();
+      $project->add_section($section->id);
+    }
+
+    return Response::json(array('status' => 'success',
+                                'sections_for_editing_html' => View::make('projects.partials.sections_for_editing')
+                                                                   ->with('project', $project)
+                                                                   ->render() ));
+  }
+
   public function action_show() {
     $view = View::make('projects.show');
     $view->project = Config::get('project');

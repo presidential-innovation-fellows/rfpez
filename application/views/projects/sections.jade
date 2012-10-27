@@ -47,4 +47,4 @@
     !{View::make('projects.partials.selected_sections')->with('project', $project)}
 
 .form-actions
-  a.btn.btn-primary Continue
+  a.btn.btn-primary(href="#{route('project_sections_edit', array($project->id))}") Continue
