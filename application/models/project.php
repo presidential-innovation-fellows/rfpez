@@ -162,12 +162,35 @@ class Project extends Eloquent {
                   ->order_by('fork_count', 'desc');
   }
 
+  public function available_sections() {
+    return $this->project_type->project_sections();
+  }
+
+  public function get_available_sections() {
+    return $this->available_sections()->get();
+  }
+
   public function fork_from($template) {
     $this->forked_from_project_id = $template->id;
     $this->background = $template->background;
     $this->sections = $template->sections;
     $this->deliverables = $template->deliverables;
     $this->save();
+  }
+
+  public function sections_by_category() {
+    $sections = ProjectSection::where_in('id', $this->sections)
+                              ->order_by(\DB::raw("FIND_IN_SET(id, ('".implode(',',$this->sections)."'))"))
+                              ->get();
+
+    $return_array = array();
+
+    foreach ($sections as $section) {
+      if (!isset($return_array[$section->section_category])) $return_array[$section->section_category] = array();
+      $return_array[$section->section_category][] = $section;
+    }
+
+    return $return_array;
   }
 
   //////////// GETTERS AND SETTERS FOR SERIALIZED FIELDS ////////////

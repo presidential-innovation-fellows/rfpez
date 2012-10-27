@@ -5,5 +5,50 @@
 
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 
-h4 Sections
+.row-fluid
+  .span8
+    h4 Available Sections for #{$project->project_type->name}
 
+  .span4
+    h4 Selected Sections
+
+.row-fluid
+  .span8.available-sections-wrapper
+    span
+      em Don't see what you want? In the next step you can create new sections.
+
+    .row-fluid
+      .span6.sort-by
+        | Sort by:
+        select
+          option Popularity
+
+      .span6.filter
+        input.search-query(type="text", placeholder="Filter")
+
+    table.table.table-striped
+      thead
+        tr
+          th Title
+          th Category
+          th Times Used
+          th Use
+
+      tbody
+        - foreach ($available_sections as $section):
+          tr
+            td #{$section->title}
+            td #{$section->section_category}
+            td #{$section->times_used}
+            td
+              a.btn.btn-mini(href="#") Use This &rarr;
+
+  .span4
+    - foreach ($project->sections_by_category() as $category => $sections):
+      h4 #{$category}
+
+      - foreach ($sections as $section):
+        .section &bullet; #{$section->title}
+
+.form-actions
+  a.btn.btn-primary Continue
