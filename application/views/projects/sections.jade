@@ -36,19 +36,15 @@
 
       tbody
         - foreach ($available_sections as $section):
-          tr
+          tr.section(data-section-id="#{$section->id}")
             td #{$section->title}
             td #{$section->section_category}
             td #{$section->times_used}
             td
-              a.btn.btn-mini(href="#") Use This &rarr;
+              a.btn.btn-mini.add-button(data-href="#{route('project_section_add', array($project->id, $section->id))}") Use This &rarr;
 
   .span4
-    - foreach ($project->sections_by_category() as $category => $sections):
-      h4 #{$category}
-
-      - foreach ($sections as $section):
-        .section &bullet; #{$section->title}
+    !{View::make('projects.partials.selected_sections')->with('project', $project)}
 
 .form-actions
   a.btn.btn-primary Continue

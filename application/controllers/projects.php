@@ -68,6 +68,26 @@ class Projects_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
+  public function action_sections_remove($project_id, $section_id) {
+    $project = Config::get('project');
+    $project->remove_section($section_id);
+
+    return Response::json(array('status' => 'success',
+                                'selected_sections_html' => View::make('projects.partials.selected_sections')
+                                                                ->with('project', $project)
+                                                                ->render() ));
+  }
+
+  public function action_sections_add($project_id, $section_id) {
+    $project = Config::get('project');
+    $project->add_section($section_id);
+
+    return Response::json(array('status' => 'success',
+                                'selected_sections_html' => View::make('projects.partials.selected_sections')
+                                                                ->with('project', $project)
+                                                                ->render() ));
+  }
+
   public function action_show() {
     $view = View::make('projects.show');
     $view->project = Config::get('project');

@@ -179,8 +179,11 @@ class Project extends Eloquent {
   }
 
   public function sections_by_category() {
-    $sections = ProjectSection::where_in('id', $this->sections)
-                              ->order_by(\DB::raw("FIND_IN_SET(id, ('".implode(',',$this->sections)."'))"))
+    $section_ids = $this->sections;
+    if (count($section_ids) == 0) return array();
+
+    $sections = ProjectSection::where_in('id', $section_ids)
+                              ->order_by(\DB::raw("FIND_IN_SET(id, ('".implode(',',$section_ids)."'))"))
                               ->get();
 
     $return_array = array();
@@ -191,6 +194,20 @@ class Project extends Eloquent {
     }
 
     return $return_array;
+  }
+
+  public function remove_section($section_id) {
+    $sections = $this->sections;
+    if(($key = array_search($section_id, $sections)) !== false) unset($sections[$key]);
+    $this->sections = array_values($sections);
+    $this->save();
+  }
+
+  public function add_section($section_id) {
+    $sections = $this->sections;
+    if(array_search($section_id, $sections) === false) array_push($sections, $section_id);
+    $this->sections = $sections;
+    $this->save();
   }
 
   //////////// GETTERS AND SETTERS FOR SERIALIZED FIELDS ////////////

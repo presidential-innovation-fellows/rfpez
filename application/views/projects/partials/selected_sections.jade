@@ -1,0 +1,8 @@
+.selected-sections
+  - foreach ($project->sections_by_category() as $category => $sections):
+    h4 #{$category}
+
+    - foreach ($sections as $section):
+      .section(data-section-id="#{$section->id}") &bullet; #{$section->title}
+        a.btn.btn-mini.remove-button(data-href="#{route('project_section_delete', array($project->id, $section->id))}", data-loading-text="Removing...")
+          i.icon-trash
