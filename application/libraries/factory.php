@@ -168,6 +168,7 @@ Class Factory {
     $s = new ProjectSection(array('section_category' => 'Requirements',
                                   'title' => implode(" ", $faker->words),
                                   'body' => $faker->paragraph,
+                                  'public' => rand(0,1),
                                   'times_used' => rand(0,10)));
     $s->save();
 

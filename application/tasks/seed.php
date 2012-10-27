@@ -22,14 +22,17 @@ class Seed_Task {
     // Create project sections
     $section1 = ProjectSection::create(array('section_category' => 'Deliverables',
                                              'title' => 'Information Architecture',
+                                             'public' => true,
                                              'body' => 'Information architecture (IA) and initial site map for the redesigned {{WEBSITE}} site. This IA and site map will be used so copy can be revised and/or developed in-house while the contractor is in the process of executing other deliverable products. Note the IA and site map will only include content/sites currently in the {{WEBSITE}} infrastructure.'));
 
     $section2 = ProjectSection::create(array('section_category' => 'Deliverables',
                                              'title' => 'Page Templating',
+                                             'public' => true,
                                              'body' => 'Complete redesign of {{WEBSITE}} and templates for outreach materials. This includes the complete website, features, applications, blog, social media, mobile, email and newsletters, and any items deemed best to connect with the audiences identified in Deliverable Product #1.'));
 
     $section3 = ProjectSection::create(array('section_category' => 'Objectives',
                                              'title' => 'Increased Visibility',
+                                             'public' => true,
                                              'body' => $faker->paragraph));
 
     // Link project sections to api project type

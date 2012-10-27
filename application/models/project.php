@@ -50,6 +50,10 @@ class Project extends Eloquent {
     return $this->has_many('Question')->order_by('created_at', 'desc');
   }
 
+  public function sections_created_by_it() {
+    return $this->has_many('ProjectSection', 'created_by_project_id');
+  }
+
   public function is_mine() {
     if (!Auth::user() || !Auth::user()->officer) return false;
     if (self::$my_project_ids === false)
@@ -163,7 +167,7 @@ class Project extends Eloquent {
   }
 
   public function available_sections() {
-    return $this->project_type->project_sections();
+    return $this->project_type->project_sections()->where_public(true);
   }
 
   public function get_available_sections() {
