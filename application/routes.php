@@ -68,28 +68,34 @@ Route::get('projects/(:num)/bids/(:num)/star', array('uses' => 'bids@star', 'as'
 Route::get('projects/(:num)/bids/(:num)/destroy', array('uses' => 'bids@destroy', 'as' => 'bid_destroy'));
 // Route::get('contracts/(:num)/bids/(:num)/sf1449.pdf', array('uses' => 'bids@sf1449', 'as' => 'bid_sf1449'));
 
+
 /*
 |--------------------------------------------------------------------------
 | SOW Composer
 |--------------------------------------------------------------------------
 */
 
-Route::get('projects/(:num)/sow/background', array('uses' => 'sows@background', 'as' => 'sow_background'));
-Route::post('projects/(:num)/sow/background', array('uses' => 'sows@background_post', 'as' => 'sow_background'));
+Route::get('projects/(:num)/template', array('uses' => 'projects@template', 'as' => 'project_template'));
+Route::post('projects/(:num)/template', array('uses' => 'projects@template_post', 'as' => 'project_template'));
 
-Route::get('projects/(:num)/sow/sections/(:all)', array('uses' => 'sows@section', 'as' => 'sow_section'));
-Route::post('projects/(:num)/sow/sections/(:all)', array('uses' => 'sows@section_post', 'as' => 'sow_section_post'));
+Route::get('projects/(:num)/background', array('uses' => 'projects@background', 'as' => 'project_background'));
+Route::post('projects/(:num)/background', array('uses' => 'projects@background_post', 'as' => 'project_background'));
 
-Route::get('projects/(:num)/sow/fillinblanks', array('uses' => 'sows@fillinblanks', 'as' => 'sow_fillinblanks'));
-Route::post('projects/(:num)/sow/fillinblanks', array('uses' => 'sows@fillinblanks_post', 'as' => 'sow_fillinblanks'));
+Route::get('projects/(:num)/sections', array('uses' => 'projects@sections', 'as' => 'project_sections'));
+Route::post('projects/(:num)/sections', array('uses' => 'projects@sections_post', 'as' => 'project_sections'));
 
-Route::get('projects/(:num)/sow/editdoc', array('uses' => 'sows@editdoc', 'as' => 'sow_editdoc'));
-Route::post('projects/(:num)/sow/editdoc', array('uses' => 'sows@editdoc_post', 'as' => 'sow_editdoc'));
+Route::get('projects/(:num)/sections/edit', array('uses' => 'projects@sections_edit', 'as' => 'project_sections_edit'));
+Route::post('projects/(:num)/sections/edit', array('uses' => 'projects@sections_edit_post', 'as' => 'project_sections_edit'));
 
-Route::get('projects/(:num)/sow/review', array('uses' => 'sows@review', 'as' => 'sow_review'));
-// Route::get('sows/(:num)/doc', array('uses' => 'sows@doc', 'as' => 'sow_doc'));
-// Route::get('sows/(:num)/print', array('uses' => 'sows@print', 'as' => 'sow_print'));
-// Route::get('sows/(:num)/view', array('uses' => 'sows@view', 'as' => 'sow_view'));
+Route::get('projects/(:num)/blanks', array('uses' => 'projects@blanks', 'as' => 'project_blanks'));
+Route::post('projects/(:num)/blanks', array('uses' => 'projects@blanks_post', 'as' => 'project_blanks'));
+
+Route::get('projects/(:num)/timeline', array('uses' => 'projects@timeline', 'as' => 'project_timeline'));
+Route::post('projects/(:num)/timeline', array('uses' => 'projects@timeline_post', 'as' => 'project_timeline'));
+
+Route::get('projects/(:num)/review', array('uses' => 'projects@review', 'as' => 'project_review'));
+
+
 
 /*
 |--------------------------------------------------------------------------
