@@ -161,4 +161,16 @@ Class Factory {
     $q->vendor_id = $v->id;
     $q->save();
   }
+
+  public static function section() {
+    $faker = Faker\Factory::create();
+
+    $s = new ProjectSection(array('section_category' => 'Requirements',
+                                  'title' => implode(" ", $faker->words),
+                                  'body' => $faker->paragraph,
+                                  'times_used' => rand(0,10)));
+    $s->save();
+
+    $s->project_types()->sync(ProjectType::lists('id'));
+  }
 }
