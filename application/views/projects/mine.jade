@@ -20,7 +20,7 @@
       - foreach($projects as $project):
         tr.project-meta
           td
-            img.my-project-icon(src="#{@Project::$naics_icons[$project->naics_code]}", title="#{@Project::$naics_codes[$project->naics_code] ?: $project->naics_code}", alt="#{@Project::$naics_codes[$project->naics_code] ?: $project->naics_code}")
+            img.my-project-icon(src="#", title="#", alt="#")
           td
             a.project-title(href="#{ route('project', array($project->id)) }", data-pjax) #{$project->title}
           td #{$project->status_text()}

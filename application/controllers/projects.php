@@ -24,13 +24,22 @@ class Projects_Controller extends Base_Controller {
   public function action_create() {
     $project = new Project(Input::get('project'));
     $project->save();
-
     $project->officers()->attach(Auth::officer()->id, array('owner' => true));
 
-    $sow = Sow::create(array('based_on_sow_template_id' => Input::get('template_id'),
-                             'project_id' => $project->id));
+    return Redirect::to_route('project_template', array($project->id));
+  }
 
-    return Redirect::to_route('sow_background', array($project->id));
+  public function action_template() {
+    $view = View::make('projects.template');
+    $view->project = Config::get('project');
+    $view->templates = $view->project->available_templates()->take(3)->get();
+    $view->more_templates_count = $view->project->available_templates()->count() - 3;
+    if ($view->more_templates_count <= 0) $view->more_templates_count = false;
+    $this->layout->content = $view;
+  }
+
+  public function action_template_post() {
+    return "posting template";
   }
 
   public function action_show() {

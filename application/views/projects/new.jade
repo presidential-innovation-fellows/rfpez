@@ -6,22 +6,10 @@ form(action="#{route('projects')}", method="POST", id="new-project-form")
     input(type="text", name="project[title]")
 
   .control-group
-    label Agency
-    input(type="text", name="project[agency]")
-
-  .control-group
-    label Office
-    input(type="text", name="project[office]")
-
-  .control-group
-    label Naics
-    input(type="text", name="project[naics_code]")
-
-  .control-group
-    label SOW Template
-    select(name="template_id")
-      - foreach (SowTemplate::current()->get() as $template):
-        option(value="#{$template->id}") #{$template->title}
+    label Project Type
+    select(name="project[project_type_id]")
+      - foreach (ProjectType::all() as $project_type):
+        option(value="#{$project_type->id}") #{$project_type->name}
 
 
 

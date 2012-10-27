@@ -155,6 +155,13 @@ class Project extends Eloquent {
                 ->where_not_null('dismissal_reason');
   }
 
+  public function available_templates() {
+    return Project::where_project_type_id($this->project_type_id)
+                  ->where('id', '!=', $this->id)
+                  ->where_public(true)
+                  ->order_by('fork_count', 'desc');
+  }
+
   //////////// GETTERS AND SETTERS FOR SERIALIZED FIELDS ////////////
 
   public function get_sections() {
