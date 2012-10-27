@@ -12,7 +12,6 @@ hide_already_selected_sections = ->
     else
       el.show()
 
-
 $(document).on "ready pjax:success", ->
   hide_already_selected_sections()
 
@@ -42,7 +41,22 @@ $(document).on "click", ".section .add-button", (e) ->
       hide_already_selected_sections()
 
 $(document).on "click", ".add-section-button", ->
+  $("#edit-section-form").resetForm()
   $("#edit-section-modal").find(".modal-header h3").text("Add Section")
+  $("#edit-section-modal").modal('show')
+
+$(document).on "click", ".edit-section-link", ->
+  section = $(this).closest(".section")
+  section_id = section.data('section-id')
+  title = section.data('section-title')
+  body = section.find(".body").html()
+  category = section.closest(".category").data('name')
+
+  $("#edit-section-modal").find(".modal-header h3").text("Edit Section '#{title}'")
+  $("#edit-section-form").find("input[name=section_id]").val(section_id)
+  $("#edit-section-form").find("input[name=project_section\\[section_category\\]]").val(category)
+  $("#edit-section-form").find("input[name=project_section\\[title\\]]").val(title)
+  $("#edit-section-form").find("textarea[name=project_section\\[body\\]]").val(body)
   $("#edit-section-modal").modal('show')
 
 $(document).on "submit", "#edit-section-form", (e) ->

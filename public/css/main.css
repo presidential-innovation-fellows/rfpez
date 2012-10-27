@@ -505,3 +505,9 @@ ul.templates-list li.template {
   border-bottom: 1px dotted #ccc;
   padding: 15px 0;
 }
+.sections-for-editing .section .edit-section-link {
+  display: none;
+}
+.sections-for-editing .section:hover .edit-section-link {
+  display: inline;
+}

@@ -180,6 +180,8 @@ class Project extends Eloquent {
     $this->sections = $template->sections;
     $this->deliverables = $template->deliverables;
     $this->save();
+
+    ProjectSection::change_times_used($template->sections, 1);
   }
 
   public function sections_by_category() {
@@ -205,6 +207,8 @@ class Project extends Eloquent {
     if(($key = array_search($section_id, $sections)) !== false) unset($sections[$key]);
     $this->sections = array_values($sections);
     $this->save();
+
+    ProjectSection::change_times_used($section_id, -1);
   }
 
   public function add_section($section_id) {
@@ -212,6 +216,18 @@ class Project extends Eloquent {
     if (array_search($section_id, $sections) === false) array_push($sections, $section_id);
     $this->sections = $sections;
     $this->save();
+
+    ProjectSection::change_times_used($section_id, 1);
+  }
+
+  public function replace_section($old_section_id, $new_section_id) {
+    $sections = $this->sections;
+    $key = array_search($old_section_id, $sections);
+    $sections[$key] = $new_section_id;
+    $this->sections = $sections;
+    $this->save();
+    ProjectSection::change_times_used($old_section_id, -1);
+    ProjectSection::change_times_used($new_section_id, 1);
   }
 
   //////////// GETTERS AND SETTERS FOR SERIALIZED FIELDS ////////////

@@ -4,6 +4,7 @@
       h4 #{$category}
 
       - foreach ($sections as $section):
-        .section(data-section-id="#{$section->id}")
+        .section(data-section-id="#{$section->id}", data-section-title="#{$section->title}")
           strong #{$section->title}
-          p #{$section->body}
+          a.edit-section-link(href="#") edit
+          p.body #{$section->body}

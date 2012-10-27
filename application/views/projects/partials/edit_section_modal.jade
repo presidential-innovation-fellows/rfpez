@@ -1,5 +1,5 @@
 #edit-section-modal.modal.hide(tabindex='-1', role='dialog')
-  form.form-horizontal(action="#{route('project_sections_edit', array($project->id))}", method="POST")#edit-section-form
+  form.form-horizontal#edit-section-form(action="#{route('project_sections_edit', array($project->id))}", method="POST")
     input(type="hidden", name="section_id")
 
     .modal-header

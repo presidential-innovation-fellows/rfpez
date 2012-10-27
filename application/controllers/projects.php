@@ -102,6 +102,18 @@ class Projects_Controller extends Base_Controller {
 
     if ($section_id) {
       // we're editing an existing section
+      $section = ProjectSection::find($section_id);
+      if ($section->can_edit_without_forking()){
+        $section->fill($section_input);
+        $section->times_used = 1;
+        $section->created_by_project_id = $project->id;
+        $section->save();
+      } else {
+        $new_section = $section->fork($project->id);
+        $new_section->fill($section_input);
+        $new_section->save();
+        $project->replace_section($section->id, $new_section->id);
+      }
 
     } else {
       // we're adding a new sction
