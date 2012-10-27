@@ -64,7 +64,7 @@ class Projects_Controller extends Base_Controller {
   public function action_sections() {
     $view = View::make('projects.sections');
     $view->project = Config::get('project');
-    $view->available_sections = $view->project->available_sections;
+    $view->available_sections = $view->project->available_sections()->order_by('times_used', 'desc')->get();
     $this->layout->content = $view;
   }
 
