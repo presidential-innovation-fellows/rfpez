@@ -21,7 +21,7 @@
       <div class="control-group">
         <div class="controls">
           <textarea name="explanation" placeholder="Dismissal Explanation"></textarea>
-          <alert class="alert-error">(The vendor will see this message)</alert>
+          <div class="alert alert-error">(The vendor will see this message)</div>
         </div>
       </div>
     </div>
