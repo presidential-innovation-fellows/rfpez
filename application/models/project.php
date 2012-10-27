@@ -230,6 +230,12 @@ class Project extends Eloquent {
     ProjectSection::change_times_used($new_section_id, 1);
   }
 
+  public function reorder_sections_to($new_order) {
+    // @todo check that we're not adding or removing sections, just reordering them
+    $this->sections = $new_order;
+    $this->save();
+  }
+
   //////////// GETTERS AND SETTERS FOR SERIALIZED FIELDS ////////////
 
   public function get_sections() {

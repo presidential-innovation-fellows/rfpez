@@ -89,6 +89,8 @@ Route::delete('projects/(:num)/sections/(:num)', array('uses' => 'projects@secti
 Route::get('projects/(:num)/sections/edit', array('uses' => 'projects@sections_edit', 'as' => 'project_sections_edit'));
 Route::post('projects/(:num)/sections/edit', array('uses' => 'projects@sections_edit_post', 'as' => 'project_sections_edit'));
 
+Route::post('projects/(:num)/sections/reorder', array('uses' => 'projects@sections_reorder', 'as' => 'project_sections_reorder'));
+
 Route::get('projects/(:num)/blanks', array('uses' => 'projects@blanks', 'as' => 'project_blanks'));
 Route::post('projects/(:num)/blanks', array('uses' => 'projects@blanks_post', 'as' => 'project_blanks'));
 

@@ -12,8 +12,44 @@ hide_already_selected_sections = ->
     else
       el.show()
 
-$(document).on "ready pjax:success", ->
+apply_section_cover = ->
+  cover = $("<div class='sections-for-editing-cover'>Saving order...</div>")
+  sections_wrapper = $(".sections-for-editing-wrapper")
+  cover.css
+    width: sections_wrapper.width()
+    height: sections_wrapper.height()
+  cover.appendTo(sections_wrapper)
+
+remove_section_cover = ->
+  $(".sections-for-editing-cover").remove();
+
+save_sort_order = ->
+  apply_section_cover()
+
+  project_id = $(".sections-for-editing-wrapper").data('project-id')
+  sections = []
+
+  $(".section").each ->
+    sections.push $(this).data('section-id')
+
+  $.ajax
+    url: "/projects/#{project_id}/sections/reorder"
+    type: "POST"
+    data:
+      sections: sections
+    success: (data) ->
+      console.log(data)
+      remove_section_cover()
+
+
+$(document).on "ready pjax:success sectionsreloaded", ->
   hide_already_selected_sections()
+
+  $(".sections-for-editing").sortable
+    update: save_sort_order
+  $(".sections-for-editing .category-sections").sortable
+    update: save_sort_order
+
 
 $(document).on "click", ".section .remove-button", (e) ->
   e.preventDefault()
@@ -25,7 +61,6 @@ $(document).on "click", ".section .remove-button", (e) ->
     success: (data) ->
       new_selected_sections = $(data.selected_sections_html)
       $(".selected-sections").replaceWith(new_selected_sections)
-      hide_already_selected_sections()
 
 $(document).on "click", ".section .add-button", (e) ->
   e.preventDefault()
@@ -38,7 +73,6 @@ $(document).on "click", ".section .add-button", (e) ->
       new_selected_sections = $(data.selected_sections_html)
       $(".selected-sections").replaceWith(new_selected_sections)
       el.button('reset')
-      hide_already_selected_sections()
 
 $(document).on "click", ".add-section-button", ->
   $("#edit-section-form").resetForm()
@@ -68,5 +102,6 @@ $(document).on "submit", "#edit-section-form", (e) ->
     success: (data) ->
       new_sections_for_editing = $(data.sections_for_editing_html)
       $(".sections-for-editing").replaceWith(new_sections_for_editing)
+      $(document).trigger("sectionsreloaded")
       $("#edit-section-modal").modal('hide')
       button.button('reset')

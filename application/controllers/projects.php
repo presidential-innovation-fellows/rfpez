@@ -128,6 +128,17 @@ class Projects_Controller extends Base_Controller {
                                                                    ->render() ));
   }
 
+  public function action_sections_reorder() {
+    $project = Config::get('project');
+
+    $new_order = array_map(function($n){
+      return intval($n);
+    }, Input::get('sections'));
+
+    $project->reorder_sections_to($new_order);
+    return Response::json(array('status' => 'success'));
+  }
+
   public function action_show() {
     $view = View::make('projects.show');
     $view->project = Config::get('project');
