@@ -15,7 +15,19 @@ h4 Select a Template
 ul.templates-list
   - foreach($templates as $template):
     li.template
-      | template
+      .row-fluid
+        .span6
+          .title #{$template->title}
+          .author #{$template->owner()->name}
+
+        .span4
+          .forked
+            | Forked <a href="#">#{$template->fork_count} #{Str::plural('time', $template->fork_count)}</a>
+          - if ($template->recommended):
+            .recommended &star; Recommended Template
+
+        .span2
+          a.btn(href="#{route('project_template_post', array($project->id, $template->id))}") Fork
 
   - if ($more_templates_count):
     li.show-more
@@ -23,3 +35,8 @@ ul.templates-list
 
 
 h4 ...Or Start From Scratch
+
+.alert.alert-info
+  | Prefer to roll your own SOW? That's great too! You'll still have access to our library of pre-written sections.
+
+a.btn(href="#{route('project_background', array($project->id))}") Start From Scratch

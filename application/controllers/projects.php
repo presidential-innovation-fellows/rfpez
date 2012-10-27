@@ -11,6 +11,8 @@ class Projects_Controller extends Base_Controller {
 
     $this->filter('before', 'project_posted')->only(array('show'));
 
+    $this->filter('before', 'template_exists_and_is_forkable')->only('template_post');
+
     $this->filter('before', 'i_am_collaborator')->except(array('new', 'create', 'mine', 'index', 'show', 'destroy_collaborator'));
 
     $this->filter('before', 'i_am_owner')->only(array('destroy_collaborator'));
@@ -39,7 +41,30 @@ class Projects_Controller extends Base_Controller {
   }
 
   public function action_template_post() {
-    return "posting template";
+    // Forking template
+    $project = Config::get('project');
+    $template = Config::get('template');
+    $project->fork_from($template);
+    return Redirect::to_route('project_background', array($project->id));
+  }
+
+  public function action_background() {
+    $view = View::make('projects.background');
+    $view->project = Config::get('project');
+    $this->layout->content = $view;
+  }
+
+  public function action_background_post() {
+    $project = Config::get('project');
+    $project->fill(Input::get('project'));
+    $project->save();
+    return Redirect::to_route('project_sections', array($project->id));
+  }
+
+  public function action_sections() {
+    $view = View::make('projects.sections');
+    $view->project = Config::get('project');
+    $this->layout->content = $view;
   }
 
   public function action_show() {
@@ -244,6 +269,18 @@ Route::filter('project_posted', function() {
   } else {
     return Redirect::to_route('sow_background', array($project->id));
   }
+});
+
+Route::filter('template_exists_and_is_forkable', function(){
+  $project = Config::get('project');
+  $id = Request::$route->parameters[1];
+  $template = Project::where_id($id)
+                     ->where_public(true)
+                     ->where_project_type_id($project->project_type_id)
+                     ->first();
+
+  if (!$template) return Redirect::to_route('project_background', array($project->id));
+  Config::set('template', $template);
 });
 
 Route::filter('i_am_collaborator', function() {

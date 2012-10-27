@@ -1,4 +1,8 @@
-h4 #{$project->title}
+h4
+  | #{$project->title}
+  - if ($project->forked_from_project_id):
+    span.forked-from Forked from #{$project->forked_from_project->title}
+  - endif;
   span.pull-right Status: #{$project->status_text()}
 
 .nav.nav-tabs.project-subnav

@@ -1,0 +1,9 @@
+- Section::inject('page_title', $project->title)
+- Section::inject('page_action', "Sections")
+- Section::inject('active_subnav', 'view')
+- Section::inject('no_page_header', true)
+
+!{View::make('projects.partials.toolbar')->with('project', $project)}
+
+h4 Sections
+

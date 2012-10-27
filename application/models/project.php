@@ -162,6 +162,14 @@ class Project extends Eloquent {
                   ->order_by('fork_count', 'desc');
   }
 
+  public function fork_from($template) {
+    $this->forked_from_project_id = $template->id;
+    $this->background = $template->background;
+    $this->sections = $template->sections;
+    $this->deliverables = $template->deliverables;
+    $this->save();
+  }
+
   //////////// GETTERS AND SETTERS FOR SERIALIZED FIELDS ////////////
 
   public function get_sections() {

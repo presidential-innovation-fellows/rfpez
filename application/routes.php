@@ -76,7 +76,7 @@ Route::get('projects/(:num)/bids/(:num)/destroy', array('uses' => 'bids@destroy'
 */
 
 Route::get('projects/(:num)/template', array('uses' => 'projects@template', 'as' => 'project_template'));
-Route::post('projects/(:num)/template', array('uses' => 'projects@template_post', 'as' => 'project_template'));
+Route::get('projects/(:num)/template/(:num)', array('uses' => 'projects@template_post', 'as' => 'project_template_post'));
 
 Route::get('projects/(:num)/background', array('uses' => 'projects@background', 'as' => 'project_background'));
 Route::post('projects/(:num)/background', array('uses' => 'projects@background_post', 'as' => 'project_background'));

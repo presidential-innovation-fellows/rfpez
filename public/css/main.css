@@ -405,6 +405,10 @@ body.vendor .no-auth-only {
 .notification-item:hover .mark-as-unread {
   display: block;
 }
+h4 span.forked-from {
+  font-size: 12px;
+  color: #666;
+}
 .project-subnav {
   margin-top: 25px;
 }
@@ -480,10 +484,24 @@ tbody.project .admin-star i {
   line-height: 12px;
   margin-top: -1px;
 }
+.background-form textarea {
+  width: 100%;
+  max-width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-height: 280px;
+}
 .explain-duns-link {
   padding-left: 10px;
   font-size: 0.9em;
 }
+ul.templates-list {
+  margin: 0;
+  border-top: 1px dotted #ccc;
+}
 ul.templates-list li.template {
+  list-style: none;
   border-bottom: 1px dotted #ccc;
+  padding: 15px 0;
 }
