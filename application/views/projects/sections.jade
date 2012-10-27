@@ -41,7 +41,7 @@
             td #{$section->section_category}
             td #{$section->times_used}
             td
-              a.btn.btn-mini.add-button(data-href="#{route('project_section_add', array($project->id, $section->id))}") Use This &rarr;
+              a.btn.btn-primary.btn-mini.add-button(data-href="#{route('project_section_add', array($project->id, $section->id))}") Use This &rarr;
 
   .span4
     !{View::make('projects.partials.selected_sections')->with('project', $project)}
