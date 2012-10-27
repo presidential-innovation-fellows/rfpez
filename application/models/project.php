@@ -197,15 +197,15 @@ class Project extends Eloquent {
   }
 
   public function remove_section($section_id) {
-    $sections = $this->sections;
+    $sections = $this->sections ?: array();
     if(($key = array_search($section_id, $sections)) !== false) unset($sections[$key]);
     $this->sections = array_values($sections);
     $this->save();
   }
 
   public function add_section($section_id) {
-    $sections = $this->sections;
-    if(array_search($section_id, $sections) === false) array_push($sections, $section_id);
+    $sections = $this->sections ?: array();
+    if (array_search($section_id, $sections) === false) array_push($sections, $section_id);
     $this->sections = $sections;
     $this->save();
   }
