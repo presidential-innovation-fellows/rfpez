@@ -27,7 +27,7 @@
         <input class="search-query" type="text" placeholder="Filter" />
       </div>
     </div>
-    <table class="table table-striped">
+    <table class="table table-striped available-sections-table">
       <thead>
         <tr>
           <th>Title</th>
