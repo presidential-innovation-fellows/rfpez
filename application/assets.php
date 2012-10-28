@@ -37,11 +37,13 @@ Basset::scripts('website', function($basset)
          ->add('infinite-vendor-scroll', 'js/infinite-vendor-scroll.js')
          ->add('save-bid-draft', 'js/save-bid-draft.js')
          ->add('bid-review-hotkeys', 'js/bid-review-hotkeys.js')
-         ->add('project-comments', 'js/project-comments.js');
+         ->add('project-comments', 'js/project-comments.js')
+         ->compress();
 });
 
 Basset::styles('website', function($basset)
 {
   $basset->add('bootstrap', 'bootstrap.css')
-         ->add('maincss', 'main.css');
+         ->add('maincss', 'main.css')
+         ->compress();
 });
