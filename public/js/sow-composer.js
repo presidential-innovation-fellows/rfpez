@@ -50,7 +50,6 @@
         sections: sections
       },
       success: function(data) {
-        console.log(data);
         return remove_section_cover();
       }
     });
@@ -58,12 +57,14 @@
 
   $(document).on("ready pjax:success sectionsreloaded", function() {
     hide_already_selected_sections();
+    $(".category-sections").sortable({
+      forcePlaceholderSize: true
+    });
     $(".sections-for-editing").sortable({
-      update: save_sort_order
+      handle: "h4",
+      forcePlaceholderSize: true
     });
-    return $(".sections-for-editing .category-sections").sortable({
-      update: save_sort_order
-    });
+    return $(".sections-for-editing").bind('sortupdate', save_sort_order);
   });
 
   $(document).on("click", ".section .remove-button", function(e) {
@@ -130,7 +131,7 @@
       success: function(data) {
         var new_sections_for_editing;
         new_sections_for_editing = $(data.sections_for_editing_html);
-        $(".sections-for-editing").replaceWith(new_sections_for_editing);
+        $(".sections-for-editing-wrapper").replaceWith(new_sections_for_editing);
         $(document).trigger("sectionsreloaded");
         $("#edit-section-modal").modal('hide');
         return button.button('reset');

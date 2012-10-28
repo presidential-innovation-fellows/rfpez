@@ -14,7 +14,7 @@ Basset::scripts('website', function($basset)
 {
   $basset->add('bootstrapjs', 'js/vendor/bootstrap.js')
          ->add('bootstrap-datepicker', 'js/vendor/bootstrap-datepicker.js')
-         ->add('jqueryui', 'js/vendor/jqueryui.js')
+         ->add('jquery-sortable', 'js/vendor/jquery.sortable.js')
          ->add('autogrow-input', 'js/vendor/autogrow-input.js')
          ->add('jquerytimeago', 'js/vendor/jquery.timeago.js')
          ->add('jqueryvalidate', 'js/vendor/jquery.validate.js')

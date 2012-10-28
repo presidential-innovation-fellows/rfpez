@@ -38,18 +38,20 @@ save_sort_order = ->
     data:
       sections: sections
     success: (data) ->
-      console.log(data)
       remove_section_cover()
 
 
 $(document).on "ready pjax:success sectionsreloaded", ->
   hide_already_selected_sections()
 
-  $(".sections-for-editing").sortable
-    update: save_sort_order
-  $(".sections-for-editing .category-sections").sortable
-    update: save_sort_order
+  $(".category-sections").sortable
+    forcePlaceholderSize: true
 
+  $(".sections-for-editing").sortable
+    handle: "h4"
+    forcePlaceholderSize: true
+
+  $(".sections-for-editing").bind 'sortupdate', save_sort_order
 
 $(document).on "click", ".section .remove-button", (e) ->
   e.preventDefault()
@@ -101,7 +103,7 @@ $(document).on "submit", "#edit-section-form", (e) ->
   el.ajaxSubmit
     success: (data) ->
       new_sections_for_editing = $(data.sections_for_editing_html)
-      $(".sections-for-editing").replaceWith(new_sections_for_editing)
+      $(".sections-for-editing-wrapper").replaceWith(new_sections_for_editing)
       $(document).trigger("sectionsreloaded")
       $("#edit-section-modal").modal('hide')
       button.button('reset')
