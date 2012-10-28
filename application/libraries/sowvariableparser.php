@@ -36,7 +36,7 @@ class SowVariableParser {
         $output = preg_replace('/\{\{\s*([^\}]*'.$key.'[^\}]*)\}\}/', $text_input_html, $output);
 
       } else if ($mode == "read") {
-        $output = preg_replace('/\{\{\s*([^\}]*'.$key.'[^\}]*)\}\}/', $varables[$key], $output);
+        $output = preg_replace('/\{\{\s*([^\}]*'.$key.'[^\}]*)\}\}/', (@$variable_values[$key] ?: "_______________"), $output);
       }
     }
 

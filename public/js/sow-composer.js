@@ -184,4 +184,19 @@
     });
   });
 
+  $(document).on("click", ".add-deliverable-button", function() {
+    var new_row, row;
+    row = $(".add-deliverable-row");
+    new_row = row.clone();
+    new_row.removeClass("add-deliverable-row");
+    new_row.appendTo(".timeline-table tbody");
+    return row.find("input").each(function() {
+      return $(this).val($(this).data('original-val'));
+    });
+  });
+
+  $(document).on("click", ".remove-deliverable-button", function() {
+    return $(this).closest("tr").remove();
+  });
+
 }).call(this);

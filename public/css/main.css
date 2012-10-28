@@ -536,3 +536,15 @@ ul.templates-list li.template {
   font-size: 16px;
   font-weight: bold;
 }
+.timeline-table {
+  width: 600px;
+}
+.timeline-table tbody tr .add-deliverable-button {
+  display: none;
+}
+.timeline-table tfoot {
+  background: #ddd;
+}
+.timeline-table tfoot tr .remove-deliverable-button {
+  display: none;
+}

@@ -152,6 +152,36 @@ class Projects_Controller extends Base_Controller {
     return Redirect::to_route('project_timeline', array($project->id));
   }
 
+  public function action_timeline() {
+    $view = View::make('projects.timeline');
+    $view->project = Config::get('project');
+    $view->deliverables = $view->project->deliverables;
+    $this->layout->content = $view;
+  }
+
+  public function action_timeline_post() {
+    $project = Config::get('project');
+    $input_deliverables = Input::get('deliverables');
+    $input_deliverable_dates = Input::get('deliverable_dates');
+
+    $deliverables = array();
+    $i = 0;
+    foreach($input_deliverables as $deliverable) {
+      if ($deliverable && trim($deliverable) != "") $deliverables[$deliverable] = $input_deliverable_dates[$i];
+      $i++;
+    }
+
+    $project->deliverables = $deliverables;
+    $project->save();
+    return Redirect::to_route('project_review', array($project->id));
+  }
+
+  public function action_review() {
+    $view = View::make('projects.review');
+    $view->project = Config::get('project');
+    $this->layout->content = $view;
+  }
+
   public function action_show() {
     $view = View::make('projects.show');
     $view->project = Config::get('project');

@@ -141,3 +141,16 @@ $(document).on "input blur", "input[data-variable]", (e) ->
   $("input[data-variable=#{variableName}]").each ->
     $(this).val(variableValue)
     $(this).trigger("input.autogrow")
+
+####### TIMELINE ######
+
+$(document).on "click", ".add-deliverable-button", ->
+  row = $(".add-deliverable-row")
+  new_row = row.clone()
+  new_row.removeClass("add-deliverable-row")
+  new_row.appendTo(".timeline-table tbody")
+  row.find("input").each ->
+    $(this).val $(this).data('original-val')
+
+$(document).on "click", ".remove-deliverable-button", ->
+  $(this).closest("tr").remove();

@@ -1,0 +1,12 @@
+h4 Timeline
+
+table.table.timeline-table
+  thead
+    tr
+      th Deliverable
+      th Completion Date
+  tbody
+    - foreach ($project->deliverables as $deliverable => $date):
+      tr
+        td #{$deliverable}
+        td #{$date}
