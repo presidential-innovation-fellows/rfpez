@@ -138,4 +138,50 @@
     });
   });
 
+  $("input[data-variable]").autoGrow({
+    comfortZone: 5
+  });
+
+  $(document).on("focus", "input[data-variable]", function() {
+    var el;
+    el = $(this);
+    el.tooltip({
+      title: el.data('helper-text'),
+      placement: 'bottom',
+      trigger: 'manual'
+    });
+    return el.tooltip('show');
+  });
+
+  $(document).on("keydown", "input[data-variable]", function(e) {
+    var index, input, inputs;
+    if (e.keyCode === 13 || e.keyCode === 9) {
+      inputs = $("input[data-variable]");
+      index = inputs.index(this) + 1;
+      while (index < inputs.length) {
+        input = $(inputs[index]);
+        if (input.val() === "") {
+          e.preventDefault();
+          return input.select();
+        }
+        index++;
+      }
+    }
+  });
+
+  $(document).on("blur", "input[data-variable]", function() {
+    return $(this).tooltip('hide');
+  });
+
+  $(document).on("input blur", "input[data-variable]", function(e) {
+    var el, variableName, variableValue;
+    el = $(this);
+    variableName = el.data('variable');
+    variableValue = el.val();
+    return $("input[data-variable=" + variableName + "]").each(function() {
+      $(this).val(variableValue);
+      return $(this).trigger("input.autogrow");
+    });
+  });
+
 }).call(this);

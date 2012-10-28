@@ -105,3 +105,39 @@ $(document).on "submit", "#edit-section-form", (e) ->
       $(document).trigger("sectionsreloaded")
       $("#edit-section-modal").modal('hide')
       button.button('reset')
+
+####### FILL IN THE BLANKS ########
+
+$("input[data-variable]").autoGrow
+    comfortZone: 5
+
+$(document).on "focus", "input[data-variable]", ->
+  el = $(this)
+  el.tooltip
+    title: el.data('helper-text')
+    placement: 'bottom'
+    trigger: 'manual'
+  el.tooltip('show')
+
+$(document).on "keydown", "input[data-variable]", (e) ->
+  if (e.keyCode == 13 || e.keyCode == 9)
+    inputs = $("input[data-variable]")
+    index = inputs.index(this) + 1
+
+    while index < inputs.length
+      input = $(inputs[index])
+      if input.val() == ""
+        e.preventDefault()
+        return input.select()
+      index++
+
+$(document).on "blur", "input[data-variable]", ->
+  $(this).tooltip('hide')
+
+$(document).on "input blur", "input[data-variable]", (e) ->
+  el = $(this)
+  variableName = el.data('variable')
+  variableValue = el.val()
+  $("input[data-variable=#{variableName}]").each ->
+    $(this).val(variableValue)
+    $(this).trigger("input.autogrow")

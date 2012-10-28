@@ -15,4 +15,4 @@ hr
 !{View::make('projects.partials.sections_for_editing')->with('project', $project)}
 
 .form-actions
-  a.btn.btn-primary Next &rarr;
+  a.btn.btn-primary(href="#{route('project_blanks', array($project->id))}") Next &rarr;

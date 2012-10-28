@@ -1,0 +1,9 @@
+h4 Background
+p !{$project->background}
+
+- foreach ($project->sections_by_category() as $category => $sections):
+  h4 #{$category}
+
+  - foreach ($sections as $section):
+    strong #{$section->title}
+    p #{$section->body}

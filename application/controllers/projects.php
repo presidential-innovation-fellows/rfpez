@@ -139,6 +139,19 @@ class Projects_Controller extends Base_Controller {
     return Response::json(array('status' => 'success'));
   }
 
+  public function action_blanks() {
+    $view = View::make('projects.blanks');
+    $view->project = Config::get('project');
+    $this->layout->content = $view;
+  }
+
+  public function action_blanks_post() {
+    $project = Config::get('project');
+    $project->variables = Input::get('variables');
+    $project->save();
+    return Redirect::to_route('project_timeline', array($project->id));
+  }
+
   public function action_show() {
     $view = View::make('projects.show');
     $view->project = Config::get('project');

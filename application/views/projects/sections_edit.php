@@ -14,5 +14,5 @@
 <hr />
 <?php echo Jade\Dumper::_html(View::make('projects.partials.sections_for_editing')->with('project', $project)); ?>
 <div class="form-actions">
-  <a class="btn btn-primary">Next &rarr;</a>
+  <a class="btn btn-primary" href="<?php echo Jade\Dumper::_text(route('project_blanks', array($project->id))); ?>">Next &rarr;</a>
 </div>
