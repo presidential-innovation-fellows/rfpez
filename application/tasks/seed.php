@@ -49,7 +49,8 @@ class Seed_Task {
                                      'sections' => array($section1->id, $section2->id, $section3->id),
                                      'variables' => array('WEBSITE' => 'api.dsbs.sba.gov'),
                                      'deliverables' => array('Information Architecture' => '1/1/13', 'Page Templating' => '2/8/13'),
-                                     'proposals_due_at' => new \DateTime('12/31/2012')
+                                     'proposals_due_at' => new \DateTime('12/31/2012'),
+                                     'fbo_solnbr' => 'SEED'
                                      ));
 
     // ...And give it to officer1

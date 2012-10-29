@@ -100,7 +100,7 @@ Class Factory {
   public static function bid($attributes = array(), $project_id = false) {
     $faker = Faker\Factory::create();
 
-    $p = $project_id ? Project::find($project_id) : Project::order_by(\DB::raw('RAND()'))->first();
+    $p = $project_id ? Project::find($project_id) : Project::where_not_null('fbo_solnbr')->order_by(\DB::raw('RAND()'))->first();
     $v = Vendor::order_by(\DB::raw('RAND()'))->first();
 
     $prices = array();
