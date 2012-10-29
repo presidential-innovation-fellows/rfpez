@@ -19,7 +19,7 @@ table.table.projects-table
     tbody.project
       tr.project-meta
         td
-          img(src="#{@Project::$naics_icons[$project->naics_code]}", title="#{@Project::$naics_codes[$project->naics_code] ?: $project->naics_code}", alt="#{@Project::$naics_codes[$project->naics_code] ?: $project->naics_code}")
+          img(src="#{$project->project_type->image()}", title="#{$project->project_type->name}", alt="#{$project->project_type->name}")
         td
           a.project-title(href="#{route('project', array($project->id))}", data-pjax) #{$project->title}
           - if ($project->is_mine()):
@@ -38,7 +38,7 @@ table.table.projects-table
               - endif;
           - endif;
 
-          p.project-description-truncated #{$project->sow->background_and_scope()}
+          p.project-description-truncated #{$project->background}
 
         td #{$project->agency}
 

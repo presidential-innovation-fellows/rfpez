@@ -20,7 +20,7 @@
       - foreach($projects as $project):
         tr.project-meta
           td
-            img.my-project-icon(src="#", title="#", alt="#")
+            img.my-project-icon(src="#{$project->project_type->image()}", title="#{$project->project_type->name}", alt="#{$project->project_type->name}")
           td
             a.project-title(href="#{ route('project', array($project->id)) }", data-pjax) #{$project->title}
           td #{$project->status_text()}

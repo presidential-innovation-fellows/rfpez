@@ -22,7 +22,7 @@
       <?php foreach($projects as $project): ?>
         <tr class="project-meta">
           <td>
-            <img class="my-project-icon" src="#" title="#" alt="#" />
+            <img class="my-project-icon" src="<?php echo Jade\Dumper::_text($project->project_type->image()); ?>" title="<?php echo Jade\Dumper::_text($project->project_type->name); ?>" alt="<?php echo Jade\Dumper::_text($project->project_type->name); ?>" />
           </td>
           <td>
             <a class="project-title" href="<?php echo Jade\Dumper::_text( route('project', array($project->id)) ); ?>" data-pjax="data-pjax"><?php echo Jade\Dumper::_text($project->title); ?></a>

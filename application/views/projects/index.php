@@ -19,7 +19,7 @@
     <tbody class="project">
       <tr class="project-meta">
         <td>
-          <img src="<?php echo Jade\Dumper::_text(@Project::$naics_icons[$project->naics_code]); ?>" title="<?php echo Jade\Dumper::_text(@Project::$naics_codes[$project->naics_code] ?: $project->naics_code); ?>" alt="<?php echo Jade\Dumper::_text(@Project::$naics_codes[$project->naics_code] ?: $project->naics_code); ?>" />
+          <img src="<?php echo Jade\Dumper::_text($project->project_type->image()); ?>" title="<?php echo Jade\Dumper::_text($project->project_type->name); ?>" alt="<?php echo Jade\Dumper::_text($project->project_type->name); ?>" />
         </td>
         <td>
           <a class="project-title" href="<?php echo Jade\Dumper::_text(route('project', array($project->id))); ?>" data-pjax="data-pjax"><?php echo Jade\Dumper::_text($project->title); ?></a>
@@ -39,7 +39,7 @@
               <?php endif; ?>
             </span>
           <?php endif; ?>
-          <p class="project-description-truncated"><?php echo Jade\Dumper::_text($project->sow->background_and_scope()); ?></p>
+          <p class="project-description-truncated"><?php echo Jade\Dumper::_text($project->background); ?></p>
         </td>
         <td><?php echo Jade\Dumper::_text($project->agency); ?></td>
         <td><?php echo Jade\Dumper::_text(RelativeTime::format($project->proposals_due_at)); ?></td>
