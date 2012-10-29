@@ -1,14 +1,33 @@
 - Section::inject('page_title', $project->title)
 - Section::inject('page_action', "Background")
-- Section::inject('active_subnav', 'view')
+- Section::inject('active_subnav', 'create')
+- Section::inject('active_sidebar', 'background')
 - Section::inject('no_page_header', true)
 
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 
-h4 Background
+.row-fluid
 
-form.background-form(method="POST")
-  textarea(name="project[background]") !{$project->background}
+  .span3
+    !{View::make('projects.partials.sow_composer_sidebar')->with('project', $project)}
 
-  .form-actions
-    button.btn.btn-primary Continue &rarr;
+  .span9
+    .alert.alert-info
+      | First, let's compose a background and scope for your SOW. Tell us about your organization,
+      | and the problem you're trying to solve with this SOW.
+
+    h4.sidebar-section-title Writing A Great SOW
+
+    ul
+      li The background should identify the work in very general terms
+      li Describe your organization and why you're pursuing these goals
+      li Now is the time to mention any regulations or laws affecting the job.
+      li 2-5 Paragraphs in total
+      li Write so your neighbor can understand what you write.
+
+
+    form.background-form(method="POST")
+      textarea(name="project[background]") !{$project->background}
+
+      .form-actions
+        button.btn.btn-primary Select Sections &rarr;

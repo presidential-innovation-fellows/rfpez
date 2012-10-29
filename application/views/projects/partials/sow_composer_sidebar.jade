@@ -1,0 +1,16 @@
+ul.nav.nav-list.sow-sidebar
+  li(class="#{Helper::active_sidebar('background') ? 'active':''}")
+    a(href="#{route('project_background', array($project->id))}") Background
+      i.icon-chevron-right
+  li(class="#{Helper::active_sidebar('select_sections') ? 'active':''}")
+    a(href="#{route('project_sections', array($project->id))}") Select Sections
+      i.icon-chevron-right
+  li(class="#{Helper::active_sidebar('edit_sections') ? 'active':''}")
+    a(href="#{route('project_sections_edit', array($project->id))}") Edit Sections
+      i.icon-chevron-right
+  li(class="#{Helper::active_sidebar('fill_in_blanks') ? 'active':''}")
+    a(href="#{route('project_blanks', array($project->id))}") Fill in Blanks
+      i.icon-chevron-right
+  li(class="#{Helper::active_sidebar('timeline') ? 'active':''}")
+    a(href="#{route('project_timeline', array($project->id))}") Timeline
+      i.icon-chevron-right

@@ -7,7 +7,7 @@
 </h4>
 <div class="nav nav-tabs project-subnav">
   <?php if ($project->status() == Project::STATUS_WRITING_SOW): ?>
-    <li class="<?php echo Jade\Dumper::_text(Helper::active_subnav('view') ? 'active':''); ?>">
+    <li class="<?php echo Jade\Dumper::_text(Helper::active_subnav('create') ? 'active':''); ?>">
       <a href="<?php echo Jade\Dumper::_text(route('project_background', array($project->id))); ?>" data-pjax="data-pjax">Create</a>
     </li>
     <li class="<?php echo Jade\Dumper::_text(Helper::active_subnav('review') ? 'active':''); ?>">

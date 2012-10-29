@@ -1,19 +1,23 @@
 - Section::inject('page_title', $project->title)
 - Section::inject('page_action', "Sections")
-- Section::inject('active_subnav', 'view')
+- Section::inject('active_subnav', 'create')
+- Section::inject('active_sidebar', 'select_sections')
 - Section::inject('no_page_header', true)
 
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 
 .row-fluid
-  .span8
-    h4 Available Sections for #{$project->project_type->name}
+  .span3
+    !{View::make('projects.partials.sow_composer_sidebar')->with('project', $project)}
 
-  .span4
+  .span9
+
     h4 Selected Sections
 
-.row-fluid
-  .span8.available-sections-wrapper
+    !{View::make('projects.partials.selected_sections')->with('project', $project)}
+
+    h4 Available Sections
+
     span
       em Don't see what you want? In the next step you can create new sections.
 
@@ -43,8 +47,5 @@
             td
               a.btn.btn-primary.btn-mini.add-button(data-href="#{route('project_section_add', array($project->id, $section->id))}") Use This &rarr;
 
-  .span4
-    !{View::make('projects.partials.selected_sections')->with('project', $project)}
-
-.form-actions
-  a.btn.btn-primary(href="#{route('project_sections_edit', array($project->id))}") Continue
+    .form-actions
+      a.btn.btn-primary(href="#{route('project_sections_edit', array($project->id))}") Edit Sections &rarr;

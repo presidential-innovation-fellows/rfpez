@@ -1,18 +1,18 @@
 <?php Section::inject('page_title', $project->title) ?>
 <?php Section::inject('page_action', "Sections") ?>
-<?php Section::inject('active_subnav', 'view') ?>
+<?php Section::inject('active_subnav', 'create') ?>
+<?php Section::inject('active_sidebar', 'select_sections') ?>
 <?php Section::inject('no_page_header', true) ?>
 <?php echo Jade\Dumper::_html(View::make('projects.partials.toolbar')->with('project', $project)); ?>
 <div class="row-fluid">
-  <div class="span8">
-    <h4>Available Sections for <?php echo Jade\Dumper::_text($project->project_type->name); ?></h4>
+  <div class="span3">
+    <?php echo Jade\Dumper::_html(View::make('projects.partials.sow_composer_sidebar')->with('project', $project)); ?>
   </div>
-  <div class="span4">
-    <h4>Selected Sections</h4>
-  </div>
-</div>
-<div class="row-fluid">
-  <div class="span8 available-sections-wrapper">
+  <div class="span9">
+    <h4>Selected Sections
+</h4>
+    <?php echo Jade\Dumper::_html(View::make('projects.partials.selected_sections')->with('project', $project)); ?>
+    <h4>Available Sections</h4>
     <span>
       <em>Don't see what you want? In the next step you can create new sections.</em>
     </span>
@@ -49,11 +49,8 @@
         <?php endforeach; ?>
       </tbody>
     </table>
+    <div class="form-actions">
+      <a class="btn btn-primary" href="<?php echo Jade\Dumper::_text(route('project_sections_edit', array($project->id))); ?>">Edit Sections &rarr;</a>
+    </div>
   </div>
-  <div class="span4">
-    <?php echo Jade\Dumper::_html(View::make('projects.partials.selected_sections')->with('project', $project)); ?>
-  </div>
-</div>
-<div class="form-actions">
-  <a class="btn btn-primary" href="<?php echo Jade\Dumper::_text(route('project_sections_edit', array($project->id))); ?>">Continue</a>
 </div>

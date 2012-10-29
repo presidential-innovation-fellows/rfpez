@@ -1,39 +1,43 @@
 - Section::inject('page_title', $project->title)
 - Section::inject('page_action', "Timeline")
-- Section::inject('active_subnav', 'view')
+- Section::inject('active_subnav', 'create')
+- Section::inject('active_sidebar', 'timeline')
 - Section::inject('no_page_header', true)
 
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 
-h4 Timeline
+.row-fluid
+  .span3
+    !{View::make('projects.partials.sow_composer_sidebar')->with('project', $project)}
 
-form(method="POST")
+  .span9
+    form(method="POST")
 
-  table.table.timeline-table
-    thead
-      tr
-        th Deliverable
-        th Completion Date
-    tbody
-      - foreach ($deliverables as $deliverable => $date):
-        tr
-          td
-            input(type="text", name="deliverables[]", placeholder="Deliverable Name", value="#{$deliverable}")
-          td
-            input(type="text", name="deliverable_dates[]", value="#{$date}")
-            a.btn.btn-success.add-deliverable-button Add
-            a.btn.remove-deliverable-button
-              i.icon-trash
+      table.table.timeline-table
+        thead
+          tr
+            th Deliverable
+            th Completion Date
+        tbody
+          - foreach ($deliverables as $deliverable => $date):
+            tr
+              td
+                input(type="text", name="deliverables[]", placeholder="Deliverable Name", value="#{$deliverable}")
+              td
+                input(type="text", name="deliverable_dates[]", value="#{$date}")
+                a.btn.btn-success.add-deliverable-button Add
+                a.btn.remove-deliverable-button
+                  i.icon-trash
 
-    tfoot
-      tr.add-deliverable-row
-        td
-          input(type="text", name="deliverables[]", placeholder="Deliverable Name", data-original-val="")
-        td
-          input(type="text", name="deliverable_dates[]", value="today", data-original-val="today")
-          a.btn.btn-success.add-deliverable-button Add
-          a.btn.remove-deliverable-button
-            i.icon-trash
+        tfoot
+          tr.add-deliverable-row
+            td
+              input(type="text", name="deliverables[]", placeholder="Deliverable Name", data-original-val="")
+            td
+              input(type="text", name="deliverable_dates[]", value="today", data-original-val="today")
+              a.btn.btn-success.add-deliverable-button Add
+              a.btn.remove-deliverable-button
+                i.icon-trash
 
-  .form-actions
-    button.btn.btn-primary Next &rarr;
+      .form-actions
+        button.btn.btn-primary Review &rarr;

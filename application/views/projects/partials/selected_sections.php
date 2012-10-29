@@ -1,6 +1,6 @@
 <div class="selected-sections">
   <?php foreach ($project->sections_by_category() as $category => $sections): ?>
-    <h4><?php echo Jade\Dumper::_text($category); ?></h4>
+    <strong><?php echo Jade\Dumper::_text($category); ?></strong>
     <?php foreach ($sections as $section): ?>
       <div class="section" data-section-id="<?php echo Jade\Dumper::_text($section->id); ?>">
         &bullet; <?php echo Jade\Dumper::_text($section->title); ?>
