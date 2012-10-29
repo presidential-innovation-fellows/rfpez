@@ -72,13 +72,30 @@ $(document).on "ready pjax:success sectionsreloaded", ->
 
   $(".sections-for-editing").bind 'sortupdate', save_sort_order
 
-$(document).on "click", ".section .remove-button", (e) ->
+$(document).on "click", ".sections-for-editing .remove-button", (e) ->
   e.preventDefault()
   el = $(this)
   el.button('loading')
   $.ajax
     url: el.data('href')
     type: "DELETE"
+    data:
+      requested_html: "sections_for_editing"
+    success: (data) ->
+      new_sections_for_editing = $(data.sections_for_editing_html)
+      $(".sections-for-editing-wrapper").replaceWith(new_sections_for_editing)
+      $(document).trigger("sectionsreloaded")
+      el.button('reset')
+
+$(document).on "click", ".selected-sections .remove-button", (e) ->
+  e.preventDefault()
+  el = $(this)
+  el.button('loading')
+  $.ajax
+    url: el.data('href')
+    type: "DELETE"
+    data:
+      requested_html: "selected_sections"
     success: (data) ->
       new_selected_sections = $(data.selected_sections_html)
       $(".selected-sections").replaceWith(new_selected_sections)
@@ -101,7 +118,8 @@ $(document).on "click", ".add-section-button", ->
   $("#edit-section-form").resetForm()
   $("#edit-section-modal").find(".modal-header h3").text("Add Section")
   $("#edit-section-modal").find(".will-fork").hide()
-  update_section_category_dropdown_from_input()
+  $("#section-category-select").val("Deliverables")
+  section_category_dropdown_changed()
   $("#edit-section-modal").modal('show')
 
 $(document).on "click", ".edit-section-link", ->

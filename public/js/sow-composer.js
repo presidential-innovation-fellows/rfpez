@@ -92,7 +92,7 @@
     return $(".sections-for-editing").bind('sortupdate', save_sort_order);
   });
 
-  $(document).on("click", ".section .remove-button", function(e) {
+  $(document).on("click", ".sections-for-editing .remove-button", function(e) {
     var el;
     e.preventDefault();
     el = $(this);
@@ -100,6 +100,30 @@
     return $.ajax({
       url: el.data('href'),
       type: "DELETE",
+      data: {
+        requested_html: "sections_for_editing"
+      },
+      success: function(data) {
+        var new_sections_for_editing;
+        new_sections_for_editing = $(data.sections_for_editing_html);
+        $(".sections-for-editing-wrapper").replaceWith(new_sections_for_editing);
+        $(document).trigger("sectionsreloaded");
+        return el.button('reset');
+      }
+    });
+  });
+
+  $(document).on("click", ".selected-sections .remove-button", function(e) {
+    var el;
+    e.preventDefault();
+    el = $(this);
+    el.button('loading');
+    return $.ajax({
+      url: el.data('href'),
+      type: "DELETE",
+      data: {
+        requested_html: "selected_sections"
+      },
       success: function(data) {
         var new_selected_sections;
         new_selected_sections = $(data.selected_sections_html);
@@ -131,7 +155,8 @@
     $("#edit-section-form").resetForm();
     $("#edit-section-modal").find(".modal-header h3").text("Add Section");
     $("#edit-section-modal").find(".will-fork").hide();
-    update_section_category_dropdown_from_input();
+    $("#section-category-select").val("Deliverables");
+    section_category_dropdown_changed();
     return $("#edit-section-modal").modal('show');
   });
 

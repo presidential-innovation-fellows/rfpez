@@ -83,10 +83,20 @@ class Projects_Controller extends Base_Controller {
     $project = Config::get('project');
     $project->remove_section($section_id);
 
-    return Response::json(array('status' => 'success',
-                                'selected_sections_html' => View::make('projects.partials.selected_sections')
-                                                                ->with('project', $project)
-                                                                ->render() ));
+    if (Input::get('requested_html') == "sections_for_editing") {
+      return Response::json(array('status' => 'success',
+                                  'sections_for_editing_html' => View::make('projects.partials.sections_for_editing')
+                                                                  ->with('project', $project)
+                                                                  ->render()));
+
+    } elseif (Input::get('requested_html') == "selected_sections") {
+      return Response::json(array('status' => 'success',
+                                  'selected_sections_html' => View::make('projects.partials.selected_sections')
+                                                                  ->with('project', $project)
+                                                                  ->render()));
+
+    }
+
   }
 
   public function action_sections_add($project_id, $section_id) {

@@ -551,10 +551,12 @@ ul.templates-list li.no-templates {
   background-color: #ccc;
   visibility: visible !important;
 }
-.sections-for-editing .category .category-sections .section .edit-section-link {
+.sections-for-editing .category .category-sections .section .edit-section-link,
+.sections-for-editing .category .category-sections .section .remove-button {
   display: none;
 }
-.sections-for-editing .category .category-sections .section:hover .edit-section-link {
+.sections-for-editing .category .category-sections .section:hover .edit-section-link,
+.sections-for-editing .category .category-sections .section:hover .remove-button {
   display: inline;
 }
 .sections-for-editing-cover {
