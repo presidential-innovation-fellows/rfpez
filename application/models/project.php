@@ -272,7 +272,7 @@ class Project extends Eloquent {
     // if not valid, set to a month from now
     if (is_string($val) && !strtotime($val)) {
       $dt = new \DateTime;
-      $this->set_attribute('proposals_due_at', $dt->modify('+1 month'));
+      $this->set_attribute('proposals_due_at', $dt->modify('+1 month')->setTime(23, 59, 59));
 
     } elseif (is_string($val)) {
       $dt = new \DateTime;

@@ -26,7 +26,7 @@ class Projects_Controller extends Base_Controller {
   public function action_create() {
     $project = new Project(Input::get('project'));
     $dt = new \DateTime();
-    $project->proposals_due_at = $dt->modify('+1 month');
+    $project->proposals_due_at = $dt->modify('+1 month')->setTime(23,59,59);
 
     if ($project->validator()->passes()) {
       $project->save();
@@ -210,7 +210,8 @@ class Projects_Controller extends Base_Controller {
 
   public function action_update() {
     $project = Config::get('project');
-    $project->fill(Input::get('project'));
+    $project->fill($project_input = Input::get('project'));
+    $project->proposals_due_at = $project_input["proposals_due_at"] . " 23:59:59";
 
     if ($project->validator()->passes()) {
       $project->save();
