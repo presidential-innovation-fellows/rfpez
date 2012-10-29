@@ -317,7 +317,7 @@ class Project extends Eloquent {
 
   public static function open_projects() {
     return self::where_not_null('fbo_solnbr')
-               ->where('proposals_due_at', '>', \DB::raw('NOW()'));
+               ->where('proposals_due_at', '>', new \DateTime);
   }
 
 }
