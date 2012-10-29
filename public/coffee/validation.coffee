@@ -20,6 +20,9 @@ $(document).on "ready pjax:success", ->
       "project[title]":
         required: true
 
+      "project[project_type_id]":
+        required: true
+
   $(".new-bid-form").validate_rfpez
     rules:
       "bid[approach]":

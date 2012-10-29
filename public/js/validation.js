@@ -22,6 +22,9 @@
       rules: {
         "project[title]": {
           required: true
+        },
+        "project[project_type_id]": {
+          required: true
         }
       }
     });
