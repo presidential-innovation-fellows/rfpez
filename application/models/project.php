@@ -243,10 +243,14 @@ class Project extends Eloquent {
 
   //////////// OVERRIDE SETTER FOR PROPOSALS_DUE_AT ////////////
 
-  public function set_proposals_due_at($date_string) {
-    $dt = new \DateTime;
-    $dt->setTimestamp(strtotime($date_string));
-    $this->set_attribute('proposals_due_at', $dt);
+  public function set_proposals_due_at($val) {
+    if (is_string($val)) {
+      $dt = new \DateTime;
+      $dt->setTimestamp(strtotime($val));
+      $this->set_attribute('proposals_due_at', $dt);
+    } else {
+      $this->set_attribute('proposals_due_at', $val);
+    }
   }
 
   //////////// GETTERS AND SETTERS FOR SERIALIZED FIELDS ////////////

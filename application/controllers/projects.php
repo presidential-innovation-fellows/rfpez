@@ -25,6 +25,8 @@ class Projects_Controller extends Base_Controller {
 
   public function action_create() {
     $project = new Project(Input::get('project'));
+    $dt = new \DateTime();
+    $project->proposals_due_at = $dt->modify('+1 month');
     $project->save();
     $project->officers()->attach(Auth::officer()->id, array('owner' => true));
 
