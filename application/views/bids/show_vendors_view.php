@@ -6,8 +6,8 @@
     <?php echo Jade\Dumper::_html(View::make('projects.partials.full_sow')->with('project', $project)); ?>
   </div>
   <div class="span5 offset1">
-    <h1>My Bid
-</h1>
+    <h4>My Bid
+</h4>
     <?php echo Jade\Dumper::_html(View::make('bids.partials.bid_details_vendors_view')->with('bid', $bid)); ?>
   </div>
 </div>

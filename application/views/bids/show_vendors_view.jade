@@ -8,5 +8,5 @@ a(href="#{route('project', array($project->id))}", data-pjax) &larr; Back to pro
     !{View::make('projects.partials.full_sow')->with('project', $project)}
 
   .span5.offset1
-    h1 My Bid
+    h4 My Bid
     !{View::make('bids.partials.bid_details_vendors_view')->with('bid', $bid)}
