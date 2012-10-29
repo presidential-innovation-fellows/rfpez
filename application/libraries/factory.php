@@ -81,18 +81,20 @@ Class Factory {
     $due_at = new \DateTime();
     $due_at->setTimestamp(rand(1346475600, 1364792400));
 
-    $p = Project::create(array('forked_from_project_id' => $original_project->id,
-                               'project_type_id' => $original_project->project_type_id,
-                               'title' => self::$project_titles[array_rand(self::$project_titles)],
-                               'fbo_solnbr' => rand(0,1) == 0 ? 'SEED-DATA' : null,
-                               'agency' => self::$agencies[array_rand(self::$agencies)],
-                               'office' => self::$offices[array_rand(self::$offices)],
-                               'background' => $faker->paragraph,
-                               'sections' => $original_project->sections,
-                               'variables' => $original_project->variables,
-                               'deliverables' => $original_project->deliverables,
-                               'proposals_due_at' => $due_at
-                               ));
+    $p = new Project(array('project_type_id' => $original_project->project_type_id,
+                           'title' => self::$project_titles[array_rand(self::$project_titles)],
+                           'agency' => self::$agencies[array_rand(self::$agencies)],
+                           'office' => self::$offices[array_rand(self::$offices)],
+                           'background' => $faker->paragraph,
+                           'sections' => $original_project->sections,
+                           'variables' => $original_project->variables,
+                           'deliverables' => $original_project->deliverables,
+                           'proposals_due_at' => $due_at
+                           ));
+    $p->forked_from_project_id = $original_project->id;
+    $p->fbo_solnbr = rand(0,1) == 0 ? 'SEED-DATA' : null;
+    $p->save();
+
     $p->officers()->attach(Officer::first()->id, array('owner' => true));
     return $p;
   }

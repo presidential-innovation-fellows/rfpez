@@ -27,10 +27,15 @@ class Projects_Controller extends Base_Controller {
     $project = new Project(Input::get('project'));
     $dt = new \DateTime();
     $project->proposals_due_at = $dt->modify('+1 month');
-    $project->save();
-    $project->officers()->attach(Auth::officer()->id, array('owner' => true));
 
-    return Redirect::to_route('project_template', array($project->id));
+    if ($project->validator()->passes()) {
+      $project->save();
+      $project->officers()->attach(Auth::officer()->id, array('owner' => true));
+      return Redirect::to_route('project_template', array($project->id));
+    } else {
+      Session::flash('errors', $project->validator()->errors->all());
+      return Redirect::to_route('new_projects')->with_input();
+    }
   }
 
   public function action_template() {
@@ -206,8 +211,14 @@ class Projects_Controller extends Base_Controller {
   public function action_update() {
     $project = Config::get('project');
     $project->fill(Input::get('project'));
-    $project->save();
-    return Redirect::to_route('project_admin', array($project->id));
+
+    if ($project->validator()->passes()) {
+      $project->save();
+      return Redirect::to_route('project_admin', array($project->id));
+    } else {
+      Session::flash('errors', $project->validator()->errors->all());
+      return Redirect::to_route('project_admin', array($project->id))->with_input();
+    }
   }
 
   public function action_mine() {
