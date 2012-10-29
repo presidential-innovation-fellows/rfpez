@@ -42,5 +42,5 @@ table.table.projects-table
 
         td #{$project->agency}
 
-        td #{RelativeTime::format($project->proposals_due_at)}
+        td #{$project->formatted_proposals_due_at()}
 

@@ -24,7 +24,7 @@
           td
             a.project-title(href="#{ route('project', array($project->id)) }", data-pjax) #{$project->title}
           td #{$project->status_text()}
-          td #{RelativeTime::format($project->proposals_due_at)}
+          td #{$project->formatted_proposals_due_at()}
           td
             a.btn.btn-mini(href="#{ route('project_admin', array($project->id)) }", data-pjax) Admin
 - else:

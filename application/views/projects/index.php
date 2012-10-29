@@ -42,7 +42,7 @@
           <p class="project-description-truncated"><?php echo Jade\Dumper::_text($project->background); ?></p>
         </td>
         <td><?php echo Jade\Dumper::_text($project->agency); ?></td>
-        <td><?php echo Jade\Dumper::_text(RelativeTime::format($project->proposals_due_at)); ?></td>
+        <td><?php echo Jade\Dumper::_text($project->formatted_proposals_due_at()); ?></td>
       </tr>
     </tbody>
   <?php endforeach; ?>

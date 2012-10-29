@@ -28,7 +28,7 @@
             <a class="project-title" href="<?php echo Jade\Dumper::_text( route('project', array($project->id)) ); ?>" data-pjax="data-pjax"><?php echo Jade\Dumper::_text($project->title); ?></a>
           </td>
           <td><?php echo Jade\Dumper::_text($project->status_text()); ?></td>
-          <td><?php echo Jade\Dumper::_text(RelativeTime::format($project->proposals_due_at)); ?></td>
+          <td><?php echo Jade\Dumper::_text($project->formatted_proposals_due_at()); ?></td>
           <td>
             <a class="btn btn-mini" href="<?php echo Jade\Dumper::_text( route('project_admin', array($project->id)) ); ?>" data-pjax="data-pjax">Admin</a>
           </td>
