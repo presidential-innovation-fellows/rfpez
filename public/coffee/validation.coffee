@@ -15,6 +15,11 @@ $.validator.addMethod 'urladdhttp', (value, element) ->
 
 $(document).on "ready pjax:success", ->
 
+  $("#new-project-form, #update-project-form").validate_rfpez
+    rules:
+      "project[title]":
+        required: true
+
   $(".new-bid-form").validate_rfpez
     rules:
       "bid[approach]":
