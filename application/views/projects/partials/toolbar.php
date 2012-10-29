@@ -1,8 +1,5 @@
 <h4>
   <?php echo Jade\Dumper::_text($project->title); ?>
-  <?php if ($project->forked_from_project_id): ?>
-    <span class="forked-from">Forked from <?php echo Jade\Dumper::_text($project->forked_from_project->title); ?></span>
-  <?php endif; ?>
   <span class="pull-right">Status: <?php echo Jade\Dumper::_text($project->status_text()); ?></span>
 </h4>
 <div class="nav nav-tabs project-subnav">
