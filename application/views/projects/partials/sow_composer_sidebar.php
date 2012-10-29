@@ -29,4 +29,10 @@
       <i class="icon-chevron-right"></i>
     </a>
   </li>
+  <li class="<?php echo Jade\Dumper::_text(Helper::active_sidebar('review') ? 'active':''); ?>">
+    <a href="<?php echo Jade\Dumper::_text(route('project_review', array($project->id))); ?>">
+      Review
+      <i class="icon-chevron-right"></i>
+    </a>
+  </li>
 </ul>

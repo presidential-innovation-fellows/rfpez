@@ -10,9 +10,6 @@
     <li class="<?php echo Jade\Dumper::_text(Helper::active_subnav('create') ? 'active':''); ?>">
       <a href="<?php echo Jade\Dumper::_text(route('project_background', array($project->id))); ?>" data-pjax="data-pjax">Write SOW</a>
     </li>
-    <li class="<?php echo Jade\Dumper::_text(Helper::active_subnav('review') ? 'active':''); ?>">
-      <a href="<?php echo Jade\Dumper::_text(route('project_review', array($project->id))); ?>" data-pjax="data-pjax">Review</a>
-    </li>
     <li class="<?php echo Jade\Dumper::_text(Helper::active_subnav('post_on_fbo') ? 'active':''); ?>">
       <a href="<?php echo Jade\Dumper::_text(route('project_post_on_fbo', array($project->id))); ?>" data-pjax="data-pjax">Post on FBO</a>
     </li>

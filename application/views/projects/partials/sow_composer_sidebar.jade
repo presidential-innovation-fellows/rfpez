@@ -14,3 +14,6 @@ ul.nav.nav-list.sow-sidebar
   li(class="#{Helper::active_sidebar('timeline') ? 'active':''}")
     a(href="#{route('project_timeline', array($project->id))}") Timeline
       i.icon-chevron-right
+  li(class="#{Helper::active_sidebar('review') ? 'active':''}")
+    a(href="#{route('project_review', array($project->id))}") Review
+      i.icon-chevron-right
