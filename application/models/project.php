@@ -241,6 +241,13 @@ class Project extends Eloquent {
     return $dt->format('n/d/y');
   }
 
+  public function save_progress($new_status) {
+    if ($this->sow_progress < $new_status) {
+      $this->sow_progress = $new_status;
+      $this->save();
+    }
+  }
+
   //////////// OVERRIDE SETTER FOR PROPOSALS_DUE_AT ////////////
 
   public function set_proposals_due_at($val) {
