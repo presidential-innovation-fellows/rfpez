@@ -29,7 +29,7 @@
         input(type="text", value="#{$project->project_type->name}", readonly)
 
       .control-group
-        label Bids Due At
+        label Bids Due
         span.input-append.date.datepicker
           input.span3(type="text", name="project[proposals_due_at]", value="#{$project->formatted_proposals_due_at()}")
           span.add-on
@@ -44,7 +44,10 @@
 
     h5 Collaborators
 
-    p Invite any registered government employee to collaborate on this project.
+    p
+      | Invite anyone with a .gov email address to collaborate on this project. If they
+      | don't already have an account on EasyBid, we'll let them create one.
+
 
     table.table.collaborators-table(data-project-id="#{$project->id}")
       thead

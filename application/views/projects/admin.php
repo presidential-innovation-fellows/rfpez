@@ -25,7 +25,7 @@
         <input type="text" value="<?php echo Jade\Dumper::_text($project->project_type->name); ?>" readonly="readonly" />
       </div>
       <div class="control-group">
-        <label>Bids Due At</label>
+        <label>Bids Due</label>
         <span class="input-append date datepicker">
           <input class="span3" type="text" name="project[proposals_due_at]" value="<?php echo Jade\Dumper::_text($project->formatted_proposals_due_at()); ?>" />
           <span class="add-on">
@@ -41,7 +41,10 @@
   </div>
   <div class="span6">
     <h5>Collaborators</h5>
-    <p>Invite any registered government employee to collaborate on this project.</p>
+    <p>
+      Invite anyone with a .gov email address to collaborate on this project. If they
+      don't already have an account on EasyBid, we'll let them create one.
+    </p>
     <table class="table collaborators-table" data-project-id="<?php echo Jade\Dumper::_text($project->id); ?>">
       <thead>
         <tr>
