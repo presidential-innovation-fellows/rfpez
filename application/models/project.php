@@ -268,10 +268,17 @@ class Project extends Eloquent {
   //////////// OVERRIDE SETTER FOR PROPOSALS_DUE_AT ////////////
 
   public function set_proposals_due_at($val) {
-    if (is_string($val)) {
+
+    // if not valid, set to a month from now
+    if (is_string($val) && !strtotime($val)) {
+      $dt = new \DateTime;
+      $this->set_attribute('proposals_due_at', $dt->modify('+1 month'));
+
+    } elseif (is_string($val)) {
       $dt = new \DateTime;
       $dt->setTimestamp(strtotime($val));
       $this->set_attribute('proposals_due_at', $dt);
+
     } else {
       $this->set_attribute('proposals_due_at', $val);
     }
