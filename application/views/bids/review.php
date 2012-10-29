@@ -22,7 +22,7 @@
     <?php endif; ?>
   </table>
 </div>
-<h3>Bids awaiting review</h3>
+<h5>Bids awaiting review</h5>
 <table class="table bids-table open-bids">
   <thead>
     <tr>
@@ -36,7 +36,7 @@
     <?php echo Jade\Dumper::_html(View::make('bids.partials.bid_for_review')->with('bid', $bid)); ?>
   <?php endforeach; ?>
 </table>
-<h3>Dismissed bids</h3>
+<h5>Dismissed bids</h5>
 <table class="table bids-table dismissed-bids">
   <thead>
     <tr>

@@ -3,7 +3,7 @@
 <?php Section::inject('active_subnav', 'create') ?>
 <?php Section::inject('no_page_header', true) ?>
 <?php echo Jade\Dumper::_html(View::make('projects.partials.toolbar')->with('project', $project)); ?>
-<h4>Select a Template</h4>
+<h5>Select a Template</h5>
 <p>
   Here are some statements of work from real, successful procurements for the same type of project you're doing.
   When you "fork" one of these templates, we'll grab all the good bits and then let you customize it to suit the
@@ -44,7 +44,7 @@
     </li>
   <?php endif; ?>
 </ul>
-<h4>...Or Start From Scratch</h4>
+<h5>...Or Start From Scratch</h5>
 <p>
   Prefer to roll your own SOW? That's great too! You'll still have access to our library of pre-written sections.
 </p>

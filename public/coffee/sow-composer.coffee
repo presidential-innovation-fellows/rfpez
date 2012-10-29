@@ -48,7 +48,7 @@ $(document).on "ready pjax:success sectionsreloaded", ->
     forcePlaceholderSize: true
 
   $(".sections-for-editing").sortable
-    handle: "h4"
+    handle: "h5"
     forcePlaceholderSize: true
 
   $(".sections-for-editing").bind 'sortupdate', save_sort_order

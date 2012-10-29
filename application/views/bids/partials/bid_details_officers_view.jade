@@ -15,16 +15,16 @@
 
     .span5.col1
 
-      h4 Approach
+      h5 Approach
       p #{$bid->approach}
 
-      h4 Previous Work
+      h5 Previous Work
       p #{$bid->previous_work}
 
-      h4 Employee Details
+      h5 Employee Details
       p #{$bid->employee_details}
 
-      h4 Prices
+      h5 Prices
       table.table
         thead
           tr
@@ -42,7 +42,7 @@
             td $#{$bid->total_price()}
 
     .span5.col2
-      h4 #{$bid->vendor->company_name}
+      h5 #{$bid->vendor->company_name}
       div Contact: #{$bid->vendor->contact_name}
       div Email: <a href="mailto:#{$bid->vendor->user->email}">#{$bid->vendor->user->email}</a>
 
@@ -62,6 +62,6 @@
         - endif;
 
 
-      h4 Example Work
+      h5 Example Work
       .vendor-image-preview-frame
         img(src="#{$bid->vendor->image_url}")

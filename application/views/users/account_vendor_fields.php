@@ -11,15 +11,15 @@
 <?php $signup = isset($signup) && $signup; ?>
 <div class="row">
   <fieldset class="span5">
-    <h3>Work and Capabilities</h3>
+    <h5>Work and Capabilities</h5>
     <div class="control-group">
       <label>
-        <h5>Your company in 50 words or less</h5>
+        <strong>Your company in 50 words or less</strong>
       </label>
       <textarea name="vendor[more_info]"><?php echo Jade\Dumper::_text($vendor['more_info']); ?></textarea>
     </div>
     <div class="control-group">
-      <h5>What kind of work does your company do?</h5>
+      <strong>What kind of work does your company do?</strong>
       <?php foreach(Service::all() as $service): ?>
         <label class="checkbox">
           <input type="checkbox" name="services[<?php echo Jade\Dumper::_text( $service->id ); ?>]" <?php echo Jade\Dumper::_text( (isset($services[$service->id])) ? "checked" : "" ); ?> />
@@ -29,7 +29,7 @@
     </div>
     <div class="control-group">
       <label>
-        <h5>Ballpark average project price</h5>
+        <strong>Ballpark average project price</strong>
       </label>
       <select type="text" name="vendor[ballpark_price]">
         <?php foreach(Vendor::$ballpark_prices as $id => $ballpark_price): ?>
@@ -66,7 +66,7 @@
   </fieldset>
   <fieldset class="span5">
     <?php if ($signup): ?>
-      <h3>Contact Info</h3>
+      <h5>Contact Info</h5>
       <div class="control-group">
         <label>Email</label>
         <input type="text" name="user[email]" value="<?php echo Jade\Dumper::_text( isset($user) ? $user['email'] : '' ); ?>" />
@@ -76,7 +76,7 @@
         <input type="password" name="user[password]" />
       </div>
     <?php else: ?>
-      <h3>Credentials</h3>
+      <h5>Credentials</h5>
       <label class="larger">
         <?php echo Jade\Dumper::_text(Auth::user()->email); ?>
         <a class="smaller" href="<?php echo Jade\Dumper::_text(route('change_email')); ?>" data-pjax="data-pjax">change email</a>
@@ -85,7 +85,7 @@
         (password hidden)
         <a class="smaller" href="<?php echo Jade\Dumper::_text(route('change_password')); ?>" data-pjax="data-pjax">change password</a>
       </label>
-      <h3>Contact Info</h3>
+      <h5>Contact Info</h5>
     <?php endif; ?>
     <div class="control-group">
       <label>

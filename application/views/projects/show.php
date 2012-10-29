@@ -10,7 +10,7 @@
     <?php echo Jade\Dumper::_html(View::make('projects.partials.full_sow')->with('project', $project)); ?>
   </div>
   <div class="span5 offset1">
-    <h4>Bids due in <?php echo Jade\Dumper::_text(RelativeTime::format($project->proposals_due_at)); ?></h4>
+    <h5>Bids due in <?php echo Jade\Dumper::_text(RelativeTime::format($project->proposals_due_at)); ?></h5>
     <?php if (Auth::vendor()): ?>
       <?php if ($bid = $project->my_current_bid()): ?>
         <a class="btn btn-small btn-primary" href="<?php echo Jade\Dumper::_text(route('bid', array($project->id, $bid->id))); ?>" data-pjax="data-pjax">View my bid</a>
@@ -25,7 +25,7 @@
     </div>
     <hr />
     <div class="q-and-a">
-      <h4>Q &amp; A</h4>
+      <h5>Q &amp; A</h5>
       <div class="questions">
         <?php if ($project->questions): ?>
           <?php foreach($project->questions as $question): ?>

@@ -2,7 +2,7 @@
   .sections-for-editing
     - foreach ($project->sections_by_category() as $category => $sections):
       .category(data-name="#{$category}")
-        h4 #{$category}
+        h5 #{$category}
 
         .category-sections
           - foreach ($sections as $section):

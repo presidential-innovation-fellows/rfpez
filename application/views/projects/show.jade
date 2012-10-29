@@ -13,7 +13,7 @@
 
   .span5.offset1
 
-    h4 Bids due in #{RelativeTime::format($project->proposals_due_at)}
+    h5 Bids due in #{RelativeTime::format($project->proposals_due_at)}
 
     - if (Auth::vendor()):
       - if ($bid = $project->my_current_bid()):
@@ -31,7 +31,7 @@
     hr
 
     .q-and-a
-      h4 Q &amp; A
+      h5 Q &amp; A
       .questions
         - if ($project->questions):
           - foreach($project->questions as $question):

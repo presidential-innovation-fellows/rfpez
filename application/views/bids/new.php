@@ -6,7 +6,7 @@
     <?php echo Jade\Dumper::_html(View::make('projects.partials.full_sow')->with('project', $project)); ?>
   </div>
   <div class="span6">
-    <h1>New Bid</h1>
+    <h5>New Bid</h5>
     <form class="new-bid-form" action="<?php echo Jade\Dumper::_text( route('bids', array($project->id)) ); ?>" method="POST">
       <input type="hidden" name="submit_now" value="true" />
       <?php $draft = $project->my_current_bid_draft() ?>
@@ -27,7 +27,7 @@
         <label>Employees who would work on this project</label>
         <textarea name="bid[employee_details]" placeholder="We just need to make sure nobody has been put on a list of people disallowed to work on government contracts"><?php echo Jade\Dumper::_text( $bid["employee_details"] ); ?></textarea>
       </div>
-      <h4>Prices</h4>
+      <h5>Prices</h5>
       <table class="table prices-table">
         <thead>
           <tr>

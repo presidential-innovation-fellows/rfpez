@@ -25,15 +25,15 @@
       <?php endif; ?>
     </div>
   <?php endif; ?>
-  <h4>Approach</h4>
+  <h5>Approach</h5>
   <p><?php echo Jade\Dumper::_text($bid->approach); ?></p>
-  <h4>Previous Work</h4>
+  <h5>Previous Work</h5>
   <p><?php echo Jade\Dumper::_text($bid->previous_work); ?></p>
-  <h4>Employee Details</h4>
+  <h5>Employee Details</h5>
   <p><?php echo Jade\Dumper::_text($bid->employee_details); ?></p>
   <div class="row">
     <div class="span6 prices">
-      <h4>Prices</h4>
+      <h5>Prices</h5>
       <table class="table">
         <thead>
           <tr>
@@ -58,7 +58,7 @@
       </table>
     </div>
     <div class="span6 example-work">
-      <h4>Example Work</h4>
+      <h5>Example Work</h5>
       <div class="vendor-image-preview-frame">
         <img src="<?php echo Jade\Dumper::_text($bid->vendor->image_url); ?>" />
       </div>

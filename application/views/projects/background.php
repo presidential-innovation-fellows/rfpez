@@ -13,7 +13,7 @@
       First, let's compose a background and scope for your SOW. Tell us about your organization,
       and the problem you're trying to solve with this SOW.
     </div>
-    <h4 class="sidebar-section-title">Writing A Great SOW</h4>
+    <h5 class="sidebar-section-title">Writing A Great SOW</h5>
     <ul>
       <li>The background should identify the work in very general terms</li>
       <li>Describe your organization and why you're pursuing these goals</li>

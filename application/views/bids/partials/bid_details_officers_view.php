@@ -14,13 +14,13 @@
   <?php endif; ?>
   <div class="row-fluid">
     <div class="span5 col1">
-      <h4>Approach</h4>
+      <h5>Approach</h5>
       <p><?php echo Jade\Dumper::_text($bid->approach); ?></p>
-      <h4>Previous Work</h4>
+      <h5>Previous Work</h5>
       <p><?php echo Jade\Dumper::_text($bid->previous_work); ?></p>
-      <h4>Employee Details</h4>
+      <h5>Employee Details</h5>
       <p><?php echo Jade\Dumper::_text($bid->employee_details); ?></p>
-      <h4>Prices</h4>
+      <h5>Prices</h5>
       <table class="table">
         <thead>
           <tr>
@@ -45,7 +45,7 @@
       </table>
     </div>
     <div class="span5 col2">
-      <h4><?php echo Jade\Dumper::_text($bid->vendor->company_name); ?></h4>
+      <h5><?php echo Jade\Dumper::_text($bid->vendor->company_name); ?></h5>
       <div>Contact: <?php echo Jade\Dumper::_text($bid->vendor->contact_name); ?></div>
       <div>Email: <a href="mailto:<?php echo Jade\Dumper::_text($bid->vendor->user->email); ?>"><?php echo Jade\Dumper::_text($bid->vendor->user->email); ?></a></div>
       <div>
@@ -66,7 +66,7 @@
           <span class="red">No</span>
         <?php endif; ?>
       </div>
-      <h4>Example Work</h4>
+      <h5>Example Work</h5>
       <div class="vendor-image-preview-frame">
         <img src="<?php echo Jade\Dumper::_text($bid->vendor->image_url); ?>" />
       </div>

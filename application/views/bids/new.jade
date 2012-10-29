@@ -10,7 +10,7 @@
 
   .span6
 
-    h1 New Bid
+    h5 New Bid
 
     form.new-bid-form(action="#{ route('bids', array($project->id)) }", method="POST")
 
@@ -36,7 +36,7 @@
         label Employees who would work on this project
         textarea(name="bid[employee_details]", placeholder="We just need to make sure nobody has been put on a list of people disallowed to work on government contracts") #{ $bid["employee_details"] }
 
-      h4 Prices
+      h5 Prices
 
       table.table.prices-table
         thead

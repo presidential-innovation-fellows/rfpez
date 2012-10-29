@@ -10,10 +10,13 @@
     !{View::make('comments.partials.comment')->with('comment', $comment)}
 
 
-h4 Add Comment
 
-form#add-comment-form(action="#{'comments'}", method="POST")
-  textarea(name="body")
 
-  .form-actions
-    button.btn.btn-primary Submit Comment
+.form-actions
+  h5 Add Comment
+
+  form#add-comment-form(action="#{'comments'}", method="POST")
+    textarea(name="body")
+
+    div
+      button.btn.btn-primary Submit Comment

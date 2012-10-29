@@ -8,7 +8,7 @@
 .row-fluid
   .span6
 
-    h3 Update Project
+    h5 Update Project
 
     form(action="#{route('project', array($project->id))}", method="POST", id="update-project-form")
       input(type="hidden", name="_method", value="PUT")
@@ -42,7 +42,7 @@
 
   .span6
 
-    h3 Collaborators
+    h5 Collaborators
 
     p Invite any registered government employee to collaborate on this project.
 

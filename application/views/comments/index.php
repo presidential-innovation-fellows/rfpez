@@ -8,10 +8,12 @@
     <?php echo Jade\Dumper::_html(View::make('comments.partials.comment')->with('comment', $comment)); ?>
   <?php } ?>
 </div>
-<h4>Add Comment</h4>
-<form id="add-comment-form" action="<?php echo Jade\Dumper::_text('comments'); ?>" method="POST">
-  <textarea name="body"></textarea>
-  <div class="form-actions">
-    <button class="btn btn-primary">Submit Comment</button>
-  </div>
-</form>
+<div class="form-actions">
+  <h5>Add Comment</h5>
+  <form id="add-comment-form" action="<?php echo Jade\Dumper::_text('comments'); ?>" method="POST">
+    <textarea name="body"></textarea>
+    <div>
+      <button class="btn btn-primary">Submit Comment</button>
+    </div>
+  </form>
+</div>

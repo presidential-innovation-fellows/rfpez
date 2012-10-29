@@ -1,4 +1,4 @@
-<h4>Timeline</h4>
+<h5>Timeline</h5>
 <table class="table timeline-table">
   <thead>
     <tr>

@@ -26,7 +26,7 @@ div(class="winning-bid-table-wrapper #{$project->winning_bid() ? '' : 'hide'}")
     - endif;
 
 
-h3 Bids awaiting review
+h5 Bids awaiting review
 
 table.table.bids-table.open-bids
   thead
@@ -39,7 +39,7 @@ table.table.bids-table.open-bids
   - foreach($open_bids as $bid):
     !{View::make('bids.partials.bid_for_review')->with('bid', $bid)}
 
-h3 Dismissed bids
+h5 Dismissed bids
 
 table.table.bids-table.dismissed-bids
   thead

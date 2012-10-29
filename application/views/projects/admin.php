@@ -5,7 +5,7 @@
 <?php echo Jade\Dumper::_html(View::make('projects.partials.toolbar')->with('project', $project)); ?>
 <div class="row-fluid">
   <div class="span6">
-    <h3>Update Project</h3>
+    <h5>Update Project</h5>
     <form id="update-project-form" action="<?php echo Jade\Dumper::_text(route('project', array($project->id))); ?>" method="POST">
       <input type="hidden" name="_method" value="PUT" />
       <div class="control-group">
@@ -40,7 +40,7 @@
     </form>
   </div>
   <div class="span6">
-    <h3>Collaborators</h3>
+    <h5>Collaborators</h5>
     <p>Invite any registered government employee to collaborate on this project.</p>
     <table class="table collaborators-table" data-project-id="<?php echo Jade\Dumper::_text($project->id); ?>">
       <thead>

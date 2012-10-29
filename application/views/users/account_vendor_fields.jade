@@ -13,22 +13,22 @@
 .row
 
   fieldset.span5
-    h3 Work and Capabilities
+    h5 Work and Capabilities
 
     .control-group
       label
-        h5 Your company in 50 words or less
+        strong Your company in 50 words or less
       textarea(name="vendor[more_info]") #{$vendor['more_info']}
 
     .control-group
-      h5 What kind of work does your company do?
+      strong What kind of work does your company do?
       - foreach(Service::all() as $service):
         label.checkbox
           <input type="checkbox" name="services[#{ $service->id }]" #{ (isset($services[$service->id])) ? "checked" : "" } />
           | #{$service->name}
     .control-group
       label
-        h5 Ballpark average project price
+        strong Ballpark average project price
       select(type="text", name="vendor[ballpark_price]")
         - foreach(Vendor::$ballpark_prices as $id => $ballpark_price):
           <option value="#{ $id }" #{ ($vendor['ballpark_price'] == $id) ? "selected" : "" }> #{ $ballpark_price } </option>
@@ -63,7 +63,7 @@
 
     - if ($signup):
 
-      h3 Contact Info
+      h5 Contact Info
 
       .control-group
         label Email
@@ -73,7 +73,7 @@
         input(type="password", name="user[password]")
 
     - else:
-      h3 Credentials
+      h5 Credentials
 
       label.larger #{Auth::user()->email}
         a.smaller(href="#{route('change_email')}", data-pjax) change email
@@ -81,7 +81,7 @@
       label.larger (password hidden)
         a.smaller(href="#{route('change_password')}", data-pjax) change password
 
-      h3 Contact Info
+      h5 Contact Info
 
     - endif;
 
