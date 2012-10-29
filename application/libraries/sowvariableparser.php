@@ -4,8 +4,6 @@ class SowVariableParser {
 
   public static function parse($input, $variable_values = array(), $mode = "write") {
 
-    Log::info($input);
-
     preg_match_all('/\{\{\s*([^\}]*)\}\}/', $input, $variables);
 
     $vars = array();
