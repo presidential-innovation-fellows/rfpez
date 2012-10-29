@@ -40,6 +40,25 @@ save_sort_order = ->
     success: (data) ->
       remove_section_cover()
 
+update_section_category_dropdown_from_input = ->
+  val = $("#section-category-input").val()
+  option = $("#section-category-select option[value='#{val}']")
+
+  if option.length > 0
+    option.attr('selected', true)
+    $("#section-category-input").hide()
+  else
+    $("#section-category-select option[value=Other]").attr('selected', true)
+    $("#section-category-input").show()
+
+section_category_dropdown_changed = ->
+  val = $("#section-category-select").val()
+  if val != "Other"
+    $("#section-category-input").hide()
+    $("#section-category-input").val(val)
+  else
+    $("#section-category-input").val('')
+    $("#section-category-input").show()
 
 $(document).on "ready pjax:success sectionsreloaded", ->
   hide_already_selected_sections()
@@ -82,6 +101,7 @@ $(document).on "click", ".add-section-button", ->
   $("#edit-section-form").resetForm()
   $("#edit-section-modal").find(".modal-header h3").text("Add Section")
   $("#edit-section-modal").find(".will-fork").hide()
+  update_section_category_dropdown_from_input()
   $("#edit-section-modal").modal('show')
 
 $(document).on "click", ".edit-section-link", ->
@@ -101,6 +121,7 @@ $(document).on "click", ".edit-section-link", ->
   $("#edit-section-form").find("input[name=project_section\\[section_category\\]]").val(category)
   $("#edit-section-form").find("input[name=project_section\\[title\\]]").val(title)
   $("#edit-section-form").find("textarea[name=project_section\\[body\\]]").val(body)
+  update_section_category_dropdown_from_input()
   $("#edit-section-modal").modal('show')
 
 $(document).on "submit", "#edit-section-form", (e) ->
@@ -121,6 +142,8 @@ $(document).on "submit", "#sync-with-fbo-form", (e) ->
     e.preventDefault()
   else
     $(this).find('button').button('loading')
+
+$(document).on "change", "#section-category-select", section_category_dropdown_changed
 
 ####### FILL IN THE BLANKS ########
 

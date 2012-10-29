@@ -1,5 +1,5 @@
 #edit-section-modal.modal.hide(tabindex='-1', role='dialog')
-  form.form-horizontal#edit-section-form(action="#{route('project_sections_edit', array($project->id))}", method="POST")
+  form#edit-section-form(action="#{route('project_sections_edit', array($project->id))}", method="POST")
     input(type="hidden", name="section_id")
 
     .modal-header
@@ -7,15 +7,22 @@
       h3 &nbsp;
 
     .modal-body
-      .control-group
-        label.control-label Section Category
-        .controls
-          input(type="text", name='project_section[section_category]')
+      .row-fluid
+        .span6
+          .control-group
+            label.control-label Title
+            .controls
+              input(type="text", name='project_section[title]')
 
-      .control-group
-        label.control-label Title
-        .controls
-          input(type="text", name='project_section[title]')
+        .span4
+          .control-group
+            label.control-label Category
+            .controls
+              select#section-category-select
+                - foreach (ProjectSection::$categories as $category):
+                  option(value="#{$category}") #{$category}
+                option(value="Other") Other
+              input#section-category-input(type="text", name='project_section[section_category]')
 
       .control-group
         .controls

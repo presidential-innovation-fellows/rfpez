@@ -6,6 +6,8 @@ class ProjectSection extends Eloquent {
 
   public static $table = "project_sections";
 
+  public static $categories = array('Deliverables', 'Requirements', 'Objectives');
+
   public function based_on_project_section() {
     return $this->belongs_to('ProjectSection', 'based_on_project_section_id');
   }
