@@ -82,7 +82,7 @@ class Project extends Eloquent {
   public function status() {
     if (!$this->fbo_solnbr) {
       return self::STATUS_WRITING_SOW;
-    } elseif (strtotime($this->proposals_due_at) > time()) {
+    } elseif (strtotime($this->proposals_due_at) > time() && !$this->winning_bid()) {
       return self::STATUS_ACCEPTING_BIDS;
     } elseif (!$this->winning_bid()) {
       return self::STATUS_REVIEWING_BIDS;
