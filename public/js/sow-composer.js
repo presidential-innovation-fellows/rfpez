@@ -78,7 +78,8 @@
       success: function(data) {
         var new_selected_sections;
         new_selected_sections = $(data.selected_sections_html);
-        return $(".selected-sections").replaceWith(new_selected_sections);
+        $(".selected-sections").replaceWith(new_selected_sections);
+        return hide_already_selected_sections();
       }
     });
   });
@@ -95,6 +96,7 @@
         var new_selected_sections;
         new_selected_sections = $(data.selected_sections_html);
         $(".selected-sections").replaceWith(new_selected_sections);
+        hide_already_selected_sections();
         return el.button('reset');
       }
     });

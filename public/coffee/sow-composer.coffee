@@ -63,6 +63,7 @@ $(document).on "click", ".section .remove-button", (e) ->
     success: (data) ->
       new_selected_sections = $(data.selected_sections_html)
       $(".selected-sections").replaceWith(new_selected_sections)
+      hide_already_selected_sections()
 
 $(document).on "click", ".section .add-button", (e) ->
   e.preventDefault()
@@ -74,6 +75,7 @@ $(document).on "click", ".section .add-button", (e) ->
     success: (data) ->
       new_selected_sections = $(data.selected_sections_html)
       $(".selected-sections").replaceWith(new_selected_sections)
+      hide_already_selected_sections()
       el.button('reset')
 
 $(document).on "click", ".add-section-button", ->
