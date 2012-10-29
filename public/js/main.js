@@ -42,6 +42,7 @@
   $(document).on("ready pjax:success", function() {
     $("[data-onload-focus]:eq(0)").focus();
     $("span.timeago").timeago();
+    $('.datepicker').datepicker();
     return Rfpez.current_page_string = $("#current-page").val();
   });
 

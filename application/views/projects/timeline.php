@@ -24,7 +24,12 @@
                 <input type="text" name="deliverables[]" placeholder="Deliverable Name" value="<?php echo Jade\Dumper::_text($deliverable); ?>" />
               </td>
               <td>
-                <input type="text" name="deliverable_dates[]" value="<?php echo Jade\Dumper::_text($date); ?>" />
+                <span class="input-append date datepicker">
+                  <input class="span3" type="text" name="deliverable_dates[]" value="<?php echo Jade\Dumper::_text($date); ?>" />
+                  <span class="add-on">
+                    <i class="icon-calendar"></i>
+                  </span>
+                </span>
                 <a class="btn btn-success add-deliverable-button">Add</a>
                 <a class="btn remove-deliverable-button">
                   <i class="icon-trash"></i>
@@ -39,7 +44,12 @@
               <input type="text" name="deliverables[]" placeholder="Deliverable Name" data-original-val="" />
             </td>
             <td>
-              <input type="text" name="deliverable_dates[]" value="today" data-original-val="today" />
+              <span class="input-append date datepicker">
+                <input class="span3" type="text" name="deliverable_dates[]" value="" data-original-val="" />
+                <span class="add-on">
+                  <i class="icon-calendar"></i>
+                </span>
+              </span>
               <a class="btn btn-success add-deliverable-button">Add</a>
               <a class="btn remove-deliverable-button">
                 <i class="icon-trash"></i>

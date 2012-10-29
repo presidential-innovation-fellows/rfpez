@@ -44,6 +44,7 @@ Basset::scripts('website', function($basset)
 Basset::styles('website', function($basset)
 {
   $basset->add('bootstrap', 'bootstrap.css')
+         ->add('datepicker', 'datepicker.css')
          ->add('maincss', 'main.css')
          ->compress();
 });

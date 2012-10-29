@@ -158,6 +158,7 @@ $(document).on "click", ".add-deliverable-button", ->
   row = $(".add-deliverable-row")
   new_row = row.clone()
   new_row.removeClass("add-deliverable-row")
+  new_row.find(".datepicker").datepicker()
   new_row.appendTo(".timeline-table tbody")
   row.find("input").each ->
     $(this).val $(this).data('original-val')

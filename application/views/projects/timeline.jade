@@ -24,7 +24,10 @@
               td
                 input(type="text", name="deliverables[]", placeholder="Deliverable Name", value="#{$deliverable}")
               td
-                input(type="text", name="deliverable_dates[]", value="#{$date}")
+                span.input-append.date.datepicker
+                  input.span3(type="text", name="deliverable_dates[]", value="#{$date}")
+                  span.add-on
+                    i.icon-calendar
                 a.btn.btn-success.add-deliverable-button Add
                 a.btn.remove-deliverable-button
                   i.icon-trash
@@ -34,7 +37,10 @@
             td
               input(type="text", name="deliverables[]", placeholder="Deliverable Name", data-original-val="")
             td
-              input(type="text", name="deliverable_dates[]", value="today", data-original-val="today")
+              span.input-append.date.datepicker
+                input.span3(type="text", name="deliverable_dates[]", value="", data-original-val="")
+                span.add-on
+                  i.icon-calendar
               a.btn.btn-success.add-deliverable-button Add
               a.btn.remove-deliverable-button
                 i.icon-trash
