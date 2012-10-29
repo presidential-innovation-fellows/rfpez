@@ -8,7 +8,7 @@ h4
 .nav.nav-tabs.project-subnav
   - if ($project->status() == Project::STATUS_WRITING_SOW):
     li(class="#{Helper::active_subnav('create') ? 'active':''}")
-      a(href="#{route('project_background', array($project->id))}", data-pjax) Create
+      a(href="#{route('project_background', array($project->id))}", data-pjax) Write SOW
     li(class="#{Helper::active_subnav('review') ? 'active':''}")
       a(href="#{route('project_review', array($project->id))}", data-pjax) Review
     li(class="#{Helper::active_subnav('post_on_fbo') ? 'active':''}")

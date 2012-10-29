@@ -155,7 +155,7 @@ class Projects_Controller extends Base_Controller {
   public function action_timeline() {
     $view = View::make('projects.timeline');
     $view->project = Config::get('project');
-    $view->deliverables = $view->project->deliverables;
+    $view->deliverables = $view->project->deliverables ?: array();
     $this->layout->content = $view;
   }
 
@@ -351,7 +351,6 @@ class Projects_Controller extends Base_Controller {
 
     $project = Config::get('project');
     $project->fbo_solnbr = $attributes["solnbr"];
-    $project->body = $project->sow->body;
 
     if ($due_at = strtotime($attributes["response_date"])) {
       $project->proposals_due_at = date_timestamp_set(new \DateTime(), $due_at);
@@ -379,11 +378,7 @@ Route::filter('project_posted', function() {
 
   if (!Auth::officer()) return Redirect::to('/');
 
-  if ($project->sow->body) {
-    return Redirect::to_route('sow_review', array($project->id));
-  } else {
-    return Redirect::to_route('sow_background', array($project->id));
-  }
+  return Redirect::to_route('project_review', array($project->id));
 });
 
 Route::filter('template_exists_and_is_forkable', function(){

@@ -6,6 +6,14 @@ form(action="#{route('projects')}", method="POST", id="new-project-form")
     input(type="text", name="project[title]")
 
   .control-group
+    label Agency
+    input(type="text", name="project[agency]")
+
+  .control-group
+    label Office
+    input(type="text", name="project[office]")
+
+  .control-group
     label Project Type
     select(name="project[project_type_id]")
       - foreach (ProjectType::all() as $project_type):

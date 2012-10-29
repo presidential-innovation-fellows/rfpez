@@ -21,8 +21,8 @@
         <input type="text" name="project[office]" value="<?php echo Jade\Dumper::_text($project->office); ?>" />
       </div>
       <div class="control-group">
-        <label>Naics</label>
-        <input type="text" name="project[naics_code]" value="<?php echo Jade\Dumper::_text($project->naics_code); ?>" />
+        <label>Project Type</label>
+        <input type="text" value="<?php echo Jade\Dumper::_text($project->project_type->name); ?>" readonly="readonly" />
       </div>
       <div class="control-group">
         <label>Bids Due At</label>

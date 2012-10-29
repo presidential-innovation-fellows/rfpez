@@ -5,8 +5,7 @@
 <?php echo Jade\Dumper::_html(View::make('projects.partials.toolbar')->with('project', $project)); ?>
 <div class="row-fluid">
   <div class="span8">
-    <?php echo Jade\Dumper::_html(SowVariableParser::parse(View::make('projects.partials.background_and_sections')->with('project', $project), $project->variables, "read")); ?>
-    <?php echo Jade\Dumper::_html(View::make('projects.partials.timeline')->with('project', $project)); ?>
+    <?php echo Jade\Dumper::_html(View::make('projects.partials.full_sow')->with('project', $project)); ?>
   </div>
   <div class="span4">
     <h4>Sharing</h4>

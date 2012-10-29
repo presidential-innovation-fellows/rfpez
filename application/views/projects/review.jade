@@ -7,10 +7,7 @@
 
 .row-fluid
   .span8
-
-    !{SowVariableParser::parse(View::make('projects.partials.background_and_sections')->with('project', $project), $project->variables, "read")}
-
-    !{View::make('projects.partials.timeline')->with('project', $project)}
+    !{View::make('projects.partials.full_sow')->with('project', $project)}
 
   .span4
     h4 Sharing

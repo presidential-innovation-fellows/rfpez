@@ -7,7 +7,7 @@
 <?php endif; ?>
 <div class="row">
   <div class="span6">
-    <?php echo Jade\Dumper::_html($project->body); ?>
+    <?php echo Jade\Dumper::_html(View::make('projects.partials.full_sow')->with('project', $project)); ?>
   </div>
   <div class="span5 offset1">
     <h4>Bids due in <?php echo Jade\Dumper::_text(RelativeTime::format($project->proposals_due_at)); ?></h4>
