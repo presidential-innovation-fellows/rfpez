@@ -328,6 +328,11 @@ class Projects_Controller extends Base_Controller {
 
     $project = Config::get('project');
 
+    if (!$attributes) {
+      Helper::flash_errors("Couldn't find that contract on FBO.");
+      return false;
+    }
+
     preg_match('/([0-9]+) for more info/', implode($attributes), $matches);
     $parsed_solnbr = isset($matches[1]) ? $matches[1] : false;
 

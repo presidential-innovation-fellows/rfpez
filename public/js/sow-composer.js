@@ -141,6 +141,14 @@
     });
   });
 
+  $(document).on("submit", "#sync-with-fbo-form", function(e) {
+    if (!$(this).find("input[name=fbo_solnbr]").val()) {
+      return e.preventDefault();
+    } else {
+      return $(this).find('button').button('loading');
+    }
+  });
+
   $("input[data-variable]").autoGrow({
     comfortZone: 5
   });

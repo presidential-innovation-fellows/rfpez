@@ -110,6 +110,12 @@ $(document).on "submit", "#edit-section-form", (e) ->
       $("#edit-section-modal").modal('hide')
       button.button('reset')
 
+$(document).on "submit", "#sync-with-fbo-form", (e) ->
+  if !$(this).find("input[name=fbo_solnbr]").val()
+    e.preventDefault()
+  else
+    $(this).find('button').button('loading')
+
 ####### FILL IN THE BLANKS ########
 
 $("input[data-variable]").autoGrow

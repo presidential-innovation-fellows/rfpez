@@ -12,11 +12,11 @@
 <input class="input-xxlarge" type="text" value="<?php echo Jade\Dumper::_text(View::make('projects.partials.fbo_body')->with('project', $project)); ?>" data-select-text-on-focus="true" />
 <h3>Step 2</h3>
 <p>Enter the solicitation number that you used on FBO.</p>
-<form method="POST">
+<form id="sync-with-fbo-form" method="POST">
   <div class="control-group">
     <div class="input-append">
       <input type="text" name="fbo_solnbr" placeholder="Solitication Number" />
-      <button class="btn btn-primary">Sync with FBO</button>
+      <button class="btn btn-primary" data-loading-text="Syncing with FBO...">Sync with FBO</button>
     </div>
   </div>
 </form>
