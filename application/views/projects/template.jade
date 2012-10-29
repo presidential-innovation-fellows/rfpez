@@ -7,36 +7,44 @@
 
 h4 Select a Template
 
-.alert.alert-info
+p
   | Here are some statements of work from real, successful procurements for the same type of project you're doing.
   | When you "fork" one of these templates, we'll grab all the good bits and then let you customize it to suit the
   | details of your specific project.
 
 ul.templates-list
-  - foreach($templates as $template):
-    li.template
-      .row-fluid
-        .span6
-          .title #{$template->title}
-          .author #{$template->owner()->name}
+  - if ($templates):
+    - foreach($templates as $template):
+      li.template.well
+        .row-fluid
+          .span6
+            .title #{$template->title}
+            .author #{$template->owner()->name}
 
-        .span4
-          .forked
-            | Forked <a href="#">#{$template->fork_count} #{Str::plural('time', $template->fork_count)}</a>
-          - if ($template->recommended):
-            .recommended &star; Recommended Template
+          .span4
+            .forked
+              | Forked <a href="#">#{$template->fork_count} #{Str::plural('time', $template->fork_count)}</a>
+            - if ($template->recommended):
+              .recommended &star; Recommended Template
 
-        .span2
-          a.btn(href="#{route('project_template_post', array($project->id, $template->id))}") Fork
+          .span2
+            a.btn.btn-success(href="#{route('project_template_post', array($project->id, $template->id))}") Fork
 
-  - if ($more_templates_count):
-    li.show-more
-      a(href="#") See #{$more_templates_count} more #{Str::plural('template', $more_templates_count)}
+    - if ($more_templates_count):
+      li.show-more
+        a(href="#") See #{$more_templates_count} more #{Str::plural('template', $more_templates_count)}
+  - else:
+    li.no-templates.well
+      | Sorry, there are no templates available for this project type. Click "Start From Scratch" below,
+      | and your great SOW could be the first template.
+
+  - endif;
 
 
 h4 ...Or Start From Scratch
 
-.alert.alert-info
+p
   | Prefer to roll your own SOW? That's great too! You'll still have access to our library of pre-written sections.
 
-a.btn(href="#{route('project_background', array($project->id))}") Start From Scratch
+.centered
+  a.btn.btn-primary(href="#{route('project_background', array($project->id))}") Start From Scratch

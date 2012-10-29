@@ -53,6 +53,9 @@ body {
 .readable-width {
   width: 550px;
 }
+.centered {
+  text-align: center;
+}
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
   display: none !important;
@@ -501,12 +504,14 @@ tbody.project .admin-star i {
 }
 ul.templates-list {
   margin: 0;
-  border-top: 1px dotted #ccc;
 }
 ul.templates-list li.template {
   list-style: none;
-  border-bottom: 1px dotted #ccc;
-  padding: 15px 0;
+}
+ul.templates-list li.no-templates {
+  width: 400px;
+  margin: 0 auto 30px;
+  list-style: none;
 }
 .sections-for-editing-wrapper {
   position: relative;
