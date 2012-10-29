@@ -3,7 +3,7 @@
 <?php Section::inject('active_subnav', 'admin') ?>
 <?php Section::inject('no_page_header', true) ?>
 <?php echo Jade\Dumper::_html(View::make('projects.partials.toolbar')->with('project', $project)); ?>
-<div class="row">
+<div class="row-fluid">
   <div class="span6">
     <h3>Update Project</h3>
     <form id="update-project-form" action="<?php echo Jade\Dumper::_text(route('project', array($project->id))); ?>" method="POST">
@@ -26,7 +26,13 @@
       </div>
       <div class="control-group">
         <label>Bids Due At</label>
-        <input type="text" name="project[proposals_due_at]" value="<?php echo Jade\Dumper::_text($project->proposals_due_at); ?>" />
+        <span class="input-append date datepicker">
+          <input class="span3" type="text" name="project[proposals_due_at]" value="<?php echo Jade\Dumper::_text($project->formatted_proposals_due_at()); ?>" />
+          <span class="add-on">
+            <i class="icon-calendar"></i>
+          </span>
+        </span>
+        at 11:59pm EST
       </div>
       <div class="form-actions">
         <button class="btn btn-primary">Save</button>

@@ -5,7 +5,7 @@
 
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 
-.row
+.row-fluid
   .span6
 
     h3 Update Project
@@ -30,7 +30,11 @@
 
       .control-group
         label Bids Due At
-        input(type="text", name="project[proposals_due_at]", value="#{$project->proposals_due_at}")
+        span.input-append.date.datepicker
+          input.span3(type="text", name="project[proposals_due_at]", value="#{$project->formatted_proposals_due_at()}")
+          span.add-on
+            i.icon-calendar
+        | at 11:59pm EST
 
       .form-actions
         button.btn.btn-primary Save

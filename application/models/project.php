@@ -236,6 +236,19 @@ class Project extends Eloquent {
     $this->save();
   }
 
+  public function formatted_proposals_due_at() {
+    $dt = new \DateTime($this->get_attribute('proposals_due_at'));
+    return $dt->format('n/d/y');
+  }
+
+  //////////// OVERRIDE SETTER FOR PROPOSALS_DUE_AT ////////////
+
+  public function set_proposals_due_at($date_string) {
+    $dt = new \DateTime;
+    $dt->setTimestamp(strtotime($date_string));
+    $this->set_attribute('proposals_due_at', $dt);
+  }
+
   //////////// GETTERS AND SETTERS FOR SERIALIZED FIELDS ////////////
 
   public function get_sections() {
