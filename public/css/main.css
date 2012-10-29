@@ -368,6 +368,9 @@ body.vendor .no-auth-only {
 .my-bid-table tr.bid.bid-dismissed td.status {
   color: #f00;
 }
+.new-bid-page .timeline-table {
+  width: 100%;
+}
 .notification-table {
   margin: 0;
 }

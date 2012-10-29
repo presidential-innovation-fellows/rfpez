@@ -268,7 +268,8 @@ class Project extends Eloquent {
   //////////// STATIC FUNCTIONS ////////////
 
   public static function open_projects() {
-    return self::where('proposals_due_at', '>', \DB::raw('NOW()'));
+    return self::where_not_null('fbo_solnbr')
+               ->where('proposals_due_at', '>', \DB::raw('NOW()'));
   }
 
 }

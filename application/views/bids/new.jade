@@ -2,11 +2,11 @@
 - Section::inject('page_action', 'New Bid')
 - Section::inject('current_page', 'new-bid')
 
-.row
+.row.new-bid-page
 
   .span6
 
-    !{ $project->body }
+    !{View::make('projects.partials.full_sow')->with('project', $project)}
 
   .span6
 
@@ -50,7 +50,7 @@
           - $draft_deliverable_names = $draft ? $draft->deliverable_names() : false
           - $draft_deliverable_prices = $draft ? $draft->deliverable_prices() : false
           - $deliverable_prices = Input::old('deliverable_prices') ?: $draft_deliverable_prices
-          - $deliverable_names = Input::old('deliverable_names') ?: $draft_deliverable_names ?: $project->parsed_deliverables()
+          - $deliverable_names = Input::old('deliverable_names') ?: $draft_deliverable_names ?: array_keys($project->deliverables)
           - if ($deliverable_names):
             - foreach($deliverable_names as $deliverable_name):
               tr.deliverables-row

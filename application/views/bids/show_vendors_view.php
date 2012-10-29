@@ -3,7 +3,7 @@
 <a href="<?php echo Jade\Dumper::_text(route('project', array($project->id))); ?>" data-pjax="data-pjax">&larr; Back to project page</a>
 <div class="row">
   <div class="span6">
-    <?php echo Jade\Dumper::_html($project->body); ?>
+    <?php echo Jade\Dumper::_html(View::make('projects.partials.full_sow')->with('project', $project)); ?>
   </div>
   <div class="span5 offset1">
     <h1>My Bid

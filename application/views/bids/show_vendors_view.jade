@@ -5,7 +5,7 @@ a(href="#{route('project', array($project->id))}", data-pjax) &larr; Back to pro
 
 .row
   .span6
-    !{$project->body}
+    !{View::make('projects.partials.full_sow')->with('project', $project)}
 
   .span5.offset1
     h1 My Bid

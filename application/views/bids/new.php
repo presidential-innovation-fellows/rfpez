@@ -1,9 +1,9 @@
 <?php Section::inject('page_title', $project->title) ?>
 <?php Section::inject('page_action', 'New Bid') ?>
 <?php Section::inject('current_page', 'new-bid') ?>
-<div class="row">
+<div class="row new-bid-page">
   <div class="span6">
-    <?php echo Jade\Dumper::_html( $project->body ); ?>
+    <?php echo Jade\Dumper::_html(View::make('projects.partials.full_sow')->with('project', $project)); ?>
   </div>
   <div class="span6">
     <h1>New Bid</h1>
@@ -41,7 +41,7 @@
           <?php $draft_deliverable_names = $draft ? $draft->deliverable_names() : false ?>
           <?php $draft_deliverable_prices = $draft ? $draft->deliverable_prices() : false ?>
           <?php $deliverable_prices = Input::old('deliverable_prices') ?: $draft_deliverable_prices ?>
-          <?php $deliverable_names = Input::old('deliverable_names') ?: $draft_deliverable_names ?: $project->parsed_deliverables() ?>
+          <?php $deliverable_names = Input::old('deliverable_names') ?: $draft_deliverable_names ?: array_keys($project->deliverables) ?>
           <?php if ($deliverable_names): ?>
             <?php foreach($deliverable_names as $deliverable_name): ?>
               <tr class="deliverables-row">
