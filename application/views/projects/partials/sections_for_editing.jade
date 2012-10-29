@@ -6,7 +6,7 @@
 
         .category-sections
           - foreach ($sections as $section):
-            .section(data-section-id="#{$section->id}", data-section-title="#{$section->title}")
+            .section(data-section-id="#{$section->id}", data-section-title="#{$section->title}", data-will-fork="#{$section->can_edit_without_forking() ? 'false' : 'true'}")
               strong #{$section->title}
               a.edit-section-link(href="#") edit
               p.body #{$section->body}

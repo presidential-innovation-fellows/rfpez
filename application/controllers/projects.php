@@ -131,6 +131,7 @@ class Projects_Controller extends Base_Controller {
     } else {
       // we're adding a new sction
       $section = new ProjectSection($section_input);
+      $section->created_by_project_id = $project->id;
       $section->save();
       $project->add_section($section->id);
     }

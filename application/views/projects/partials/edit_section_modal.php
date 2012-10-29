@@ -25,6 +25,7 @@
       </div>
     </div>
     <div class="modal-footer">
+      <span class="will-fork pull-left">&nbsp;</span>
       <button class="btn" data-dismiss="modal">Cancel</button>
       <button class="btn btn-primary save-button" data-loading-text="Saving...">Save</button>
     </div>

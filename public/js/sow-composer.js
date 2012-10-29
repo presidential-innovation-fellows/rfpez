@@ -105,6 +105,7 @@
   $(document).on("click", ".add-section-button", function() {
     $("#edit-section-form").resetForm();
     $("#edit-section-modal").find(".modal-header h3").text("Add Section");
+    $("#edit-section-modal").find(".will-fork").hide();
     return $("#edit-section-modal").modal('show');
   });
 
@@ -115,6 +116,11 @@
     title = section.data('section-title');
     body = section.find(".body").html();
     category = section.closest(".category").data('name');
+    if (section.data('will-fork') === true) {
+      $("#edit-section-modal").find(".will-fork").show();
+    } else {
+      $("#edit-section-modal").find(".will-fork").hide();
+    }
     $("#edit-section-modal").find(".modal-header h3").text("Edit Section '" + title + "'");
     $("#edit-section-form").find("input[name=section_id]").val(section_id);
     $("#edit-section-form").find("input[name=project_section\\[section_category\\]]").val(category);

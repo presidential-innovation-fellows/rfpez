@@ -22,5 +22,7 @@
           textarea(name='project_section[body]', placeholder='Body')
 
     .modal-footer
+      span.will-fork.pull-left &nbsp;
+      //- If we want to display a notice that this section will be forked, we could do so above.
       button.btn(data-dismiss='modal') Cancel
       button.btn.btn-primary.save-button(data-loading-text="Saving...") Save
