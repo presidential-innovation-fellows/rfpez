@@ -21,7 +21,9 @@ class Add_Sow_Progress_To_Projects {
 	 */
 	public function down()
 	{
-		$t->drop_column('sow_progress');
+		Schema::table('projects', function($t){
+			$t->drop_column('sow_progress');
+		});
 	}
 
 }
