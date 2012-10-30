@@ -91,6 +91,11 @@ Class Factory {
                            'deliverables' => $original_project->deliverables,
                            'proposals_due_at' => $due_at
                            ));
+    if (rand(0,1) == 1) {
+      $p->public = true;
+      $p->recommended = rand(0,1);
+      $p->fork_count = rand(0,8);
+    }
     $p->forked_from_project_id = $original_project->id;
     $p->fbo_solnbr = rand(0,1) == 0 ? 'SEED-DATA' : null;
     $p->save();
