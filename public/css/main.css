@@ -526,6 +526,10 @@ tbody.project .admin-star i {
   padding-left: 10px;
   font-size: 0.9em;
 }
+.new-project-page {
+  width: 500px;
+  margin: 0 auto;
+}
 ul.templates-list {
   margin: 0;
 }

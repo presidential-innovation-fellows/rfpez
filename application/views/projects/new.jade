@@ -1,29 +1,12 @@
 - Section::inject('page_title', 'New Project')
+- Section::inject('no_page_header', true)
 
 
-.row-fluid
+.new-project-page
 
-  .span5
-    form.form-big(action="#{route('projects')}", method="POST", id="new-project-form")
-      .control-group
-        input(type="text", name="project[title]", placeholder="Project Title")
+  h4 New Project
 
-      .control-group
-        input(type="text", name="project[agency]", placeholder="Agency")
-
-      .control-group
-        input(type="text", name="project[office]", placeholder="Office")
-
-      .control-group
-        select(name="project[project_type_id]")
-          option(value="") -- Select Project Type --
-          - foreach (ProjectType::all() as $project_type):
-            option(value="#{$project_type->id}") #{$project_type->name}
-
-      .form-actions
-        button.btn.btn-primary(type="submit") Create Project
-
-  .span7.well
+  .well
     p
       strong Congrats on using EasyBid for your procurement!
 
@@ -31,3 +14,23 @@
       | First, we just need some basic information about the project you're doing.
       | If you can't find the correct project type in the list, <a href="#">contact us</a>
       | and let us know.
+
+  form.form-big(action="#{route('projects')}", method="POST", id="new-project-form")
+    .control-group
+      input(type="text", name="project[title]", placeholder="Project Title")
+
+    .control-group
+      input(type="text", name="project[agency]", placeholder="Agency")
+
+    .control-group
+      input(type="text", name="project[office]", placeholder="Office")
+
+    .control-group
+      select(name="project[project_type_id]")
+        option(value="") -- Select Project Type --
+        - foreach (ProjectType::all() as $project_type):
+          option(value="#{$project_type->id}") #{$project_type->name}
+
+    .form-actions
+      button.btn.btn-primary(type="submit") Create Project
+
