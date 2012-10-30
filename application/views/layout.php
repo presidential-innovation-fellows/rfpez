@@ -30,5 +30,6 @@
     window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.1.min.js"><\/script>')
   </script>
   <?php echo Jade\Dumper::_html(Basset::show('website.js')); ?>
+  <?php echo Jade\Dumper::_html(Section::yield('additional_scripts')); ?>
 </body>
 </html>

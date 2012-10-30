@@ -281,13 +281,24 @@ class Projects_Controller extends Base_Controller {
                                                                        ->render() ));
   }
 
+  public function action_get_collaborators() {
+    $project = Config::get('project');
+    $collaborators = array();
+    foreach($project->officers()->get() as $officer) {
+      $collaborators[] = $officer->to_array();
+    }
+    return Response::json($collaborators);
+  }
+
   public function action_add_collaborator() {
     $project = Config::get('project');
-    $user = User::where_email(Input::get('email'))->first();
+    $input = Input::json();
+    $email = $input->User->email;
+    $user = User::where_email($email)->first();
 
     if (!$user) {
-      $user = User::new_officer_from_invite(Input::get('email'), Auth::user(), $project);
-      if (!$user) return Response::json(array("status" => "dotgovonly"));
+      $user = User::new_officer_from_invite($email, Auth::user(), $project);
+      if (!$user) return Response::make('400', '400');
       $send_email = false;
     } else {
       $send_email = true;
@@ -301,11 +312,7 @@ class Projects_Controller extends Base_Controller {
                                                          "officer" => $user->officer,
                                                          "actor_id" => Auth::user()->id), $send_email);
 
-    return Response::json(array("status" => "success",
-                                "html" => View::make("projects.partials.collaborator_tr")
-                                              ->with('officer', $user->officer)
-                                              ->with('project', $project)
-                                              ->render() ));
+    return Response::json($user->to_array());
   }
 
   public function action_destroy_collaborator($project_id, $officer_id) {

@@ -10,6 +10,8 @@ class Officer extends Eloquent {
 
   public static $accessible = array('user_id', 'phone', 'fax', 'name', 'title', 'agency');
 
+  public $includes = array('User');
+
   public $validator = false;
 
   public function validator() {

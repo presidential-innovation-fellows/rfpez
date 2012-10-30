@@ -2,6 +2,13 @@
 <?php Section::inject('page_action', "Admin") ?>
 <?php Section::inject('active_subnav', 'admin') ?>
 <?php Section::inject('no_page_header', true) ?>
+<?php Section::start('additional_scripts'); { ?>
+  <?php echo Jade\Dumper::_html(HTML::script('js/vendor/underscore.js')); ?>
+  <?php echo Jade\Dumper::_html(HTML::script('js/vendor/backbone.js')); ?>
+  <?php echo Jade\Dumper::_html(HTML::script('js/vendor/backbone-localstorage.js')); ?>
+  <?php echo Jade\Dumper::_html(HTML::script('js/collaborators-backbone.js')); ?>
+<?php } ?>
+<?php Section::stop(); ?>
 <?php echo Jade\Dumper::_html(View::make('projects.partials.toolbar')->with('project', $project)); ?>
 <div class="row-fluid">
   <div class="span6">
@@ -53,11 +60,7 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
-        <?php foreach ($project->officers as $officer): ?>
-          <?php echo Jade\Dumper::_html(View::make('projects.partials.collaborator_tr')->with('officer', $officer)->with('project', $project)); ?>
-        <?php endforeach; ?>
-      </tbody>
+      <tbody id="collaborators-tbody"></tbody>
       <tfoot>
         <tr>
           <td colspan="3">

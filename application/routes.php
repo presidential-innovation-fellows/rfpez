@@ -51,6 +51,9 @@ Route::get('projects/(:num)/more-templates', array('uses' => 'projects@more_temp
 
 Route::get('projects/(:num)/admin', array('uses' => 'projects@admin', 'as' => 'project_admin'));
 
+Route::get('projects/(:num)/collaborators', array('uses' => 'projects@get_collaborators'));
+
+
 Route::post('projects/(:num)/collaborators', array('uses' => 'projects@add_collaborator', 'as' => 'project_collaborators'));
 Route::delete('projects/(:num)/collaborators/(:num)', array('uses' => 'projects@destroy_collaborator', 'as' => 'project_collaborators_destroy'));
 

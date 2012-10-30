@@ -3,6 +3,13 @@
 - Section::inject('active_subnav', 'admin')
 - Section::inject('no_page_header', true)
 
+- Section::start('additional_scripts');
+  !{HTML::script('js/vendor/underscore.js')}
+  !{HTML::script('js/vendor/backbone.js')}
+  !{HTML::script('js/vendor/backbone-localstorage.js')}
+  !{HTML::script('js/collaborators-backbone.js')}
+- Section::stop();
+
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 
 .row-fluid
@@ -55,9 +62,8 @@
           th Email
           th Owner
           th Actions
-      tbody
-        - foreach ($project->officers as $officer):
-          !{View::make('projects.partials.collaborator_tr')->with('officer', $officer)->with('project', $project)}
+      tbody#collaborators-tbody
+
       tfoot
         tr
           td(colspan="3")
