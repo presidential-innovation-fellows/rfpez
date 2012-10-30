@@ -267,9 +267,11 @@ class Projects_Controller extends Base_Controller {
     $project = Config::get('project');
     $query = Input::get('query');
     $available_sections = $project->available_sections()
-                                  ->where('section_category', 'LIKE', '%'.$query.'%')
-                                  ->or_where('title', 'LIKE', '%'.$query.'%')
-                                  ->or_where('body', 'LIKE', '%'.$query.'%')
+                                  ->where(function($q)use($query){
+                                    $q->where('section_category', 'LIKE', '%'.$query.'%');
+                                    $q->or_where('title', 'LIKE', '%'.$query.'%');
+                                    $q->or_where('body', 'LIKE', '%'.$query.'%');
+                                  })
                                   ->order_by('times_used', 'desc')
                                   ->take(20)
                                   ->get();
