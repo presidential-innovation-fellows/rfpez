@@ -5,7 +5,7 @@ $ ->
         "please enter email"
       else if (!attrs.User.email.match(/.gov$/i))
         ".gov only"
-      else if (Collaborators.existing_emails(@).indexOf(attrs.User.email) != -1)
+      else if (!attrs.id && Collaborators.existing_emails().indexOf(attrs.User.email) != -1)
         "already exists"
 
     defaults: ->
@@ -18,9 +18,8 @@ $ ->
     initialize: (models, options) ->
       @url = "/projects/#{options.project_id}/collaborators"
 
-    existing_emails: (except) ->
+    existing_emails: ->
       @.map (c) ->
-        return if c.id is except.id
         return c.attributes.User.email
 
     model: Collaborator

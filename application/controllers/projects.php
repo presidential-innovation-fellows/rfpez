@@ -312,7 +312,7 @@ class Projects_Controller extends Base_Controller {
                                                          "officer" => $user->officer,
                                                          "actor_id" => Auth::user()->id), $send_email);
 
-    return Response::json($user->to_array());
+    return Response::json($user->officer->to_array());
   }
 
   public function action_destroy_collaborator($project_id, $officer_id) {

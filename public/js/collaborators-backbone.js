@@ -9,7 +9,7 @@
           return "please enter email";
         } else if (!attrs.User.email.match(/.gov$/i)) {
           return ".gov only";
-        } else if (Collaborators.existing_emails(this).indexOf(attrs.User.email) !== -1) {
+        } else if (!attrs.id && Collaborators.existing_emails().indexOf(attrs.User.email) !== -1) {
           return "already exists";
         }
       },
@@ -26,11 +26,8 @@
       initialize: function(models, options) {
         return this.url = "/projects/" + options.project_id + "/collaborators";
       },
-      existing_emails: function(except) {
+      existing_emails: function() {
         return this.map(function(c) {
-          if (c.id === except.id) {
-            return;
-          }
           return c.attributes.User.email;
         });
       },
