@@ -16,38 +16,24 @@
     <span>
       <em>Don't see what you want? In the next step you can create new sections.</em>
     </span>
-    <div class="row-fluid">
-      <div class="span6 sort-by">
-        Sort by:
-        <select>
-          <option>Popularity</option>
-        </select>
-      </div>
-      <div class="span6 filter">
-        <input class="search-query" type="text" placeholder="Filter" />
-      </div>
+    <div>
+      <input id="available-sections-filter" class="search-query pull-right" type="text" placeholder="Filter" />
     </div>
-    <table class="table table-striped available-sections-table">
+    <table class="table table-striped available-sections-table" data-project-id="<?php echo Jade\Dumper::_text($project->id); ?>">
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Category</th>
-          <th>Times Used</th>
-          <th>Use</th>
+          <th width="50%">Title</th>
+          <th width="20%">Category</th>
+          <th width="15%">Times Used</th>
+          <th width="15%">Use</th>
         </tr>
       </thead>
-      <tbody>
-        <?php foreach ($available_sections as $section): ?>
-          <tr class="section" data-section-id="<?php echo Jade\Dumper::_text($section->id); ?>">
-            <td><?php echo Jade\Dumper::_text($section->title); ?></td>
-            <td><?php echo Jade\Dumper::_text($section->section_category); ?></td>
-            <td><?php echo Jade\Dumper::_text($section->times_used); ?></td>
-            <td>
-              <a class="btn btn-primary btn-mini add-button" data-href="<?php echo Jade\Dumper::_text(route('project_section_add', array($project->id, $section->id))); ?>">Use This &rarr;</a>
-            </td>
-          </tr>
-        <?php endforeach; ?>
+      <tbody class="loading-placeholder">
+        <tr>
+          <td colspan="4">Loading...</td>
+        </tr>
       </tbody>
+      <?php echo Jade\Dumper::_html(View::make('projects.partials.available_sections_tbody')->with('project', $project)->with('available_sections', $available_sections)); ?>
     </table>
     <div class="form-actions">
       <a class="btn btn-primary" href="<?php echo Jade\Dumper::_text(route('project_sections_edit', array($project->id))); ?>">Edit Sections &rarr;</a>

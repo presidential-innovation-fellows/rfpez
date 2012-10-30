@@ -170,8 +170,8 @@ Class Factory {
     $s = new ProjectSection(array('section_category' => 'Requirements',
                                   'title' => implode(" ", $faker->words),
                                   'body' => $faker->paragraph,
-                                  'public' => rand(0,1),
-                                  'times_used' => rand(0,10)));
+                                  'public' => rand(0,8) == 0 ? false: true,
+                                  'times_used' => rand(0,20)));
     $s->save();
 
     $s->project_types()->sync(ProjectType::lists('id'));

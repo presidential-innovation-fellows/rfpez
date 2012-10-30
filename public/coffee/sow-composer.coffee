@@ -60,6 +60,22 @@ section_category_dropdown_changed = ->
     $("#section-category-input").val('')
     $("#section-category-input").show()
 
+search_available_sections = ->
+  query = $("#available-sections-filter").val()
+  project_id = $(".available-sections-table").data('project-id')
+  $(".available-sections-table").addClass("loading")
+
+  $.ajax
+    url: "/projects/#{project_id}/search-available-sections"
+    type: "GET"
+    data:
+      query: query
+    success: (data) ->
+      new_available_sections = $(data.available_sections_tbody_html)
+      $(".available-sections-tbody").replaceWith(new_available_sections)
+      hide_already_selected_sections()
+      $(".available-sections-table").removeClass("loading")
+
 $(document).on "ready pjax:success sectionsreloaded", ->
   hide_already_selected_sections()
 
@@ -162,6 +178,16 @@ $(document).on "submit", "#sync-with-fbo-form", (e) ->
     $(this).find('button').button('loading')
 
 $(document).on "change", "#section-category-select", section_category_dropdown_changed
+
+available_sections_filter_timeout = false
+
+$(document).on "input", "#available-sections-filter", ->
+
+  clearTimeout(available_sections_filter_timeout)
+
+  available_sections_filter_timeout = setTimeout ->
+    search_available_sections()
+  , 200
 
 ####### FILL IN THE BLANKS ########
 

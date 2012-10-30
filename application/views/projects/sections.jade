@@ -21,31 +21,22 @@
     span
       em Don't see what you want? In the next step you can create new sections.
 
-    .row-fluid
-      .span6.sort-by
-        | Sort by:
-        select
-          option Popularity
+    div
+      input.search-query.pull-right#available-sections-filter(type="text", placeholder="Filter")
 
-      .span6.filter
-        input.search-query(type="text", placeholder="Filter")
-
-    table.table.table-striped.available-sections-table
+    table.table.table-striped.available-sections-table(data-project-id="#{$project->id}")
       thead
         tr
-          th Title
-          th Category
-          th Times Used
-          th Use
+          th(width="50%") Title
+          th(width="20%") Category
+          th(width="15%") Times Used
+          th(width="15%") Use
 
-      tbody
-        - foreach ($available_sections as $section):
-          tr.section(data-section-id="#{$section->id}")
-            td #{$section->title}
-            td #{$section->section_category}
-            td #{$section->times_used}
-            td
-              a.btn.btn-primary.btn-mini.add-button(data-href="#{route('project_section_add', array($project->id, $section->id))}") Use This &rarr;
+      tbody.loading-placeholder
+        tr
+          td(colspan="4") Loading...
+
+      !{View::make('projects.partials.available_sections_tbody')->with('project', $project)->with('available_sections', $available_sections)}
 
     .form-actions
       a.btn.btn-primary(href="#{route('project_sections_edit', array($project->id))}") Edit Sections &rarr;

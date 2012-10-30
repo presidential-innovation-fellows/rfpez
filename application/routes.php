@@ -45,6 +45,8 @@ Route::resourceful('projects', array('new', 'create', 'edit', 'update', 'index',
 
 Route::get('projects/mine', array('uses' => 'projects@mine', 'as' => 'my_projects'));
 
+Route::get('projects/(:num)/search-available-sections', array('uses' => 'projects@search_available_sections', 'as' => 'project_search_available_sections'));
+
 Route::get('projects/(:num)/admin', array('uses' => 'projects@admin', 'as' => 'project_admin'));
 
 Route::post('projects/(:num)/collaborators', array('uses' => 'projects@add_collaborator', 'as' => 'project_collaborators'));

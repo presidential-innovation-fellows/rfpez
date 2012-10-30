@@ -1,0 +1,8 @@
+tbody.available-sections-tbody
+  - foreach ($available_sections as $section):
+    tr.section(data-section-id="#{$section->id}")
+      td #{$section->title}
+      td #{$section->section_category}
+      td #{$section->times_used}
+      td
+        a.btn.btn-primary.btn-mini.add-button(data-href="#{route('project_section_add', array($project->id, $section->id))}") Use This &rarr;
