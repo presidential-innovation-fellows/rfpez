@@ -7,7 +7,7 @@
     </div>
     <div class="modal-body">
       <div class="row-fluid">
-        <div class="span6">
+        <div class="span5">
           <div class="control-group">
             <label class="control-label">Title</label>
             <div class="controls">
@@ -15,10 +15,10 @@
             </div>
           </div>
         </div>
-        <div class="span4">
+        <div class="span7">
           <div class="control-group">
             <label class="control-label">Category</label>
-            <div class="controls">
+            <div class="controls category-controls">
               <select id="section-category-select">
                 <?php foreach (ProjectSection::$categories as $category): ?>
                   <option value="<?php echo Jade\Dumper::_text($category); ?>"><?php echo Jade\Dumper::_text($category); ?></option>
@@ -32,7 +32,9 @@
       </div>
       <div class="control-group">
         <div class="controls">
-          <textarea name="project_section[body]" placeholder="Body"></textarea>
+          <div class="wysiwyg-wrapper">
+            <textarea class="wysihtml5" name="project_section[body]"></textarea>
+          </div>
         </div>
       </div>
     </div>

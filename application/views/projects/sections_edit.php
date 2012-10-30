@@ -17,6 +17,7 @@
       Add Section
       <i class="icon-white icon-plus-sign"></i>
     </button>
+    <div class="clearfix"></div>
     <?php echo Jade\Dumper::_html(View::make('projects.partials.sections_for_editing')->with('project', $project)); ?>
     <div class="form-actions">
       <a class="btn btn-primary" href="<?php echo Jade\Dumper::_text(route('project_blanks', array($project->id))); ?>">Fill in Blanks &rarr;</a>

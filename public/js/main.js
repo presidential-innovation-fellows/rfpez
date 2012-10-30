@@ -43,6 +43,7 @@
     $("[data-onload-focus]:eq(0)").focus();
     $("span.timeago").timeago();
     $('.datepicker').datepicker();
+    $('.wysihtml5').wysihtml5();
     return Rfpez.current_page_string = $("#current-page").val();
   });
 

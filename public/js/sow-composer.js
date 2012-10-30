@@ -214,7 +214,7 @@
     $("#edit-section-form").find("input[name=section_id]").val(section_id);
     $("#edit-section-form").find("input[name=project_section\\[section_category\\]]").val(category);
     $("#edit-section-form").find("input[name=project_section\\[title\\]]").val(title);
-    $("#edit-section-form").find("textarea[name=project_section\\[body\\]]").val(body);
+    $("#edit-section-form").find("textarea[name=project_section\\[body\\]]").data("wysihtml5").editor.setValue(body);
     update_section_category_dropdown_from_input();
     return $("#edit-section-modal").modal('show');
   });

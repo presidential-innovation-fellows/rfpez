@@ -12,8 +12,11 @@ if (Config::get('basset')) Basset\Config::extend(Config::get('basset'));
 
 Basset::scripts('website', function($basset)
 {
+         // Vendor scripts
   $basset->add('bootstrapjs', 'js/vendor/bootstrap.js')
          ->add('bootstrap-datepicker', 'js/vendor/bootstrap-datepicker.js')
+         ->add('wysihtml5', 'js/vendor/wysihtml5.min.js')
+         ->add('bootstrap-wysihtml5', 'js/vendor/bootstrap-wysihtml5.js')
          ->add('jquery-sortable', 'js/vendor/jquery.sortable.js')
          ->add('autogrow-input', 'js/vendor/autogrow-input.js')
          ->add('jquerytimeago', 'js/vendor/jquery.timeago.js')
@@ -22,6 +25,8 @@ Basset::scripts('website', function($basset)
          ->add('jqueryform', 'js/vendor/jquery.form.js')
          ->add('jqueryhotkeys', 'js/vendor/jquery.hotkeys.js')
          ->add('jquerypjax', 'js/vendor/jquery.pjax.js')
+
+         // Application scripts
          ->add('flashbutton', 'js/flash-button.js')
          ->add('main', 'js/main.js')
          ->add('question-and-answer', 'js/question-and-answer.js')
@@ -44,6 +49,7 @@ Basset::scripts('website', function($basset)
 Basset::styles('website', function($basset)
 {
   $basset->add('bootstrap', 'bootstrap.css')
+         ->add('bootstrap-wysihtml5', 'bootstrap-wysihtml5.css')
          ->add('datepicker', 'datepicker.css')
          ->add('maincss', 'main.css')
          ->compress();

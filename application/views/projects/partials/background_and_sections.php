@@ -4,6 +4,6 @@
   <h5><?php echo Jade\Dumper::_text($category); ?></h5>
   <?php foreach ($sections as $section): ?>
     <strong><?php echo Jade\Dumper::_text($section->title); ?></strong>
-    <p><?php echo Jade\Dumper::_text($section->body); ?></p>
+    <p><?php echo Jade\Dumper::_html($section->body); ?></p>
   <?php endforeach; ?>
 <?php endforeach; ?>

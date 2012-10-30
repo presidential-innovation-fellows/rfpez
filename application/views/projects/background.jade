@@ -27,7 +27,8 @@
 
 
     form.background-form(method="POST")
-      textarea(name="project[background]") !{$project->background}
+      .wysiwyg-wrapper
+        textarea.wysihtml5(name="project[background]") !{$project->background}
 
       .form-actions
         button.btn.btn-primary Select Sections &rarr;

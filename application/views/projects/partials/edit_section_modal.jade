@@ -8,25 +8,27 @@
 
     .modal-body
       .row-fluid
-        .span6
+        .span5
           .control-group
             label.control-label Title
             .controls
               input(type="text", name='project_section[title]')
 
-        .span4
+        .span7
           .control-group
             label.control-label Category
-            .controls
+            .controls.category-controls
               select#section-category-select
                 - foreach (ProjectSection::$categories as $category):
                   option(value="#{$category}") #{$category}
                 option(value="Other") Other
+
               input#section-category-input(type="text", name='project_section[section_category]')
 
       .control-group
         .controls
-          textarea(name='project_section[body]', placeholder='Body')
+          .wysiwyg-wrapper
+            textarea.wysihtml5(name='project_section[body]')
 
     .modal-footer
       span.will-fork.pull-left &nbsp;

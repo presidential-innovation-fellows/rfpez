@@ -10,7 +10,7 @@
                 <strong><?php echo Jade\Dumper::_text($section->title); ?></strong>
                 <a class="btn btn-success btn-mini edit-section-link" href="#">Edit</a>
                 <a class="btn btn-danger btn-mini remove-button" data-href="<?php echo Jade\Dumper::_text(route('project_section_delete', array($project->id, $section->id))); ?>" data-loading-text="Removing...">Remove</a>
-                <p class="body"><?php echo Jade\Dumper::_text($section->body); ?></p>
+                <p class="body"><?php echo Jade\Dumper::_html($section->body); ?></p>
               </div>
             <?php endforeach; ?>
           </div>

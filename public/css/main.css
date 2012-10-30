@@ -60,6 +60,18 @@ body {
 .centered {
   text-align: center;
 }
+.wysiwyg-wrapper {
+  background: #ccc;
+  -webkit-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
+}
+.wysiwyg-wrapper .wysihtml5-toolbar li {
+  margin: 5px;
+}
+.wysiwyg-wrapper iframe {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
 .form-big .control-group input {
   font-size: 22px;
   line-height: 26px;
@@ -625,6 +637,16 @@ ul.templates-list li.show-more.all-loaded .show-more-templates-link {
   opacity: 1;
   -ms-filter: none;
   filter: none;
+}
+#edit-section-modal {
+  width: 700px;
+}
+#edit-section-modal .category-controls select {
+  width: 150px;
+}
+#edit-section-modal .category-controls input {
+  display: inline;
+  width: 180px;
 }
 #edit-section-modal textarea {
   width: 100%;
