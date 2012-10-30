@@ -47,6 +47,8 @@ Route::get('projects/mine', array('uses' => 'projects@mine', 'as' => 'my_project
 
 Route::get('projects/(:num)/search-available-sections', array('uses' => 'projects@search_available_sections', 'as' => 'project_search_available_sections'));
 
+Route::get('projects/(:num)/more-templates', array('uses' => 'projects@more_templates', 'as' => 'project_more_templates'));
+
 Route::get('projects/(:num)/admin', array('uses' => 'projects@admin', 'as' => 'project_admin'));
 
 Route::post('projects/(:num)/collaborators', array('uses' => 'projects@add_collaborator', 'as' => 'project_collaborators'));

@@ -5,13 +5,29 @@
 ul.templates-list
   margin 0
 
-  li.template
+  li
     list-style none
 
   li.no-templates
     width 400px
     margin 0 auto 30px
-    list-style none
+
+  li.show-more
+    text-align center
+
+    .spinner
+      display none
+
+    &.loading-more
+      .show-more-templates-link
+        display none
+
+      .spinner
+        display inline
+
+    &.all-loaded
+      .show-more-templates-link
+        display none
 
 .sections-for-editing-wrapper
   position relative

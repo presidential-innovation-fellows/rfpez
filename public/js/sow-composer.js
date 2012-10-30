@@ -113,6 +113,23 @@
     return $(".sections-for-editing").bind('sortupdate', save_sort_order);
   });
 
+  $(document).on("click", ".show-more-templates-link", function() {
+    var li;
+    li = $(this).closest("li");
+    li.addClass("loading-more");
+    return $.ajax({
+      url: $(this).data('href'),
+      type: "GET",
+      success: function(data) {
+        var new_templates;
+        new_templates = $(data.html);
+        li.before(new_templates);
+        li.removeClass('loading-more');
+        return li.addClass('all-loaded');
+      }
+    });
+  });
+
   $(document).on("click", ".sections-for-editing .remove-button", function(e) {
     var el;
     e.preventDefault();

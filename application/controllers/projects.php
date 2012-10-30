@@ -55,6 +55,18 @@ class Projects_Controller extends Base_Controller {
     return Redirect::to_route('project_background', array($project->id));
   }
 
+  public function action_more_templates() {
+    $project = Config::get('project');
+    // @todo this will break once we have more than 100 templates.
+    $templates = $project->available_templates()->take(100)->skip(3)->get();
+
+    return Response::json(array('status' => 'success',
+                                'html' => View::make('projects.partials.template_lis')
+                                              ->with('templates', $templates)
+                                              ->with('project', $project)
+                                              ->render() ));
+  }
+
   public function action_background() {
     $view = View::make('projects.background');
     $view->project = Config::get('project');

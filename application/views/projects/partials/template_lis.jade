@@ -1,0 +1,15 @@
+- foreach($templates as $template):
+  li.template.well
+    .row-fluid
+      .span6
+        .title #{$template->title}
+        .author #{$template->owner()->name}
+
+      .span4
+        .forked
+          | Forked <a href="#">#{$template->fork_count} #{Str::plural('time', $template->fork_count)}</a>
+        - if ($template->recommended):
+          .recommended &star; Recommended Template
+
+      .span2
+        a.btn.btn-success(href="#{route('project_template_post', array($project->id, $template->id))}") Fork

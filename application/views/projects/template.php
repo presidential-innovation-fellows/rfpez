@@ -11,30 +11,11 @@
 </p>
 <ul class="templates-list">
   <?php if ($templates): ?>
-    <?php foreach($templates as $template): ?>
-      <li class="template well">
-        <div class="row-fluid">
-          <div class="span6">
-            <div class="title"><?php echo Jade\Dumper::_text($template->title); ?></div>
-            <div class="author"><?php echo Jade\Dumper::_text($template->owner()->name); ?></div>
-          </div>
-          <div class="span4">
-            <div class="forked">
-              Forked <a href="#"><?php echo Jade\Dumper::_text($template->fork_count); ?> <?php echo Jade\Dumper::_text(Str::plural('time', $template->fork_count)); ?></a>
-            </div>
-            <?php if ($template->recommended): ?>
-              <div class="recommended">&star; Recommended Template</div>
-            <?php endif; ?>
-          </div>
-          <div class="span2">
-            <a class="btn btn-success" href="<?php echo Jade\Dumper::_text(route('project_template_post', array($project->id, $template->id))); ?>">Fork</a>
-          </div>
-        </div>
-      </li>
-    <?php endforeach; ?>
+    <?php echo Jade\Dumper::_html(View::make('projects.partials.template_lis')->with('templates', $templates)->with('project', $project)); ?>
     <?php if ($more_templates_count): ?>
       <li class="show-more">
-        <a href="#">See <?php echo Jade\Dumper::_text($more_templates_count); ?> more <?php echo Jade\Dumper::_text(Str::plural('template', $more_templates_count)); ?></a>
+        <a class="show-more-templates-link" data-href="<?php echo Jade\Dumper::_text(route('project_more_templates', array($project->id))); ?>">See <?php echo Jade\Dumper::_text($more_templates_count); ?> more <?php echo Jade\Dumper::_text(Str::plural('template', $more_templates_count)); ?>...</a>
+        <img class="spinner" src="<?php echo Jade\Dumper::_text(asset('img/spinner.gif')); ?>" />
       </li>
     <?php endif; ?>
   <?php else: ?>

@@ -14,25 +14,11 @@ p
 
 ul.templates-list
   - if ($templates):
-    - foreach($templates as $template):
-      li.template.well
-        .row-fluid
-          .span6
-            .title #{$template->title}
-            .author #{$template->owner()->name}
-
-          .span4
-            .forked
-              | Forked <a href="#">#{$template->fork_count} #{Str::plural('time', $template->fork_count)}</a>
-            - if ($template->recommended):
-              .recommended &star; Recommended Template
-
-          .span2
-            a.btn.btn-success(href="#{route('project_template_post', array($project->id, $template->id))}") Fork
-
+    !{View::make('projects.partials.template_lis')->with('templates', $templates)->with('project', $project)}
     - if ($more_templates_count):
       li.show-more
-        a(href="#") See #{$more_templates_count} more #{Str::plural('template', $more_templates_count)}
+        a.show-more-templates-link(data-href="#{route('project_more_templates', array($project->id))}") See #{$more_templates_count} more #{Str::plural('template', $more_templates_count)}...
+        img.spinner(src="#{asset('img/spinner.gif')}")
   - else:
     li.no-templates.well
       | Sorry, there are no templates available for this project type. Click "Start From Scratch" below,

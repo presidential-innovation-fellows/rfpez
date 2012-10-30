@@ -76,6 +76,7 @@ search_available_sections = ->
       hide_already_selected_sections()
       $(".available-sections-table").removeClass("loading")
 
+
 $(document).on "ready pjax:success sectionsreloaded", ->
   hide_already_selected_sections()
 
@@ -87,6 +88,20 @@ $(document).on "ready pjax:success sectionsreloaded", ->
     forcePlaceholderSize: true
 
   $(".sections-for-editing").bind 'sortupdate', save_sort_order
+
+$(document).on "click", ".show-more-templates-link", ->
+  li = $(this).closest("li")
+  li.addClass("loading-more")
+
+  $.ajax
+    url: $(this).data('href')
+    type: "GET"
+    success: (data) ->
+      new_templates = $(data.html)
+      li.before(new_templates)
+      li.removeClass('loading-more')
+      li.addClass('all-loaded')
+
 
 $(document).on "click", ".sections-for-editing .remove-button", (e) ->
   e.preventDefault()
