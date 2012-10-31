@@ -25,7 +25,12 @@ table.table.table-bordered.table-striped
         td #{$project_section->section_category}
         td #{$project_section->title}
         td #{$project_section->body}
-        td #{$project_section->public}
+        td
+          - if ($project_section->public):
+            a.btn.btn-success(href="#{route('admin_project_sections_toggle_public', array($project_section->id))}") Public
+          - else:
+            a.btn(href="#{route('admin_project_sections_toggle_public', array($project_section->id))}") Private
+
         td #{date('m/d/y', strtotime($project_section->created_at))}
 
 .pagination-wrapper

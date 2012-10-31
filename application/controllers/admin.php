@@ -23,6 +23,13 @@ class Admin_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
+  public function action_project_sections_toggle_public($id) {
+    $section = ProjectSection::find($id);
+    $section->public = $section->public == 1 ? 0 : 1;
+    $section->save();
+    return Redirect::back();
+  }
+
   public function action_templates() {
     $view = View::make('admin.templates');
     $view->templates = Project::all_available_templates()->paginate(10);

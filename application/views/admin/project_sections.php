@@ -24,7 +24,13 @@
         <td><?php echo Jade\Dumper::_text($project_section->section_category); ?></td>
         <td><?php echo Jade\Dumper::_text($project_section->title); ?></td>
         <td><?php echo Jade\Dumper::_text($project_section->body); ?></td>
-        <td><?php echo Jade\Dumper::_text($project_section->public); ?></td>
+        <td>
+          <?php if ($project_section->public): ?>
+            <a class="btn btn-success" href="<?php echo Jade\Dumper::_text(route('admin_project_sections_toggle_public', array($project_section->id))); ?>">Public</a>
+          <?php else: ?>
+            <a class="btn" href="<?php echo Jade\Dumper::_text(route('admin_project_sections_toggle_public', array($project_section->id))); ?>">Private</a>
+          <?php endif; ?>
+        </td>
         <td><?php echo Jade\Dumper::_text(date('m/d/y', strtotime($project_section->created_at))); ?></td>
       </tr>
     <?php endforeach; ?>
