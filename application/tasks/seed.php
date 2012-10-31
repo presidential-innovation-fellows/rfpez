@@ -4,6 +4,28 @@ class Seed_Task {
 
   public function run() {
 
+    // Create the base data.
+    $this->base_data();
+    $project = Project::first();
+
+    // Create a bunch more stuff, just for testin'.
+    for ($i = 0; $i < 5; $i++) Factory::project($project->id);
+    for ($i = 0; $i < 15; $i++) Factory::bid();
+    for ($i = 0; $i < 15; $i++) Factory::question();
+    for ($i = 0; $i < 10; $i++) Factory::vendor();
+    for ($i = 0; $i < 40; $i++) Factory::section();
+
+    for ($i = 0; $i < 20; $i++) Factory::project($project->id);
+    for ($i = 0; $i < 40; $i++) Factory::bid(array(), $project->id);
+
+  }
+
+  public function production() {
+    // Just create the minimum amount of data that we need.
+    return $this->base_data();
+  }
+
+  private function base_data() {
     $faker = Faker\Factory::create();
 
     // Create services for vendor profiles
@@ -56,14 +78,6 @@ class Seed_Task {
     // ...And give it to officer1
     $project->officers()->attach(Officer::first()->id, array('owner' => true));
 
-    for ($i = 0; $i < 5; $i++) Factory::project($project->id);
-    for ($i = 0; $i < 15; $i++) Factory::bid();
-    for ($i = 0; $i < 15; $i++) Factory::question();
-    for ($i = 0; $i < 10; $i++) Factory::vendor();
-    for ($i = 0; $i < 40; $i++) Factory::section();
-
-    for ($i = 0; $i < 20; $i++) Factory::project($project->id);
-    for ($i = 0; $i < 40; $i++) Factory::bid(array(), $project->id);
 
   }
 
