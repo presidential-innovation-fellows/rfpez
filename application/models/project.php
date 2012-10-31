@@ -183,6 +183,12 @@ class Project extends Eloquent {
                   ->order_by('fork_count', 'desc');
   }
 
+  public static function all_available_templates() {
+    return Project::with('project_type')
+                  ->where_public(true)
+                  ->order_by('fork_count', 'desc');
+  }
+
   public function available_sections() {
     return $this->project_type->project_sections()->where_public(true);
   }
@@ -262,6 +268,31 @@ class Project extends Eloquent {
     if ($this->sow_progress < $new_status) {
       $this->sow_progress = $new_status;
       $this->save();
+    }
+  }
+
+  public function toggle_public() {
+    if ($this->public) {
+      // make it private
+      $this->public = false;
+      $this->save();
+
+      // make its sections private
+      foreach($this->sections_created_by_it as $section) {
+        $section->public = false;
+        $section->save();
+      }
+
+    } else {
+      // make it public
+      $this->public = true;
+      $this->save();
+
+      // make its sections public
+      foreach($this->sections_created_by_it as $section) {
+        $section->public = true;
+        $section->save();
+      }
     }
   }
 

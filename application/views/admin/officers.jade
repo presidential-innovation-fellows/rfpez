@@ -1,0 +1,28 @@
+- Section::inject('no_page_header', true)
+
+!{View::make('admin.partials.subnav')->with('current_page', 'officers')}
+
+table.table.table-bordered.table-striped.admin-officers-table
+  thead
+    tr
+      th id
+      th name
+      th title
+      th email
+      th role
+
+  tbody
+    - foreach ($officers->results as $officer):
+      tr
+        td #{$officer->id}
+        td #{$officer->name}
+        td #{$officer->title}
+        td #{$officer->user->email}
+        td
+          | #{$officer->role_text()}
+          - if ($officer->role == Officer::ROLE_PROGRAM_OFFICER):
+            | &nbsp;&nbsp;
+            a.btn.btn-primary(href="#{route('admin_verify_contracting_officer', array($officer->id))}") Verify as CO
+
+.pagination-wrapper
+  !{$officers->links()}

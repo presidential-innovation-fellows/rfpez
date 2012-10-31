@@ -257,6 +257,12 @@ class Projects_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
+  public function action_toggle_public() {
+    $project = Config::get('project');
+    $project->toggle_public();
+    return Redirect::to(Input::get('redirect'));
+  }
+
   public function action_index() {
     $view = View::make('projects.index');
     $view->projects = Project::open_projects()->get();
@@ -404,21 +410,25 @@ class Projects_Controller extends Base_Controller {
       return false;
     }
 
-    preg_match('/([0-9]+) for more info/', implode($attributes), $matches);
-    $parsed_solnbr = isset($matches[1]) ? $matches[1] : false;
+    // Check to make sure the info on FBO matches the info we have, unless
+    // we're in the local (dev) environment.
+    if (!Request::is_env('local')) {
+      preg_match('/([0-9]+) for more info/', implode($attributes), $matches);
+      $parsed_solnbr = isset($matches[1]) ? $matches[1] : false;
 
-    if (!isset($attributes["solnbr"])) {
-      Helper::flash_errors("Couldn't find that contract on FBO.");
-      return false;
-    } else if (Project::where_fbo_solnbr($attributes["solnbr"])->first()) {
-      Helper::flash_errors("That contract already exists in EasyBid.");
-      return false;
-    } else if (!preg_match('/'.preg_quote(Auth::user()->email).'/i', implode($attributes))) {
-      Helper::flash_errors("Couldn't verify email address.");
-      return false;
-    } else if ($parsed_solnbr != $project->id) {
-      Helper::flash_errors("Couldn't verify notice. Make sure you copy the body text exactly as-is.");
-      return false;
+      if (!isset($attributes["solnbr"])) {
+        Helper::flash_errors("Couldn't find that contract on FBO.");
+        return false;
+      } else if (Project::where_fbo_solnbr($attributes["solnbr"])->first()) {
+        Helper::flash_errors("That contract already exists in EasyBid.");
+        return false;
+      } else if (!preg_match('/'.preg_quote(Auth::user()->email).'/i', implode($attributes))) {
+        Helper::flash_errors("Couldn't verify email address.");
+        return false;
+      } else if ($parsed_solnbr != $project->id) {
+        Helper::flash_errors("Couldn't verify notice. Make sure you copy the body text exactly as-is.");
+        return false;
+      }
     }
 
     if (!Auth::officer()->is_verified_contracting_officer()) {
@@ -433,6 +443,10 @@ class Projects_Controller extends Base_Controller {
     }
 
     $project->save();
+
+    // They posted it, make it public!
+    if (!$view->project->public)
+      $view->project->toggle_public();
 
     Session::forget('errors');
     return true;
@@ -487,9 +501,9 @@ Route::filter('template_exists_and_is_forkable', function(){
   Config::set('template', $template);
 });
 
-Route::filter('i_am_collaborator', function() {
+Route::filter('i_am_collaborator', function() { // also allowed if user is SUPER ADMIN
   $project = Config::get('project');
-  if (!$project->is_mine()) return Redirect::to('/');
+  if (!$project->is_mine() && !Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)) return Redirect::to('/');
 });
 
 Route::filter('i_am_owner', function() {

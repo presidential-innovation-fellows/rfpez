@@ -103,6 +103,22 @@ Route::post('projects/(:num)/timeline', array('uses' => 'projects@timeline_post'
 
 Route::get('projects/(:num)/review', array('uses' => 'projects@review', 'as' => 'project_review'));
 
+Route::post('projects/(:num)/toggle-public', array('uses' => 'projects@toggle_public', 'as' => 'project_toggle_public'));
+
+/*
+|--------------------------------------------------------------------------
+| Admin Section
+|--------------------------------------------------------------------------
+*/
+
+Route::get('admin', array('uses' => 'admin@index', 'as' => 'admin_index'));
+
+Route::get('admin/project-sections', array('uses' => 'admin@project_sections', 'as' => 'admin_project_sections'));
+Route::get('admin/officers', array('uses' => 'admin@officers', 'as' => 'admin_officers'));
+Route::get('admin/verify-contracting-officer/(:num)', array('uses' => 'admin@verify_contracting_officer', 'as' => 'admin_verify_contracting_officer'));
+Route::get('admin/templates', array('uses' => 'admin@templates', 'as' => 'admin_templates'));
+Route::post('admin/templates/(:num)/toggle-recommended', array('uses' => 'admin@template_toggle_recommended', 'as' => 'admin_template_toggle_recommended'));
+
 
 
 /*

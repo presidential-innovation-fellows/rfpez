@@ -664,3 +664,10 @@ ul.templates-list li.show-more.all-loaded .show-more-templates-link {
 .available-sections-table.loading .loading-placeholder {
   display: table-row-group;
 }
+.public-status {
+  font-weight: bold;
+  margin-right: 20px;
+}
+.admin-template-table form {
+  margin: 0;
+}

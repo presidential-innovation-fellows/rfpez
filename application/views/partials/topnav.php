@@ -8,6 +8,11 @@
       <li>
         <a href="<?php echo Jade\Dumper::_text( route('my_projects') ); ?>" data-pjax="data-pjax">Projects</a>
       </li>
+      <?php if (Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): ?>
+        <li>
+          <a href="<?php echo Jade\Dumper::_text(route('admin_index')); ?>">Admin</a>
+        </li>
+      <?php endif; ?>
     <?php else: ?>
       <li>
         <a href="<?php echo Jade\Dumper::_text( route('my_bids') ); ?>" data-pjax="data-pjax">Bids</a>

@@ -7,6 +7,12 @@ div.nav-collapse.collapse
         a(href="#{ route('vendors') }", data-pjax) Vendors
       li
         a(href="#{ route('my_projects') }", data-pjax) Projects
+
+      - if (Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)):
+        li
+          a(href="#{route('admin_index')}") Admin
+      - endif;
+
     - else:
       li
         a(href="#{ route('my_bids') }", data-pjax) Bids
