@@ -445,8 +445,8 @@ class Projects_Controller extends Base_Controller {
     $project->save();
 
     // They posted it, make it public!
-    if (!$view->project->public)
-      $view->project->toggle_public();
+    if (!$project->public)
+      $project->toggle_public();
 
     Session::forget('errors');
     return true;
