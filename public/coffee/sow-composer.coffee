@@ -94,6 +94,9 @@ $(document).on "ready pjax:success sectionsreloaded", ->
 
   $(".sections-for-editing").bind 'sortupdate', save_sort_order
 
+  if $(".fill-in-blanks")
+    add_empty_class_to_inputs()
+
 $(document).on "click", ".show-more-templates-link", ->
   li = $(this).closest("li")
   li.addClass("loading-more")
@@ -216,6 +219,13 @@ $(document).on "input", "#available-sections-filter", ->
 
 ####### FILL IN THE BLANKS ########
 
+add_empty_class_to_inputs = ->
+  $(".fill-in-blanks input[type=text]").each ->
+    if !$(this).val()
+      $(this).addClass('empty')
+    else
+      $(this).removeClass('empty')
+
 $("input[data-variable]").autoGrow
     comfortZone: 5
 
@@ -249,6 +259,7 @@ $(document).on "input blur", "input[data-variable]", (e) ->
   $("input[data-variable=#{variableName}]").each ->
     $(this).val(variableValue)
     $(this).trigger("input.autogrow")
+  add_empty_class_to_inputs()
 
 ####### TIMELINE ######
 
