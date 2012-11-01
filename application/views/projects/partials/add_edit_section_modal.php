@@ -28,6 +28,11 @@
             </tr>
           </thead>
           <?php echo Jade\Dumper::_html(View::make('projects.partials.available_sections_tbody')->with('project', $project)->with('available_sections', $available_sections)); ?>
+          <tbody class="no-sections hide">
+            <tr>
+              <td colspan="4">No sections found.</td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <div id="section-form" class="tab-pane">

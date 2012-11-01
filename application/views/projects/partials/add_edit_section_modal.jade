@@ -28,6 +28,10 @@
 
           !{View::make('projects.partials.available_sections_tbody')->with('project', $project)->with('available_sections', $available_sections)}
 
+          tbody.no-sections.hide
+            tr
+              td(colspan="4") No sections found.
+
 
       .tab-pane#section-form
 

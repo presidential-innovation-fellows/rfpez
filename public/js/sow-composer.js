@@ -8,7 +8,7 @@
     $(".sections-for-editing .section").each(function() {
       return selected_section_ids.push($(this).data('section-id'));
     });
-    return $(".available-sections-table .section").each(function() {
+    $(".available-sections-table .section").each(function() {
       var el, section_id;
       el = $(this);
       section_id = el.data('section-id');
@@ -18,6 +18,11 @@
         return el.show();
       }
     });
+    if ($(".available-sections-table .section:not(.hide)").length === 0) {
+      return $(".available-sections-table .no-sections").show();
+    } else {
+      return $(".available-sections-table .no-sections").hide();
+    }
   };
 
   apply_section_cover = function() {
@@ -198,6 +203,7 @@
     $("#add-edit-section-modal .section-library-li a").click();
     $("#section-category-select").val("Deliverables");
     section_category_dropdown_changed();
+    hide_already_selected_sections();
     return $("#add-edit-section-modal").modal('show');
   });
 

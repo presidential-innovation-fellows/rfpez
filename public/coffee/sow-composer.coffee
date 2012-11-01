@@ -12,6 +12,11 @@ hide_already_selected_sections = ->
     else
       el.show()
 
+  if $(".available-sections-table .section:not(.hide)").length is 0
+    $(".available-sections-table .no-sections").show()
+  else
+    $(".available-sections-table .no-sections").hide()
+
 apply_section_cover = ->
   cover = $("<div class='sections-for-editing-cover'>Saving order...</div>")
   sections_wrapper = $(".sections-for-editing-wrapper")
@@ -154,6 +159,7 @@ $(document).on "click", ".add-section-button", ->
   $("#add-edit-section-modal .section-library-li a").click()
   $("#section-category-select").val("Deliverables")
   section_category_dropdown_changed()
+  hide_already_selected_sections()
   $("#add-edit-section-modal").modal('show')
 
 $(document).on "click", ".edit-section-link", ->
