@@ -72,7 +72,7 @@ class Projects_Controller extends Base_Controller {
     $view->project = Config::get('project');
     $this->layout->content = $view;
 
-    $view->project->save_progress(1);
+    $view->project->save_progress('project_background');
   }
 
   public function action_background_post() {
@@ -80,15 +80,6 @@ class Projects_Controller extends Base_Controller {
     $project->fill(Input::get('project'));
     $project->save();
     return Redirect::to_route('project_sections', array($project->id));
-  }
-
-  public function action_sections() {
-    $view = View::make('projects.sections');
-    $view->project = Config::get('project');
-    $view->available_sections = $view->project->available_sections()->order_by('times_used', 'desc')->take(20)->get();
-    $this->layout->content = $view;
-
-    $view->project->save_progress(2);
   }
 
   public function action_sections_remove($project_id, $section_id) {
@@ -116,21 +107,22 @@ class Projects_Controller extends Base_Controller {
     $project->add_section($section_id);
 
     return Response::json(array('status' => 'success',
-                                'selected_sections_html' => View::make('projects.partials.selected_sections')
+                                'sections_for_editing_html' => View::make('projects.partials.sections_for_editing')
                                                                 ->with('project', $project)
                                                                 ->render() ));
   }
 
-  public function action_sections_edit() {
-    $view = View::make('projects.sections_edit');
+  public function action_sections() {
+    $view = View::make('projects.sections');
     $view->project = Config::get('project');
+    $view->available_sections = $view->project->available_sections()->order_by('times_used', 'desc')->take(20)->get();
     $this->layout->content = $view;
 
-    $view->project->save_progress(3);
+    $view->project->save_progress('project_sections');
   }
 
   // This is for adding a new section or updating the text of an existing one.
-  public function action_sections_edit_post() {
+  public function action_sections_post() {
     $project = Config::get('project');
     $section_id = Input::get('section_id');
     $section_input = Input::get('project_section');
@@ -180,7 +172,7 @@ class Projects_Controller extends Base_Controller {
     $view->project = Config::get('project');
     $this->layout->content = $view;
 
-    $view->project->save_progress(4);
+    $view->project->save_progress('project_blanks');
   }
 
   public function action_blanks_post() {
@@ -202,7 +194,7 @@ class Projects_Controller extends Base_Controller {
     $view->deliverables = $view->project->deliverables ?: array();
     $this->layout->content = $view;
 
-    $view->project->save_progress(5);
+    $view->project->save_progress('project_timeline');
   }
 
   public function action_timeline_post() {
@@ -227,7 +219,7 @@ class Projects_Controller extends Base_Controller {
     $view->project = Config::get('project');
     $this->layout->content = $view;
 
-    $view->project->save_progress(6);
+    $view->project->save_progress('project_review');
   }
 
   public function action_show() {
@@ -337,8 +329,6 @@ class Projects_Controller extends Base_Controller {
     $view = View::make('projects.post_on_fbo');
     $view->project = Config::get('project');
     $this->layout->content = $view;
-
-    $view->project->save_progress(7);
   }
 
   public function action_post_on_fbo_post() {
@@ -474,23 +464,7 @@ Route::filter('project_posted', function() {
 
   if (!Auth::officer()) return Redirect::to('/');
 
-  if ($project->sow_progress == 0) {
-    $route = 'project_template';
-  } elseif ($project->sow_progress == 1) {
-    $route = 'project_background';
-  } elseif ($project->sow_progress == 2) {
-    $route = 'project_sections';
-  } elseif ($project->sow_progress == 3) {
-    $route = 'project_sections_edit';
-  } elseif ($project->sow_progress == 4) {
-    $route = 'project_blanks';
-  } elseif ($project->sow_progress == 5) {
-    $route = 'project_timeline';
-  } elseif ($project->sow_progress == 6) {
-    $route = 'project_review';
-  } elseif ($project->sow_progress == 7) {
-    $route = 'project_post_on_fbo';
-  }
+  $route = $project->current_sow_composer_route_name();
 
   return Redirect::to_route($route, array($project->id));
 });

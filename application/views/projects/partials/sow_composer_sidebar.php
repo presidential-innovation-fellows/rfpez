@@ -5,15 +5,9 @@
       <i class="icon-chevron-right"></i>
     </a>
   </li>
-  <li class="<?php echo Jade\Dumper::_text(Helper::active_sidebar('select_sections') ? 'active':''); ?>">
+  <li class="<?php echo Jade\Dumper::_text(Helper::active_sidebar('sections') ? 'active':''); ?>">
     <a href="<?php echo Jade\Dumper::_text(route('project_sections', array($project->id))); ?>">
-      Select Sections
-      <i class="icon-chevron-right"></i>
-    </a>
-  </li>
-  <li class="<?php echo Jade\Dumper::_text(Helper::active_sidebar('edit_sections') ? 'active':''); ?>">
-    <a href="<?php echo Jade\Dumper::_text(route('project_sections_edit', array($project->id))); ?>">
-      Edit Sections
+      Customize Sections
       <i class="icon-chevron-right"></i>
     </a>
   </li>

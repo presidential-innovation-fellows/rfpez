@@ -103,8 +103,9 @@ ul.templates-list
       .icon-chevron-right
         opacity 1
 
-#edit-section-modal
+#add-edit-section-modal
   width 700px
+  min-height 530px
 
   .category-controls
     select
@@ -119,16 +120,14 @@ ul.templates-list
     box-sizing border-box
     min-height 140px
 
-.available-sections-table
-  .loading-placeholder
-    display none
+  .form-actions
+    box-sizing border-box
+    margin 0
 
+.available-sections-table
   &.loading
     .available-sections-tbody
-      display none
-
-    .loading-placeholder
-      display table-row-group
+      opacity(0.6)
 
 .public-status
   font-weight bold

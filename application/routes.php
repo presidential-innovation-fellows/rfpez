@@ -86,12 +86,10 @@ Route::get('projects/(:num)/background', array('uses' => 'projects@background', 
 Route::post('projects/(:num)/background', array('uses' => 'projects@background_post', 'as' => 'project_background'));
 
 Route::get('projects/(:num)/sections', array('uses' => 'projects@sections', 'as' => 'project_sections'));
+Route::post('projects/(:num)/sections', array('uses' => 'projects@sections_post', 'as' => 'project_sections'));
 
 Route::post('projects/(:num)/sections/(:num)', array('uses' => 'projects@sections_add', 'as' => 'project_section_add'));
 Route::delete('projects/(:num)/sections/(:num)', array('uses' => 'projects@sections_remove', 'as' => 'project_section_delete'));
-
-Route::get('projects/(:num)/sections/edit', array('uses' => 'projects@sections_edit', 'as' => 'project_sections_edit'));
-Route::post('projects/(:num)/sections/edit', array('uses' => 'projects@sections_edit_post', 'as' => 'project_sections_edit'));
 
 Route::post('projects/(:num)/sections/reorder', array('uses' => 'projects@sections_reorder', 'as' => 'project_sections_reorder'));
 

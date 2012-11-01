@@ -5,7 +5,7 @@
   hide_already_selected_sections = function() {
     var selected_section_ids;
     selected_section_ids = [];
-    $(".selected-sections .section").each(function() {
+    $(".sections-for-editing .section").each(function() {
       return selected_section_ids.push($(this).data('section-id'));
     });
     return $(".available-sections-table .section").each(function() {
@@ -40,7 +40,7 @@
     apply_section_cover();
     project_id = $(".sections-for-editing-wrapper").data('project-id');
     sections = [];
-    $(".section").each(function() {
+    $(".sections-for-editing-wrapper .section").each(function() {
       return sections.push($(this).data('section-id'));
     });
     return $.ajax({
@@ -180,9 +180,11 @@
       url: el.data('href'),
       type: "POST",
       success: function(data) {
-        var new_selected_sections;
-        new_selected_sections = $(data.selected_sections_html);
-        $(".selected-sections").replaceWith(new_selected_sections);
+        var new_sections_for_editing;
+        new_sections_for_editing = $(data.sections_for_editing_html);
+        $(".sections-for-editing-wrapper").replaceWith(new_sections_for_editing);
+        $(document).trigger("sectionsreloaded");
+        $("#add-edit-section-modal").modal('hide');
         hide_already_selected_sections();
         return el.button('reset');
       }
@@ -191,11 +193,12 @@
 
   $(document).on("click", ".add-section-button", function() {
     $("#edit-section-form").resetForm();
-    $("#edit-section-modal").find(".modal-header h3").text("Add Section");
-    $("#edit-section-modal").find(".will-fork").hide();
+    $("#add-edit-section-modal").find(".modal-header h3").text("Add Section");
+    $("#add-edit-section-modal").find(".will-fork").hide();
+    $("#add-edit-section-modal .section-library-li a").click();
     $("#section-category-select").val("Deliverables");
     section_category_dropdown_changed();
-    return $("#edit-section-modal").modal('show');
+    return $("#add-edit-section-modal").modal('show');
   });
 
   $(document).on("click", ".edit-section-link", function() {
@@ -206,17 +209,18 @@
     body = section.find(".body").html();
     category = section.closest(".category").data('name');
     if (section.data('will-fork') === true) {
-      $("#edit-section-modal").find(".will-fork").show();
+      $("#add-edit-section-modal").find(".will-fork").show();
     } else {
-      $("#edit-section-modal").find(".will-fork").hide();
+      $("#add-edit-section-modal").find(".will-fork").hide();
     }
-    $("#edit-section-modal").find(".modal-header h3").text("Edit Section '" + title + "'");
+    $("#add-edit-section-modal").find(".modal-header h3").text("Edit Section '" + title + "'");
     $("#edit-section-form").find("input[name=section_id]").val(section_id);
     $("#edit-section-form").find("input[name=project_section\\[section_category\\]]").val(category);
     $("#edit-section-form").find("input[name=project_section\\[title\\]]").val(title);
     $("#edit-section-form").find("textarea[name=project_section\\[body\\]]").data("wysihtml5").editor.setValue(body);
     update_section_category_dropdown_from_input();
-    return $("#edit-section-modal").modal('show');
+    $("#add-edit-section-modal .section-form-li a").click();
+    return $("#add-edit-section-modal").modal('show');
   });
 
   $(document).on("submit", "#edit-section-form", function(e) {
@@ -231,7 +235,7 @@
         new_sections_for_editing = $(data.sections_for_editing_html);
         $(".sections-for-editing-wrapper").replaceWith(new_sections_for_editing);
         $(document).trigger("sectionsreloaded");
-        $("#edit-section-modal").modal('hide');
+        $("#add-edit-section-modal").modal('hide');
         return button.button('reset');
       }
     });

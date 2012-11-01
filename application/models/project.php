@@ -14,6 +14,14 @@ class Project extends Eloquent {
   public static $accessible = array('project_type_id', 'title', 'agency', 'office', 'public', 'background',
                                     'sections', 'variables', 'deliverables', 'proposals_due_at');
 
+  public static $sow_progress_markers = array('project_template' => 0,
+                                              'project_background' => 1,
+                                              'project_sections' => 2,
+                                              'project_blanks' => 3,
+                                              'project_timeline' => 4,
+                                              'project_review' => 5
+                                              );
+
   public $winning_bid = false;
 
   public $validator = false;
@@ -209,14 +217,18 @@ class Project extends Eloquent {
 
   public function project_sections() {
     $section_ids = $this->sections;
-    if (count($section_ids) == 0) return array();
+    if (count($section_ids) == 0) return false;
 
     return ProjectSection::where_in('id', $section_ids)
                          ->order_by(\DB::raw("FIND_IN_SET(id, ('".implode(',',$section_ids)."'))"));
   }
 
   public function get_project_sections() {
-    return $this->project_sections()->get();
+    if ($project_sections = $this->project_sections()) {
+      return $project_sections->get();
+    } else {
+      return array();
+    }
   }
 
   public function sections_by_category() {
@@ -271,8 +283,9 @@ class Project extends Eloquent {
     return $dt->format('n/d/y');
   }
 
-  public function save_progress($new_status) {
-    if ($this->sow_progress < $new_status) {
+  public function save_progress($route_name) {
+    $new_status = self::$sow_progress_markers[$route_name];
+    if ($new_status > $this->sow_progress) {
       $this->sow_progress = $new_status;
       $this->save();
     }
@@ -303,16 +316,22 @@ class Project extends Eloquent {
     }
   }
 
+  public function current_sow_composer_route_name() {
+    return array_search($this->sow_progress, Project::$sow_progress_markers) ?: "project_review";
+  }
+
   public function create_deliverables_from_sow_sections() {
     $deliverables = $this->deliverables ?: array();
 
-    foreach ($this->project_sections()->where_section_category("Deliverables")->get() as $section) {
-      if (!isset($deliverables[$section->title])) {
-        $deliverables[$section->title] = "to";
+    if ($project_sections = $this->project_sections()) {
+      foreach ($project_sections->where_section_category("Deliverables")->get() as $section) {
+        if (!isset($deliverables[$section->title])) {
+          $deliverables[$section->title] = "to";
+        }
       }
-    }
 
-    $this->deliverables = $deliverables;
+      $this->deliverables = $deliverables;
+    }
   }
 
   //////////// OVERRIDE SETTER FOR PROPOSALS_DUE_AT ////////////

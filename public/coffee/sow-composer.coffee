@@ -1,7 +1,7 @@
 hide_already_selected_sections = ->
   selected_section_ids = []
 
-  $(".selected-sections .section").each ->
+  $(".sections-for-editing .section").each ->
     selected_section_ids.push $(this).data('section-id')
 
   $(".available-sections-table .section").each ->
@@ -29,7 +29,7 @@ save_sort_order = ->
   project_id = $(".sections-for-editing-wrapper").data('project-id')
   sections = []
 
-  $(".section").each ->
+  $(".sections-for-editing-wrapper .section").each ->
     sections.push $(this).data('section-id')
 
   $.ajax
@@ -140,18 +140,21 @@ $(document).on "click", ".section .add-button", (e) ->
     url: el.data('href')
     type: "POST"
     success: (data) ->
-      new_selected_sections = $(data.selected_sections_html)
-      $(".selected-sections").replaceWith(new_selected_sections)
+      new_sections_for_editing = $(data.sections_for_editing_html)
+      $(".sections-for-editing-wrapper").replaceWith(new_sections_for_editing)
+      $(document).trigger("sectionsreloaded")
+      $("#add-edit-section-modal").modal('hide')
       hide_already_selected_sections()
       el.button('reset')
 
 $(document).on "click", ".add-section-button", ->
   $("#edit-section-form").resetForm()
-  $("#edit-section-modal").find(".modal-header h3").text("Add Section")
-  $("#edit-section-modal").find(".will-fork").hide()
+  $("#add-edit-section-modal").find(".modal-header h3").text("Add Section")
+  $("#add-edit-section-modal").find(".will-fork").hide()
+  $("#add-edit-section-modal .section-library-li a").click()
   $("#section-category-select").val("Deliverables")
   section_category_dropdown_changed()
-  $("#edit-section-modal").modal('show')
+  $("#add-edit-section-modal").modal('show')
 
 $(document).on "click", ".edit-section-link", ->
   section = $(this).closest(".section")
@@ -161,17 +164,18 @@ $(document).on "click", ".edit-section-link", ->
   category = section.closest(".category").data('name')
 
   if section.data('will-fork') is true
-    $("#edit-section-modal").find(".will-fork").show()
+    $("#add-edit-section-modal").find(".will-fork").show()
   else
-    $("#edit-section-modal").find(".will-fork").hide()
+    $("#add-edit-section-modal").find(".will-fork").hide()
 
-  $("#edit-section-modal").find(".modal-header h3").text("Edit Section '#{title}'")
+  $("#add-edit-section-modal").find(".modal-header h3").text("Edit Section '#{title}'")
   $("#edit-section-form").find("input[name=section_id]").val(section_id)
   $("#edit-section-form").find("input[name=project_section\\[section_category\\]]").val(category)
   $("#edit-section-form").find("input[name=project_section\\[title\\]]").val(title)
   $("#edit-section-form").find("textarea[name=project_section\\[body\\]]").data("wysihtml5").editor.setValue(body)
   update_section_category_dropdown_from_input()
-  $("#edit-section-modal").modal('show')
+  $("#add-edit-section-modal .section-form-li a").click()
+  $("#add-edit-section-modal").modal('show')
 
 $(document).on "submit", "#edit-section-form", (e) ->
   e.preventDefault()
@@ -183,7 +187,7 @@ $(document).on "submit", "#edit-section-form", (e) ->
       new_sections_for_editing = $(data.sections_for_editing_html)
       $(".sections-for-editing-wrapper").replaceWith(new_sections_for_editing)
       $(document).trigger("sectionsreloaded")
-      $("#edit-section-modal").modal('hide')
+      $("#add-edit-section-modal").modal('hide')
       button.button('reset')
 
 $(document).on "submit", "#sync-with-fbo-form", (e) ->

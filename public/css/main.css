@@ -650,31 +650,34 @@ ul.templates-list li.show-more.all-loaded .show-more-templates-link {
   -ms-filter: none;
   filter: none;
 }
-#edit-section-modal {
+#add-edit-section-modal {
   width: 700px;
+  min-height: 530px;
 }
-#edit-section-modal .category-controls select {
+#add-edit-section-modal .category-controls select {
   width: 150px;
 }
-#edit-section-modal .category-controls input {
+#add-edit-section-modal .category-controls input {
   display: inline;
   width: 180px;
 }
-#edit-section-modal textarea {
+#add-edit-section-modal textarea {
   width: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   min-height: 140px;
 }
-.available-sections-table .loading-placeholder {
-  display: none;
+#add-edit-section-modal .form-actions {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
 }
 .available-sections-table.loading .available-sections-tbody {
-  display: none;
-}
-.available-sections-table.loading .loading-placeholder {
-  display: table-row-group;
+  opacity: 0.6;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  filter: alpha(opacity=60);
 }
 .public-status {
   font-weight: bold;
