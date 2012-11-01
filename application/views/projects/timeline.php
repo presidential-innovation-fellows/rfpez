@@ -14,7 +14,7 @@
         <thead>
           <tr>
             <th>Deliverable</th>
-            <th>Completion Date</th>
+            <th>Completion Date <?php echo Jade\Dumper::_html(helper_tooltip("Feel free to assign a date as 'TBD' or blank if you're not sure yet.")); ?></th>
           </tr>
         </thead>
         <tbody>

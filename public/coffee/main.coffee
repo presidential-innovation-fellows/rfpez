@@ -25,6 +25,13 @@ $(document).on "click", "[data-select-text-on-focus]", (e) ->
 $(document).on "click", "a[data-pjax]", (e) ->
   $.pjax.click e, "#pjax-container"
 
+$(document).on "mouseenter", ".helper-tooltip", (e) ->
+  $(this).tooltip()
+  $(this).tooltip('show')
+
+$(document).on "mouseleave", ".helper-tooltip", (e) ->
+  $(this).tooltip('hide')
+
 $(document).on "ready pjax:success", ->
   $("[data-onload-focus]:eq(0)").focus()
   $("span.timeago").timeago()

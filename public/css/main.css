@@ -38,6 +38,18 @@ hr.dark {
   height: 12px;
   width: 12px;
 }
+.helper-tooltip {
+  display: inline-block;
+  background-color: #00a587;
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
+  height: 24px;
+  width: 25px;
+  margin: 0 10px;
+}
+.helper-tooltip i {
+  margin: 4px 0 0 5px;
+}
 body {
   padding-top: 0;
   margin-bottom: 25px;

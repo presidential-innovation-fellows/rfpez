@@ -39,6 +39,15 @@
     return $.pjax.click(e, "#pjax-container");
   });
 
+  $(document).on("mouseenter", ".helper-tooltip", function(e) {
+    $(this).tooltip();
+    return $(this).tooltip('show');
+  });
+
+  $(document).on("mouseleave", ".helper-tooltip", function(e) {
+    return $(this).tooltip('hide');
+  });
+
   $(document).on("ready pjax:success", function() {
     $("[data-onload-focus]:eq(0)").focus();
     $("span.timeago").timeago();
