@@ -192,7 +192,13 @@ class Projects_Controller extends Base_Controller {
 
   public function action_timeline() {
     $view = View::make('projects.timeline');
-    $view->project = Config::get('project');
+    $project = Config::get('project');
+
+    // if this step is not yet completed, try to create some
+    // deliverables from the project's SOW sections
+    if ($project->sow_progress < 5) $project->create_deliverables_from_sow_sections();
+
+    $view->project = $project;
     $view->deliverables = $view->project->deliverables ?: array();
     $this->layout->content = $view;
 

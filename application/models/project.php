@@ -207,13 +207,20 @@ class Project extends Eloquent {
     ProjectSection::change_times_used($template->sections, 1);
   }
 
-  public function sections_by_category() {
+  public function project_sections() {
     $section_ids = $this->sections;
     if (count($section_ids) == 0) return array();
 
-    $sections = ProjectSection::where_in('id', $section_ids)
-                              ->order_by(\DB::raw("FIND_IN_SET(id, ('".implode(',',$section_ids)."'))"))
-                              ->get();
+    return ProjectSection::where_in('id', $section_ids)
+                         ->order_by(\DB::raw("FIND_IN_SET(id, ('".implode(',',$section_ids)."'))"));
+  }
+
+  public function get_project_sections() {
+    return $this->project_sections()->get();
+  }
+
+  public function sections_by_category() {
+    $sections = $this->get_project_sections();
 
     $return_array = array();
 
@@ -294,6 +301,18 @@ class Project extends Eloquent {
         $section->save();
       }
     }
+  }
+
+  public function create_deliverables_from_sow_sections() {
+    $deliverables = $this->deliverables ?: array();
+
+    foreach ($this->project_sections()->where_section_category("Deliverables")->get() as $section) {
+      if (!isset($deliverables[$section->title])) {
+        $deliverables[$section->title] = "to";
+      }
+    }
+
+    $this->deliverables = $deliverables;
   }
 
   //////////// OVERRIDE SETTER FOR PROPOSALS_DUE_AT ////////////
