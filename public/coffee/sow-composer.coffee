@@ -213,6 +213,9 @@ $(document).on "submit", "#sync-with-fbo-form", (e) ->
   else
     $(this).find('button').button('loading')
 
+$(document).on "click", "li.template .preview-button", ->
+  $(this).closest('div').find('.modal').modal('show')
+
 $(document).on "change", "#section-category-select", section_category_dropdown_changed
 
 available_sections_filter_timeout = false
