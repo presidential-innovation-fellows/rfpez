@@ -54,6 +54,15 @@ class Project extends Eloquent {
     return $this->has_many('Comment')->order_by('created_at');
   }
 
+  public function comments_json() {
+    $comments = array();
+    foreach($this->comments()->get() as $comment) {
+      $comments[] = $comment->to_array();
+    }
+    return json_encode($comments);
+  }
+
+
   public function project_type() {
     return $this->belongs_to('ProjectType');
   }

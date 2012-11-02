@@ -40,7 +40,6 @@ Basset::scripts('website', function($basset)
          ->add('dsbs-lookup', 'js/dsbs-lookup.js')
          ->add('infinite-vendor-scroll', 'js/infinite-vendor-scroll.js')
          ->add('save-bid-draft', 'js/save-bid-draft.js')
-         ->add('project-comments', 'js/project-comments.js')
 
          // backbone!
          ->add('underscore', 'js/vendor/underscore.js')
