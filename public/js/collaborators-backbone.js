@@ -29,9 +29,6 @@
   });
 
   CollaboratorList = Backbone.Collection.extend({
-    initialize: function(models, options) {
-      return this.url = "/projects/" + options.project_id + "/collaborators";
-    },
     existing_emails: function() {
       return this.map(function(c) {
         return c.attributes.User.email.toLowerCase();
@@ -40,9 +37,7 @@
     model: Collaborator
   });
 
-  Collaborators = new CollaboratorList([], {
-    project_id: $(".collaborators-table").data('project-id')
-  });
+  Collaborators = new CollaboratorList;
 
   CollaboratorView = Backbone.View.extend({
     tagName: "tr",
@@ -111,13 +106,15 @@
 
   App = false;
 
-  Rfpez.Backbone.Collaborators = function(initialModels) {
+  Rfpez.Backbone.Collaborators = function(project_id, initialModels) {
     var initialCollection;
+    Collaborators = new CollaboratorList;
     initialCollection = Collaborators;
     App = new AppView({
       collection: initialCollection
     });
     initialCollection.reset(initialModels);
+    initialCollection.url = "/projects/" + project_id + "/collaborators";
     return App;
   };
 

@@ -43,6 +43,14 @@ Basset::scripts('website', function($basset)
          ->add('save-bid-draft', 'js/save-bid-draft.js')
          ->add('bid-review-hotkeys', 'js/bid-review-hotkeys.js')
          ->add('project-comments', 'js/project-comments.js')
+
+         // backbone!
+
+         ->add('underscore', 'js/vendor/underscore.js')
+         ->add('backbone', 'js/vendor/backbone.js')
+         ->add('collaborators-backbone', 'collaborators-backbone.js')
+
+
          ->compress();
 });
 

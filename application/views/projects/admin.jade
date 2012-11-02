@@ -3,13 +3,6 @@
 - Section::inject('active_subnav', 'admin')
 - Section::inject('no_page_header', true)
 
-- Section::start('additional_scripts');
-  !{HTML::script('js/vendor/underscore.js')}
-  !{HTML::script('js/vendor/backbone.js')}
-  !{HTML::script('js/vendor/backbone-localstorage.js')}
-  !{HTML::script('js/collaborators-backbone.js')}
-- Section::stop();
-
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 
 .row-fluid
@@ -64,7 +57,9 @@
           th Actions
       tbody#collaborators-tbody
         :javascript
-          | $(function(){ new Rfpez.Backbone.Collaborators(#{$project->officers_json()}) })
+          | $(function(){
+          |  new Rfpez.Backbone.Collaborators( #{$project->id}, #{$project->officers_json()} )
+          | })
 
       tfoot
         tr

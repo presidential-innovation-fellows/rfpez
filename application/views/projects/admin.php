@@ -2,13 +2,6 @@
 <?php Section::inject('page_action', "Admin") ?>
 <?php Section::inject('active_subnav', 'admin') ?>
 <?php Section::inject('no_page_header', true) ?>
-<?php Section::start('additional_scripts'); { ?>
-  <?php echo Jade\Dumper::_html(HTML::script('js/vendor/underscore.js')); ?>
-  <?php echo Jade\Dumper::_html(HTML::script('js/vendor/backbone.js')); ?>
-  <?php echo Jade\Dumper::_html(HTML::script('js/vendor/backbone-localstorage.js')); ?>
-  <?php echo Jade\Dumper::_html(HTML::script('js/collaborators-backbone.js')); ?>
-<?php } ?>
-<?php Section::stop(); ?>
 <?php echo Jade\Dumper::_html(View::make('projects.partials.toolbar')->with('project', $project)); ?>
 <div class="row-fluid">
   <div class="span6">
@@ -62,7 +55,9 @@
       </thead>
       <tbody id="collaborators-tbody">
         <script type="text/javascript">
-          $(function(){ new Rfpez.Backbone.Collaborators(<?php echo Jade\Dumper::_text($project->officers_json()); ?>) })
+          $(function(){
+           new Rfpez.Backbone.Collaborators( <?php echo Jade\Dumper::_text($project->id); ?>, <?php echo Jade\Dumper::_text($project->officers_json()); ?> )
+          })
         </script>
       </tbody>
       <tfoot>

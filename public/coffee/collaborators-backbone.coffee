@@ -20,16 +20,13 @@ Collaborator = Backbone.Model.extend
     @destroy()
 
 CollaboratorList = Backbone.Collection.extend
-  initialize: (models, options) ->
-    @url = "/projects/#{options.project_id}/collaborators"
-
   existing_emails: ->
     @.map (c) ->
       return c.attributes.User.email.toLowerCase()
 
   model: Collaborator
 
-Collaborators = new CollaboratorList([], {project_id: $(".collaborators-table").data('project-id')})
+Collaborators = new CollaboratorList
 
 CollaboratorView = Backbone.View.extend
   tagName: "tr"
@@ -109,8 +106,10 @@ AppView = Backbone.View.extend
 
 App = false
 
-Rfpez.Backbone.Collaborators = (initialModels) ->
+Rfpez.Backbone.Collaborators = (project_id, initialModels) ->
+  Collaborators = new CollaboratorList
   initialCollection = Collaborators;
   App = new AppView({collection: initialCollection})
   initialCollection.reset(initialModels)
+  initialCollection.url = "/projects/#{project_id}/collaborators"
   return App
