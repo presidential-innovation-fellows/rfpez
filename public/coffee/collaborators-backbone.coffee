@@ -26,13 +26,11 @@ CollaboratorList = Backbone.Collection.extend
 
   model: Collaborator
 
-Collaborators = new CollaboratorList
-
 CollaboratorView = Backbone.View.extend
   tagName: "tr"
 
   template: _.template """
-    <td><%= User.email %></td>
+    <td class="email"><%= User.email %></td>
     <td>
       <% if (pivot.owner === "1") { %>
         <i class="icon-star"></i>
@@ -105,6 +103,7 @@ AppView = Backbone.View.extend
     Collaborators.each @addOne
 
 App = false
+Collaborators = false
 
 Rfpez.Backbone.Collaborators = (project_id, initialModels) ->
   Collaborators = new CollaboratorList

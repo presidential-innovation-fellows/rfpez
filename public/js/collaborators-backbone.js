@@ -37,11 +37,9 @@
     model: Collaborator
   });
 
-  Collaborators = new CollaboratorList;
-
   CollaboratorView = Backbone.View.extend({
     tagName: "tr",
-    template: _.template("<td><%= User.email %></td>\n<td>\n  <% if (pivot.owner === \"1\") { %>\n    <i class=\"icon-star\"></i>\n  <% } %>\n</td>\n<td>\n  <% if (pivot.owner !== \"1\") { %>\n    <button class=\"btn btn-danger\">Remove</button>\n  <% } else { %>\n    Can't remove the owner.\n  <% } %>\n</td>"),
+    template: _.template("<td class=\"email\"><%= User.email %></td>\n<td>\n  <% if (pivot.owner === \"1\") { %>\n    <i class=\"icon-star\"></i>\n  <% } %>\n</td>\n<td>\n  <% if (pivot.owner !== \"1\") { %>\n    <button class=\"btn btn-danger\">Remove</button>\n  <% } else { %>\n    Can't remove the owner.\n  <% } %>\n</td>"),
     events: {
       "click .btn.btn-danger": "clear"
     },
@@ -105,6 +103,8 @@
   });
 
   App = false;
+
+  Collaborators = false;
 
   Rfpez.Backbone.Collaborators = function(project_id, initialModels) {
     var initialCollection;
