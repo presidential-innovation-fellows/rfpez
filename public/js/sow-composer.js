@@ -211,6 +211,7 @@
 
   $(document).on("click", ".add-section-button", function() {
     $("#edit-section-form").resetForm();
+    $("#edit-section-form").find("input[name=section_id]").val('');
     $("#add-edit-section-modal").find(".modal-header h3").text("Add Section");
     $("#add-edit-section-modal").find(".will-fork").hide();
     $("#add-edit-section-modal .section-library-li a").click();
