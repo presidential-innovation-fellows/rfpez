@@ -3,8 +3,9 @@
   var add_empty_class_to_inputs, apply_section_cover, available_sections_filter_timeout, has_unsaved_changes, hide_already_selected_sections, remove_section_cover, save_sort_order, search_available_sections, section_category_dropdown_changed, update_section_category_dropdown_from_input;
 
   hide_already_selected_sections = function() {
-    var selected_section_ids;
+    var selected_section_ids, showing_at_least_one_section;
     selected_section_ids = [];
+    showing_at_least_one_section = false;
     $(".sections-for-editing .section").each(function() {
       return selected_section_ids.push($(this).data('section-id'));
     });
@@ -15,10 +16,11 @@
       if (selected_section_ids.indexOf(section_id) !== -1) {
         return el.hide();
       } else {
+        showing_at_least_one_section = true;
         return el.show();
       }
     });
-    if ($(".available-sections-table .section:not(.hide)").length === 0) {
+    if (!showing_at_least_one_section) {
       return $(".available-sections-table .no-sections").show();
     } else {
       return $(".available-sections-table .no-sections").hide();
