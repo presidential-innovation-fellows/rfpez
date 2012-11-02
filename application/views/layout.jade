@@ -32,14 +32,13 @@ head
   script
     | window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.1.min.js"><\/script>')
 
+  !{Basset::show('website.js')}
+  !{Section::yield('additional_scripts')}
 
 body(class="#{$body_class}")
 
   #pjax-container
 
     !{View::make('pjaxcontainer')->with('content', $content)}
-
-  !{Basset::show('website.js')}
-  !{Section::yield('additional_scripts')}
 
 | </html>

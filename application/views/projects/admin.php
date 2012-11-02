@@ -3,6 +3,10 @@
 <?php Section::inject('active_subnav', 'admin') ?>
 <?php Section::inject('no_page_header', true) ?>
 <?php echo Jade\Dumper::_html(View::make('projects.partials.toolbar')->with('project', $project)); ?>
+<?php Section::start('page_scripts'); { ?>
+  <?php echo Jade\Dumper::_html(HTML::script('js/collaborators-backbone.js')); ?>
+<?php } ?>
+<?php Section::stop(); ?>
 <div class="row-fluid">
   <div class="span6">
     <h5>Update Project</h5>

@@ -5,6 +5,10 @@
 
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 
+- Section::start('page_scripts');
+  !{HTML::script('js/collaborators-backbone.js')}
+- Section::stop();
+
 .row-fluid
   .span6
 
