@@ -59,7 +59,7 @@
         </tfoot>
       </table>
       <div class="form-actions">
-        <button class="btn btn-primary">Review &rarr;</button>
+        <button class="btn btn-primary">Save and Continue &rarr;</button>
       </div>
     </form>
   </div>

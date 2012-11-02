@@ -26,7 +26,7 @@
         <textarea class="wysihtml5" name="project[background]"><?php echo Jade\Dumper::_html($project->background); ?></textarea>
       </div>
       <div class="form-actions">
-        <button class="btn btn-primary">Select Sections &rarr;</button>
+        <button class="btn btn-primary">Save and Continue &rarr;</button>
       </div>
     </form>
   </div>

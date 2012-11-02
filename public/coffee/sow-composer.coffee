@@ -81,6 +81,7 @@ search_available_sections = ->
       hide_already_selected_sections()
       $(".available-sections-table").removeClass("loading")
 
+has_unsaved_changes = false
 
 $(document).on "ready pjax:success sectionsreloaded", ->
   hide_already_selected_sections()
@@ -96,6 +97,10 @@ $(document).on "ready pjax:success sectionsreloaded", ->
 
   if $(".fill-in-blanks")
     add_empty_class_to_inputs()
+
+$(document).on "click", ".sow-sidebar a", (e) ->
+  if has_unsaved_changes && !confirm('Looks like you have some unsaved changes. Are you sure you want to leave this page?')
+    e.preventDefault()
 
 $(document).on "click", ".show-more-templates-link", ->
   li = $(this).closest("li")
@@ -253,6 +258,7 @@ $(document).on "blur", "input[data-variable]", ->
   $(this).tooltip('hide')
 
 $(document).on "input blur", "input[data-variable]", (e) ->
+  has_unsaved_changes = true
   el = $(this)
   variableName = el.data('variable')
   variableValue = el.val()
@@ -263,7 +269,11 @@ $(document).on "input blur", "input[data-variable]", (e) ->
 
 ####### TIMELINE ######
 
+$(document).on "input", ".timeline-table input", ->
+  has_unsaved_changes = true
+
 $(document).on "click", ".add-deliverable-button", ->
+  has_unsaved_changes = true
   row = $(".add-deliverable-row")
   new_row = row.clone()
   new_row.removeClass("add-deliverable-row")
@@ -273,4 +283,5 @@ $(document).on "click", ".add-deliverable-button", ->
     $(this).val $(this).data('original-val')
 
 $(document).on "click", ".remove-deliverable-button", ->
+  has_unsaved_changes = true
   $(this).closest("tr").remove();

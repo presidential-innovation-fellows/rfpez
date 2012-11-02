@@ -20,7 +20,7 @@
     <div class="clearfix"></div>
     <?php echo Jade\Dumper::_html(View::make('projects.partials.sections_for_editing')->with('project', $project)); ?>
     <div class="form-actions">
-      <a class="btn btn-primary" href="<?php echo Jade\Dumper::_text(route('project_blanks', array($project->id))); ?>">Fill in Blanks &rarr;</a>
+      <a class="btn btn-primary" href="<?php echo Jade\Dumper::_text(route('project_blanks', array($project->id))); ?>">Save and Continue &rarr;</a>
     </div>
   </div>
 </div>
