@@ -56,7 +56,7 @@
       <tbody id="collaborators-tbody">
         <script type="text/javascript">
           $(function(){
-           new Rfpez.Backbone.Collaborators( <?php echo Jade\Dumper::_text($project->id); ?>, <?php echo Jade\Dumper::_text($project->officers_json()); ?> )
+           new Rfpez.Backbone.Collaborators( <?php echo Jade\Dumper::_text($project->id); ?>, <?php echo Jade\Dumper::_text($project->owner()->user->id); ?>, <?php echo Jade\Dumper::_text($project->officers_json()); ?> )
           })
         </script>
       </tbody>

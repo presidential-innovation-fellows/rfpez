@@ -39,7 +39,7 @@
 
   CollaboratorView = Backbone.View.extend({
     tagName: "tr",
-    template: _.template("<td class=\"email\"><%= User.email %></td>\n<td>\n  <% if (pivot.owner === \"1\") { %>\n    <i class=\"icon-star\"></i>\n  <% } %>\n</td>\n<td>\n  <% if (pivot.owner !== \"1\") { %>\n    <button class=\"btn btn-danger\">Remove</button>\n  <% } else { %>\n    Can't remove the owner.\n  <% } %>\n</td>"),
+    template: _.template("<td class=\"email\"><%= User.email %></td>\n<td>\n  <% if (pivot.owner === \"1\") { %>\n    <i class=\"icon-star\"></i>\n  <% } %>\n</td>\n<td>\n  <span class=\"not-user-<%= User.id %> only-user only-user-<%= owner_id %>\">\n    <% if (pivot.owner !== \"1\") { %>\n      <button class=\"btn btn-danger\">Remove</button>\n    <% } else { %>\n      Can't remove the owner.\n    <% } %>\n  </span>\n  <span class=\"only-user only-user-<%= User.id %>\">\n    That's you!\n  </span>\n</td>"),
     events: {
       "click .btn.btn-danger": "clear"
     },
@@ -48,7 +48,9 @@
       return this.model.bind("destroy", this.remove, this);
     },
     render: function() {
-      this.$el.html(this.template(this.model.toJSON()));
+      this.$el.html(this.template(_.extend(this.model.toJSON(), {
+        owner_id: App.options.owner_id
+      })));
       return this;
     },
     clear: function() {
@@ -106,12 +108,13 @@
 
   Collaborators = false;
 
-  Rfpez.Backbone.Collaborators = function(project_id, initialModels) {
+  Rfpez.Backbone.Collaborators = function(project_id, owner_id, initialModels) {
     var initialCollection;
     Collaborators = new CollaboratorList;
     initialCollection = Collaborators;
     App = new AppView({
-      collection: initialCollection
+      collection: initialCollection,
+      owner_id: owner_id
     });
     initialCollection.reset(initialModels);
     initialCollection.url = "/projects/" + project_id + "/collaborators";

@@ -37,11 +37,16 @@ CollaboratorView = Backbone.View.extend
       <% } %>
     </td>
     <td>
-      <% if (pivot.owner !== "1") { %>
-        <button class="btn btn-danger">Remove</button>
-      <% } else { %>
-        Can't remove the owner.
-      <% } %>
+      <span class="not-user-<%= User.id %> only-user only-user-<%= owner_id %>">
+        <% if (pivot.owner !== "1") { %>
+          <button class="btn btn-danger">Remove</button>
+        <% } else { %>
+          Can't remove the owner.
+        <% } %>
+      </span>
+      <span class="only-user only-user-<%= User.id %>">
+        That's you!
+      </span>
     </td>
   """
 
@@ -53,7 +58,7 @@ CollaboratorView = Backbone.View.extend
     @model.bind "destroy", @remove, @
 
   render: ->
-    @$el.html @template(@model.toJSON())
+    @$el.html @template(_.extend(@model.toJSON(), {owner_id: App.options.owner_id}))
     return @
 
   clear: ->
@@ -105,10 +110,10 @@ AppView = Backbone.View.extend
 App = false
 Collaborators = false
 
-Rfpez.Backbone.Collaborators = (project_id, initialModels) ->
+Rfpez.Backbone.Collaborators = (project_id, owner_id, initialModels) ->
   Collaborators = new CollaboratorList
-  initialCollection = Collaborators;
-  App = new AppView({collection: initialCollection})
+  initialCollection = Collaborators
+  App = new AppView({collection: initialCollection, owner_id: owner_id})
   initialCollection.reset(initialModels)
   initialCollection.url = "/projects/#{project_id}/collaborators"
   return App
