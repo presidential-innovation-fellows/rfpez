@@ -1,5 +1,6 @@
 hide_already_selected_sections = ->
   selected_section_ids = []
+  showing_at_least_one_section = false
 
   $(".sections-for-editing .section").each ->
     selected_section_ids.push $(this).data('section-id')
@@ -10,9 +11,10 @@ hide_already_selected_sections = ->
     if selected_section_ids.indexOf(section_id) isnt -1
       el.hide()
     else
+      showing_at_least_one_section = true
       el.show()
 
-  if $(".available-sections-table .section:not(.hide)").length is 0
+  if !showing_at_least_one_section
     $(".available-sections-table .no-sections").show()
   else
     $(".available-sections-table .no-sections").hide()
