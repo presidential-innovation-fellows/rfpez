@@ -5,11 +5,14 @@
         .title #{$template->title}
         .author #{$template->owner()->name}
 
-      .span4
+      .span3
         .forked
           | Forked <a href="#">#{$template->fork_count} #{Str::plural('time', $template->fork_count)}</a>
         - if ($template->recommended):
           .recommended &star; Recommended Template
 
-      .span2
+      .span3
+        a.btn.btn-info.preview-button Preview
         a.btn.btn-success(href="#{route('project_template_post', array($project->id, $template->id))}") Fork
+
+        !{View::make('projects.partials.template_preview_modal')->with('template', $template)}

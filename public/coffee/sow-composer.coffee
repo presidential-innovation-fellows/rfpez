@@ -164,6 +164,7 @@ $(document).on "click", ".section .add-button", (e) ->
 
 $(document).on "click", ".add-section-button", ->
   $("#edit-section-form").resetForm()
+  $("#edit-section-form").find("input[name=section_id]").val('')
   $("#add-edit-section-modal").find(".modal-header h3").text("Add Section")
   $("#add-edit-section-modal").find(".will-fork").hide()
   $("#add-edit-section-modal .section-library-li a").click()
@@ -211,6 +212,9 @@ $(document).on "submit", "#sync-with-fbo-form", (e) ->
     e.preventDefault()
   else
     $(this).find('button').button('loading')
+
+$(document).on "click", "li.template .preview-button", ->
+  $(this).closest('div').find('.modal').modal('show')
 
 $(document).on "change", "#section-category-select", section_category_dropdown_changed
 
