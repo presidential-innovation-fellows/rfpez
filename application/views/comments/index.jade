@@ -9,14 +9,11 @@
   - foreach ($comments as $comment)
     !{View::make('comments.partials.comment')->with('comment', $comment)}
 
-
-
-
 .form-actions
   h5 Add Comment
 
   form#add-comment-form(action="#{'comments'}", method="POST")
-    textarea(name="body")
+    textarea.span5(name="body")
 
     div
       button.btn.btn-primary Submit Comment

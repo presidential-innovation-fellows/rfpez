@@ -4,13 +4,7 @@
 
 input#current-page(type="hidden", value="#{Section::yield('current_page')}")
 
-.navbar.navbar-static-top
-  .navbar-inner
-    .container
-      a(class="brand", href="#{route('root')}") EasyBid
-
-      !{View::make('partials.topnav')}
-
+!{View::make('partials.topnav')}
 
 .container
 
@@ -36,4 +30,3 @@ input#current-page(type="hidden", value="#{Section::yield('current_page')}")
   !{Section::yield('subnav')}
 
   !{$content}
-

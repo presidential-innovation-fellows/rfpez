@@ -50,8 +50,12 @@ hr.dark {
 .helper-tooltip i {
   margin: 4px 0 0 5px;
 }
+.navbar-static-top {
+  margin-right: 0;
+  margin-left: 0;
+}
 body {
-  padding-top: 0;
+  padding: 0;
   margin-bottom: 25px;
 }
 .sneaky {
@@ -323,7 +327,6 @@ body.vendor .no-auth-only {
   font-weight: bold;
 }
 #add-comment-form textarea {
-  width: 400px;
   min-height: 100px;
 }
 .dsbs-certifications {
