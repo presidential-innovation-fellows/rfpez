@@ -71,3 +71,19 @@
               .input-append
                 input(type="text", name="email", placeholder="Email Address", autocomplete="off")
                 button.btn.btn-success Add
+
+    h5 Sharing
+
+    p
+      | By setting this project to public, it will show up in the list of "templates"
+      | that officers can start from when writing a SOW.
+
+      form(action="#{route('project_toggle_public', array($project->id))}?redirect=#{URI::current()}", method="POST")
+        .well
+          - if ($project->public):
+            span.public-status Status: Public
+            button.btn.btn-danger Set to Private
+          - else:
+            span.public-status Status: Private
+            button.btn.btn-success Set to Public (Recommended!)
+          - endif;

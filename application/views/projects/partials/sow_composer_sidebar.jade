@@ -1,19 +1,16 @@
 ul.nav.nav-list.sow-sidebar
   li(class="#{Helper::active_sidebar('background') ? 'active':''}")
-    a(href="#{route('project_background', array($project->id))}") Background
+    a(href="#{route('project_background', array($project->id))}") 1. Background
       i.icon-chevron-right
-  li(class="#{Helper::active_sidebar('select_sections') ? 'active':''}")
-    a(href="#{route('project_sections', array($project->id))}") Select Sections
-      i.icon-chevron-right
-  li(class="#{Helper::active_sidebar('edit_sections') ? 'active':''}")
-    a(href="#{route('project_sections_edit', array($project->id))}") Edit Sections
+  li(class="#{Helper::active_sidebar('sections') ? 'active':''}")
+    a(href="#{route('project_sections', array($project->id))}") 2. Customize Sections
       i.icon-chevron-right
   li(class="#{Helper::active_sidebar('fill_in_blanks') ? 'active':''}")
-    a(href="#{route('project_blanks', array($project->id))}") Fill in Blanks
+    a(href="#{route('project_blanks', array($project->id))}") 3. Fill in Blanks
       i.icon-chevron-right
   li(class="#{Helper::active_sidebar('timeline') ? 'active':''}")
-    a(href="#{route('project_timeline', array($project->id))}") Timeline
+    a(href="#{route('project_timeline', array($project->id))}") 4. Timeline
       i.icon-chevron-right
   li(class="#{Helper::active_sidebar('review') ? 'active':''}")
-    a(href="#{route('project_review', array($project->id))}") Review
+    a(href="#{route('project_review', array($project->id))}") 5. Review
       i.icon-chevron-right

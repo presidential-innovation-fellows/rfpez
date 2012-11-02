@@ -7,11 +7,13 @@
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($project->deliverables as $deliverable => $date): ?>
-      <tr>
-        <td><?php echo Jade\Dumper::_text($deliverable); ?></td>
-        <td><?php echo Jade\Dumper::_text($date); ?></td>
-      </tr>
-    <?php endforeach; ?>
+    <?php if ($project->deliverables): ?>
+      <?php foreach ($project->deliverables as $deliverable => $date): ?>
+        <tr>
+          <td><?php echo Jade\Dumper::_text($deliverable); ?></td>
+          <td><?php echo Jade\Dumper::_text($date); ?></td>
+        </tr>
+      <?php endforeach; ?>
+    <?php endif; ?>
   </tbody>
 </table>

@@ -89,12 +89,10 @@ Route::get('projects/(:num)/background', array('uses' => 'projects@background', 
 Route::post('projects/(:num)/background', array('uses' => 'projects@background_post', 'as' => 'project_background'));
 
 Route::get('projects/(:num)/sections', array('uses' => 'projects@sections', 'as' => 'project_sections'));
+Route::post('projects/(:num)/sections', array('uses' => 'projects@sections_post', 'as' => 'project_sections'));
 
 Route::post('projects/(:num)/sections/(:num)', array('uses' => 'projects@sections_add', 'as' => 'project_section_add'));
 Route::delete('projects/(:num)/sections/(:num)', array('uses' => 'projects@sections_remove', 'as' => 'project_section_delete'));
-
-Route::get('projects/(:num)/sections/edit', array('uses' => 'projects@sections_edit', 'as' => 'project_sections_edit'));
-Route::post('projects/(:num)/sections/edit', array('uses' => 'projects@sections_edit_post', 'as' => 'project_sections_edit'));
 
 Route::post('projects/(:num)/sections/reorder', array('uses' => 'projects@sections_reorder', 'as' => 'project_sections_reorder'));
 
@@ -105,6 +103,23 @@ Route::get('projects/(:num)/timeline', array('uses' => 'projects@timeline', 'as'
 Route::post('projects/(:num)/timeline', array('uses' => 'projects@timeline_post', 'as' => 'project_timeline'));
 
 Route::get('projects/(:num)/review', array('uses' => 'projects@review', 'as' => 'project_review'));
+
+Route::post('projects/(:num)/toggle-public', array('uses' => 'projects@toggle_public', 'as' => 'project_toggle_public'));
+
+/*
+|--------------------------------------------------------------------------
+| Admin Section
+|--------------------------------------------------------------------------
+*/
+
+Route::get('admin', array('uses' => 'admin@index', 'as' => 'admin_index'));
+
+Route::get('admin/project-sections', array('uses' => 'admin@project_sections', 'as' => 'admin_project_sections'));
+Route::get('admin/project-sections/(:num)/toggle-public', array('uses' => 'admin@project_sections_toggle_public', 'as' => 'admin_project_sections_toggle_public'));
+Route::get('admin/officers', array('uses' => 'admin@officers', 'as' => 'admin_officers'));
+Route::get('admin/verify-contracting-officer/(:num)', array('uses' => 'admin@verify_contracting_officer', 'as' => 'admin_verify_contracting_officer'));
+Route::get('admin/templates', array('uses' => 'admin@templates', 'as' => 'admin_templates'));
+Route::post('admin/templates/(:num)/toggle-recommended', array('uses' => 'admin@template_toggle_recommended', 'as' => 'admin_template_toggle_recommended'));
 
 
 

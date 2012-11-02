@@ -66,7 +66,7 @@ ul.templates-list
   font-weight bold
 
 .timeline-table
-  width 600px
+  width 100%
 
   tbody
     tr
@@ -81,7 +81,7 @@ ul.templates-list
         display none
 
 .sow-sidebar
-  width 200px
+  width 100%
   margin 0 0 20px
   border-radius 6px
   pl 0
@@ -103,19 +103,43 @@ ul.templates-list
       .icon-chevron-right
         opacity 1
 
-#edit-section-modal
+#add-edit-section-modal
+  width 700px
+  min-height 530px
+
+  .category-controls
+    select
+      width 150px
+
+    input
+      display inline
+      width 180px
+
   textarea
     width 100%
     box-sizing border-box
     min-height 140px
 
-.available-sections-table
-  .loading-placeholder
-    display none
+  .form-actions
+    box-sizing border-box
+    margin 0
 
+.available-sections-table
   &.loading
     .available-sections-tbody
-      display none
+      opacity(0.6)
 
-    .loading-placeholder
-      display table-row-group
+.public-status
+  font-weight bold
+  margin-right 20px
+
+.fill-in-blanks
+  input[type=text]
+    padding: 0 3px;
+    width: 100px;
+    margin: 0 0 1px;
+    font-size: 14px;
+    line-height: 20px;
+
+    &.empty
+      background #ffe7a0

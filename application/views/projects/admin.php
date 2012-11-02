@@ -74,5 +74,21 @@
         </tr>
       </tfoot>
     </table>
+    <h5>Sharing</h5>
+    <p>
+      By setting this project to public, it will show up in the list of "templates"
+      that officers can start from when writing a SOW.
+      <form action="<?php echo Jade\Dumper::_text(route('project_toggle_public', array($project->id))); ?>?redirect=<?php echo Jade\Dumper::_text(URI::current()); ?>" method="POST">
+        <div class="well">
+          <?php if ($project->public): ?>
+            <span class="public-status">Status: Public</span>
+            <button class="btn btn-danger">Set to Private</button>
+          <?php else: ?>
+            <span class="public-status">Status: Private</span>
+            <button class="btn btn-success">Set to Public (Recommended!)</button>
+          <?php endif; ?>
+        </div>
+      </form>
+    </p>
   </div>
 </div>

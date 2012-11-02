@@ -1,0 +1,14 @@
+h4 RFP-EZ Admin
+
+.navbar.navbar-inverse
+  .navbar-inner
+    ul.nav
+      li(class="#{$current_page == 'templates' ? 'active' : ''}")
+        a(href="#{route('admin_templates')}") Templates
+
+      li(class="#{$current_page == 'officers' ? 'active' : ''}")
+        a(href="#{route('admin_officers')}") Officers
+
+      - if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)):
+        li(class="#{$current_page == 'project_sections' ? 'active' : ''}")
+          a(href="#{route('admin_project_sections')}") Project Sections

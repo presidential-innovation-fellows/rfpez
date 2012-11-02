@@ -55,7 +55,7 @@
             - foreach($deliverable_names as $deliverable_name):
               tr.deliverables-row
                 td
-                  input(type="text", name="deliverable_names[]", value="#{ $deliverable_name }")
+                  input.span3(type="text", name="deliverable_names[]", value="#{ $deliverable_name }")
                 td
                   .input-prepend
                     span.add-on $
@@ -68,7 +68,7 @@
           - else:
             tr.deliverables-row
               td
-                input(type="text", name="deliverable_names[]")
+                input.span3(type="text", name="deliverable_names[]")
               td
                 .input-prepend
                   span.add-on $

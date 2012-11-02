@@ -15,6 +15,12 @@ $.validator.addMethod 'urladdhttp', (value, element) ->
 
 $(document).on "ready pjax:success", ->
 
+  $("#reset-password-form").validate_rfpez
+    rules:
+      "password":
+        required: true
+        minlength: 8
+
   $("#new-project-form, #update-project-form").validate_rfpez
     rules:
       "project[title]":

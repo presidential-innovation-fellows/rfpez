@@ -72,7 +72,7 @@ class Projects_Controller extends Base_Controller {
     $view->project = Config::get('project');
     $this->layout->content = $view;
 
-    $view->project->save_progress(1);
+    $view->project->save_progress('project_background');
   }
 
   public function action_background_post() {
@@ -80,15 +80,6 @@ class Projects_Controller extends Base_Controller {
     $project->fill(Input::get('project'));
     $project->save();
     return Redirect::to_route('project_sections', array($project->id));
-  }
-
-  public function action_sections() {
-    $view = View::make('projects.sections');
-    $view->project = Config::get('project');
-    $view->available_sections = $view->project->available_sections()->order_by('times_used', 'desc')->take(20)->get();
-    $this->layout->content = $view;
-
-    $view->project->save_progress(2);
   }
 
   public function action_sections_remove($project_id, $section_id) {
@@ -116,21 +107,22 @@ class Projects_Controller extends Base_Controller {
     $project->add_section($section_id);
 
     return Response::json(array('status' => 'success',
-                                'selected_sections_html' => View::make('projects.partials.selected_sections')
+                                'sections_for_editing_html' => View::make('projects.partials.sections_for_editing')
                                                                 ->with('project', $project)
                                                                 ->render() ));
   }
 
-  public function action_sections_edit() {
-    $view = View::make('projects.sections_edit');
+  public function action_sections() {
+    $view = View::make('projects.sections');
     $view->project = Config::get('project');
+    $view->available_sections = $view->project->available_sections()->order_by('times_used', 'desc')->take(20)->get();
     $this->layout->content = $view;
 
-    $view->project->save_progress(3);
+    $view->project->save_progress('project_sections');
   }
 
   // This is for adding a new section or updating the text of an existing one.
-  public function action_sections_edit_post() {
+  public function action_sections_post() {
     $project = Config::get('project');
     $section_id = Input::get('section_id');
     $section_input = Input::get('project_section');
@@ -180,7 +172,7 @@ class Projects_Controller extends Base_Controller {
     $view->project = Config::get('project');
     $this->layout->content = $view;
 
-    $view->project->save_progress(4);
+    $view->project->save_progress('project_blanks');
   }
 
   public function action_blanks_post() {
@@ -192,11 +184,17 @@ class Projects_Controller extends Base_Controller {
 
   public function action_timeline() {
     $view = View::make('projects.timeline');
-    $view->project = Config::get('project');
+    $project = Config::get('project');
+
+    // if this step is not yet completed, try to create some
+    // deliverables from the project's SOW sections
+    if ($project->sow_progress < 5) $project->create_deliverables_from_sow_sections();
+
+    $view->project = $project;
     $view->deliverables = $view->project->deliverables ?: array();
     $this->layout->content = $view;
 
-    $view->project->save_progress(5);
+    $view->project->save_progress('project_timeline');
   }
 
   public function action_timeline_post() {
@@ -221,7 +219,7 @@ class Projects_Controller extends Base_Controller {
     $view->project = Config::get('project');
     $this->layout->content = $view;
 
-    $view->project->save_progress(6);
+    $view->project->save_progress('project_review');
   }
 
   public function action_show() {
@@ -257,6 +255,12 @@ class Projects_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
+  public function action_toggle_public() {
+    $project = Config::get('project');
+    $project->toggle_public();
+    return Redirect::to(Input::get('redirect'));
+  }
+
   public function action_index() {
     $view = View::make('projects.index');
     $view->projects = Project::open_projects()->get();
@@ -267,9 +271,11 @@ class Projects_Controller extends Base_Controller {
     $project = Config::get('project');
     $query = Input::get('query');
     $available_sections = $project->available_sections()
-                                  ->where('section_category', 'LIKE', '%'.$query.'%')
-                                  ->or_where('title', 'LIKE', '%'.$query.'%')
-                                  ->or_where('body', 'LIKE', '%'.$query.'%')
+                                  ->where(function($q)use($query){
+                                    $q->where('section_category', 'LIKE', '%'.$query.'%');
+                                    $q->or_where('title', 'LIKE', '%'.$query.'%');
+                                    $q->or_where('body', 'LIKE', '%'.$query.'%');
+                                  })
                                   ->order_by('times_used', 'desc')
                                   ->take(20)
                                   ->get();
@@ -330,8 +336,6 @@ class Projects_Controller extends Base_Controller {
     $view = View::make('projects.post_on_fbo');
     $view->project = Config::get('project');
     $this->layout->content = $view;
-
-    $view->project->save_progress(7);
   }
 
   public function action_post_on_fbo_post() {
@@ -409,21 +413,25 @@ class Projects_Controller extends Base_Controller {
       return false;
     }
 
-    preg_match('/([0-9]+) for more info/', implode($attributes), $matches);
-    $parsed_solnbr = isset($matches[1]) ? $matches[1] : false;
+    // Check to make sure the info on FBO matches the info we have, unless
+    // we're in the local (dev) environment.
+    if (!Request::is_env('local')) {
+      preg_match('/([0-9]+) for more info/', implode($attributes), $matches);
+      $parsed_solnbr = isset($matches[1]) ? $matches[1] : false;
 
-    if (!isset($attributes["solnbr"])) {
-      Helper::flash_errors("Couldn't find that contract on FBO.");
-      return false;
-    } else if (Project::where_fbo_solnbr($attributes["solnbr"])->first()) {
-      Helper::flash_errors("That contract already exists in EasyBid.");
-      return false;
-    } else if (!preg_match('/'.preg_quote(Auth::user()->email).'/i', implode($attributes))) {
-      Helper::flash_errors("Couldn't verify email address.");
-      return false;
-    } else if ($parsed_solnbr != $project->id) {
-      Helper::flash_errors("Couldn't verify notice. Make sure you copy the body text exactly as-is.");
-      return false;
+      if (!isset($attributes["solnbr"])) {
+        Helper::flash_errors("Couldn't find that contract on FBO.");
+        return false;
+      } else if (Project::where_fbo_solnbr($attributes["solnbr"])->first()) {
+        Helper::flash_errors("That contract already exists in EasyBid.");
+        return false;
+      } else if (!preg_match('/'.preg_quote(Auth::user()->email).'/i', implode($attributes))) {
+        Helper::flash_errors("Couldn't verify email address.");
+        return false;
+      } else if ($parsed_solnbr != $project->id) {
+        Helper::flash_errors("Couldn't verify notice. Make sure you copy the body text exactly as-is.");
+        return false;
+      }
     }
 
     if (!Auth::officer()->is_verified_contracting_officer()) {
@@ -438,6 +446,10 @@ class Projects_Controller extends Base_Controller {
     }
 
     $project->save();
+
+    // They posted it, make it public!
+    if (!$project->public)
+      $project->toggle_public();
 
     Session::forget('errors');
     return true;
@@ -459,23 +471,7 @@ Route::filter('project_posted', function() {
 
   if (!Auth::officer()) return Redirect::to('/');
 
-  if ($project->sow_progress == 0) {
-    $route = 'project_template';
-  } elseif ($project->sow_progress == 1) {
-    $route = 'project_background';
-  } elseif ($project->sow_progress == 2) {
-    $route = 'project_sections';
-  } elseif ($project->sow_progress == 3) {
-    $route = 'project_sections_edit';
-  } elseif ($project->sow_progress == 4) {
-    $route = 'project_blanks';
-  } elseif ($project->sow_progress == 5) {
-    $route = 'project_timeline';
-  } elseif ($project->sow_progress == 6) {
-    $route = 'project_review';
-  } elseif ($project->sow_progress == 7) {
-    $route = 'project_post_on_fbo';
-  }
+  $route = $project->current_sow_composer_route_name();
 
   return Redirect::to_route($route, array($project->id));
 });
@@ -492,9 +488,9 @@ Route::filter('template_exists_and_is_forkable', function(){
   Config::set('template', $template);
 });
 
-Route::filter('i_am_collaborator', function() {
+Route::filter('i_am_collaborator', function() { // also allowed if user is SUPER ADMIN
   $project = Config::get('project');
-  if (!$project->is_mine()) return Redirect::to('/');
+  if (!$project->is_mine() && !Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)) return Redirect::to('/');
 });
 
 Route::filter('i_am_owner', function() {

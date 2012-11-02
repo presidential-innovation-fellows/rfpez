@@ -22,9 +22,11 @@
       <li>Write so your neighbor can understand what you write.</li>
     </ul>
     <form class="background-form" method="POST">
-      <textarea name="project[background]"><?php echo Jade\Dumper::_html($project->background); ?></textarea>
+      <div class="wysiwyg-wrapper">
+        <textarea class="wysihtml5" name="project[background]"><?php echo Jade\Dumper::_html($project->background); ?></textarea>
+      </div>
       <div class="form-actions">
-        <button class="btn btn-primary">Select Sections &rarr;</button>
+        <button class="btn btn-primary">Save and Continue &rarr;</button>
       </div>
     </form>
   </div>

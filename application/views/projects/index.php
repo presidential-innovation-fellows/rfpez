@@ -9,16 +9,16 @@
 <table class="table projects-table">
   <thead>
     <tr>
-      <th class="type">Type</th>
+      <th class="type hidden-phone">Type</th>
       <th class="project-title">Project Title</th>
-      <th class="agency">Agency</th>
+      <th class="agency visible-desktop">Agency</th>
       <th class="due">Bids Due</th>
     </tr>
   </thead>
   <?php foreach($projects as $project): ?>
     <tbody class="project">
       <tr class="project-meta">
-        <td>
+        <td class="hidden-phone">
           <img src="<?php echo Jade\Dumper::_text($project->project_type->image()); ?>" title="<?php echo Jade\Dumper::_text($project->project_type->name); ?>" alt="<?php echo Jade\Dumper::_text($project->project_type->name); ?>" />
         </td>
         <td>
@@ -39,9 +39,9 @@
               <?php endif; ?>
             </span>
           <?php endif; ?>
-          <p class="project-description-truncated"><?php echo Jade\Dumper::_text($project->background); ?></p>
+          <p class="project-description-truncated"><?php echo Jade\Dumper::_text(Helper::truncate($project->background, 13)); ?></p>
         </td>
-        <td><?php echo Jade\Dumper::_text($project->agency); ?></td>
+        <td class="visible-desktop"><?php echo Jade\Dumper::_text($project->agency); ?></td>
         <td><?php echo Jade\Dumper::_text($project->formatted_proposals_due_at()); ?></td>
       </tr>
     </tbody>

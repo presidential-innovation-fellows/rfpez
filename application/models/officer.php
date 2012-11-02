@@ -4,7 +4,8 @@ class Officer extends Eloquent {
 
   const ROLE_PROGRAM_OFFICER = 0;
   const ROLE_CONTRACTING_OFFICER = 1;
-  const ROLE_SUPER_ADMIN = 2;
+  const ROLE_ADMIN = 2;
+  const ROLE_SUPER_ADMIN = 3;
 
   public static $timestamps = true;
 
@@ -29,6 +30,23 @@ class Officer extends Eloquent {
     $validator->passes(); // hack to populate error messages
 
     return $this->validator = $validator;
+  }
+
+  public function is_role_or_higher($role) {
+    return $this->role >= $role;
+  }
+
+  public function role_text() {
+    switch ($this->role) {
+      case self::ROLE_PROGRAM_OFFICER:
+        return "Not Verified";
+      case self::ROLE_CONTRACTING_OFFICER:
+        return "Verified CO";
+      case self::ROLE_ADMIN:
+        return "Admin";
+      case self::ROLE_SUPER_ADMIN:
+        return "Super Admin";
+    }
   }
 
   public function projects() {

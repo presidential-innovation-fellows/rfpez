@@ -1,3 +1,4 @@
+<?php if (!isset($defer)) $defer = true; ?>
 <div class="details-inner">
   <?php if ($bid->dismissed()): ?>
     <div class="alert alert-danger dismissed-alert">
@@ -61,7 +62,7 @@
         <?php if ($bid->vendor->dsbs_name): ?>
           <span class="green">Yes, under "<?php echo Jade\Dumper::_text($bid->vendor->dsbs_name); ?>"
 </span>
-          <?php echo Jade\Dumper::_html(View::make('vendors.partials.dsbs_certifications')->with('user_id', $bid->vendor->dsbs_user_id)->with('defer', true)); ?>
+          <?php echo Jade\Dumper::_html(View::make('vendors.partials.dsbs_certifications')->with('user_id', $bid->vendor->dsbs_user_id)->with('defer', $defer)); ?>
         <?php else: ?>
           <span class="red">No</span>
         <?php endif; ?>

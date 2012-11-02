@@ -1,0 +1,37 @@
+- Section::inject('no_page_header', true)
+
+!{View::make('admin.partials.subnav')->with('current_page', 'project_sections')}
+
+table.table.table-bordered.table-striped
+  thead
+    tr
+      th Id
+      th Based on
+      th Created by
+      th Times Used
+      th Category
+      th Title
+      th Body
+      th Public?
+      th Created At
+
+  tbody
+    - foreach ($project_sections->results as $project_section):
+      tr
+        td #{$project_section->id}
+        td #{$project_section->based_on_project_section_id}
+        td #{$project_section->created_by_project_id}
+        td #{$project_section->times_used}
+        td #{$project_section->section_category}
+        td #{$project_section->title}
+        td #{$project_section->body}
+        td
+          - if ($project_section->public):
+            a.btn.btn-success(href="#{route('admin_project_sections_toggle_public', array($project_section->id))}") Public
+          - else:
+            a.btn(href="#{route('admin_project_sections_toggle_public', array($project_section->id))}") Private
+
+        td #{date('m/d/y', strtotime($project_section->created_at))}
+
+.pagination-wrapper
+  !{$project_sections->links()}

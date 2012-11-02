@@ -18,6 +18,14 @@
   }, 'Please enter a valid URL.');
 
   $(document).on("ready pjax:success", function() {
+    $("#reset-password-form").validate_rfpez({
+      rules: {
+        "password": {
+          required: true,
+          minlength: 8
+        }
+      }
+    });
     $("#new-project-form, #update-project-form").validate_rfpez({
       rules: {
         "project[title]": {

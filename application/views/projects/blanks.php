@@ -14,7 +14,7 @@
         <?php echo Jade\Dumper::_html(SowVariableParser::parse(View::make('projects.partials.background_and_sections')->with('project', $project), $project->variables)); ?>
       </div>
       <div class="form-actions">
-        <button class="btn btn-primary">Timeline &rarr;</button>
+        <button class="btn btn-primary">Save and Continue &rarr;</button>
       </div>
     </form>
   </div>

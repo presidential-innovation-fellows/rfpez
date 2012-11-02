@@ -1,0 +1,68 @@
+#add-edit-section-modal.modal.hide(tabindex='-1', role='dialog')
+
+  .modal-header
+    button.close(type='button', data-dismiss='modal') ×
+    h3 &nbsp;
+
+  .modal-body
+
+    ul.nav.nav-tabs#add-edit-section-tabs
+      li.section-library-li
+        a(href="#section-library", data-toggle="tab") Add From Library
+      li.section-form-li
+        a(href="#section-form", data-toggle="tab") Add Custom Section
+
+    div.tab-content
+      .tab-pane#section-library
+
+        h5 Available Sections
+          input.search-query.pull-right#available-sections-filter(type="text", placeholder="Filter by category, title, body")
+
+        table.table.table-striped.available-sections-table(data-project-id="#{$project->id}")
+          thead
+            tr
+              th(width="50%") Title
+              th(width="20%") Category
+              th(width="15%") Times Used
+              th(width="15%") Use
+
+          !{View::make('projects.partials.available_sections_tbody')->with('project', $project)->with('available_sections', $available_sections)}
+
+          tbody.no-sections.hide
+            tr
+              td(colspan="4") No sections found.
+
+
+      .tab-pane#section-form
+
+        form#edit-section-form(action="#{route('project_sections', array($project->id))}", method="POST")
+          input(type="hidden", name="section_id")
+
+          .row-fluid
+            .span5
+              .control-group
+                label.control-label Title
+                .controls
+                  input(type="text", name='project_section[title]')
+
+            .span7
+              .control-group
+                label.control-label Category
+                .controls.category-controls
+                  select#section-category-select
+                    - foreach (ProjectSection::$categories as $category):
+                      option(value="#{$category}") #{$category}
+                    option(value="Other") Other
+
+                  input#section-category-input(type="text", name='project_section[section_category]')
+
+          .control-group
+            .controls
+              .wysiwyg-wrapper
+                textarea.wysihtml5(name='project_section[body]')
+
+          .form-actions
+            span.will-fork.pull-left &nbsp;
+            //- If we want to display a notice that this section will be forked, we could do so above.
+            button.btn(data-dismiss='modal') Cancel
+            button.btn.btn-primary.save-button(data-loading-text="Saving...") Save

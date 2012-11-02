@@ -9,4 +9,10 @@ class Sync_Task {
     Laravel\CLI\Command::run(array('seed'));
   }
 
+  public function production() {
+    Laravel\CLI\Command::run(array('migrate:reset'));
+    Laravel\CLI\Command::run(array('migrate'));
+    Laravel\CLI\Command::run(array('seed:production'));
+  }
+
 }

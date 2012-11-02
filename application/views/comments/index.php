@@ -11,7 +11,7 @@
 <div class="form-actions">
   <h5>Add Comment</h5>
   <form id="add-comment-form" action="<?php echo Jade\Dumper::_text('comments'); ?>" method="POST">
-    <textarea name="body"></textarea>
+    <textarea class="span5" name="body"></textarea>
     <div>
       <button class="btn btn-primary">Submit Comment</button>
     </div>

@@ -1,7 +1,7 @@
 hide_already_selected_sections = ->
   selected_section_ids = []
 
-  $(".selected-sections .section").each ->
+  $(".sections-for-editing .section").each ->
     selected_section_ids.push $(this).data('section-id')
 
   $(".available-sections-table .section").each ->
@@ -11,6 +11,11 @@ hide_already_selected_sections = ->
       el.hide()
     else
       el.show()
+
+  if $(".available-sections-table .section:not(.hide)").length is 0
+    $(".available-sections-table .no-sections").show()
+  else
+    $(".available-sections-table .no-sections").hide()
 
 apply_section_cover = ->
   cover = $("<div class='sections-for-editing-cover'>Saving order...</div>")
@@ -29,7 +34,7 @@ save_sort_order = ->
   project_id = $(".sections-for-editing-wrapper").data('project-id')
   sections = []
 
-  $(".section").each ->
+  $(".sections-for-editing-wrapper .section").each ->
     sections.push $(this).data('section-id')
 
   $.ajax
@@ -76,6 +81,7 @@ search_available_sections = ->
       hide_already_selected_sections()
       $(".available-sections-table").removeClass("loading")
 
+has_unsaved_changes = false
 
 $(document).on "ready pjax:success sectionsreloaded", ->
   hide_already_selected_sections()
@@ -88,6 +94,13 @@ $(document).on "ready pjax:success sectionsreloaded", ->
     forcePlaceholderSize: true
 
   $(".sections-for-editing").bind 'sortupdate', save_sort_order
+
+  if $(".fill-in-blanks")
+    add_empty_class_to_inputs()
+
+$(document).on "click", ".sow-sidebar a", (e) ->
+  if has_unsaved_changes && !confirm('Looks like you have some unsaved changes. Are you sure you want to leave this page?')
+    e.preventDefault()
 
 $(document).on "click", ".show-more-templates-link", ->
   li = $(this).closest("li")
@@ -140,18 +153,22 @@ $(document).on "click", ".section .add-button", (e) ->
     url: el.data('href')
     type: "POST"
     success: (data) ->
-      new_selected_sections = $(data.selected_sections_html)
-      $(".selected-sections").replaceWith(new_selected_sections)
+      new_sections_for_editing = $(data.sections_for_editing_html)
+      $(".sections-for-editing-wrapper").replaceWith(new_sections_for_editing)
+      $(document).trigger("sectionsreloaded")
+      $("#add-edit-section-modal").modal('hide')
       hide_already_selected_sections()
       el.button('reset')
 
 $(document).on "click", ".add-section-button", ->
   $("#edit-section-form").resetForm()
-  $("#edit-section-modal").find(".modal-header h3").text("Add Section")
-  $("#edit-section-modal").find(".will-fork").hide()
+  $("#add-edit-section-modal").find(".modal-header h3").text("Add Section")
+  $("#add-edit-section-modal").find(".will-fork").hide()
+  $("#add-edit-section-modal .section-library-li a").click()
   $("#section-category-select").val("Deliverables")
   section_category_dropdown_changed()
-  $("#edit-section-modal").modal('show')
+  hide_already_selected_sections()
+  $("#add-edit-section-modal").modal('show')
 
 $(document).on "click", ".edit-section-link", ->
   section = $(this).closest(".section")
@@ -161,17 +178,18 @@ $(document).on "click", ".edit-section-link", ->
   category = section.closest(".category").data('name')
 
   if section.data('will-fork') is true
-    $("#edit-section-modal").find(".will-fork").show()
+    $("#add-edit-section-modal").find(".will-fork").show()
   else
-    $("#edit-section-modal").find(".will-fork").hide()
+    $("#add-edit-section-modal").find(".will-fork").hide()
 
-  $("#edit-section-modal").find(".modal-header h3").text("Edit Section '#{title}'")
+  $("#add-edit-section-modal").find(".modal-header h3").text("Edit Section '#{title}'")
   $("#edit-section-form").find("input[name=section_id]").val(section_id)
   $("#edit-section-form").find("input[name=project_section\\[section_category\\]]").val(category)
   $("#edit-section-form").find("input[name=project_section\\[title\\]]").val(title)
-  $("#edit-section-form").find("textarea[name=project_section\\[body\\]]").val(body)
+  $("#edit-section-form").find("textarea[name=project_section\\[body\\]]").data("wysihtml5").editor.setValue(body)
   update_section_category_dropdown_from_input()
-  $("#edit-section-modal").modal('show')
+  $("#add-edit-section-modal .section-form-li a").click()
+  $("#add-edit-section-modal").modal('show')
 
 $(document).on "submit", "#edit-section-form", (e) ->
   e.preventDefault()
@@ -183,7 +201,7 @@ $(document).on "submit", "#edit-section-form", (e) ->
       new_sections_for_editing = $(data.sections_for_editing_html)
       $(".sections-for-editing-wrapper").replaceWith(new_sections_for_editing)
       $(document).trigger("sectionsreloaded")
-      $("#edit-section-modal").modal('hide')
+      $("#add-edit-section-modal").modal('hide')
       button.button('reset')
 
 $(document).on "submit", "#sync-with-fbo-form", (e) ->
@@ -205,6 +223,13 @@ $(document).on "input", "#available-sections-filter", ->
   , 200
 
 ####### FILL IN THE BLANKS ########
+
+add_empty_class_to_inputs = ->
+  $(".fill-in-blanks input[type=text]").each ->
+    if !$(this).val()
+      $(this).addClass('empty')
+    else
+      $(this).removeClass('empty')
 
 $("input[data-variable]").autoGrow
     comfortZone: 5
@@ -233,16 +258,22 @@ $(document).on "blur", "input[data-variable]", ->
   $(this).tooltip('hide')
 
 $(document).on "input blur", "input[data-variable]", (e) ->
+  has_unsaved_changes = true
   el = $(this)
   variableName = el.data('variable')
   variableValue = el.val()
   $("input[data-variable=#{variableName}]").each ->
     $(this).val(variableValue)
     $(this).trigger("input.autogrow")
+  add_empty_class_to_inputs()
 
 ####### TIMELINE ######
 
+$(document).on "input", ".timeline-table input", ->
+  has_unsaved_changes = true
+
 $(document).on "click", ".add-deliverable-button", ->
+  has_unsaved_changes = true
   row = $(".add-deliverable-row")
   new_row = row.clone()
   new_row.removeClass("add-deliverable-row")
@@ -252,4 +283,5 @@ $(document).on "click", ".add-deliverable-button", ->
     $(this).val $(this).data('original-val')
 
 $(document).on "click", ".remove-deliverable-button", ->
+  has_unsaved_changes = true
   $(this).closest("tr").remove();

@@ -5,6 +5,12 @@ function timeago($timestamp) {
 	return "<span class='timeago' title='".date('c', $str)."'>".date('r', $str)."</abbr>";
 }
 
+function helper_tooltip($title, $placement = "top", $pull_right = false) {
+	return "<span class='helper-tooltip ".($pull_right ? 'pull-right' : '')."' data-title=\"".htmlspecialchars($title)."\" data-trigger='manual' data-placement='$placement'>
+			<i class='icon-question-sign icon-white'></i>
+		</span>";
+}
+
 /**
  * Convert HTML characters to entities.
  *

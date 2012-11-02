@@ -6,7 +6,8 @@ table.table.timeline-table
       th Deliverable
       th Completion Date
   tbody
-    - foreach ($project->deliverables as $deliverable => $date):
-      tr
-        td #{$deliverable}
-        td #{$date}
+    - if ($project->deliverables):
+      - foreach ($project->deliverables as $deliverable => $date):
+        tr
+          td #{$deliverable}
+          td #{$date}
