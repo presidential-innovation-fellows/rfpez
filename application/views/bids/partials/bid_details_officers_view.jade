@@ -1,3 +1,5 @@
+- if (!isset($defer)) $defer = true;
+
 .details-inner
 
   - if ($bid->dismissed()):
@@ -56,7 +58,7 @@
       div DSBS:
         - if ($bid->vendor->dsbs_name):
           span.green Yes, under "#{$bid->vendor->dsbs_name}"
-          !{View::make('vendors.partials.dsbs_certifications')->with('user_id', $bid->vendor->dsbs_user_id)->with('defer', true)}
+          !{View::make('vendors.partials.dsbs_certifications')->with('user_id', $bid->vendor->dsbs_user_id)->with('defer', $defer)}
         - else:
           span.red No
         - endif;

@@ -1,4 +1,4 @@
-<div class="dsbs-certifications loading" data-dsbs-user-id="<?php echo Jade\Dumper::_text($user_id); ?>" data-defer="<?php echo Jade\Dumper::_text(isset($defer) ? 'true' : 'false'); ?>">
+<div class="dsbs-certifications loading" data-dsbs-user-id="<?php echo Jade\Dumper::_text($user_id); ?>" data-defer="<?php echo Jade\Dumper::_text((isset($defer) && $defer) ? 'true' : 'false'); ?>">
   <table class="table table-bordered">
     <tbody class="loading">
       <tr>
