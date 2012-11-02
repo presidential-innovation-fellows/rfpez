@@ -60,7 +60,11 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody id="collaborators-tbody"></tbody>
+      <tbody id="collaborators-tbody">
+        <script type="text/javascript">
+          $(function(){ new Rfpez.Backbone.Collaborators(<?php echo Jade\Dumper::_text($project->officers_json()); ?>) })
+        </script>
+      </tbody>
       <tfoot>
         <tr>
           <td colspan="3">

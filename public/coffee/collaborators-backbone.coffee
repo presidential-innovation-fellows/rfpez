@@ -1,101 +1,116 @@
-$ ->
-  Collaborator = Backbone.Model.extend
-    validate: (attrs) ->
-      if (!attrs.User.email)
-        "please enter email"
-      else if (!attrs.User.email.match(/.gov$/i))
-        ".gov only"
-      else if (!attrs.id && Collaborators.existing_emails().indexOf(attrs.User.email) != -1)
-        "already exists"
+Collaborator = Backbone.Model.extend
+  validate: (attrs) ->
+    errors = []
 
-    defaults: ->
-      owner: false
+    if (!attrs.User.email)
+      return true # Throws an error but does not trigger the errorAdding events
+    else if (!attrs.User.email.match(/.gov$/i))
+      errors.push "Sorry, .gov addresses only"
+    else if (!attrs.id && Collaborators.existing_emails().indexOf(attrs.User.email.toLowerCase()) != -1)
+      errors.push "That collaborator already exists."
 
-    clear: ->
-      @destroy()
+    if errors.length > 0
+      App.trigger 'errorAdding', errors
+      return errors
 
-  CollaboratorList = Backbone.Collection.extend
-    initialize: (models, options) ->
-      @url = "/projects/#{options.project_id}/collaborators"
+  defaults: ->
+    owner: false
 
-    existing_emails: ->
-      @.map (c) ->
-        return c.attributes.User.email
+  clear: ->
+    @destroy()
 
-    model: Collaborator
+CollaboratorList = Backbone.Collection.extend
+  initialize: (models, options) ->
+    @url = "/projects/#{options.project_id}/collaborators"
 
-  Collaborators = new CollaboratorList([], {project_id: $(".collaborators-table").data('project-id')})
+  existing_emails: ->
+    @.map (c) ->
+      return c.attributes.User.email.toLowerCase()
 
-  CollaboratorView = Backbone.View.extend
-    tagName: "tr"
+  model: Collaborator
 
-    template: _.template """
-      <td><%= User.email %></td>
-      <td>
-        <% if (pivot.owner === "1") { %>
-          <i class="icon-star"></i>
-        <% } %>
-      </td>
-      <td>
-        <% if (pivot.owner !== "1") { %>
-          <button class="btn btn-danger">Remove</button>
-        <% } else { %>
-          Can't remove the owner.
-        <% } %>
-      </td>
-    """
+Collaborators = new CollaboratorList([], {project_id: $(".collaborators-table").data('project-id')})
 
-    events:
-      "click .btn.btn-danger": "clear"
+CollaboratorView = Backbone.View.extend
+  tagName: "tr"
 
-    initialize: ->
-      @model.bind "change", @render, @
-      @model.bind "destroy", @remove, @
+  template: _.template """
+    <td><%= User.email %></td>
+    <td>
+      <% if (pivot.owner === "1") { %>
+        <i class="icon-star"></i>
+      <% } %>
+    </td>
+    <td>
+      <% if (pivot.owner !== "1") { %>
+        <button class="btn btn-danger">Remove</button>
+      <% } else { %>
+        Can't remove the owner.
+      <% } %>
+    </td>
+  """
 
-    render: ->
-      @$el.html @template(@model.toJSON())
-      return @
+  events:
+    "click .btn.btn-danger": "clear"
 
-    clear: ->
-      @model.clear()
+  initialize: ->
+    @model.bind "change", @render, @
+    @model.bind "destroy", @remove, @
 
-  AppView = Backbone.View.extend
+  render: ->
+    @$el.html @template(@model.toJSON())
+    return @
 
-    initialize: ->
-      Collaborators.bind 'add', @addOne, @
-      Collaborators.bind 'reset', @reset, @
-      Collaborators.bind 'all', @render, @
+  clear: ->
+    @model.clear()
 
-      $("#add-collaborator-form").submit @addNew
+AppView = Backbone.View.extend
 
-      Collaborators.fetch()
+  initialize: ->
+    Collaborators.bind 'add', @addOne, @
+    Collaborators.bind 'reset', @reset, @
+    Collaborators.bind 'all', @render, @
+    @bind 'errorAdding', @showError
 
-    addNew: (e) ->
-      e.preventDefault()
-      email = $("#add-collaborator-form input[name=email]").val()
-      $("#add-collaborator-form input[name=email]").val('')
+    $("#add-collaborator-form").submit @addNew
 
-      Collaborators.create
-        User:
-          email: email
-        pivot:
-          owner: 0
-      ,
-        error: (obj, err) ->
-          obj.clear()
+    # Collaborators.fetch()
 
-    reset: ->
-      @addAll()
+  addNew: (e) ->
+    e.preventDefault()
+    email = $("#add-collaborator-form input[name=email]").val()
+    $("#add-collaborator-form input[name=email]").val('')
 
-    render: ->
-      #
+    Collaborators.create
+      User:
+        email: email
+      pivot:
+        owner: 0
+    ,
+      error: (obj, err) ->
+        obj.clear()
 
-    addOne: (collaborator) ->
-      view = new CollaboratorView({model: collaborator})
-      html = view.render().el
-      $("#collaborators-tbody").append(html);
+  showError: (errors) ->
+    $("#add-collaborator-form button").flash_button_message("warning", errors[0])
 
-    addAll: ->
-      Collaborators.each @addOne
+  reset: ->
+    @addAll()
 
-  App = new AppView
+  render: ->
+    #
+
+  addOne: (collaborator) ->
+    view = new CollaboratorView({model: collaborator})
+    html = view.render().el
+    $("#collaborators-tbody").append(html);
+
+  addAll: ->
+    Collaborators.each @addOne
+
+App = false
+
+Rfpez.Backbone.Collaborators = (initialModels) ->
+  initialCollection = Collaborators;
+  App = new AppView({collection: initialCollection})
+  initialCollection.reset(initialModels)
+  return App

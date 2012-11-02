@@ -63,6 +63,8 @@
           th Owner
           th Actions
       tbody#collaborators-tbody
+        :javascript
+          | $(function(){ new Rfpez.Backbone.Collaborators(#{$project->officers_json()}) })
 
       tfoot
         tr
