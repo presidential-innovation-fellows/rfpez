@@ -74,8 +74,6 @@ AppView = Backbone.View.extend
 
     $("#add-collaborator-form").submit @addNew
 
-    # Collaborators.fetch()
-
   addNew: (e) ->
     e.preventDefault()
     email = $("#add-collaborator-form input[name=email]").val()
