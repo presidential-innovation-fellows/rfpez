@@ -46,7 +46,7 @@
             <?php foreach($deliverable_names as $deliverable_name): ?>
               <tr class="deliverables-row">
                 <td>
-                  <input type="text" name="deliverable_names[]" value="<?php echo Jade\Dumper::_text( $deliverable_name ); ?>" />
+                  <input class="span3" type="text" name="deliverable_names[]" value="<?php echo Jade\Dumper::_text( $deliverable_name ); ?>" />
                 </td>
                 <td>
                   <div class="input-prepend">
@@ -65,7 +65,7 @@
           <?php else: ?>
             <tr class="deliverables-row">
               <td>
-                <input type="text" name="deliverable_names[]" />
+                <input class="span3" type="text" name="deliverable_names[]" />
               </td>
               <td>
                 <div class="input-prepend">

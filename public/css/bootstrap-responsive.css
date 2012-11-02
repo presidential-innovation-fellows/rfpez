@@ -98,6 +98,12 @@
   }
 }
 
+@media (min-width: 768px) {
+  td.visible-desktop, th.visible-desktop {
+    display: table-cell !important;
+  }
+}
+
 @media (min-width: 1200px) {
   .row {
     margin-left: -30px;

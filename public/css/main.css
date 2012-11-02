@@ -502,18 +502,6 @@ h4 span.forked-from {
 .projects-table {
   margin-top: 25px;
 }
-.projects-table thead tr th.type {
-  width: 8%;
-}
-.projects-table thead tr th.project-title {
-  width: 55%;
-}
-.projects-table thead tr th.agency {
-  width: 25%;
-}
-.projects-table thead tr th.due {
-  width: 12%;
-}
 .projects-table tr td {
   border: 0;
 }
@@ -526,13 +514,6 @@ tbody.project .project-meta td {
 tbody.project .project-title {
   font-size: 1.1em;
   font-weight: bold;
-}
-tbody.project .project-description-truncated {
-  width: 475px;
-  white-space: nowrap;
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
 }
 tbody.project .admin-star {
   font-size: 11px;
@@ -616,7 +597,7 @@ ul.templates-list li.show-more.all-loaded .show-more-templates-link {
   font-weight: bold;
 }
 .timeline-table {
-  width: 600px;
+  width: 100%;
 }
 .timeline-table tbody tr .add-deliverable-button {
   display: none;
@@ -628,7 +609,7 @@ ul.templates-list li.show-more.all-loaded .show-more-templates-link {
   display: none;
 }
 .sow-sidebar {
-  width: 200px;
+  width: 100%;
   margin: 0 0 20px;
   -webkit-border-radius: 6px;
   border-radius: 6px;

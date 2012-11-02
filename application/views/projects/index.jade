@@ -10,15 +10,15 @@
 table.table.projects-table
   thead
     tr
-      th.type Type
+      th.type.hidden-phone Type
       th.project-title Project Title
-      th.agency Agency
+      th.agency.visible-desktop Agency
       th.due Bids Due
 
   - foreach($projects as $project):
     tbody.project
       tr.project-meta
-        td
+        td.hidden-phone
           img(src="#{$project->project_type->image()}", title="#{$project->project_type->name}", alt="#{$project->project_type->name}")
         td
           a.project-title(href="#{route('project', array($project->id))}", data-pjax) #{$project->title}
@@ -38,9 +38,9 @@ table.table.projects-table
               - endif;
           - endif;
 
-          p.project-description-truncated #{$project->background}
+          p.project-description-truncated #{Helper::truncate($project->background, 13)}
 
-        td #{$project->agency}
+        td.visible-desktop #{$project->agency}
 
         td #{$project->formatted_proposals_due_at()}
 
