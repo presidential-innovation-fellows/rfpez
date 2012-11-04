@@ -44,6 +44,8 @@ Basset::scripts('website', function($basset)
          // backbone!
          ->add('underscore', 'js/vendor/underscore.js')
          ->add('backbone', 'js/vendor/backbone.js')
+         ->add('comments-backbone', 'js/comments-backbone.js')
+         ->add('collaborators-backbone', 'js/collaborators-backbone.js')
 
          ->compress();
 });

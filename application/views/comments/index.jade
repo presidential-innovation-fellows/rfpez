@@ -5,10 +5,6 @@
 
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 
-- Section::start('page_scripts');
-  !{HTML::script('js/comments-backbone.js')}
-- Section::stop();
-
 .comments-list
   :javascript
     | $(function(){

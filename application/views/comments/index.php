@@ -3,10 +3,6 @@
 <?php Section::inject('active_subnav', 'comments') ?>
 <?php Section::inject('no_page_header', true) ?>
 <?php echo Jade\Dumper::_html(View::make('projects.partials.toolbar')->with('project', $project)); ?>
-<?php Section::start('page_scripts'); { ?>
-  <?php echo Jade\Dumper::_html(HTML::script('js/comments-backbone.js')); ?>
-<?php } ?>
-<?php Section::stop(); ?>
 <div class="comments-list">
   <script type="text/javascript">
     $(function(){
