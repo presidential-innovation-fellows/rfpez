@@ -74,6 +74,7 @@ AppView = Backbone.View.extend
     alert errors[0]
 
   reset: ->
+    $(".comments-list").html('')
     @addAll()
 
   render: ->

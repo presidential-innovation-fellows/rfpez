@@ -92,6 +92,7 @@ AppView = Backbone.View.extend
     $("#add-collaborator-form button").flash_button_message("warning", errors[0])
 
   reset: ->
+    $("#collaborators-tbody").html('')
     @addAll()
 
   render: ->

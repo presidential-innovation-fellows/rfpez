@@ -88,6 +88,7 @@
       return $("#add-collaborator-form button").flash_button_message("warning", errors[0]);
     },
     reset: function() {
+      $("#collaborators-tbody").html('');
       return this.addAll();
     },
     render: function() {},

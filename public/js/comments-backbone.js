@@ -73,6 +73,7 @@
       return alert(errors[0]);
     },
     reset: function() {
+      $(".comments-list").html('');
       return this.addAll();
     },
     render: function() {},
