@@ -8,11 +8,7 @@ class Comment extends Eloquent {
 
   public $includes = array('project', 'officer');
 
-  public function to_array() {
-    $comment = parent::to_array();
-    $comment["formatted_created_at"] = $this->formatted_created_at();
-    return $comment;
-  }
+  public $includes_in_array = array('formatted_created_at');
 
   public function project() {
     return $this->belongs_to('Project');
