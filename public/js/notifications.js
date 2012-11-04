@@ -73,7 +73,7 @@
     });
   });
 
-  $(document).on("ready pjax:success", function() {
+  $(document).on("ready pjax:success pjax:popstate", function() {
     notifications_loaded = false;
     return $("#notifications-dropdown-trigger").on("click", function() {
       if (notifications_loaded) {
