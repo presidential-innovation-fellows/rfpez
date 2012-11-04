@@ -10,7 +10,7 @@
 <div class="comments-list">
   <script type="text/javascript">
     $(function(){
-     new Rfpez.Backbone.Comments( <?php echo Jade\Dumper::_text($project->id); ?>, <?php echo Jade\Dumper::_text($project->comments_json()); ?> )
+     new Rfpez.Backbone.Comments( <?php echo Jade\Dumper::_text($project->id); ?>, <?php echo Jade\Dumper::_text($comments); ?> )
     })
   </script>
 </div>

@@ -12,7 +12,7 @@
 .comments-list
   :javascript
     | $(function(){
-    |  new Rfpez.Backbone.Comments( #{$project->id}, #{$project->comments_json()} )
+    |  new Rfpez.Backbone.Comments( #{$project->id}, #{$comments} )
     | })
 
 .form-actions

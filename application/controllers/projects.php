@@ -252,6 +252,7 @@ class Projects_Controller extends Base_Controller {
   public function action_admin() {
     $view = View::make('projects.admin');
     $view->project = Config::get('project');
+    $view->collaborators_json = json_encode(Helper::to_array($view->project->officers()->get()));
     $this->layout->content = $view;
   }
 
@@ -285,15 +286,6 @@ class Projects_Controller extends Base_Controller {
                                                                        ->with('project', $project)
                                                                        ->with('available_sections', $available_sections)
                                                                        ->render() ));
-  }
-
-  public function action_get_collaborators() {
-    $project = Config::get('project');
-    $collaborators = array();
-    foreach($project->officers()->get() as $officer) {
-      $collaborators[] = $officer->to_array();
-    }
-    return Response::json($collaborators);
   }
 
   public function action_add_collaborator() {

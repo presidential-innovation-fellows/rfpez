@@ -2,6 +2,14 @@
 
 Class Helper {
 
+  public static function to_array($results) {
+    $return_array = array();
+    foreach ($results as $result) {
+      $return_array[] = $result->to_array();
+    }
+    return $return_array;
+  }
+
   public static function flash_errors($errors) {
     if (!is_array($errors)) $errors = array($errors);
 

@@ -42,26 +42,9 @@ class Project extends Eloquent {
     return $this->has_many_and_belongs_to('Officer', 'project_collaborators')->with(array('owner'))->order_by('owner', 'desc');
   }
 
-  public function officers_json() {
-    $collaborators = array();
-    foreach($this->officers()->get() as $officer) {
-      $collaborators[] = $officer->to_array();
-    }
-    return json_encode($collaborators);
-  }
-
   public function comments() {
     return $this->has_many('Comment')->order_by('created_at');
   }
-
-  public function comments_json() {
-    $comments = array();
-    foreach($this->comments()->get() as $comment) {
-      $comments[] = $comment->to_array();
-    }
-    return json_encode($comments);
-  }
-
 
   public function project_type() {
     return $this->belongs_to('ProjectType');
