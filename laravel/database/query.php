@@ -283,7 +283,7 @@ class Query {
 	 */
 	public function or_where_id($value)
 	{
-		return $this->or_where('id', '=', $value);		
+		return $this->or_where('id', '=', $value);
 	}
 
 	/**
@@ -853,7 +853,7 @@ class Query {
 
 		$sql = $this->grammar->delete($this);
 
-		return $this->connection->query($sql, $this->bindings);		
+		return $this->connection->query($sql, $this->bindings);
 	}
 
 	/**

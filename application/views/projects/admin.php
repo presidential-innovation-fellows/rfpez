@@ -53,10 +53,12 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
-        <?php foreach ($project->officers as $officer): ?>
-          <?php echo Jade\Dumper::_html(View::make('projects.partials.collaborator_tr')->with('officer', $officer)->with('project', $project)); ?>
-        <?php endforeach; ?>
+      <tbody id="collaborators-tbody">
+        <script type="text/javascript">
+          $(function(){
+           new Rfpez.Backbone.Collaborators( <?php echo Jade\Dumper::_text($project->id); ?>, <?php echo Jade\Dumper::_text($project->owner()->user->id); ?>, <?php echo Jade\Dumper::_text($collaborators_json); ?> )
+          })
+        </script>
       </tbody>
       <tfoot>
         <tr>

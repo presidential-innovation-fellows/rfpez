@@ -55,9 +55,12 @@
           th Email
           th Owner
           th Actions
-      tbody
-        - foreach ($project->officers as $officer):
-          !{View::make('projects.partials.collaborator_tr')->with('officer', $officer)->with('project', $project)}
+      tbody#collaborators-tbody
+        :javascript
+          | $(function(){
+          |  new Rfpez.Backbone.Collaborators( #{$project->id}, #{$project->owner()->user->id}, #{$collaborators_json} )
+          | })
+
       tfoot
         tr
           td(colspan="3")

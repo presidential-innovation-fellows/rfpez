@@ -6,6 +6,10 @@
 <?php echo Jade\Dumper::_html(View::make('projects.partials.toolbar')->with('project', $project)); ?>
 <?php echo Jade\Dumper::_html(View::make('bids.partials.dismiss_modal')); ?>
 <?php echo Jade\Dumper::_html(View::make('bids.partials.award_modal')->with('project', $project)); ?>
+<?php Section::start('page_scripts'); { ?>
+  <?php echo Jade\Dumper::_html(HTML::script('js/bid-review.js')); ?>
+<?php } ?>
+<?php Section::stop(); ?>
 <div class="winning-bid-table-wrapper <?php echo Jade\Dumper::_text($project->winning_bid() ? '' : 'hide'); ?>">
   <h3>Winning Bid</h3>
   <table class="table bids-table winning-bid">

@@ -1,4 +1,6 @@
-window.Rfpez ||= {}
+window.Rfpez ||= {
+  Backbone: {}
+}
 
 Rfpez.current_page = (str) ->
   if str is Rfpez.current_page_string

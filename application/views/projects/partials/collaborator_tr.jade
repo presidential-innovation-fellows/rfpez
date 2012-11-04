@@ -1,8 +1,0 @@
-tr(data-officer-id="#{$officer->id}")
-  td.email #{$officer->user->email}
-  td
-    - if ($officer->id == $project->owner()->id)
-      i.icon-star
-  td
-    button(class="btn btn-danger remove-collaborator-button only-user only-user-#{$project->owner()->user->id} not-user-#{$officer->user->id}", href="#{route('project_collaborators_destroy', array($project->id, $officer->id))}") Remove
-    span(class="only-user only-user-#{$officer->user->id}") This is you!

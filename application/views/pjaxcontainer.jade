@@ -2,6 +2,8 @@
   title #{Helper::full_title(Section::yield('page_title'), Section::yield('page_action'))}
 - endif;
 
+!{Section::yield('page_scripts')}
+
 input#current-page(type="hidden", value="#{Section::yield('current_page')}")
 
 !{View::make('partials.topnav')}

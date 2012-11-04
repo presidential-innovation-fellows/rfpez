@@ -8,6 +8,10 @@
 !{View::make('bids.partials.dismiss_modal')}
 !{View::make('bids.partials.award_modal')->with('project', $project)}
 
+- Section::start('page_scripts');
+  !{HTML::script('js/bid-review.js')}
+- Section::stop();
+
 
 div(class="winning-bid-table-wrapper #{$project->winning_bid() ? '' : 'hide'}")
 

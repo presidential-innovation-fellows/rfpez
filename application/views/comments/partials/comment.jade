@@ -1,9 +1,0 @@
-.well.comment
-  .body
-    span.author #{$comment->officer->name} -
-    | #{$comment->body}
-
-  span.timestamp
-    span.posted-at Posted !{timeago($comment->created_at)}
-
-  a(class="delete-comment only-user only-user-#{$comment->officer->user->id}", href="#{route('comment_destroy', array($comment->project->id, $comment->id))}") Delete
