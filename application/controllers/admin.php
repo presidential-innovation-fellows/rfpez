@@ -43,12 +43,15 @@ class Admin_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
-  public function action_verify_contracting_officer($id) {
-    $officer = Officer::find($id);
-    if ($officer->role == Officer::ROLE_PROGRAM_OFFICER) {
-      $officer->role = Officer::ROLE_CONTRACTING_OFFICER;
-      $officer->save();
-    }
+  public function action_vendors() {
+    $view = View::make('admin.vendors');
+    $view->vendors = Vendor::paginate(10);
+    $this->layout->content = $view;
+  }
+
+  public function action_ban_vendor($id) {
+    $vendor = Vendor::find($id);
+    $vendor->ban();
     return Redirect::back();
   }
 

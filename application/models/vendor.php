@@ -68,6 +68,19 @@ class Vendor extends Eloquent {
     return $this->has_many('Bid');
   }
 
+  public function ban() {
+    $this->user->banned_at = new \DateTime;
+    $this->user->save();
+
+    foreach ($this->bids as $bid) {
+      // @todo bid should have a "deleted_at" column instead.
+      if (!$bid->awarded_at) {
+        $bid->deleted_by_vendor = 1;
+        $bid->save();
+      }
+    }
+  }
+
   public function sync_with_dsbs_and_sam() {
 
     if (!$this->duns) return;

@@ -9,6 +9,9 @@ h4 RFP-EZ Admin
       li(class="#{$current_page == 'officers' ? 'active' : ''}")
         a(href="#{route('admin_officers')}") Officers
 
+      li(class="#{$current_page == 'vendors' ? 'active' : ''}")
+        a(href="#{route('admin_vendors')}") Vendors
+
       - if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)):
         li(class="#{$current_page == 'project_sections' ? 'active' : ''}")
           a(href="#{route('admin_project_sections')}") Project Sections

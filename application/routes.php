@@ -117,7 +117,8 @@ Route::get('admin', array('uses' => 'admin@index', 'as' => 'admin_index'));
 Route::get('admin/project-sections', array('uses' => 'admin@project_sections', 'as' => 'admin_project_sections'));
 Route::get('admin/project-sections/(:num)/toggle-public', array('uses' => 'admin@project_sections_toggle_public', 'as' => 'admin_project_sections_toggle_public'));
 Route::get('admin/officers', array('uses' => 'admin@officers', 'as' => 'admin_officers'));
-Route::post('admin/change-officer-role/(:num)', array('uses' => 'admin@change_officer_role', 'as' => 'admin_change_officer_role'));
+Route::get('admin/vendors', array('uses' => 'admin@vendors', 'as' => 'admin_vendors'));
+Route::get('admin/vendors/(:num)/ban', array('uses' => 'admin@ban_vendor', 'as' => 'admin_ban_vendor'));
 Route::get('admin/templates', array('uses' => 'admin@templates', 'as' => 'admin_templates'));
 Route::post('admin/templates/(:num)/toggle-recommended', array('uses' => 'admin@template_toggle_recommended', 'as' => 'admin_template_toggle_recommended'));
 

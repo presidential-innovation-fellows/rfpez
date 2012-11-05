@@ -26,12 +26,11 @@ head
     - print "<style>.only-user:not(.only-user-".Auth::user()->id."), .not-user-".Auth::user()->id." { display: none; }</style>";
   - endif;
 
-  - if (Auth::officer()->role == Officer::ROLE_ADMIN):
+  - if (Auth::officer() && Auth::officer()->role == Officer::ROLE_ADMIN):
     - $body_class .= " admin"
-  - elseif (Auth::officer()->role == Officer::ROLE_SUPER_ADMIN):
+  - elseif (Auth::officer() && Auth::officer()->role == Officer::ROLE_SUPER_ADMIN):
     - $body_class .= " super-admin"
   - endif;
-
 
   !{HTML::script('js/vendor/modernizr-2.6.1-respond-1.1.0.min.js')}
 

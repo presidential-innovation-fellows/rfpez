@@ -1,0 +1,25 @@
+- Section::inject('no_page_header', true)
+
+!{View::make('admin.partials.subnav')->with('current_page', 'vendors')}
+
+table.table.table-bordered.table-striped.admin-vendors-table
+  thead
+    tr
+      th id
+      th company_name
+      th actions
+
+  tbody#vendors-tbody
+    - foreach ($vendors->results as $vendor):
+      tr
+        td #{$vendor->id}
+        td #{$vendor->company_name}
+        td
+          - if ($vendor->user->banned_at):
+            | Banned.
+          - else:
+            a.btn.btn-danger(href="#{route('admin_ban_vendor', array($vendor->id))}", data-confirm="Are you sure you want to ban this vendor? This will also remove any pending bids that they have submitted.") Ban Vendor
+          - endif;
+
+.pagination-wrapper
+  !{$vendors->links()}

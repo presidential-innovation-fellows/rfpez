@@ -23,6 +23,11 @@ class Auth_Controller extends Base_Controller {
     if (Auth::attempt($credentials)) {
       Auth::user()->track_signin();
 
+      if (Auth::user()->banned_at) {
+        Auth::logout();
+        return Redirect::to('/')->with('errors', array('Sorry, your account has been banned.'));
+      }
+
       if (Input::has('modal') && Request::referrer() != route('signout')) return Redirect::back();
       if ($url = Input::get('redirect_to') && Input::get('redirect_to') != route('signout')) return Redirect::to($url);
       return Redirect::to('/');
