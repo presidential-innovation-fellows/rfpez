@@ -17,6 +17,7 @@ class Officers_Controller extends Base_Controller {
   public function action_typeahead() {
     $results = User::where('users.email', 'LIKE', '%'.Input::get('query').'%')
                    ->where('users.id', '!=', Auth::user()->id)
+                   ->where_not_null('users.encrypted_password')
                    ->join('officers', 'users.id', '=', 'officers.user_id')
                    ->lists('email');
 

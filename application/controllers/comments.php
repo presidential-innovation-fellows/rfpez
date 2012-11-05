@@ -17,30 +17,32 @@ class Comments_Controller extends Base_Controller {
   public function action_index() {
     $view = View::make('comments.index');
     $view->project = Config::get('project');
-    $view->comments = $view->project->comments;
+    $view->comments = json_encode(Helper::to_array($view->project->comments));
     $this->layout->content = $view;
 
     $comment_ids = array();
-    foreach($view->comments as $comment) $comment_ids[] = $comment->id;
+    foreach($view->project->comments as $comment) $comment_ids[] = $comment->id;
     Auth::user()->view_notification_payload("comment", $comment_ids, "read");
   }
 
   public function action_create() {
-    $comment = new Comment(array('project_id' => Config::get('project')->id,
+    $json = Input::json();
+    $project = Config::get('project');
+
+    $comment = new Comment(array('project_id' => $project->id,
                                  'officer_id' => Auth::officer()->id));
-    $comment->body = Input::get('body');
+    $comment->body = $json->body;
     $comment->save();
 
-    $c = Comment::find($comment->id);
 
-    foreach($c->project->officers as $officer) {
+    foreach($comment->project->officers as $officer) {
       if (Auth::officer()->id != $officer->id)
-        Notification::send("Comment", array('comment' => $c,
+        Notification::send("Comment", array('comment' => $comment,
                                             'target_id' => $officer->user->id));
     }
 
-    return Response::json(array('status' => 'success',
-                                'html' => View::make('comments.partials.comment')->with('comment', $c)->render() ));
+    return Response::json($comment->to_array());
+
   }
 
   public function action_destroy() {

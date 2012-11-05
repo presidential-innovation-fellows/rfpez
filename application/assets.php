@@ -31,7 +31,6 @@ Basset::scripts('website', function($basset)
          ->add('main', 'js/main.js')
          ->add('question-and-answer', 'js/question-and-answer.js')
          ->add('vendor-image-preview', 'js/vendor-image-preview.js')
-         ->add('bid-review', 'js/bid-review.js')
          ->add('new-bid', 'js/new-bid.js')
          ->add('validation', 'js/validation.js')
          ->add('filter-projects', 'js/filter-projects.js')
@@ -41,8 +40,13 @@ Basset::scripts('website', function($basset)
          ->add('dsbs-lookup', 'js/dsbs-lookup.js')
          ->add('infinite-vendor-scroll', 'js/infinite-vendor-scroll.js')
          ->add('save-bid-draft', 'js/save-bid-draft.js')
-         ->add('bid-review-hotkeys', 'js/bid-review-hotkeys.js')
-         ->add('project-comments', 'js/project-comments.js')
+
+         // backbone!
+         ->add('underscore', 'js/vendor/underscore.js')
+         ->add('backbone', 'js/vendor/backbone.js')
+         ->add('comments-backbone', 'js/comments-backbone.js')
+         ->add('collaborators-backbone', 'js/collaborators-backbone.js')
+
          ->compress();
 });
 
