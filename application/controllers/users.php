@@ -44,7 +44,7 @@ class Users_Controller extends Base_Controller {
   public function action_post_reset_password() {
     $user = Config::get('user');
 
-    if ($user->reset_password_to(Input::get('password'))) {
+    if (!$user->banned_at && $user->reset_password_to(Input::get('password'))) {
       Auth::login($user->id);
       $user->track_signin();
 
