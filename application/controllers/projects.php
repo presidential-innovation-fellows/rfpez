@@ -230,16 +230,33 @@ class Projects_Controller extends Base_Controller {
   }
 
   public function action_update() {
-    $project = Config::get('project');
-    $project->fill($project_input = Input::get('project'));
-    $project->proposals_due_at = $project_input["proposals_due_at"] . " 23:59:59";
 
-    if ($project->validator()->passes()) {
+    $project = Config::get('project');
+
+    if (Request::ajax()) {
+      // backbone update
+      $json = Input::json(true);
+
+      if (Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)) {
+        $project->recommended = $json["recommended"];
+        $project->public = $json["public"];
+      }
+
       $project->save();
-      return Redirect::to_route('project_admin', array($project->id));
+
+      return Response::json($project->to_array());
+
     } else {
-      Session::flash('errors', $project->validator()->errors->all());
-      return Redirect::to_route('project_admin', array($project->id))->with_input();
+      $project->fill($project_input = Input::get('project'));
+      $project->proposals_due_at = $project_input["proposals_due_at"] . " 23:59:59";
+
+      if ($project->validator()->passes()) {
+        $project->save();
+        return Redirect::to_route('project_admin', array($project->id));
+      } else {
+        Session::flash('errors', $project->validator()->errors->all());
+        return Redirect::to_route('project_admin', array($project->id))->with_input();
+      }
     }
   }
 
@@ -480,9 +497,9 @@ Route::filter('template_exists_and_is_forkable', function(){
   Config::set('template', $template);
 });
 
-Route::filter('i_am_collaborator', function() { // also allowed if user is SUPER ADMIN
+Route::filter('i_am_collaborator', function() { // also allowed if user is ADMIN
   $project = Config::get('project');
-  if (!$project->is_mine() && !Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)) return Redirect::to('/');
+  if (!$project->is_mine() && !Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)) return Redirect::to('/');
 });
 
 Route::filter('i_am_owner', function() {

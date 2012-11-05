@@ -2,8 +2,8 @@
 <div class="navbar navbar-inverse">
   <div class="navbar-inner">
     <ul class="nav">
-      <li class="<?php echo Jade\Dumper::_text($current_page == 'templates' ? 'active' : ''); ?>">
-        <a href="<?php echo Jade\Dumper::_text(route('admin_templates')); ?>">Templates</a>
+      <li class="<?php echo Jade\Dumper::_text($current_page == 'projects' ? 'active' : ''); ?>">
+        <a href="<?php echo Jade\Dumper::_text(route('admin_projects')); ?>">Projects</a>
       </li>
       <li class="<?php echo Jade\Dumper::_text($current_page == 'officers' ? 'active' : ''); ?>">
         <a href="<?php echo Jade\Dumper::_text(route('admin_officers')); ?>">Officers</a>

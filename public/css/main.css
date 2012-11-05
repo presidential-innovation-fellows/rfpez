@@ -680,6 +680,6 @@ ul.templates-list li.show-more.all-loaded .show-more-templates-link {
 .fill-in-blanks input[type=text].empty {
   background: #ffe7a0;
 }
-.admin-template-table form {
-  margin: 0;
+.admin-projects-table select {
+  width: 60px;
 }

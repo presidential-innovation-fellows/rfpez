@@ -119,8 +119,7 @@ Route::get('admin/project-sections/(:num)/toggle-public', array('uses' => 'admin
 Route::get('admin/officers', array('uses' => 'admin@officers', 'as' => 'admin_officers'));
 Route::get('admin/vendors', array('uses' => 'admin@vendors', 'as' => 'admin_vendors'));
 Route::get('admin/vendors/(:num)/ban', array('uses' => 'admin@ban_vendor', 'as' => 'admin_ban_vendor'));
-Route::get('admin/templates', array('uses' => 'admin@templates', 'as' => 'admin_templates'));
-Route::post('admin/templates/(:num)/toggle-recommended', array('uses' => 'admin@template_toggle_recommended', 'as' => 'admin_template_toggle_recommended'));
+Route::get('admin/projects', array('uses' => 'admin@projects', 'as' => 'admin_projects'));
 
 
 

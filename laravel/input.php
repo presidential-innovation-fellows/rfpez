@@ -104,11 +104,11 @@ class Input {
 	 *
 	 * @return object
 	 */
-	public static function json()
+	public static function json($as_array = false)
 	{
 		if ( ! is_null(static::$json)) return static::$json;
 
-		return static::$json = json_decode(Request::foundation()->getContent());
+		return static::$json = json_decode(Request::foundation()->getContent(), $as_array);
 	}
 
 	/**

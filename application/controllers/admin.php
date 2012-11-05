@@ -30,9 +30,10 @@ class Admin_Controller extends Base_Controller {
     return Redirect::back();
   }
 
-  public function action_templates() {
-    $view = View::make('admin.templates');
-    $view->templates = Project::all_available_templates()->paginate(10);
+  public function action_projects() {
+    $view = View::make('admin.projects');
+    $view->projects = Project::with('project_type')->paginate(10);
+    $view->projects_json = json_encode(Helper::to_array($view->projects->results));
     $this->layout->content = $view;
   }
 

@@ -1,0 +1,23 @@
+- Section::inject('no_page_header', true)
+
+!{View::make('admin.partials.subnav')->with('current_page', 'projects')}
+
+table.table.table-bordered.table-striped.admin-projects-table
+  thead
+    tr
+      th id
+      th title
+      th fork_count
+      th recommended
+      th public
+        !{helper_tooltip("A 'public' project is shown in the list of templates that are available for forking.", "top")}
+      th project_type
+
+  tbody#projects-tbody
+    :javascript
+      | $(function(){
+      |  new Rfpez.Backbone.AdminProjects( #{$projects_json} )
+      | })
+
+.pagination-wrapper
+  !{$projects->links()}
