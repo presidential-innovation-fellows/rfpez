@@ -18,3 +18,6 @@
     </script>
   </tbody>
 </table>
+<div class="pagination-wrapper">
+  <?php echo Jade\Dumper::_html($officers->links()); ?>
+</div>
