@@ -9,7 +9,7 @@ class Admin_Controller extends Base_Controller {
 
     $this->filter('before', 'admin_only');
 
-    $this->filter('before', 'super_admin_only')->only(array('project_sections'));
+    $this->filter('before', 'super_admin_only')->only(array('project_sections', 'ban_officer'));
   }
 
   public function action_index() {

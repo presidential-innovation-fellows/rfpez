@@ -78,4 +78,15 @@ class Officer extends Eloquent {
     $this->save();
   }
 
+  public function ban() {
+    $this->user->banned_at = new \DateTime;
+    $this->user->save();
+  }
+
+  public function unban() {
+    $this->user->banned_at = null;
+    $this->user->save();
+    $this->save();
+  }
+
 }

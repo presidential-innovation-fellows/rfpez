@@ -8,6 +8,7 @@
       <th>title</th>
       <th>email</th>
       <th>role</th>
+      <th>actions</th>
     </tr>
   </thead>
   <tbody id="officers-tbody">

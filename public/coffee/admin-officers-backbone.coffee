@@ -38,10 +38,21 @@ OfficerView = Backbone.View.extend
         You're a <%= role_text %>.
       </div>
     </td>
+    <td>
+      <div class="super-admin-only">
+        <% if (!User.banned_at){ %>
+          <a class="btn btn-danger ban-button btn-mini">Ban Officer</a>
+        <% } else { %>
+          <a class="btn unban-button btn-mini">Un-Ban Officer</a>
+        <% } %>
+      </div>
+    </td>
   """
 
   events:
     "change .user_role_select": "update"
+    "click .ban-button": "ban"
+    "click .unban-button": "unban"
 
   initialize: ->
     @model.bind "change", @render, @
@@ -50,6 +61,15 @@ OfficerView = Backbone.View.extend
   render: ->
     @$el.html @template(_.extend(@model.toJSON(), {isSuperAdmin: App.options.isSuperAdmin}))
     return @
+
+  ban: ->
+    if confirm('Are you sure you want to ban this officer? This could have unintended consequences if they were the only officer on a project.')
+      @model.save
+        command: "ban"
+
+  unban: ->
+    @model.save
+      command: "unban"
 
   update: ->
     @model.save

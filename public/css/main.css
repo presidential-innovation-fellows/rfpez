@@ -58,6 +58,12 @@ body {
   padding: 0;
   margin-bottom: 25px;
 }
+body.super-admin .no-super-admin {
+  display: none !important;
+}
+body.super-admin .super-admin-only {
+  display: inherit !important;
+}
 .sneaky {
   display: none;
 }

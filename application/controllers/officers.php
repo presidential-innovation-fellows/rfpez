@@ -16,16 +16,26 @@ class Officers_Controller extends Base_Controller {
   public function action_update($id) {
     // RESTful update from Backbone
     $officer = Officer::find($id);
-    $json = Input::json();
+    $json = Input::json(true);
+
+    if (isset($json["command"])) {
+      if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)) {
+        if ($json["command"] == "ban") $officer->ban();
+        if ($json["command"] == "unban") $officer->unban();
+        $officer->save();
+        $officer = Officer::find($id);
+      }
+      return Response::json($officer->to_array());
+    }
 
     // We can update the officer's role if we are an Admin or a Super Admin.
     // If we're a Super Admin, we can change the roles of other Super Admins.
     // Super Admins can never modify their own role.
     if (Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)) {
-      if ( property_exists($json, "role") &&
+      if ( isset($json["role"]) &&
           ($officer->role != Officer::ROLE_SUPER_ADMIN || Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)) &&
           ($officer->role != Officer::ROLE_SUPER_ADMIN || Auth::officer()->id != $officer->id))
-        $officer->role = $json->role;
+        $officer->role = $json["role"];
     }
 
     $officer->save();
