@@ -88,6 +88,9 @@ body {
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;
 }
+.super-admin-only {
+  display: none;
+}
 .form-big .control-group input {
   font-size: 22px;
   line-height: 26px;

@@ -11,18 +11,9 @@ table.table.table-bordered.table-striped.admin-officers-table
       th email
       th role
 
-  tbody
-    - foreach ($officers->results as $officer):
-      tr
-        td #{$officer->id}
-        td #{$officer->name}
-        td #{$officer->title}
-        td #{$officer->user->email}
-        td
-          | #{$officer->role_text()}
-          - if ($officer->role == Officer::ROLE_PROGRAM_OFFICER):
-            | &nbsp;&nbsp;
-            a.btn.btn-primary(href="#{route('admin_verify_contracting_officer', array($officer->id))}") Verify as CO
+  tbody#officers-tbody
+    :javascript
+      | $(function(){
+      |  new Rfpez.Backbone.AdminOfficers( #{$officers_json} )
+      | })
 
-.pagination-wrapper
-  !{$officers->links()}

@@ -15,6 +15,8 @@ class Officer extends Eloquent {
 
   public $includes = array('User');
 
+  public $includes_in_array = array('role_text');
+
   public $validator = false;
 
   public function validator() {

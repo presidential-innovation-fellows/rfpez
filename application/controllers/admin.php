@@ -38,7 +38,7 @@ class Admin_Controller extends Base_Controller {
 
   public function action_officers() {
     $view = View::make('admin.officers');
-    $view->officers = Officer::with('user')->order_by('name')->paginate(10);
+    $view->officers_json = json_encode(Helper::to_array(Officer::all()));
     $this->layout->content = $view;
   }
 

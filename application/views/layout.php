@@ -19,6 +19,11 @@
     <?php $body_class = "auth " . (Auth::user()->vendor ? "vendor" : "officer"); ?>
     <?php print "<style>.only-user:not(.only-user-".Auth::user()->id."), .not-user-".Auth::user()->id." { display: none; }</style>"; ?>
   <?php endif; ?>
+  <?php if (Auth::officer()->role == Officer::ROLE_ADMIN): ?>
+    <?php $body_class .= " admin" ?>
+  <?php elseif (Auth::officer()->role == Officer::ROLE_SUPER_ADMIN): ?>
+    <?php $body_class .= " super-admin" ?>
+  <?php endif; ?>
   <?php echo Jade\Dumper::_html(HTML::script('js/vendor/modernizr-2.6.1-respond-1.1.0.min.js')); ?>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
   <script>
