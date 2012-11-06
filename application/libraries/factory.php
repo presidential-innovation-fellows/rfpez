@@ -14,9 +14,6 @@ Class Factory {
 
   public static $project_titles = array("API for Energy.gov", "Census API", "MyGov's Sweet API", "Bluth Banana Stand API");
 
-  public static $solnbrs = array("VA24412Q1868", "VA256-12-Q-2266", "SPM7L413V0156", "N00183-12-T-0557-0001",
-                                 "W911N2-12-R-0081", "SPRPA112QX020", "N0038307G002J7371");
-
   public static function vendor() {
     $faker = Faker\Factory::create();
 
@@ -65,7 +62,7 @@ Class Factory {
                                'title' => (rand(1,2) == 1) ? "Contracting Officer" : "Program Officer",
                                'agency' => self::$agencies[array_rand(self::$agencies)]));
 
-    $o->verify_with_solnbr("SEED");
+    $o->role = Officer::ROLE_CONTRACTING_OFFICER;
     $o->save();
 
     self::$officer_count++;
@@ -97,7 +94,7 @@ Class Factory {
       $p->fork_count = rand(0,8);
     }
     $p->forked_from_project_id = $original_project->id;
-    $p->fbo_solnbr = rand(0,1) == 0 ? 'SEED-DATA' : null;
+    $p->posted_to_fbo_at = rand(0,1) == 0 ? new \DateTime : null;
     $p->save();
 
     $p->officers()->attach(Officer::first()->id, array('owner' => true));
@@ -107,7 +104,7 @@ Class Factory {
   public static function bid($attributes = array(), $project_id = false) {
     $faker = Faker\Factory::create();
 
-    $p = $project_id ? Project::find($project_id) : Project::where_not_null('fbo_solnbr')->order_by(\DB::raw('RAND()'))->first();
+    $p = $project_id ? Project::find($project_id) : Project::where_not_null('posted_to_fbo_at')->order_by(\DB::raw('RAND()'))->first();
     $v = Vendor::order_by(\DB::raw('RAND()'))->first();
 
     $prices = array();

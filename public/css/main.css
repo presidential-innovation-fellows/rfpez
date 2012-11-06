@@ -97,22 +97,6 @@ body.super-admin .super-admin-only {
 .super-admin-only {
   display: none;
 }
-.form-big .control-group input {
-  font-size: 22px;
-  line-height: 26px;
-  height: 34px;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.form-big .control-group select {
-  font-size: 20px;
-  width: 100%;
-}
-.form-big .control-group span.help-inline {
-  display: block;
-}
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
   display: none !important;

@@ -11,7 +11,7 @@ class Officer extends Eloquent {
 
   public static $accessible = array('user_id', 'phone', 'fax', 'name', 'title', 'agency');
 
-  public static $hidden = array('verified_at', 'verified_solnbr', 'created_at', 'updated_at');
+  public static $hidden = array('created_at', 'updated_at');
 
   public $includes = array('User');
 
@@ -41,7 +41,7 @@ class Officer extends Eloquent {
   public function role_text() {
     switch ($this->role) {
       case self::ROLE_PROGRAM_OFFICER:
-        return "Not Verified";
+        return "Not Verified (Program Officer)";
       case self::ROLE_CONTRACTING_OFFICER:
         return "Verified CO";
       case self::ROLE_ADMIN:
@@ -69,13 +69,6 @@ class Officer extends Eloquent {
 
   public function is_verified_contracting_officer() {
     return $this->role == self::ROLE_CONTRACTING_OFFICER ? true : false;
-  }
-
-  public function verify_with_solnbr($solnbr) {
-    $this->verified_solnbr = $solnbr;
-    $this->verified_at = new \DateTime;
-    $this->role = self::ROLE_CONTRACTING_OFFICER;
-    $this->save();
   }
 
   public function ban() {

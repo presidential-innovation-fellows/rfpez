@@ -13,13 +13,14 @@
     </p>
     <input class="input-xxlarge" type="text" value="<?php echo Jade\Dumper::_text(View::make('projects.partials.fbo_body')->with('project', $project)); ?>" data-select-text-on-focus="true" />
     <h5>Step 2</h5>
-    <p>Enter the solicitation number that you used on FBO.</p>
+    <p>
+      Once you've posted your notice on FBO, click the button below and your project will be open for bids on RFP-EZ.
+      The due date you've specified for responses is <strong><?php echo Jade\Dumper::_text($project->formatted_proposals_due_at()); ?></strong>. If you'd
+      like to change this, you can do so on the <a href="<?php echo Jade\Dumper::_text(route('project_admin', array($project->id))); ?>">admin page</a>.
+    </p>
     <form id="sync-with-fbo-form" method="POST">
       <div class="control-group">
-        <div class="input-append">
-          <input type="text" name="fbo_solnbr" placeholder="Solitication Number" />
-          <button class="btn btn-primary" data-loading-text="Syncing with FBO...">Sync with FBO</button>
-        </div>
+        <button class="btn btn-primary btn-large">Sync with FBO</button>
       </div>
     </form>
   </div>

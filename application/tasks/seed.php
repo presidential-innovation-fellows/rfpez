@@ -73,7 +73,7 @@ class Seed_Task {
                                      'variables' => array('WEBSITE' => 'api.dsbs.sba.gov'),
                                      'deliverables' => array('Information Architecture' => '1/1/13', 'Page Templating' => '2/8/13'),
                                      'proposals_due_at' => new \DateTime('12/31/2012'),
-                                     'fbo_solnbr' => 'SEED'
+                                     'posted_to_fbo_at' => new \DateTime
                                      ));
 
     // ...And give it to officer1

@@ -5,7 +5,7 @@ h4
 .nav.nav-tabs.project-subnav
   - if ($project->status() == Project::STATUS_WRITING_SOW):
     li(class="#{Helper::active_subnav('create') ? 'active':''}")
-      a(href="#{route('project_background', array($project->id))}", data-pjax) Write SOW
+      a(href="#{route('project', array($project->id))}", data-pjax) Write SOW
     li(class="#{Helper::active_subnav('post_on_fbo') ? 'active':''}")
       a(href="#{route('project_post_on_fbo', array($project->id))}", data-pjax) Post on FBO
   - elseif ($project->status() == Project::STATUS_ACCEPTING_BIDS || $project->status() == Project::STATUS_REVIEWING_BIDS || $project->status() == Project::STATUS_CONTRACT_AWARDED):

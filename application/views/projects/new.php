@@ -12,19 +12,32 @@
       and let us know.
     </p>
   </div>
-  <form id="new-project-form" class="form-big" action="<?php echo Jade\Dumper::_text(route('projects')); ?>" method="POST">
+  <form id="new-project-form" action="<?php echo Jade\Dumper::_text(route('projects')); ?>" method="POST">
     <div class="control-group">
-      <input type="text" name="project[title]" placeholder="Project Title" />
+      <label>Project Title</label>
+      <input type="text" name="project[title]" />
     </div>
     <div class="control-group">
-      <input type="text" name="project[agency]" placeholder="Agency" />
+      <label>Agency</label>
+      <input type="text" name="project[agency]" />
     </div>
     <div class="control-group">
-      <input type="text" name="project[office]" placeholder="Office" />
+      <label>Office</label>
+      <input type="text" name="project[office]" />
     </div>
     <div class="control-group">
+      <label>Bids Due</label>
+      <span class="input-append date datepicker">
+        <input class="span3" type="text" name="proposals_due_at" />
+        <span class="add-on">
+          <i class="icon-calendar"></i>
+        </span>
+      </span>
+      at 11:59pm EST
+    </div>
+    <div class="control-group">
+      <label>Project Type</label>
       <select name="project[project_type_id]">
-        <option value="">-- Select Project Type --</option>
         <?php foreach (ProjectType::all() as $project_type): ?>
           <option value="<?php echo Jade\Dumper::_text($project_type->id); ?>"><?php echo Jade\Dumper::_text($project_type->name); ?></option>
         <?php endforeach; ?>

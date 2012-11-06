@@ -25,8 +25,7 @@ class Projects_Controller extends Base_Controller {
 
   public function action_create() {
     $project = new Project(Input::get('project'));
-    $dt = new \DateTime();
-    $project->proposals_due_at = $dt->modify('+1 month')->setTime(23,59,59);
+    $project->proposals_due_at = Input::get('proposals_due_at') . " 23:59:59";
 
     if ($project->validator()->passes()) {
       $project->save();
@@ -347,120 +346,22 @@ class Projects_Controller extends Base_Controller {
   }
 
   public function action_post_on_fbo_post() {
-    $solnbr = Input::get('fbo_solnbr');
     $project = Config::get('project');
 
-    if (!preg_match('/^[0-9A-Za-z\-\_\s]+$/', $solnbr)) {
-      Helper::flash_errors('Invalid solicitation number format.');
-      return Redirect::to_route('project_post_on_fbo', array($project->id))->with_input();
-    }
-
-    $context = stream_context_create(array('http'=>array('timeout' => 20)));
-    $contents = @file_get_contents('http://rfpez-apis.presidentialinnovationfellows.org/opportunities/fbozombie/'
-                                              . $solnbr, false, $context);
-
-    if ($contents === false) {
-      Helper::flash_errors("FBO timed out.");
-      return $this->try_fbo_api($solnbr);
-    }
-
-    $response = json_decode($contents, true);
-
-    if ($this->trySavingContract($response)) {
-      return Redirect::to_route('project', array($project->id));
-    } else {
-      return $this->try_fbo_api($solnbr);
-    }
-  }
-
-  public function try_fbo_api($solnbr) {
-    $project = Config::get('project');
-    $contents = @file_get_contents('http://rfpez-apis.presidentialinnovationfellows.org/opportunities?SOLNBR='.$solnbr);
-    if ($contents === false) {
-      Helper::flash_errors('FBO API timed out.');
-      return Redirect::to_route('project_post_on_fbo', array($project->id))->with_input();
-    }
-    $json = json_decode($contents, true);
-
-    if (count($json["results"]) === 0) {
-      Helper::flash_errors("Couldn't find contract on FBO API.");
-      return Redirect::to_route('project_post_on_fbo', array($project->id))->with_input();
-    }
-
-    $result = $json["results"][0];
-
-    if (preg_match('/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i', $result["CONTACT"], $matches)) {
-       $email = $matches[0];
-    } else {
-      $email = "";
-    }
-
-    if ($this->trySavingContract(array('solnbr' => $result["SOLNBR"],
-                                       'email' => $email,
-                                       'agency' => @$result["AGENCY"],
-                                       'office' => @$result["OFFICE"],
-                                       'title' => $result["SUBJECT"],
-                                       'statement_of_work' => $result["DESC"],
-                                       'set_aside' => "",
-                                       'classification_code' => @$result["CLASSCOD"],
-                                       'naics' => @$result["NAICS"],
-                                       'response_date' => @$result["RESPDATE"],
-                                       'posted_date' => @$result["DATE"]))) {
-      return Redirect::to_route('project', array($project->id));
-    } else {
+    if (!Auth::officer()->is_role_or_higher(Officer::ROLE_CONTRACTING_OFFICER)) {
+      // @todo add instructions for contacting admin to get verified
+      Helper::flash_errors("Sorry, you haven't been verified as a contracting officer on EasyBid.");
       return Redirect::to_route('project_post_on_fbo', array($project->id));
     }
-  }
 
-  public function trySavingContract($attributes) {
-
-    $project = Config::get('project');
-
-    if (!$attributes) {
-      Helper::flash_errors("Couldn't find that contract on FBO.");
-      return false;
-    }
-
-    // Check to make sure the info on FBO matches the info we have, unless
-    // we're in the local (dev) environment.
-    if (!Request::is_env('local')) {
-      preg_match('/([0-9]+) for more info/', implode($attributes), $matches);
-      $parsed_solnbr = isset($matches[1]) ? $matches[1] : false;
-
-      if (!isset($attributes["solnbr"])) {
-        Helper::flash_errors("Couldn't find that contract on FBO.");
-        return false;
-      } else if (Project::where_fbo_solnbr($attributes["solnbr"])->first()) {
-        Helper::flash_errors("That contract already exists in EasyBid.");
-        return false;
-      } else if (!preg_match('/'.preg_quote(Auth::user()->email).'/i', implode($attributes))) {
-        Helper::flash_errors("Couldn't verify email address.");
-        return false;
-      } else if ($parsed_solnbr != $project->id) {
-        Helper::flash_errors("Couldn't verify notice. Make sure you copy the body text exactly as-is.");
-        return false;
-      }
-    }
-
-    if (!Auth::officer()->is_verified_contracting_officer()) {
-      Auth::officer()->verify_with_solnbr($attributes["solnbr"]);
-    }
-
-    $project = Config::get('project');
-    $project->fbo_solnbr = $attributes["solnbr"];
-
-    if ($due_at = strtotime($attributes["response_date"])) {
-      $project->proposals_due_at = date_timestamp_set(new \DateTime(), $due_at);
-    }
-
+    $project->posted_to_fbo_at = new \DateTime;
     $project->save();
 
     // They posted it, make it public!
     if (!$project->public)
       $project->toggle_public();
 
-    Session::forget('errors');
-    return true;
+    return Redirect::to_route('project', array($project->id));
   }
 
 }

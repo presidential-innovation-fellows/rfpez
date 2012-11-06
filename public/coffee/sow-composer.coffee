@@ -207,12 +207,6 @@ $(document).on "submit", "#edit-section-form", (e) ->
       $("#add-edit-section-modal").modal('hide')
       button.button('reset')
 
-$(document).on "submit", "#sync-with-fbo-form", (e) ->
-  if !$(this).find("input[name=fbo_solnbr]").val()
-    e.preventDefault()
-  else
-    $(this).find('button').button('loading')
-
 $(document).on "click", "li.template .preview-button", ->
   $(this).closest('div').find('.modal').modal('show')
 

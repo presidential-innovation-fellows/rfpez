@@ -15,6 +15,7 @@
     (password hidden)
     <a class="smaller" href="<?php echo Jade\Dumper::_text(route('change_password')); ?>" data-pjax="data-pjax">change password</a>
   </label>
+  <label class="larger">Role: <?php echo Jade\Dumper::_text($officer['role_text']); ?></label>
 <?php endif; ?>
 <div class="control-group">
   <label>Name</label>

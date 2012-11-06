@@ -70,8 +70,7 @@ class User extends Eloquent {
   protected static function get_officer_columns()
   {
     $columns = array(
-      'id', 'user_id', 'phone', 'fax', 'name', 'title', 'agency', 'verified_at',
-      'verified_solnbr', 'created_at', 'updated_at', 'role'
+      'id', 'user_id', 'phone', 'fax', 'name', 'title', 'agency', 'created_at', 'updated_at', 'role'
     );
 
     return array_map(function($v) { return 'officers.'.$v.' as officer_alias_'.$v; }, $columns);

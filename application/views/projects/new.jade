@@ -15,19 +15,30 @@
       | If you can't find the correct project type in the list, <a href="#">contact us</a>
       | and let us know.
 
-  form.form-big(action="#{route('projects')}", method="POST", id="new-project-form")
+  form(action="#{route('projects')}", method="POST", id="new-project-form")
     .control-group
-      input(type="text", name="project[title]", placeholder="Project Title")
+      label Project Title
+      input(type="text", name="project[title]")
 
     .control-group
-      input(type="text", name="project[agency]", placeholder="Agency")
+      label Agency
+      input(type="text", name="project[agency]")
 
     .control-group
-      input(type="text", name="project[office]", placeholder="Office")
+      label Office
+      input(type="text", name="project[office]")
 
     .control-group
+      label Bids Due
+      span.input-append.date.datepicker
+        input.span3(type="text", name="proposals_due_at")
+        span.add-on
+          i.icon-calendar
+      | at 11:59pm EST
+
+    .control-group
+      label Project Type
       select(name="project[project_type_id]")
-        option(value="") -- Select Project Type --
         - foreach (ProjectType::all() as $project_type):
           option(value="#{$project_type->id}") #{$project_type->name}
 
