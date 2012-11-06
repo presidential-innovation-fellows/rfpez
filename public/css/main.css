@@ -311,6 +311,26 @@ body.vendor .no-auth-only {
 .vendor-detail .more-info {
   font-size: 1.2em;
   line-height: 1.4em;
+  margin-bottom: 30px;
+}
+.vendor-detail .data {
+  margin-bottom: 20px;
+}
+.vendor-detail .data .datum {
+  clear: both;
+  padding: 10px 0;
+}
+.vendor-detail .data .datum label {
+  font-weight: bold;
+  width: 120px;
+  float: left;
+  text-align: right;
+}
+.vendor-detail .data .datum div.content {
+  margin-left: 140px;
+}
+.vendor-detail .data .datum .dsbs-certifications {
+  padding-top: 20px;
 }
 .question-wrapper {
   margin-bottom: 15px;
