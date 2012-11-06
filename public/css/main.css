@@ -313,23 +313,23 @@ body.vendor .no-auth-only {
   line-height: 1.4em;
   margin-bottom: 30px;
 }
-.vendor-detail .data {
+.vendor-data {
   margin-bottom: 20px;
 }
-.vendor-detail .data .datum {
+.vendor-data .datum {
   clear: both;
   padding: 10px 0;
 }
-.vendor-detail .data .datum label {
+.vendor-data .datum label {
   font-weight: bold;
   width: 120px;
   float: left;
   text-align: right;
 }
-.vendor-detail .data .datum div.content {
+.vendor-data .datum div.content {
   margin-left: 140px;
 }
-.vendor-detail .data .datum .dsbs-certifications {
+.vendor-data .datum .dsbs-certifications {
   padding-top: 20px;
 }
 .question-wrapper {

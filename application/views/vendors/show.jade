@@ -20,30 +20,7 @@
   .vendor-image-preview-frame.pull-left
     img(src="#{$vendor->image_url}")
 
-  .data.pull-left.span5.offset1
-    !{datum("Contact Name", $vendor->contact_name)}
-    !{datum("Email", $vendor->user->email, true)}
-    !{datum("Address", $vendor->address."<br />".$vendor->city.", ".$vendor->state." ".$vendor->zip)}
-    !{datum("Website", $vendor->homepage_url, true)}
-    !{datum("Portfolio", $vendor->portfolio_url, true)}
-    !{datum("Source code", $vendor->sourcecode_url, true)}
-    .datum
-      label SAM.gov
-      div.content
-        - if ($vendor->sam_entity_name):
-          span.green Yes, under "#{$vendor->sam_entity_name}"
-        - else:
-          span.red No
-        - endif;
-    .datum
-      label DSBS
-      div.content
-        - if ($vendor->dsbs_name):
-          span.green Yes, under "#{$vendor->dsbs_name}"
-          !{View::make('vendors.partials.dsbs_certifications')->with('user_id', $vendor->dsbs_user_id)->with('defer', false)}
-        - else:
-          span.red No
-        - endif;
-
+  .pull-left.span5.offset1
+    !{View::make('vendors.partials.data')->with('vendor', $vendor)}
 
   .clearfix

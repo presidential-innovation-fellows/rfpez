@@ -45,24 +45,8 @@
 
     .span5.col2
       h5 #{$bid->vendor->company_name}
-      div Contact: #{$bid->vendor->contact_name}
-      div Email: <a href="mailto:#{$bid->vendor->user->email}">#{$bid->vendor->user->email}</a>
-
-      div SAM.gov:
-        - if ($bid->vendor->sam_entity_name):
-          span.green Yes, under "#{$bid->vendor->sam_entity_name}"
-        - else:
-          span.red No
-        - endif;
-
-      div DSBS:
-        - if ($bid->vendor->dsbs_name):
-          span.green Yes, under "#{$bid->vendor->dsbs_name}"
-          !{View::make('vendors.partials.dsbs_certifications')->with('user_id', $bid->vendor->dsbs_user_id)->with('defer', $defer)}
-        - else:
-          span.red No
-        - endif;
-
+        a(href="#{route('vendor', array($bid->vendor->id))}") (view profile)
+      !{View::make('vendors.partials.data')->with('vendor', $bid->vendor)->with('defer', true)}
 
       h5 Example Work
       .vendor-image-preview-frame
