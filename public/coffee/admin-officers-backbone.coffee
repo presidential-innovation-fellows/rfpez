@@ -39,13 +39,17 @@ OfficerView = Backbone.View.extend
       </div>
     </td>
     <td>
-      <div class="super-admin-only">
-        <% if (!User.banned_at){ %>
-          <a class="btn btn-danger ban-button btn-mini">Ban Officer</a>
-        <% } else { %>
-          <a class="btn unban-button btn-mini">Un-Ban Officer</a>
-        <% } %>
-      </div>
+      <% if (role != 3){ %>
+        <div class="super-admin-only">
+          <div class="not-user-<%= User.id %>">
+            <% if (!User.banned_at){ %>
+              <a class="btn btn-danger ban-button btn-mini">Ban Officer</a>
+            <% } else { %>
+              <a class="btn unban-button btn-mini">Un-Ban Officer</a>
+            <% } %>
+          </div>
+        </div>
+      <% } %>
     </td>
   """
 

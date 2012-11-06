@@ -19,7 +19,8 @@ class Officers_Controller extends Base_Controller {
     $json = Input::json(true);
 
     if (isset($json["command"])) {
-      if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)) {
+      if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN) && !$officer->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)
+          && Auth::officer()->id != $officer->id) {
         if ($json["command"] == "ban") $officer->ban();
         if ($json["command"] == "unban") $officer->unban();
         $officer->save();
