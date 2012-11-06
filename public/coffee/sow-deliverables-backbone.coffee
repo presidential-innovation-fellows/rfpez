@@ -39,12 +39,15 @@ DeliverableView = Backbone.View.extend
     "change .date-input": "updateWithDelay"
 
   initialize: ->
+    @model.bind "change", @updateId, @
     @model.bind "create", @render, @
     @model.bind "destroy", @remove, @
 
   render: ->
     @$el.html @template(@model.toJSON())
     @$el.find('.datepicker').datepicker()
+    @$el.data('id', @model?.attributes?.id)
+
     return @
 
   updateWithDelay: ->
@@ -61,6 +64,9 @@ DeliverableView = Backbone.View.extend
       date: @$el.find(".date-input").val()
       sort_order: $("#deliverables-tbody tr").index(@$el)
 
+  updateId: ->
+    @$el.data('id', @model?.attributes?.id)
+
   clear: ->
     @model.clear()
 
@@ -72,25 +78,22 @@ AppView = Backbone.View.extend
     Deliverables.bind 'all', @render, @
 
     $("#deliverables-tbody").bind 'sortupdate', =>
+      ordered_ids = []
+      $("#deliverables-tbody tr").each ->
+        ordered_ids.push $(this).data('id')
+
       $.ajax
         url: "/projects/#{@options.project_id}/deliverables/order"
-        method: "PUT"
+        type: "PUT"
         data:
-          deliverable_ids: "bar"
-        success: ->
-          console.log 'success'
+          deliverable_ids: ordered_ids
 
     $(document).on "click", ".add-deliverable-timeline-button", =>
       @addNew()
 
-
   reset: ->
     $("#deliverables-tbody").html('')
     @addAll()
-
-  render: ->
-    $("#deliverables-tbody").sortable
-      forcePlaceholderSize: true
 
   addNew: ->
     Deliverables.create()
@@ -99,6 +102,9 @@ AppView = Backbone.View.extend
     view = new DeliverableView({model: deliverable})
     html = view.render().el
     $("#deliverables-tbody").append(html);
+
+    $("#deliverables-tbody").sortable
+      forcePlaceholderSize: true
 
   addAll: ->
     Deliverables.each @addOne

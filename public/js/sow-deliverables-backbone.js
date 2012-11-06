@@ -30,12 +30,15 @@
       "change .date-input": "updateWithDelay"
     },
     initialize: function() {
+      this.model.bind("change", this.updateId, this);
       this.model.bind("create", this.render, this);
       return this.model.bind("destroy", this.remove, this);
     },
     render: function() {
+      var _ref, _ref1;
       this.$el.html(this.template(this.model.toJSON()));
       this.$el.find('.datepicker').datepicker();
+      this.$el.data('id', (_ref = this.model) != null ? (_ref1 = _ref.attributes) != null ? _ref1.id : void 0 : void 0);
       return this;
     },
     updateWithDelay: function() {
@@ -56,6 +59,10 @@
         sort_order: $("#deliverables-tbody tr").index(this.$el)
       });
     },
+    updateId: function() {
+      var _ref, _ref1;
+      return this.$el.data('id', (_ref = this.model) != null ? (_ref1 = _ref.attributes) != null ? _ref1.id : void 0 : void 0);
+    },
     clear: function() {
       return this.model.clear();
     }
@@ -68,14 +75,16 @@
       Deliverables.bind('reset', this.reset, this);
       Deliverables.bind('all', this.render, this);
       $("#deliverables-tbody").bind('sortupdate', function() {
+        var ordered_ids;
+        ordered_ids = [];
+        $("#deliverables-tbody tr").each(function() {
+          return ordered_ids.push($(this).data('id'));
+        });
         return $.ajax({
           url: "/projects/" + _this.options.project_id + "/deliverables/order",
-          method: "PUT",
+          type: "PUT",
           data: {
-            deliverable_ids: "bar"
-          },
-          success: function() {
-            return console.log('success');
+            deliverable_ids: ordered_ids
           }
         });
       });
@@ -87,11 +96,6 @@
       $("#deliverables-tbody").html('');
       return this.addAll();
     },
-    render: function() {
-      return $("#deliverables-tbody").sortable({
-        forcePlaceholderSize: true
-      });
-    },
     addNew: function() {
       return Deliverables.create();
     },
@@ -101,7 +105,10 @@
         model: deliverable
       });
       html = view.render().el;
-      return $("#deliverables-tbody").append(html);
+      $("#deliverables-tbody").append(html);
+      return $("#deliverables-tbody").sortable({
+        forcePlaceholderSize: true
+      });
     },
     addAll: function() {
       return Deliverables.each(this.addOne);
