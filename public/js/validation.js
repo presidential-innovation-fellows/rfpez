@@ -18,6 +18,21 @@
   }, 'Please enter a valid URL.');
 
   $(document).on("ready pjax:success", function() {
+    $("#change-password-form").validate_rfpez({
+      rules: {
+        "old_password": {
+          required: true,
+          minlength: 8
+        },
+        "new_password": {
+          required: true,
+          minlength: 8
+        },
+        "confirm_new_password": {
+          equalTo: "#new-password-input"
+        }
+      }
+    });
     $("#reset-password-form").validate_rfpez({
       rules: {
         "password": {

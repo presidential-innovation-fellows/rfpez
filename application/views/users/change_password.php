@@ -1,5 +1,5 @@
 <?php Section::inject('page_title', 'Change Password') ?>
-<form class="form-horizontal" action="<?php echo Jade\Dumper::_text(route('change_password')); ?>" method="post">
+<form id="change-password-form" class="form-horizontal" action="<?php echo Jade\Dumper::_text(route('change_password')); ?>" method="post">
   <div class="control-group">
     <label class="control-label">Old Password</label>
     <div class="controls">
@@ -9,7 +9,7 @@
   <div class="control-group">
     <label class="control-label">New Password</label>
     <div class="controls">
-      <input type="password" name="new_password" />
+      <input id="new-password-input" type="password" name="new_password" />
     </div>
   </div>
   <div class="control-group">
