@@ -1,4 +1,4 @@
-<h4>RFP-EZ Admin</h4>
+<h4>Admin Panel</h4>
 <div class="navbar navbar-inverse">
   <div class="navbar-inner">
     <ul class="nav">

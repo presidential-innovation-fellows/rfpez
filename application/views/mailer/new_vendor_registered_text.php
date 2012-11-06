@@ -2,4 +2,4 @@ Hey <?= $user->vendor->company_name ?>,
 
 Thanks for signing up for EasyBid.
 
--RFPEZ
+-<?= Config::get('rfpez.email_signature_name') ?>

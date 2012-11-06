@@ -2,6 +2,6 @@
 
 <?= $parsed["subject"] ?>
 
-View your notifications on RFPEZ: <?= route('notifications') ?>
+View your notifications on EasyBid: <?= route('notifications') ?>
 
--RFPEZ
+-<?= Config::get('rfpez.email_signature_name') ?>

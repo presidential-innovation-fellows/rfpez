@@ -2,4 +2,4 @@
 
 <p>Thanks for signing up for EasyBid.</p>
 
-<p><em>-RFPEZ</em></p>
+<p><em>-<?= Config::get('rfpez.email_signature_name') ?></em></p>

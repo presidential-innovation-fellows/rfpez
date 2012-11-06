@@ -47,7 +47,7 @@ Class Mailer {
     } elseif ($template_name == "NewVendorRegistered") {
       $user = $attributes["user"];
 
-      $message->setSubject("Thanks for signing up on Easybid!")
+      $message->setSubject("Thanks for signing up on EasyBid!")
               ->setTo($user->email)
               ->addPart(View::make('mailer.new_vendor_registered_text')->with('user', $user), 'text/plain')
               ->setBody(View::make('mailer.new_vendor_registered_html')->with('user', $user), 'text/html');

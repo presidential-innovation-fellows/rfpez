@@ -2,4 +2,4 @@ Your bid on <?= $bid->project->title ?> has won <?= route('bid', array($bid->pro
 
 "<?= $bid["awarded_message"] ?>"
 
--RFPEZ
+-<?= Config::get('rfpez.email_signature_name') ?>

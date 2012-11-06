@@ -2,4 +2,4 @@
 
 <p><a href="<?= route('finish_signup', array($user->reset_password_token)) ?>">Click here</a> to finish signup.</p>
 
-<p><em>-RFPEZ</em></p>
+<p><em>-<?= Config::get('rfpez.email_signature_name') ?></em></p>

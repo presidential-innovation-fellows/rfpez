@@ -7,5 +7,5 @@
 </p>
 
 <p>
-  <em>-RFPEZ</em>
+  <em>-<?= Config::get('rfpez.email_signature_name') ?></em>
 </p>
