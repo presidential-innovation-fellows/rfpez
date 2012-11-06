@@ -136,9 +136,7 @@ class Projects_Controller extends Base_Controller {
         $section->created_by_project_id = $project->id;
         $section->save();
       } else {
-        $new_section = $section->fork($project->id);
-        $new_section->fill($section_input);
-        $new_section->save();
+        $new_section = $section->fork($project->id, $section_input);
         $project->replace_section($section->id, $new_section->id);
       }
 
@@ -147,6 +145,7 @@ class Projects_Controller extends Base_Controller {
       $section = new ProjectSection($section_input);
       $section->created_by_project_id = $project->id;
       $section->save();
+      $section->project_types()->attach($project->project_type_id);
       $project->add_section($section->id);
     }
 

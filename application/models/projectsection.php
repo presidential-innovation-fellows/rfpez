@@ -20,12 +20,17 @@ class ProjectSection extends Eloquent {
     return $this->belongs_to('Project', 'created_by_project_id');
   }
 
-  public function fork($from_project_id) {
-    return new ProjectSection(array('section_category' => $this->category,
-                                    'title' => $this->title,
-                                    'body' => $this->body,
-                                    'based_on_project_section_id' => $this->id,
-                                    'created_by_project_id' => $from_project_id));
+  public function fork($from_project_id, $new_input) {
+    $section = new ProjectSection(array('section_category' => $this->category,
+                                        'title' => $this->title,
+                                        'body' => $this->body,
+                                        'based_on_project_section_id' => $this->id,
+                                        'created_by_project_id' => $from_project_id));
+
+    $section->fill($new_input);
+    $section->save();
+    $section->project_types()->sync($this->project_types()->lists('id'));
+    return $section;
   }
 
   public static function change_times_used($section_ids_or_array, $direction) {
