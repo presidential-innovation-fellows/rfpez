@@ -1,15 +1,24 @@
 - Section::inject('page_title', 'A Technology Marketplace That Everybody Loves')
+- Section::inject('no_page_header', true)
 
-.span5
-  h3 For Small Business
-  p.main-description Create a simple online profile and begin bidding
-    | on <a href="#{ route('projects') }">projects</a>.
-    | If you're selected to work on one, we'll walk you through the government registration process.
-  a.btn.btn-warning.btn-large(href="#{ route('new_vendors') }", data-pjax) Register as a Company
 
-.span5
-  h3 For Government
-  p.main-description Make great statements of work and find great contractors.
-    | Browse eligible firms and see their online portfolios.
-    | Receive bids from small innovative tech companies.
-  a.btn.btn-warning.btn-large(href="#{ route('new_officers') }", data-pjax) Register as a Contracting Officer
+
+.hero-unit
+  h1 EasyBid
+    small A Technology Marketplace That Everybody Loves
+
+
+.row-fluid
+  .span6.well
+    h5 For Small Business
+    p.main-description Create a simple online profile and begin bidding
+      | on <a href="#{ route('projects') }">projects</a>.
+      | If you're selected to work on one, we'll walk you through the government registration process.
+    a.btn.btn-warning.btn-large(href="#{ route('new_vendors') }", data-pjax) Register as a Company
+
+  .span6.well
+    h5 For Government
+    p.main-description Make great statements of work and find great contractors.
+      | Browse eligible firms and see their online portfolios.
+      | Receive bids from small innovative tech companies.
+    a.btn.btn-warning.btn-large(href="#{ route('new_officers') }", data-pjax) Register as a Contracting Officer
