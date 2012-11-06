@@ -3,7 +3,7 @@
 <div class="vendor-detail">
   <div class="company-name pull-left"><?php echo Jade\Dumper::_text($vendor->company_name); ?></div>
   <div class="homepage-url btn pull-right">
-    <a href="<?php echo Jade\Dumper::_text($vendor->homepage_url); ?>">view company website</a>
+    <a href="<?php echo Jade\Dumper::_text($vendor->homepage_url); ?>" target="_blank">view company website</a>
   </div>
   <div class="clearfix"></div>
   <div class="ballpark-price"><?php echo Jade\Dumper::_text($vendor->ballpark_price_display()); ?></div>
