@@ -1,6 +1,16 @@
 $(document).on 'shown', '#dismiss-modal', ->
   $(this).find("select").focus()
 
+$(document).on "click", "#review-tips-toggle", ->
+  $("#review-tips").collapse('toggle')
+
+$(document).on "show", "#review-tips", ->
+  $("#review-tips-toggle").data('show-text', $("#review-tips-toggle").text())
+  $("#review-tips-toggle").text($("#review-tips-toggle").data('hide-text'))
+
+$(document).on "hide", "#review-tips", ->
+  $("#review-tips-toggle").text($("#review-tips-toggle").data('show-text'))
+
 $(document).on "click", ".bid-notification-td .mark-as-read, .bid-notification-td .mark-as-unread", ->
   el = $(this)
   bid = el.closest(".bid")

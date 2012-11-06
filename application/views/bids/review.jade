@@ -13,6 +13,14 @@
 - Section::stop();
 
 
+.well
+  a#review-tips-toggle(data-hide-text="Hide Tips [-]") Show Tips [+]
+
+  #review-tips.collapse
+    ul
+      li Stars are shared among collaborators. By starring a bid, you can indicate to your colleagues you think that bid stands out.
+
+
 div(class="winning-bid-table-wrapper #{$project->winning_bid() ? '' : 'hide'}")
 
   h3 Winning Bid

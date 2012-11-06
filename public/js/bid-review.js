@@ -6,6 +6,19 @@
     return $(this).find("select").focus();
   });
 
+  $(document).on("click", "#review-tips-toggle", function() {
+    return $("#review-tips").collapse('toggle');
+  });
+
+  $(document).on("show", "#review-tips", function() {
+    $("#review-tips-toggle").data('show-text', $("#review-tips-toggle").text());
+    return $("#review-tips-toggle").text($("#review-tips-toggle").data('hide-text'));
+  });
+
+  $(document).on("hide", "#review-tips", function() {
+    return $("#review-tips-toggle").text($("#review-tips-toggle").data('show-text'));
+  });
+
   $(document).on("click", ".bid-notification-td .mark-as-read, .bid-notification-td .mark-as-unread", function() {
     var action, bid, bid_id, el;
     el = $(this);

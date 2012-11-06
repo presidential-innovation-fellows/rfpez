@@ -10,6 +10,14 @@
   <?php echo Jade\Dumper::_html(HTML::script('js/bid-review.js')); ?>
 <?php } ?>
 <?php Section::stop(); ?>
+<div class="well">
+  <a id="review-tips-toggle" data-hide-text="Hide Tips [-]">Show Tips [+]</a>
+  <div id="review-tips" class="collapse">
+    <ul>
+      <li>Stars are shared among collaborators. By starring a bid, you can indicate to your colleagues you think that bid stands out.</li>
+    </ul>
+  </div>
+</div>
 <div class="winning-bid-table-wrapper <?php echo Jade\Dumper::_text($project->winning_bid() ? '' : 'hide'); ?>">
   <h3>Winning Bid</h3>
   <table class="table bids-table winning-bid">
