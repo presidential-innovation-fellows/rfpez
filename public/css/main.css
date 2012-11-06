@@ -615,14 +615,8 @@ ul.templates-list li.show-more.all-loaded .show-more-templates-link {
 .timeline-table {
   width: 100%;
 }
-.timeline-table tbody tr .add-deliverable-button {
-  display: none;
-}
 .timeline-table tfoot {
   background: #ddd;
-}
-.timeline-table tfoot tr .remove-deliverable-button {
-  display: none;
 }
 .sow-sidebar {
   width: 100%;

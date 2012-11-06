@@ -11,6 +11,9 @@
     !{View::make('projects.partials.sow_composer_sidebar')->with('project', $project)}
 
   .span9
+    .alert.alert-info
+      | You can click and drag the deliverables to change their order.
+
     form(method="POST")
 
       table.table.timeline-table
@@ -28,7 +31,7 @@
         tfoot
           tr
             td(colspan="3")
-              a.btn.add-deliverable-button.pull-right Add Deliverable <i class="icon-plus-sign"></i>
+              a.btn.add-deliverable-timeline-button.pull-right Add Deliverable <i class="icon-plus-sign"></i>
 
       .form-actions
         a.btn.btn-primary(href="#{route('project_review', array($project->id))}") Save and Continue &rarr;

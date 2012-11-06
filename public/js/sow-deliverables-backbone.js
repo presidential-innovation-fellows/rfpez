@@ -7,7 +7,8 @@
     defaults: function() {
       return {
         date: "",
-        name: ""
+        name: "",
+        sort_order: $("#deliverables-tbody tr").length
       };
     },
     clear: function() {
@@ -34,6 +35,7 @@
     },
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
+      this.$el.find('.datepicker').datepicker();
       return this;
     },
     updateWithDelay: function() {
@@ -50,7 +52,8 @@
       Rfpez.has_unsaved_changes = false;
       return this.model.save({
         name: this.$el.find(".name-input").val(),
-        date: this.$el.find(".date-input").val()
+        date: this.$el.find(".date-input").val(),
+        sort_order: $("#deliverables-tbody tr").index(this.$el)
       });
     },
     clear: function() {
@@ -60,16 +63,35 @@
 
   AppView = Backbone.View.extend({
     initialize: function() {
+      var _this = this;
       Deliverables.bind('add', this.addOne, this);
       Deliverables.bind('reset', this.reset, this);
       Deliverables.bind('all', this.render, this);
-      return $(".add-deliverable-button").bind('click', this.addNew);
+      $("#deliverables-tbody").bind('sortupdate', function() {
+        return $.ajax({
+          url: "/projects/" + _this.options.project_id + "/deliverables/order",
+          method: "PUT",
+          data: {
+            deliverable_ids: "bar"
+          },
+          success: function() {
+            return console.log('success');
+          }
+        });
+      });
+      return $(document).on("click", ".add-deliverable-timeline-button", function() {
+        return _this.addNew();
+      });
     },
     reset: function() {
       $("#deliverables-tbody").html('');
       return this.addAll();
     },
-    render: function() {},
+    render: function() {
+      return $("#deliverables-tbody").sortable({
+        forcePlaceholderSize: true
+      });
+    },
     addNew: function() {
       return Deliverables.create();
     },

@@ -104,6 +104,7 @@ Route::get('projects/(:num)/timeline', array('uses' => 'projects@timeline', 'as'
 Route::post('projects/(:num)/deliverables', array('uses' => 'deliverables@create'));
 Route::put('projects/(:num)/deliverables/(:num)', array('uses' => 'deliverables@update'));
 Route::delete('projects/(:num)/deliverables/(:num)', array('uses' => 'deliverables@delete'));
+Route::put('projects/(:num)/deliverables/order', array('uses' => 'deliverables@save_order'));
 
 Route::get('projects/(:num)/review', array('uses' => 'projects@review', 'as' => 'project_review'));
 

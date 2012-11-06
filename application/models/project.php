@@ -67,7 +67,7 @@ class Project extends Eloquent {
   }
 
   public function deliverables() {
-    return $this->has_many('Deliverable');
+    return $this->has_many('Deliverable')->order_by('sort_order');
   }
 
   public function winning_bid() {

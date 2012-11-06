@@ -12,6 +12,28 @@ class Deliverables_Controller extends Base_Controller {
     $this->filter('before', 'deliverable_exists')->only(array('update', 'delete'));
   }
 
+  public function action_save_order() {
+    $project = Config::get('project');
+    $current_deliverables_list = $project->deliverables()->lists('id');
+    $new_deliverables_list = array();
+    $input_deliverables = Input::get('deliverable_ids');
+
+    foreach ($input_deliverables as $deliverable_id) {
+      if (in_array($deliverable_id, $current_deliverables_list))
+        $new_deliverables_list[] = $deliverable_id;
+    }
+
+    $i = 0;
+    foreach ($new_deliverables_list as $deliverable_id) {
+      $deliverable = Deliverable::find($deliverable_id);
+      $deliverable->sort_order = $i;
+      $deliverable->save();
+      $i++;
+    }
+
+    return Response::json("success");
+  }
+
   public function action_create() {
     $project = Config::get('project');
     $deliverable = new Deliverable(Input::json(true));

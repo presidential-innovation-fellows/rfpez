@@ -8,10 +8,10 @@
   </thead>
   <tbody>
     <?php if ($project->deliverables): ?>
-      <?php foreach ($project->deliverables as $deliverable => $date): ?>
+      <?php foreach ($project->deliverables as $deliverable): ?>
         <tr>
-          <td><?php echo Jade\Dumper::_text($deliverable); ?></td>
-          <td><?php echo Jade\Dumper::_text($date); ?></td>
+          <td><?php echo Jade\Dumper::_text($deliverable->name); ?></td>
+          <td><?php echo Jade\Dumper::_text($deliverable->date_or_length()); ?></td>
         </tr>
       <?php endforeach; ?>
     <?php endif; ?>
