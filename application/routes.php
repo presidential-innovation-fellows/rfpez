@@ -100,7 +100,10 @@ Route::get('projects/(:num)/blanks', array('uses' => 'projects@blanks', 'as' => 
 Route::post('projects/(:num)/blanks', array('uses' => 'projects@blanks_post', 'as' => 'project_blanks'));
 
 Route::get('projects/(:num)/timeline', array('uses' => 'projects@timeline', 'as' => 'project_timeline'));
-Route::post('projects/(:num)/timeline', array('uses' => 'projects@timeline_post', 'as' => 'project_timeline'));
+
+Route::post('projects/(:num)/deliverables', array('uses' => 'deliverables@create'));
+Route::put('projects/(:num)/deliverables/(:num)', array('uses' => 'deliverables@update'));
+Route::delete('projects/(:num)/deliverables/(:num)', array('uses' => 'deliverables@delete'));
 
 Route::get('projects/(:num)/review', array('uses' => 'projects@review', 'as' => 'project_review'));
 

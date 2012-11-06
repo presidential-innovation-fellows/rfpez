@@ -12,7 +12,7 @@ class Project extends Eloquent {
   public static $my_project_ids = false;
 
   public static $accessible = array('project_type_id', 'title', 'agency', 'office', 'public', 'background',
-                                    'sections', 'variables', 'deliverables', 'proposals_due_at');
+                                    'sections', 'variables', 'proposals_due_at');
 
   public static $sow_progress_markers = array('project_template' => 0,
                                               'project_background' => 1,
@@ -64,6 +64,10 @@ class Project extends Eloquent {
 
   public function bids() {
     return $this->has_many('Bid');
+  }
+
+  public function deliverables() {
+    return $this->has_many('Deliverable');
   }
 
   public function winning_bid() {
@@ -371,15 +375,6 @@ class Project extends Eloquent {
   public function set_variables($vars) {
     if (is_array($vars)) $vars = json_encode($vars);
     $this->set_attribute('variables', $vars);
-  }
-
-  public function get_deliverables() {
-    return json_decode($this->get_attribute('deliverables'), true);
-  }
-
-  public function set_deliverables($deliverables) {
-    if (is_array($deliverables)) $deliverables = json_encode($deliverables);
-    $this->set_attribute('deliverables', $deliverables);
   }
 
   //////////// STATIC FUNCTIONS ////////////

@@ -18,32 +18,17 @@
           tr
             th Deliverable
             th Completion Date !{helper_tooltip("Feel free to assign a date as 'TBD' or blank if you're not sure yet.")}
-        tbody
-          - foreach ($deliverables as $deliverable => $date):
-            tr
-              td
-                input(type="text", name="deliverables[]", placeholder="Deliverable Name", value="#{$deliverable}")
-              td
-                span.input-append.date.datepicker
-                  input.span3(type="text", name="deliverable_dates[]", value="#{$date}")
-                  span.add-on
-                    i.icon-calendar
-                a.btn.btn-success.add-deliverable-button Add
-                a.btn.remove-deliverable-button
-                  i.icon-trash
+            th Actions
+        tbody#deliverables-tbody
+          :javascript
+            | $(function(){
+            |   new Rfpez.Backbone.SowDeliverables( #{$project->id}, #{$deliverables_json} )
+            | })
 
         tfoot
-          tr.add-deliverable-row
-            td
-              input(type="text", name="deliverables[]", placeholder="Deliverable Name", data-original-val="")
-            td
-              span.input-append.date.datepicker
-                input.span3(type="text", name="deliverable_dates[]", value="", data-original-val="")
-                span.add-on
-                  i.icon-calendar
-              a.btn.btn-success.add-deliverable-button Add
-              a.btn.remove-deliverable-button
-                i.icon-trash
+          tr
+            td(colspan="3")
+              a.btn.add-deliverable-button.pull-right Add Deliverable <i class="icon-plus-sign"></i>
 
       .form-actions
-        button.btn.btn-primary Save and Continue &rarr;
+        a.btn.btn-primary(href="#{route('project_review', array($project->id))}") Save and Continue &rarr;

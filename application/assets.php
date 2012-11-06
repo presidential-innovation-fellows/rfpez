@@ -48,6 +48,7 @@ Basset::scripts('website', function($basset)
          ->add('collaborators-backbone', 'js/collaborators-backbone.js')
          ->add('admin-officers-backbone', 'js/admin-officers-backbone.js')
          ->add('admin-projects-backbone', 'js/admin-projects-backbone.js')
+         ->add('sow-deliverables-backbone', 'js/sow-deliverables-backbone.js')
 
          ->compress();
 });

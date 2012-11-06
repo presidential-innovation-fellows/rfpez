@@ -189,27 +189,10 @@ class Projects_Controller extends Base_Controller {
     if ($project->sow_progress < 5) $project->create_deliverables_from_sow_sections();
 
     $view->project = $project;
-    $view->deliverables = $view->project->deliverables ?: array();
+    $view->deliverables_json = json_encode(Helper::to_array($view->project->deliverables));
     $this->layout->content = $view;
 
     $view->project->save_progress('project_timeline');
-  }
-
-  public function action_timeline_post() {
-    $project = Config::get('project');
-    $input_deliverables = Input::get('deliverables');
-    $input_deliverable_dates = Input::get('deliverable_dates');
-
-    $deliverables = array();
-    $i = 0;
-    foreach($input_deliverables as $deliverable) {
-      if ($deliverable && trim($deliverable) != "") $deliverables[$deliverable] = $input_deliverable_dates[$i];
-      $i++;
-    }
-
-    $project->deliverables = $deliverables;
-    $project->save();
-    return Redirect::to_route('project_review', array($project->id));
   }
 
   public function action_review() {

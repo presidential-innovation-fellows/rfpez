@@ -15,51 +15,26 @@
           <tr>
             <th>Deliverable</th>
             <th>Completion Date <?php echo Jade\Dumper::_html(helper_tooltip("Feel free to assign a date as 'TBD' or blank if you're not sure yet.")); ?></th>
+            <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          <?php foreach ($deliverables as $deliverable => $date): ?>
-            <tr>
-              <td>
-                <input type="text" name="deliverables[]" placeholder="Deliverable Name" value="<?php echo Jade\Dumper::_text($deliverable); ?>" />
-              </td>
-              <td>
-                <span class="input-append date datepicker">
-                  <input class="span3" type="text" name="deliverable_dates[]" value="<?php echo Jade\Dumper::_text($date); ?>" />
-                  <span class="add-on">
-                    <i class="icon-calendar"></i>
-                  </span>
-                </span>
-                <a class="btn btn-success add-deliverable-button">Add</a>
-                <a class="btn remove-deliverable-button">
-                  <i class="icon-trash"></i>
-                </a>
-              </td>
-            </tr>
-          <?php endforeach; ?>
+        <tbody id="deliverables-tbody">
+          <script type="text/javascript">
+            $(function(){
+              new Rfpez.Backbone.SowDeliverables( <?php echo Jade\Dumper::_text($project->id); ?>, <?php echo Jade\Dumper::_text($deliverables_json); ?> )
+            })
+          </script>
         </tbody>
         <tfoot>
-          <tr class="add-deliverable-row">
-            <td>
-              <input type="text" name="deliverables[]" placeholder="Deliverable Name" data-original-val="" />
-            </td>
-            <td>
-              <span class="input-append date datepicker">
-                <input class="span3" type="text" name="deliverable_dates[]" value="" data-original-val="" />
-                <span class="add-on">
-                  <i class="icon-calendar"></i>
-                </span>
-              </span>
-              <a class="btn btn-success add-deliverable-button">Add</a>
-              <a class="btn remove-deliverable-button">
-                <i class="icon-trash"></i>
-              </a>
+          <tr>
+            <td colspan="3">
+              <a class="btn add-deliverable-button pull-right">Add Deliverable <i class="icon-plus-sign"></i></a>
             </td>
           </tr>
         </tfoot>
       </table>
       <div class="form-actions">
-        <button class="btn btn-primary">Save and Continue &rarr;</button>
+        <a class="btn btn-primary" href="<?php echo Jade\Dumper::_text(route('project_review', array($project->id))); ?>">Save and Continue &rarr;</a>
       </div>
     </form>
   </div>

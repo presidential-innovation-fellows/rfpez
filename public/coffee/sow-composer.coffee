@@ -83,7 +83,7 @@ search_available_sections = ->
       hide_already_selected_sections()
       $(".available-sections-table").removeClass("loading")
 
-has_unsaved_changes = false
+Rfpez.has_unsaved_changes = false
 
 $(document).on "ready pjax:success sectionsreloaded", ->
   hide_already_selected_sections()
@@ -101,7 +101,7 @@ $(document).on "ready pjax:success sectionsreloaded", ->
     add_empty_class_to_inputs()
 
 $(document).on "click", ".sow-sidebar a", (e) ->
-  if has_unsaved_changes && !confirm('Looks like you have some unsaved changes. Are you sure you want to leave this page?')
+  if Rfpez.has_unsaved_changes is true && !confirm('Looks like you have some unsaved changes. Are you sure you want to leave this page?')
     e.preventDefault()
 
 $(document).on "click", ".show-more-templates-link", ->
@@ -258,7 +258,7 @@ $(document).on "blur", "input[data-variable]", ->
   $(this).tooltip('hide')
 
 $(document).on "input blur", "input[data-variable]", (e) ->
-  has_unsaved_changes = true
+  Rfpez.has_unsaved_changes = true
   el = $(this)
   variableName = el.data('variable')
   variableValue = el.val()
@@ -266,22 +266,3 @@ $(document).on "input blur", "input[data-variable]", (e) ->
     $(this).val(variableValue)
     $(this).trigger("input.autogrow")
   add_empty_class_to_inputs()
-
-####### TIMELINE ######
-
-$(document).on "input", ".timeline-table input", ->
-  has_unsaved_changes = true
-
-$(document).on "click", ".add-deliverable-button", ->
-  has_unsaved_changes = true
-  row = $(".add-deliverable-row")
-  new_row = row.clone()
-  new_row.removeClass("add-deliverable-row")
-  new_row.find(".datepicker").datepicker()
-  new_row.appendTo(".timeline-table tbody")
-  row.find("input").each ->
-    $(this).val $(this).data('original-val')
-
-$(document).on "click", ".remove-deliverable-button", ->
-  has_unsaved_changes = true
-  $(this).closest("tr").remove();
