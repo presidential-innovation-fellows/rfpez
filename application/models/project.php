@@ -325,16 +325,21 @@ class Project extends Eloquent {
   }
 
   public function create_deliverables_from_sow_sections() {
-    $deliverables = $this->deliverables ?: array();
+    $deliverable_names = $this->deliverables()->lists('name');
 
     if ($project_sections = $this->project_sections()) {
+      $i = 0;
       foreach ($project_sections->where_section_category("Deliverables")->get() as $section) {
-        if (!isset($deliverables[$section->title])) {
-          $deliverables[$section->title] = "to";
+        if (!in_array($section->title, $deliverable_names)) {
+          Log::info($i);
+          $deliverable = new Deliverable;
+          $deliverable->name = $section->title;
+          $deliverable->sort_order = $i;
+          $deliverable->project_id = $this->id;
+          $deliverable->save();
         }
+        $i++;
       }
-
-      $this->deliverables = $deliverables;
     }
   }
 
