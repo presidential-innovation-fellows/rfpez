@@ -97,6 +97,9 @@ body.super-admin .super-admin-only {
 .super-admin-only {
   display: none;
 }
+.timeline-datepicker {
+  cursor: pointer;
+}
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
   display: none !important;

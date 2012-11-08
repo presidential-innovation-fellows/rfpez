@@ -20,12 +20,12 @@ DeliverableView = Backbone.View.extend
       <input type="text" placeholder="Deliverable Name" class="name-input" value="<%= name %>">
     </td>
     <td>
-      <span class="input-append datepicker date">
-        <input type="text" placeholder="Due Date" class="date-input" value="<%= date %>">
+      <div class="input-append date timeline-datepicker">
+        <input type="text" placeholder="Due Date" class="date-input" value="<%= date %>" />
         <span class="add-on">
           <i class="icon-calendar"></i>
         </span>
-      </span>
+      </div>
     </td>
     <td>
       <a class="btn remove-deliverable-button"><i class="icon-trash"></i></a>
@@ -45,7 +45,7 @@ DeliverableView = Backbone.View.extend
 
   render: ->
     @$el.html @template(@model.toJSON())
-    @$el.find('.datepicker').datepicker()
+    @$el.find('.timeline-datepicker').datepicker()
     @$el.data('id', @model?.attributes?.id)
 
     return @
@@ -103,6 +103,8 @@ AppView = Backbone.View.extend
     html = view.render().el
     $("#deliverables-tbody").append(html);
 
+  render: ->
+    $('#deliverables-tbody').sortable('destroy')
     $("#deliverables-tbody").sortable
       forcePlaceholderSize: true
 
