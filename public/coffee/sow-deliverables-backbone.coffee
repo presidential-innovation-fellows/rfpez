@@ -20,7 +20,7 @@ DeliverableView = Backbone.View.extend
       <input type="text" placeholder="Deliverable Name" class="name-input" value="<%= name %>">
     </td>
     <td>
-      <div class="input-append date timeline-datepicker">
+      <div class="input-append date datepicker-wrapper">
         <input type="text" placeholder="Due Date" class="date-input" value="<%= date %>" />
         <span class="add-on">
           <i class="icon-calendar"></i>
@@ -45,7 +45,7 @@ DeliverableView = Backbone.View.extend
 
   render: ->
     @$el.html @template(@model.toJSON())
-    @$el.find('.timeline-datepicker').datepicker()
+    @$el.find('.datepicker-wrapper').datepicker()
     @$el.data('id', @model?.attributes?.id)
 
     return @

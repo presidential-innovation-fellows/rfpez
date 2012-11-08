@@ -53,7 +53,7 @@
   $(document).on("ready pjax:success", function() {
     $("[data-onload-focus]:eq(0)").focus();
     $("span.timeago").timeago();
-    $('.datepicker').datepicker();
+    $('.datepicker-wrapper').datepicker();
     $('.wysihtml5').wysihtml5();
     return Rfpez.current_page_string = $("#current-page").val();
   });

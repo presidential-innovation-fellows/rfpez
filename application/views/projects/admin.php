@@ -26,7 +26,7 @@
       </div>
       <div class="control-group">
         <label>Bids Due</label>
-        <span class="input-append date datepicker">
+        <span class="input-append date datepicker-wrapper">
           <input class="span3" type="text" name="project[proposals_due_at]" value="<?php echo Jade\Dumper::_text($project->formatted_proposals_due_at()); ?>" />
           <span class="add-on">
             <i class="icon-calendar"></i>

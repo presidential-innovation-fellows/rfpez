@@ -22,7 +22,7 @@
 
   DeliverableView = Backbone.View.extend({
     tagName: "tr",
-    template: _.template("<td>\n  <input type=\"text\" placeholder=\"Deliverable Name\" class=\"name-input\" value=\"<%= name %>\">\n</td>\n<td>\n  <div class=\"input-append date timeline-datepicker\">\n    <input type=\"text\" placeholder=\"Due Date\" class=\"date-input\" value=\"<%= date %>\" />\n    <span class=\"add-on\">\n      <i class=\"icon-calendar\"></i>\n    </span>\n  </div>\n</td>\n<td>\n  <a class=\"btn remove-deliverable-button\"><i class=\"icon-trash\"></i></a>\n</td>"),
+    template: _.template("<td>\n  <input type=\"text\" placeholder=\"Deliverable Name\" class=\"name-input\" value=\"<%= name %>\">\n</td>\n<td>\n  <div class=\"input-append date datepicker-wrapper\">\n    <input type=\"text\" placeholder=\"Due Date\" class=\"date-input\" value=\"<%= date %>\" />\n    <span class=\"add-on\">\n      <i class=\"icon-calendar\"></i>\n    </span>\n  </div>\n</td>\n<td>\n  <a class=\"btn remove-deliverable-button\"><i class=\"icon-trash\"></i></a>\n</td>"),
     events: {
       "click .remove-deliverable-button": "clear",
       "input .name-input": "updateWithDelay",
@@ -37,7 +37,7 @@
     render: function() {
       var _ref, _ref1;
       this.$el.html(this.template(this.model.toJSON()));
-      this.$el.find('.timeline-datepicker').datepicker();
+      this.$el.find('.datepicker-wrapper').datepicker();
       this.$el.data('id', (_ref = this.model) != null ? (_ref1 = _ref.attributes) != null ? _ref1.id : void 0 : void 0);
       return this;
     },
