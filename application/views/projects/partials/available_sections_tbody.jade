@@ -1,8 +1,12 @@
-tbody.available-sections-tbody
-  - foreach ($available_sections as $section):
-    tr.section(data-section-id="#{$section->id}")
+- foreach ($available_sections as $section):
+  tbody.section(data-section-id="#{$section->id}")
+    tr.section-info
       td #{$section->title}
+      td
+        a.preview-link (preview)
       td #{$section->section_category}
       td #{$section->times_used}
       td
         a.btn.btn-primary.btn-mini.add-button(data-href="#{route('project_section_add', array($project->id, $section->id))}") Use This &rarr;
+    tr.preview.hide
+      td(colspan="5") #{$section->body}

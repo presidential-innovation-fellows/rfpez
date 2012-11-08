@@ -18,10 +18,10 @@
         h5 Available Sections
           input.search-query.pull-right#available-sections-filter(type="text", placeholder="Filter by category, title, body")
 
-        table.table.table-striped.available-sections-table(data-project-id="#{$project->id}")
+        table.table.available-sections-table(data-project-id="#{$project->id}")
           thead
             tr
-              th(width="50%") Title
+              th(width="50%", colspan="2") Title
               th(width="20%") Category
               th(width="15%") Times Used
               th(width="15%") Use

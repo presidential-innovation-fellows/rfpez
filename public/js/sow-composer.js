@@ -101,8 +101,8 @@
       success: function(data) {
         var new_available_sections;
         new_available_sections = $(data.available_sections_tbody_html);
-        $(".available-sections-tbody").replaceWith(new_available_sections);
-        hide_already_selected_sections();
+        $(".available-sections-table tbody.section").remove();
+        $(".available-sections-table thead").after(new_available_sections);
         return $(".available-sections-table").removeClass("loading");
       }
     });
@@ -266,6 +266,12 @@
   });
 
   $(document).on("change", "#section-category-select", section_category_dropdown_changed);
+
+  $(document).on("click", "tbody.section", function(e) {
+    if (!$(e.target).hasClass('add-button')) {
+      return $(this).find(".preview").toggle();
+    }
+  });
 
   available_sections_filter_timeout = false;
 

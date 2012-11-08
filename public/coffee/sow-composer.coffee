@@ -79,8 +79,8 @@ search_available_sections = ->
       query: query
     success: (data) ->
       new_available_sections = $(data.available_sections_tbody_html)
-      $(".available-sections-tbody").replaceWith(new_available_sections)
-      hide_already_selected_sections()
+      $(".available-sections-table tbody.section").remove()
+      $(".available-sections-table thead").after(new_available_sections)
       $(".available-sections-table").removeClass("loading")
 
 Rfpez.has_unsaved_changes = false
@@ -211,6 +211,10 @@ $(document).on "click", "li.template .preview-button", ->
   $(this).closest('div').find('.modal').modal('show')
 
 $(document).on "change", "#section-category-select", section_category_dropdown_changed
+
+$(document).on "click", "tbody.section", (e) ->
+  if !$(e.target).hasClass('add-button')
+    $(this).find(".preview").toggle()
 
 available_sections_filter_timeout = false
 

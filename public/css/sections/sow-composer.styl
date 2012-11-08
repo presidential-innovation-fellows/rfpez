@@ -116,9 +116,26 @@ ul.templates-list
     margin 0
 
 .available-sections-table
-  &.loading
-    .available-sections-tbody
-      opacity(0.6)
+  tbody.section
+
+    tr.section-info
+      .preview-link
+        display none
+        color #999
+
+    &:hover
+      tr.section-info
+        .preview-link
+          display block
+
+    tr.preview
+
+      td
+        border 0
+
+    &:nth-child(odd)
+      background-color #f9f9f9
+
 
 .public-status
   font-weight bold

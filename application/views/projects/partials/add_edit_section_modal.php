@@ -18,10 +18,10 @@
           Available Sections
           <input id="available-sections-filter" class="search-query pull-right" type="text" placeholder="Filter by category, title, body" />
         </h5>
-        <table class="table table-striped available-sections-table" data-project-id="<?php echo Jade\Dumper::_text($project->id); ?>">
+        <table class="table available-sections-table" data-project-id="<?php echo Jade\Dumper::_text($project->id); ?>">
           <thead>
             <tr>
-              <th width="50%">Title</th>
+              <th width="50%" colspan="2">Title</th>
               <th width="20%">Category</th>
               <th width="15%">Times Used</th>
               <th width="15%">Use</th>

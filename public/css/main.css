@@ -671,10 +671,18 @@ ul.templates-list li.show-more.all-loaded .show-more-templates-link {
   box-sizing: border-box;
   margin: 0;
 }
-.available-sections-table.loading .available-sections-tbody {
-  opacity: 0.6;
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
-  filter: alpha(opacity=60);
+.available-sections-table tbody.section tr.section-info .preview-link {
+  display: none;
+  color: #999;
+}
+.available-sections-table tbody.section:hover tr.section-info .preview-link {
+  display: block;
+}
+.available-sections-table tbody.section tr.preview td {
+  border: 0;
+}
+.available-sections-table tbody.section:nth-child(odd) {
+  background-color: #f9f9f9;
 }
 .public-status {
   font-weight: bold;
