@@ -13,9 +13,10 @@
   <?php echo Jade\Dumper::_html(HTML::style('http://fonts.googleapis.com/css?family=Telex')); ?>
   <?php echo Jade\Dumper::_html(Basset::show('website.css')); ?>
 </head>
-<body></body>
-<?php echo Jade\Dumper::_html(View::make('partials.topnav')); ?>
-<div class="container">
-  <h2>Oops. We can't find that.</h2>
-  <p class="lead">Looks like you clicked a broken link or something. If it's our fault, please let us know.</p>
-</div>
+<body>
+  <?php echo Jade\Dumper::_html(View::make('partials.topnav')); ?>
+  <div class="container">
+    <h2>Oops. We can't find that.</h2>
+    <p class="lead">Looks like you clicked a broken link or something. If it's our fault, please let us know.</p>
+  </div>
+</body>
