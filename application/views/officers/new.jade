@@ -8,4 +8,7 @@ form#new-officer-form(action="#{route('officers')}", method="post")
   !{View::make('users.account_officer_fields')->with('officer', Input::old('officer'))->with('user', Input::old('user'))->with('signup', true)}
 
   .form-actions
+    .control-group.form-inline
+      label How did you hear about RFP-EZ?
+      input.input-xlarge(type="text", name="user[how_hear]", value="")
     button.btn.btn-primary(type="submit") Submit

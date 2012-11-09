@@ -4,6 +4,10 @@
   <?php $officer = Input::get('officer'); ?>
   <?php echo Jade\Dumper::_html(View::make('users.account_officer_fields')->with('officer', Input::old('officer'))->with('user', Input::old('user'))->with('signup', true)); ?>
   <div class="form-actions">
+    <div class="control-group form-inline">
+      <label>How did you hear about RFP-EZ?</label>
+      <input class="input-xlarge" type="text" name="user[how_hear]" value="" />
+    </div>
     <button class="btn btn-primary" type="submit">Submit</button>
   </div>
 </form>
