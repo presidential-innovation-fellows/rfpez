@@ -25,7 +25,11 @@
             <img class="my-project-icon" src="<?php echo Jade\Dumper::_text($project->project_type->image()); ?>" title="<?php echo Jade\Dumper::_text($project->project_type->name); ?>" alt="<?php echo Jade\Dumper::_text($project->project_type->name); ?>" />
           </td>
           <td>
-            <a class="project-title" href="<?php echo Jade\Dumper::_text( route('project', array($project->id)) ); ?>" data-pjax="data-pjax"><?php echo Jade\Dumper::_text($project->title); ?></a>
+            <?php if ($project->status() != Project::STATUS_WRITING_SOW): ?>
+              <a class="project-title" href="<?php echo Jade\Dumper::_text( route('review_bids', array($project->id)) ); ?>" data-pjax="data-pjax"><?php echo Jade\Dumper::_text($project->title); ?></a>
+            <?php else: ?>
+              <a class="project-title" href="<?php echo Jade\Dumper::_text( route('project', array($project->id)) ); ?>" data-pjax="data-pjax"><?php echo Jade\Dumper::_text($project->title); ?></a>
+            <?php endif; ?>
           </td>
           <td><?php echo Jade\Dumper::_text($project->status_text()); ?></td>
           <td><?php echo Jade\Dumper::_text($project->formatted_proposals_due_at()); ?></td>

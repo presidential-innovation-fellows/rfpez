@@ -22,7 +22,10 @@
           td
             img.my-project-icon(src="#{$project->project_type->image()}", title="#{$project->project_type->name}", alt="#{$project->project_type->name}")
           td
-            a.project-title(href="#{ route('project', array($project->id)) }", data-pjax) #{$project->title}
+            - if ($project->status() != Project::STATUS_WRITING_SOW):
+              a.project-title(href="#{ route('review_bids', array($project->id)) }", data-pjax) #{$project->title}
+            - else:
+              a.project-title(href="#{ route('project', array($project->id)) }", data-pjax) #{$project->title}
           td #{$project->status_text()}
           td #{$project->formatted_proposals_due_at()}
           td
