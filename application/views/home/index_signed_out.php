@@ -14,15 +14,15 @@
       on <a href="<?php echo Jade\Dumper::_text( route('projects') ); ?>">projects</a>.
       If you're selected to work on one, we'll walk you through the government registration process.
     </p>
-    <a class="btn btn-warning btn-large" href="<?php echo Jade\Dumper::_text( route('new_vendors') ); ?>" data-pjax="data-pjax">Register as a Company</a>
+    <a class="btn btn-warning btn-large" href="<?php echo Jade\Dumper::_text( route('new_vendors') ); ?>" data-pjax="data-pjax">Register as a Business</a>
   </div>
   <div class="span6 well">
     <h5>For Government</h5>
     <p class="main-description">
-      Make great statements of work and find great contractors.
-      Browse eligible firms and see their online portfolios.
-      Receive bids from small innovative tech companies.
+      Make great statements of work.
+      Browse innovative tech businesses and see their online portfolios.
+      Receive and review bids on your projects.
     </p>
-    <a class="btn btn-warning btn-large" href="<?php echo Jade\Dumper::_text( route('new_officers') ); ?>" data-pjax="data-pjax">Register as a Contracting Officer</a>
+    <a class="btn btn-warning btn-large" href="<?php echo Jade\Dumper::_text( route('new_officers') ); ?>" data-pjax="data-pjax">Register as a Government Officer</a>
   </div>
 </div>
