@@ -23,7 +23,6 @@ class Officer extends Eloquent {
     if ($this->validator) return $this->validator;
 
     $rules = array('phone' => 'required',
-                   'fax' => 'required',
                    'name' => 'required',
                    'title' => 'required',
                    'agency' => 'required');

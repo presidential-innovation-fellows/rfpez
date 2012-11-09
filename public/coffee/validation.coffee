@@ -73,9 +73,6 @@ $(document).on "ready pjax:success", ->
       "officer[phone]":
         required: true
 
-      "officer[fax]":
-        required: true
-
   $("#new-vendor-form, .account-form-vendor").validate_rfpez
     rules:
       "vendor[more_info]":

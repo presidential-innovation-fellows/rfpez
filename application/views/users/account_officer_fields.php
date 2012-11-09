@@ -33,7 +33,3 @@
   <label>Phone</label>
   <input type="text" name="officer[phone]" value="<?php echo Jade\Dumper::_text($officer['phone']); ?>" />
 </div>
-<div class="control-group">
-  <label>Fax</label>
-  <input type="text" name="officer[fax]" value="<?php echo Jade\Dumper::_text($officer['fax']); ?>" />
-</div>
