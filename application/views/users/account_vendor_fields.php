@@ -89,8 +89,8 @@
     <?php endif; ?>
     <div class="control-group">
       <label>
-        DUNS Number
-        <a class="explain-duns-link" href="#explain-duns-modal" data-toggle="modal">what's this?</a>
+        DUNS Number (optional)
+        <?php echo Jade\Dumper::_html(helper_tooltip("DUNS numbers are unique for each business and help government agencies confirm your business information. You'll need one eventually, but don't worry-- it's free, takes about 10 minutes, and can be done on online", "top")); ?>
       </label>
       <input type="text" name="vendor[duns]" value="<?php echo Jade\Dumper::_text( $vendor['duns'] ); ?>" />
     </div>
@@ -144,4 +144,3 @@
     </div>
   </fieldset>
 </div>
-<?php echo Jade\Dumper::_html(View::make('vendors.partials.explain_duns_modal')); ?>
