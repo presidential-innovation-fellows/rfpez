@@ -425,6 +425,9 @@ body.vendor .no-auth-only {
 .vendors-wrapper.finished-loading .finished-loading-text {
   display: block;
 }
+#new-vendor-form h5 {
+  color: #317eac;
+}
 .new-bid-form .section {
   padding: 5px 0;
 }

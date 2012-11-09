@@ -33,25 +33,26 @@
         - foreach(Vendor::$ballpark_prices as $id => $ballpark_price):
           <option value="#{ $id }" #{ ($vendor['ballpark_price'] == $id) ? "selected" : "" }> #{ $ballpark_price } </option>
 
+    hr
     h5 Company links
 
     .control-group
       label Home page
-      input(type="text", name="vendor[homepage_url]", value="#{ $vendor['homepage_url'] }")
+      input.input-xlarge(type="text", name="vendor[homepage_url]", value="#{ $vendor['homepage_url'] }")
 
     .control-group
-      label Portfolio
-      input(type="text", name="vendor[portfolio_url]", value="#{ $vendor['portfolio_url'] }")
+      label Portfolio (optional)
+      input.input-xlarge(type="text", name="vendor[portfolio_url]", value="#{ $vendor['portfolio_url'] }")
 
     .control-group
-      label Public source (e.g. github)
-      input(type="text", name="vendor[sourcecode_url]", value="#{ $vendor['sourcecode_url'] }")
+      label Public source (optional, e.g. github)
+      input.input-xlarge(type="text", name="vendor[sourcecode_url]", value="#{ $vendor['sourcecode_url'] }")
 
     .vendor-image-url
       .control-group
         label Link to an image of your best work (400 x 300px)
         .input-append
-          input(type="text", name="vendor[image_url]", value="#{ $vendor['image_url'] }")
+          input.input-xlarge(type="text", name="vendor[image_url]", value="#{ $vendor['image_url'] }")
           button#prev-img-btn.btn.btn-primary.disabled(type="button") Preview
 
       label.vendor-image-preview.hide (Preview)
@@ -59,7 +60,7 @@
         img
 
 
-  fieldset.span5
+  fieldset.span5.offset1
 
     - if ($signup):
 

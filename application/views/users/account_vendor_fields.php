@@ -37,24 +37,25 @@
         <?php endforeach; ?>
       </select>
     </div>
+    <hr />
     <h5>Company links</h5>
     <div class="control-group">
       <label>Home page</label>
-      <input type="text" name="vendor[homepage_url]" value="<?php echo Jade\Dumper::_text( $vendor['homepage_url'] ); ?>" />
+      <input class="input-xlarge" type="text" name="vendor[homepage_url]" value="<?php echo Jade\Dumper::_text( $vendor['homepage_url'] ); ?>" />
     </div>
     <div class="control-group">
-      <label>Portfolio</label>
-      <input type="text" name="vendor[portfolio_url]" value="<?php echo Jade\Dumper::_text( $vendor['portfolio_url'] ); ?>" />
+      <label>Portfolio (optional)</label>
+      <input class="input-xlarge" type="text" name="vendor[portfolio_url]" value="<?php echo Jade\Dumper::_text( $vendor['portfolio_url'] ); ?>" />
     </div>
     <div class="control-group">
-      <label>Public source (e.g. github)</label>
-      <input type="text" name="vendor[sourcecode_url]" value="<?php echo Jade\Dumper::_text( $vendor['sourcecode_url'] ); ?>" />
+      <label>Public source (optional, e.g. github)</label>
+      <input class="input-xlarge" type="text" name="vendor[sourcecode_url]" value="<?php echo Jade\Dumper::_text( $vendor['sourcecode_url'] ); ?>" />
     </div>
     <div class="vendor-image-url">
       <div class="control-group">
         <label>Link to an image of your best work (400 x 300px)</label>
         <div class="input-append">
-          <input type="text" name="vendor[image_url]" value="<?php echo Jade\Dumper::_text( $vendor['image_url'] ); ?>" />
+          <input class="input-xlarge" type="text" name="vendor[image_url]" value="<?php echo Jade\Dumper::_text( $vendor['image_url'] ); ?>" />
           <button id="prev-img-btn" class="btn btn-primary disabled" type="button">Preview</button>
         </div>
       </div>
@@ -64,7 +65,7 @@
       </div>
     </div>
   </fieldset>
-  <fieldset class="span5">
+  <fieldset class="span5 offset1">
     <?php if ($signup): ?>
       <h5>Contact Info</h5>
       <div class="control-group">
