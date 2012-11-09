@@ -16,7 +16,7 @@
       <label>
         <strong>Your company in 50 words or less</strong>
       </label>
-      <textarea name="vendor[more_info]"><?php echo Jade\Dumper::_text($vendor['more_info']); ?></textarea>
+      <textarea class="input-xlarge" name="vendor[more_info]" rows="7"><?php echo Jade\Dumper::_text($vendor['more_info']); ?></textarea>
     </div>
     <div class="control-group">
       <strong>What kind of work does your company do?</strong>
