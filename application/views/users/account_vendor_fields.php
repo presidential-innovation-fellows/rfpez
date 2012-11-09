@@ -90,7 +90,7 @@
     <div class="control-group">
       <label>
         DUNS Number (optional)
-        <?php echo Jade\Dumper::_html(helper_tooltip("DUNS numbers are unique for each business and help government agencies confirm your business information. You'll need one eventually, but don't worry-- it's free, takes about 10 minutes, and can be done on online", "top")); ?>
+        <?php echo Jade\Dumper::_html(helper_tooltip("DUNS numbers are unique for each business and help government agencies confirm your business information. You'll need one eventually, but don't worry-- it's free, takes about 10 minutes, and can be completed online", "top")); ?>
       </label>
       <input type="text" name="vendor[duns]" value="<?php echo Jade\Dumper::_text( $vendor['duns'] ); ?>" />
     </div>
