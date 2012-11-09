@@ -60,7 +60,9 @@ class Officers_Controller extends Base_Controller {
   }
 
   public function action_create() {
-    $user = new User(Input::get('user'));
+    $user_input = Input::get('user');
+    $user = new User;
+    $user->email = $user_input["email"];
     $officer = new Officer(Input::get('officer'));
 
     if ($user->validator(false, true)->passes() && $officer->validator()->passes()) {

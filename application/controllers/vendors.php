@@ -16,7 +16,11 @@ class Vendors_Controller extends Base_Controller {
   }
 
   public function action_create() {
-    $user = new User(Input::get('user'));
+    $user_input = Input::get('user');
+    $user = new User;
+    $user->email = $user_input["email"];
+    $user->password = $user_input["password"];
+
     $vendor = new Vendor(Input::get('vendor'));
 
     if ($user->validator()->passes() && $vendor->validator()->passes()) {
