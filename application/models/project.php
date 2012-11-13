@@ -213,7 +213,16 @@ class Project extends Eloquent {
     $this->forked_from_project_id = $template->id;
     $this->background = $template->background;
     $this->sections = $template->sections;
-    $this->deliverables = $template->deliverables;
+
+    foreach ($template->deliverables as $deliverable) {
+      $new_deliverable = new Deliverable(array('name' => $deliverable->name,
+                                               'date' => $deliverable->date,
+                                               'length' => $deliverable->length,
+                                               'sort_order' => $deliverable->sort_order));
+      $new_deliverable->project_id = $this->id;
+      $new_deliverable->save();
+    }
+
     $this->save();
 
     ProjectSection::change_times_used($template->sections, 1);
