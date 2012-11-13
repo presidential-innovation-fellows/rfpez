@@ -10,7 +10,7 @@ Class NotificationParser {
       $return_array["subject"] = "Your bid on ".$bid["project"]["title"]." has been dismissed.";
       $return_array["line1"] = "Your bid on <a data-pjax href='".route('bid', array($bid["project"]["id"], $bid["id"]))."'>".$bid["project"]["title"].
                 "</a> has been dismissed.";
-      $return_array["line2"] = "Dismissal reason: \"" . $notification->payload["bid"]["dismissal_reason"]."\"";
+      $return_array["line2"] = "";
       $return_array["link"] = route('bid', array($bid["project"]["id"], $bid["id"]));
 
     } elseif ($notification->notification_type == "Undismissal") {
