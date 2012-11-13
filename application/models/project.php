@@ -179,13 +179,13 @@ class Project extends Eloquent {
 
   public function open_bids() {
     return $this->submitted_bids()
-                ->where_null('dismissal_reason')
+                ->where_null('dismissed_at')
                 ->where_null('awarded_at');
   }
 
   public function dismissed_bids() {
     return $this->submitted_bids()
-                ->where_not_null('dismissal_reason');
+                ->where_not_null('dismissed_at');
   }
 
   public function available_templates() {

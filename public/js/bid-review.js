@@ -3,7 +3,16 @@
   var dismiss_selection, keep_bid_in_view, mouseover_select_timeout, on_mouseover_select, open_selection, star_selection, toggle_unread_selection;
 
   $(document).on('shown', '#dismiss-modal', function() {
-    return $(this).find("select").focus();
+    $(this).find("select").focus().val('');
+    return $(this).find("input[name=reason_other]").val('').hide();
+  });
+
+  $(document).on("change", "#dismiss-modal select", function() {
+    if ($(this).val() === "Other") {
+      return $("#dismiss-modal input[name=reason_other]").show();
+    } else {
+      return $("#dismiss-modal input[name=reason_other]").val('').hide();
+    }
   });
 
   $(document).on("click", "#review-tips-toggle", function() {
@@ -109,6 +118,7 @@
         url: "/projects/" + project_id + "/bids/" + bid_id + "/dismiss",
         data: {
           reason: modal.find("select[name=reason]").val(),
+          reason_other: modal.find("input[name=reason_other]").val(),
           explanation: modal.find("textarea[name=explanation]").val()
         },
         type: "GET",

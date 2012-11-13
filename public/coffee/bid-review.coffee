@@ -1,5 +1,12 @@
 $(document).on 'shown', '#dismiss-modal', ->
-  $(this).find("select").focus()
+  $(this).find("select").focus().val('')
+  $(this).find("input[name=reason_other]").val('').hide()
+
+$(document).on "change", "#dismiss-modal select", ->
+  if $(this).val() is "Other"
+    $("#dismiss-modal input[name=reason_other]").show()
+  else
+    $("#dismiss-modal input[name=reason_other]").val('').hide()
 
 $(document).on "click", "#review-tips-toggle", ->
   $("#review-tips").collapse('toggle')
@@ -86,6 +93,7 @@ $(document).on "click", ".show-dismiss-modal", ->
       url: "/projects/#{project_id}/bids/#{bid_id}/dismiss"
       data:
         reason: modal.find("select[name=reason]").val()
+        reason_other: modal.find("input[name=reason_other]").val()
         explanation: modal.find("textarea[name=explanation]").val()
       type: "GET"
       dataType: "json"
