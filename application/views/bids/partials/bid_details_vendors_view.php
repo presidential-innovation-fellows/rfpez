@@ -18,11 +18,11 @@
     </div>
   <?php endif; ?>
   <h5>Approach</h5>
-  <p><?php echo Jade\Dumper::_text($bid->approach); ?></p>
+  <p><?php echo Jade\Dumper::_html($bid->approach); ?></p>
   <h5>Previous Work</h5>
-  <p><?php echo Jade\Dumper::_text($bid->previous_work); ?></p>
+  <p><?php echo Jade\Dumper::_html($bid->previous_work); ?></p>
   <h5>Employee Details</h5>
-  <p><?php echo Jade\Dumper::_text($bid->employee_details); ?></p>
+  <p><?php echo Jade\Dumper::_html($bid->employee_details); ?></p>
   <div class="row">
     <div class="span6 prices">
       <h5>Prices</h5>
