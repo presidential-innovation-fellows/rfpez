@@ -43,7 +43,7 @@ $I->see('My Account');
 $I->click('Projects');
 $I->see('Projects', 'h4');
 
-$I->click('Census API');
+$I->click('API for SBA.gov Dynamic Small Business Search');
 $I->see('Bids due in', 'h5');
 
 
