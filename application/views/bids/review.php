@@ -19,7 +19,7 @@
   </div>
 </div>
 <div class="winning-bid-table-wrapper <?php echo Jade\Dumper::_text($project->winning_bid() ? '' : 'hide'); ?>">
-  <h3>Winning Bid</h3>
+  <h5>Winning Bid</h5>
   <table class="table bids-table winning-bid">
     <thead>
       <tr>

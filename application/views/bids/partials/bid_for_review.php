@@ -1,5 +1,5 @@
 <?php $unread = Auth::user()->unread_notification_for_payload("bid", $bid->id) ?>
-<tbody class="bid <?php echo Jade\Dumper::_text($unread ? 'unread' : ''); ?>" data-project-id="<?php echo Jade\Dumper::_text($bid->project->id); ?>" data-bid-id="<?php echo Jade\Dumper::_text($bid->id); ?>" data-vendor-company-name="<?php echo Jade\Dumper::_text($bid->vendor->company_name); ?>">
+<tbody class="bid <?php echo Jade\Dumper::_text($unread ? 'unread' : ''); ?>" data-project-id="<?php echo Jade\Dumper::_text($bid->project->id); ?>" data-bid-id="<?php echo Jade\Dumper::_text($bid->id); ?>" data-vendor-company-name="<?php echo Jade\Dumper::_text($bid->vendor->company_name); ?>" data-vendor-email="<?php echo Jade\Dumper::_text($bid->vendor->user->email); ?>">
   <tr>
     <td class="bid-notification-td">
       <a class="btn btn-small btn-primary btn-circle mark-as-read">&nbsp;</a>

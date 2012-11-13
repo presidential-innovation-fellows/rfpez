@@ -1,6 +1,6 @@
 - $unread = Auth::user()->unread_notification_for_payload("bid", $bid->id)
 
-tbody(class="bid #{$unread ? 'unread' : ''}", data-project-id="#{$bid->project->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}")
+tbody(class="bid #{$unread ? 'unread' : ''}", data-project-id="#{$bid->project->id}", data-bid-id="#{$bid->id}", data-vendor-company-name="#{$bid->vendor->company_name}", data-vendor-email="#{$bid->vendor->user->email}")
   tr
     td.bid-notification-td
       a(class="btn btn-small btn-primary btn-circle mark-as-read") &nbsp;
