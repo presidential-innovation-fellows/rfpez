@@ -37,9 +37,14 @@ class Seed_Task {
     for ($i = 0; $i < 5; $i++) Factory::officer();
 
     // Create project types
-    ProjectType::create(array('name' => 'Website Design', 'naics' => 541092));
+    $pt1 = ProjectType::create(array('name' => 'Website Design', 'naics' => 541092));
     $api_project_type = ProjectType::create(array('name' => 'API Design and Development', 'naics' => 541093));
-    ProjectType::create(array('name' => 'Content Management System Integration', 'naics' => 541094));
+    $pt2 = ProjectType::create(array('name' => 'Content Management System Integration', 'naics' => 541094));
+
+    foreach (array($pt1, $api_project_type, $pt2) as $project_type) {
+      $project_type->show_in_list = true;
+      $project_type->save();
+    }
 
     // Create project sections
     $section1 = ProjectSection::create(array('section_category' => 'Deliverables',

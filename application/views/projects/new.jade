@@ -39,7 +39,7 @@
     .control-group
       label Project Type
       select#project-type-select(name="project[project_type_id]")
-        - foreach (ProjectType::all() as $project_type):
+        - foreach (ProjectType::defaults() as $project_type):
           option(value="#{$project_type->id}") #{$project_type->name}
         option(value="Other") Other
       input#new-project-type-input.hide(type="text", name="new_project_type_name")
