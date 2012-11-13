@@ -37,11 +37,13 @@
     </div>
     <div class="control-group">
       <label>Project Type</label>
-      <select name="project[project_type_id]">
+      <select id="project-type-select" name="project[project_type_id]">
         <?php foreach (ProjectType::all() as $project_type): ?>
           <option value="<?php echo Jade\Dumper::_text($project_type->id); ?>"><?php echo Jade\Dumper::_text($project_type->name); ?></option>
         <?php endforeach; ?>
+        <option value="Other">Other</option>
       </select>
+      <input id="new-project-type-input" class="hide" type="text" name="new_project_type_name" />
     </div>
     <div class="form-actions">
       <button class="btn btn-primary" type="submit">Create Project</button>

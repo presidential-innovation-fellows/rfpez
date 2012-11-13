@@ -24,7 +24,26 @@ class Projects_Controller extends Base_Controller {
   }
 
   public function action_create() {
-    $project = new Project(Input::get('project'));
+    $project_input = Input::get('project');
+
+    if ($project_input["project_type_id"] == "Other") {
+
+      if (!Input::get('new_project_type_name')) {
+        Session::flash('errors', array('Please enter a project type.'));
+        return Redirect::to_route('new_projects')->with_input();
+
+      } elseif ($existing_project_type = ProjectType::where_name(Input::get('new_project_type_name'))->first()) {
+        $project_input["project_type_id"] = $existing_project_type->id;
+
+      } else {
+        $project_type = new ProjectType(array('name' => Input::get('new_project_type_name')));
+        $project_type->save();
+        $project_input["project_type_id"] = $project_type->id;
+      }
+
+    }
+
+    $project = new Project($project_input);
     $project->proposals_due_at = Input::get('proposals_due_at') . " 23:59:59";
 
     if ($project->validator()->passes()) {

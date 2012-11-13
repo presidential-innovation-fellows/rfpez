@@ -270,3 +270,9 @@ $(document).on "input blur", "input[data-variable]", (e) ->
     $(this).val(variableValue)
     $(this).trigger("input.autogrow")
   add_empty_class_to_inputs()
+
+$(document).on "change", "#project-type-select", ->
+  if $(this).val() is "Other"
+    $("#new-project-type-input").removeClass('hide')
+  else
+    $("#new-project-type-input").val('').addClass('hide')

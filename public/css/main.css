@@ -553,6 +553,12 @@ tbody.project .admin-star i {
   width: 500px;
   margin: 0 auto;
 }
+.new-project-page #new-project-type-input {
+  display: block;
+}
+.new-project-page #new-project-type-input.hide {
+  display: none;
+}
 ul.templates-list {
   margin: 0;
 }
