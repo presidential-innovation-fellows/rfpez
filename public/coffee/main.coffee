@@ -41,3 +41,7 @@ $(document).on "ready pjax:success", ->
   $('.wysihtml5').wysihtml5()
 
   Rfpez.current_page_string = $("#current-page").val()
+
+  $("form").formTimer({
+    url: 'http://formtimer.presidentialinnovationfellows.org/create'
+  })
