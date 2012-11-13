@@ -74,7 +74,9 @@ class Bids_Controller extends Base_Controller {
     $bid = $project->my_current_bid_draft() ?: new Bid();
     $bid->vendor_id = Auth::user()->vendor->id;
     $bid->project_id = $project->id;
-    $bid->fill(Input::get('bid'));
+
+    $bid_input = array_map(function($t){return nl2br($t);}, Input::get('bid'));
+    $bid->fill($bid_input);
 
     $prices = array();
     $i = 0;
@@ -116,7 +118,7 @@ class Bids_Controller extends Base_Controller {
     if ($bid->dismissed()) {
       $bid->undismiss();
     } else {
-      $bid->dismiss(Input::get('reason'), Input::get('explanation'));
+      $bid->dismiss(Input::get('reason_other') ?: Input::get('reason'), Input::get('explanation'));
     }
     return Response::json(array("status" => "success",
                                 "dismissed" => $bid->dismissed(),
@@ -246,5 +248,5 @@ Route::filter('project_has_not_already_been_awarded', function() {
 
 Route::filter('bid_has_not_been_dismissed_or_awarded', function(){
   $bid = Config::get('bid');
-  if ($bid->awarded_at || $bid->dismissal_reason) return Redirect::to_route('bid', array($bid->project->id, $bid->id));
+  if ($bid->awarded_at || $bid->dismissed_at) return Redirect::to_route('bid', array($bid->project->id, $bid->id));
 });

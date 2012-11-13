@@ -16,11 +16,11 @@
   <div class="row-fluid">
     <div class="span5 col1">
       <h5>Approach</h5>
-      <p><?php echo Jade\Dumper::_text($bid->approach); ?></p>
+      <p><?php echo Jade\Dumper::_html($bid->approach); ?></p>
       <h5>Previous Work</h5>
-      <p><?php echo Jade\Dumper::_text($bid->previous_work); ?></p>
+      <p><?php echo Jade\Dumper::_html($bid->previous_work); ?></p>
       <h5>Employee Details</h5>
-      <p><?php echo Jade\Dumper::_text($bid->employee_details); ?></p>
+      <p><?php echo Jade\Dumper::_html($bid->employee_details); ?></p>
       <h5>Prices</h5>
       <table class="table">
         <thead>

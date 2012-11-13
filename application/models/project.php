@@ -179,13 +179,13 @@ class Project extends Eloquent {
 
   public function open_bids() {
     return $this->submitted_bids()
-                ->where_null('dismissal_reason')
+                ->where_null('dismissed_at')
                 ->where_null('awarded_at');
   }
 
   public function dismissed_bids() {
     return $this->submitted_bids()
-                ->where_not_null('dismissal_reason');
+                ->where_not_null('dismissed_at');
   }
 
   public function available_templates() {
@@ -213,7 +213,16 @@ class Project extends Eloquent {
     $this->forked_from_project_id = $template->id;
     $this->background = $template->background;
     $this->sections = $template->sections;
-    $this->deliverables = $template->deliverables;
+
+    foreach ($template->deliverables as $deliverable) {
+      $new_deliverable = new Deliverable(array('name' => $deliverable->name,
+                                               'date' => $deliverable->date,
+                                               'length' => $deliverable->length,
+                                               'sort_order' => $deliverable->sort_order));
+      $new_deliverable->project_id = $this->id;
+      $new_deliverable->save();
+    }
+
     $this->save();
 
     ProjectSection::change_times_used($template->sections, 1);

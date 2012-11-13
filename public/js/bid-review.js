@@ -3,7 +3,16 @@
   var dismiss_selection, keep_bid_in_view, mouseover_select_timeout, on_mouseover_select, open_selection, star_selection, toggle_unread_selection;
 
   $(document).on('shown', '#dismiss-modal', function() {
-    return $(this).find("select").focus();
+    $(this).find("select").focus().val('');
+    return $(this).find("input[name=reason_other]").val('').hide();
+  });
+
+  $(document).on("change", "#dismiss-modal select", function() {
+    if ($(this).val() === "Other") {
+      return $("#dismiss-modal input[name=reason_other]").show();
+    } else {
+      return $("#dismiss-modal input[name=reason_other]").val('').hide();
+    }
   });
 
   $(document).on("click", "#review-tips-toggle", function() {
@@ -109,6 +118,7 @@
         url: "/projects/" + project_id + "/bids/" + bid_id + "/dismiss",
         data: {
           reason: modal.find("select[name=reason]").val(),
+          reason_other: modal.find("input[name=reason_other]").val(),
           explanation: modal.find("textarea[name=explanation]").val()
         },
         type: "GET",
@@ -132,15 +142,17 @@
   });
 
   $(document).on("click", ".show-award-modal", function() {
-    var bid, bid_id, data_el, el, modal, project_id, vendor_company_name;
+    var bid, bid_id, data_el, el, modal, project_id, vendor_company_name, vendor_email;
     el = $(this);
     bid = el.closest(".bid");
     data_el = el.closest("[data-bid-id]");
     project_id = data_el.data('project-id');
     bid_id = data_el.data('bid-id');
     vendor_company_name = data_el.data('vendor-company-name');
+    vendor_email = data_el.data('vendor-email');
     modal = $("#award-modal");
     modal.find(".company-name").text(vendor_company_name);
+    modal.find(".vendor-email").html("<a href=\"mailto:" + vendor_email + "\">" + vendor_email + "</a>");
     modal.find(".award-btn").button('reset');
     modal.modal('show');
     modal.off(".rfpez-award");
@@ -155,17 +167,9 @@
         type: "GET",
         dataType: "json",
         success: function(data) {
-          var new_bid;
           if (data.status === "success") {
             modal.modal('hide');
-            if (el.data('move-to-table')) {
-              bid.remove();
-              new_bid = $(data.html);
-              $(".bids-table.winning-bid > thead").after(new_bid);
-              return $(".winning-bid-table-wrapper").removeClass('hide');
-            } else {
-              return window.location.reload();
-            }
+            return window.location.reload();
           }
         }
       });

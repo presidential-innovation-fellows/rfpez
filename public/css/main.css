@@ -242,13 +242,6 @@ body.vendor .no-auth-only {
 #award-modal .modal-body label.bold-label {
   font-weight: bold;
 }
-.dismissed-alert .dismissal-notice {
-  border-bottom: 1px dotted #ccc;
-  padding-bottom: 10px;
-}
-.dismissed-alert .dismissal-reason {
-  padding-top: 10px;
-}
 .vendor-image-preview-frame {
   background-color: #fff;
   overflow: hidden;
@@ -559,6 +552,12 @@ tbody.project .admin-star i {
 .new-project-page {
   width: 500px;
   margin: 0 auto;
+}
+.new-project-page #new-project-type-input {
+  display: block;
+}
+.new-project-page #new-project-type-input.hide {
+  display: none;
 }
 ul.templates-list {
   margin: 0;

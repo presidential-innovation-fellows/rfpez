@@ -3,12 +3,6 @@
   - if ($bid->dismissed()):
     .alert.alert-danger.dismissed-alert
       .dismissal-notice Your bid has been dismissed.
-      .dismissal-reason
-        strong Reason:
-        span #{$bid->dismissal_reason}
-      .dismissal-explanation
-        strong Explanation:
-        span #{$bid->dismissal_explanation}
   - elseif (!$bid->awarded_at):
     .alert.alert-info
       | Your bid is currently being reviewed. We'll let you know when the status changes.
@@ -23,13 +17,13 @@
   - endif;
 
   h5 Approach
-  p #{$bid->approach}
+  p !{$bid->approach}
 
   h5 Previous Work
-  p #{$bid->previous_work}
+  p !{$bid->previous_work}
 
   h5 Employee Details
-  p #{$bid->employee_details}
+  p !{$bid->employee_details}
 
   .row
     .span6.prices
@@ -56,7 +50,7 @@
         img(src="#{$bid->vendor->image_url}")
 
 
-  - if (!$bid->dismissal_reason && !$bid->awarded_at):
+  - if (!$bid->dismissed_at && !$bid->awarded_at):
     a(href="#{route('bid_destroy', array($bid->project->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
       | Delete Bid
   - endif;

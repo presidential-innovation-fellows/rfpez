@@ -7,17 +7,24 @@
         span.company-name
 
     .modal-body
+      .alert.alert-info
+        | These fields are <strong>optional</strong>, and will not be shown to the vendor. They may be useful to log,
+        | however, in case of a future contest.
+
       .control-group
         label.control-label Dismissal Reason:
         .controls
           select(name='reason')
-            - foreach (Bid::$dismissal_reasons as $reason):
+            option(value="") -- Select a Reason --
+            - foreach (Bid::dismissal_reasons() as $reason):
               option(value="#{$reason}") #{$reason}
+            option(value="Other") Other
+          input(type="text", name="reason_other")
 
       .control-group
         .controls
           textarea(name='explanation', placeholder='Dismissal Explanation')
-          .alert.alert-error (The vendor will see this message)
+
     .modal-footer
       button.btn(data-dismiss='modal') Cancel
       button.btn.btn-primary.dismiss-btn(data-loading-text='Dismissing...') Dismiss

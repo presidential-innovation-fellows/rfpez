@@ -340,4 +340,12 @@
     return add_empty_class_to_inputs();
   });
 
+  $(document).on("change", "#project-type-select", function() {
+    if ($(this).val() === "Other") {
+      return $("#new-project-type-input").removeClass('hide');
+    } else {
+      return $("#new-project-type-input").val('').addClass('hide');
+    }
+  });
+
 }).call(this);

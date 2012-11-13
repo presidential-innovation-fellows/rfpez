@@ -8,7 +8,14 @@ class Bid extends Eloquent {
 
   public static $accessible = array('project_id', 'approach', 'previous_work', 'employee_details', 'prices');
 
-  public static $dismissal_reasons = array('Price Too high', 'Not Qualified','Irrelevant Proposal','Excluded Party','Low Value','Poor Work History','Other');
+  public static $default_dismissal_reasons = array('Price Too high',
+                                           'Not Qualified',
+                                           'Irrelevant Proposal',
+                                           'Excluded Party',
+                                           'Low Value',
+                                           'Poor Work History');
+
+  public static $dismissal_reasons = false;
 
   public $total_price = false;
 
@@ -55,8 +62,8 @@ class Bid extends Eloquent {
     return $this->get_prices() ? array_values($this->get_prices()) : false;
   }
 
-  public function dismiss($reason, $explanation = false) {
-    if (!$explanation) $explanation = $reason;
+  public function dismiss($reason = false, $explanation = false) {
+    $this->dismissed_at = new \DateTime;
     $this->dismissal_reason = $reason;
     $this->dismissal_explanation = $explanation;
     $this->save();
@@ -65,6 +72,7 @@ class Bid extends Eloquent {
   }
 
   public function undismiss() {
+    $this->dismissed_at = NULL;
     $this->dismissal_reason = NULL;
     $this->dismissal_explanation = NULL;
     $this->save();
@@ -72,7 +80,7 @@ class Bid extends Eloquent {
   }
 
   public function dismissed() {
-    return $this->dismissal_reason ? true : false;
+    return $this->dismissed_at ? true : false;
   }
 
   public function get_status() {
@@ -102,6 +110,12 @@ class Bid extends Eloquent {
     $this->awarded_by = Auth::officer()->id;
     $this->save();
 
+    // Dismiss all the other bids.
+    foreach ($this->project->bids as $bid) {
+      if ($bid->id != $this->id && !$bid->dismissed_at)
+        $bid->dismiss();
+    }
+
     Notification::send("Award", array('actor_id' => Auth::user()->id, 'bid' => $this));
 
     if (trim($message) != "") {
@@ -123,6 +137,23 @@ class Bid extends Eloquent {
       $total += floatVal($price);
     }
     return $this->total_price = $total;
+  }
+
+  public static function dismissal_reasons() {
+    if (self::$dismissal_reasons !== false) return self::$dismissal_reasons;
+
+    $raw_popular_reasons = DB::query("SELECT count(dismissal_reason) AS count, dismissal_reason
+                                  FROM bids
+                                  GROUP BY dismissal_reason
+                                  HAVING count(dismissal_reason) > 2");
+
+    $reasons = array_map (function($raw_popular_reason){
+      return $raw_popular_reason->dismissal_reason;
+    }, $raw_popular_reasons);
+
+    $returnArray = array_merge(self::$default_dismissal_reasons, $reasons);
+    sort($returnArray);
+    return self::$dismissal_reasons = $returnArray;
   }
 
 }

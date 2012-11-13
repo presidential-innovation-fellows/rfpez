@@ -40,7 +40,6 @@ class Seed_Task {
     ProjectType::create(array('name' => 'Website Design', 'naics' => 541092));
     $api_project_type = ProjectType::create(array('name' => 'API Design and Development', 'naics' => 541093));
     ProjectType::create(array('name' => 'Content Management System Integration', 'naics' => 541094));
-    ProjectType::create(array('name' => 'Other', 'naics' => 541000));
 
     // Create project sections
     $section1 = ProjectSection::create(array('section_category' => 'Deliverables',
