@@ -29,7 +29,7 @@ class Auth_Controller extends Base_Controller {
       }
 
       if (Input::has('modal') && Request::referrer() != route('signout')) return Redirect::back();
-      if ($url = Input::get('redirect_to') && Input::get('redirect_to') != route('signout')) return Redirect::to($url);
+      if (($url = Input::get('redirect_to')) && Input::get('redirect_to') != route('signout')) return Redirect::to($url);
       return Redirect::to('/');
     } else {
       return Redirect::to_route('signin')
