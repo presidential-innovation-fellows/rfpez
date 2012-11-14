@@ -6,6 +6,8 @@ class ProjectType extends Eloquent {
 
   public static $table = "project_types";
 
+  public static $accessible = array('name', 'naics');
+
   public function projects() {
     return $this->has_many('Project');
   }
@@ -28,5 +30,9 @@ class ProjectType extends Eloquent {
       default:
         return "/img/development.png";
     }
+  }
+
+  public static function defaults() {
+    return self::where_show_in_list(true)->get();
   }
 }

@@ -37,9 +37,14 @@ class Seed_Task {
     for ($i = 0; $i < 5; $i++) Factory::officer();
 
     // Create project types
-    ProjectType::create(array('name' => 'Website Design', 'naics' => 541092));
+    $pt1 = ProjectType::create(array('name' => 'Website Design', 'naics' => 541092));
     $api_project_type = ProjectType::create(array('name' => 'API Design and Development', 'naics' => 541093));
-    ProjectType::create(array('name' => 'Content Management System Integration', 'naics' => 541094));
+    $pt2 = ProjectType::create(array('name' => 'Content Management System Integration', 'naics' => 541094));
+
+    foreach (array($pt1, $api_project_type, $pt2) as $project_type) {
+      $project_type->show_in_list = true;
+      $project_type->save();
+    }
 
     // Create project sections
     $section1 = ProjectSection::create(array('section_category' => 'Deliverables',
@@ -61,7 +66,7 @@ class Seed_Task {
     $api_project_type->project_sections()->sync(array($section1->id, $section2->id, $section3->id));
 
     // Create first project
-    $project = Project::create(array('project_type_id' => $api_project_type->id,
+    $project = new Project(array('project_type_id' => $api_project_type->id,
                                      'title' => 'API for SBA.gov Dynamic Small Business Search',
                                      'agency' => 'Small Business Administration',
                                      'office' => 'Office of Innovation and Research',
@@ -71,9 +76,12 @@ class Seed_Task {
                                      'sections' => array($section1->id, $section2->id, $section3->id),
                                      'variables' => array('WEBSITE' => 'api.dsbs.sba.gov'),
                                      'deliverables' => array('Information Architecture' => '1/1/13', 'Page Templating' => '2/8/13'),
-                                     'proposals_due_at' => new \DateTime('12/31/2012'),
-                                     'posted_to_fbo_at' => new \DateTime
+                                     'proposals_due_at' => new \DateTime('12/31/2012')
                                      ));
+
+    $project->posted_to_fbo_at = new \DateTime;
+    $project->save();
+
 
     // ...And give it to officer1
     $project->officers()->attach(Officer::first()->id, array('owner' => true));

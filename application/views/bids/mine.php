@@ -22,5 +22,7 @@
   </table>
 <?php else: ?>
   <p>No bids.</p>
-  <p:a class="btn btn-success" href="#{route('projects')" data-pjax="data-pjax">Find some projects!</p:a>
+  <p>
+    <a class="btn btn-success" href="<?php echo Jade\Dumper::_text(route('projects')); ?>" data-pjax="data-pjax">Find some projects!</a>
+  </p>
 <?php endif; ?>

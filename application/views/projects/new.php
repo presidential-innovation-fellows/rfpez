@@ -38,7 +38,7 @@
     <div class="control-group">
       <label>Project Type</label>
       <select id="project-type-select" name="project[project_type_id]">
-        <?php foreach (ProjectType::all() as $project_type): ?>
+        <?php foreach (ProjectType::defaults() as $project_type): ?>
           <option value="<?php echo Jade\Dumper::_text($project_type->id); ?>"><?php echo Jade\Dumper::_text($project_type->name); ?></option>
         <?php endforeach; ?>
         <option value="Other">Other</option>
