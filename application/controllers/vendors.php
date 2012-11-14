@@ -29,6 +29,7 @@ class Vendors_Controller extends Base_Controller {
       $vendor->save();
       $services = Input::get('services') ? array_keys(Input::get('services')) : array();
       $user->vendor->services()->sync($services);
+      Session::regenerate();
       Auth::login($user->id);
       Mailer::send("NewVendorRegistered", array("user" => $user));
       return Redirect::to('/');

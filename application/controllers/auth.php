@@ -16,6 +16,8 @@ class Auth_Controller extends Base_Controller {
   }
 
   public function action_create() {
+    Session::regenerate();
+
     $credentials = array('username' => Input::get('email'),
                          'password' => Input::get('password'),
                          'remember' => Input::has('remember') ? true : false);
