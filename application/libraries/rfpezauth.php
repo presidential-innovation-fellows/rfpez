@@ -1,6 +1,6 @@
-<?php namespace Laravel\Auth\Drivers;
+<?php
 
-class Rfpez extends Eloquent {
+class RfpezAuth extends Laravel\Auth\Drivers\Eloquent {
 
   public function officer() {
     if (!$this->user()) return false;

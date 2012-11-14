@@ -195,5 +195,5 @@ if (Request::is_env('production')) {
 }
 
 Auth::extend('rfpez', function(){
-	return new Laravel\Auth\Drivers\Rfpez;
+	return new RfpezAuth;
 });
