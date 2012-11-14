@@ -98,7 +98,7 @@ class User extends Eloquent {
     if ($dotgov_only) $rules['email'] .= '|dotgovonly';
     if ($password_required) $rules["password"] = "required|min:8";
 
-    $validator = Validator::make($this->attributes, $rules);
+    $validator = RfpezValidator::make($this->attributes, $rules);
     $validator->passes(); // hack to populate error messages
 
     return $this->validator = $validator;

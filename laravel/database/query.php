@@ -283,7 +283,7 @@ class Query {
 	 */
 	public function or_where_id($value)
 	{
-		return $this->or_where('id', '=', $value);
+		return $this->or_where('id', '=', $value);		
 	}
 
 	/**
@@ -341,6 +341,67 @@ class Query {
 	public function or_where_not_in($column, $values)
 	{
 		return $this->where_not_in($column, $values, 'OR');
+	}
+	
+	/**
+	 * Add a BETWEEN condition to the query
+	 * 
+	 * @param  string  $column    
+	 * @param  mixed  $min       
+	 * @param  mixed  $max       
+	 * @param  string  $connector 
+	 * @param  boolean $not       
+	 * @return Query
+	 */
+	public function where_between($column, $min, $max, $connector = 'AND', $not = false)
+	{
+		$type = ($not) ? 'where_not_between' : 'where_between';
+
+		$this->wheres[] = compact('type', 'column', 'min', 'max', 'connector');
+
+		$this->bindings[] = $min;
+		$this->bindings[] = $max;
+
+		return $this;
+	}
+
+	/**
+	 * Add a OR BETWEEN condition to the query
+	 * 
+	 * @param  string  $column    
+	 * @param  mixed  $min       
+	 * @param  mixed  $max       
+	 * @return Query
+	 */
+	public function or_where_between($column, $min, $max)
+	{
+		return $this->where_between($column, $min, $max, 'OR');
+	}
+
+	/**
+	 * Add a NOT BETWEEN condition to the query
+	 * 
+	 * @param  string  $column    
+	 * @param  mixed  $min       
+	 * @param  mixed  $max       
+	 * @return Query
+	 */
+	public function where_not_between($column, $min, $max, $connector = 'AND')
+	{
+		return $this->where_between($column, $min, $max, $connector, true);
+	}
+
+	/**
+	 * Add a OR NOT BETWEEN condition to the query
+	 * 
+	 * @param  string  $column    
+	 * @param  mixed  $min       
+	 * @param  mixed  $max       
+	 * @return Query
+	 */
+	public function or_where_not_between($column, $min, $max)
+	{
+		return $this->where_not_between($column, $min, $max, 'OR');
 	}
 
 	/**
@@ -621,7 +682,7 @@ class Query {
 		// set the keys on the array of values using the array_combine
 		// function provided by PHP, which should give us the proper
 		// array form to return from the method.
-		if ( ! is_null($key))
+		if ( ! is_null($key) && count($results))
 		{
 			return array_combine(array_map(function($row) use ($key)
 			{
@@ -853,7 +914,7 @@ class Query {
 
 		$sql = $this->grammar->delete($this);
 
-		return $this->connection->query($sql, $this->bindings);
+		return $this->connection->query($sql, $this->bindings);		
 	}
 
 	/**

@@ -10,55 +10,61 @@ Bundle::start('basset');
 
 if (Config::get('basset')) Basset\Config::extend(Config::get('basset'));
 
-Basset::scripts('website', function($basset)
-{
-         // Vendor scripts
-  $basset->add('bootstrapjs', 'js/vendor/bootstrap.js')
-         ->add('bootstrap-datepicker', 'js/vendor/bootstrap-datepicker.js')
-         ->add('wysihtml5', 'js/vendor/wysihtml5.min.js')
-         ->add('bootstrap-wysihtml5', 'js/vendor/bootstrap-wysihtml5.js')
-         ->add('jquery-sortable', 'js/vendor/jquery.sortable.js')
-         ->add('autogrow-input', 'js/vendor/autogrow-input.js')
-         ->add('jquerytimeago', 'js/vendor/jquery.timeago.js')
-         ->add('jqueryvalidate', 'js/vendor/jquery.validate.js')
-         ->add('jqueryvalidaterfpez', 'js/vendor/jquery.validate_rfpez.js')
-         ->add('jqueryform', 'js/vendor/jquery.form.js')
-         ->add('jqueryhotkeys', 'js/vendor/jquery.hotkeys.js')
-         ->add('jquerypjax', 'js/vendor/jquery.pjax.js')
-
-         // Application scripts
-         ->add('flashbutton', 'js/flash-button.js')
-         ->add('main', 'js/main.js')
-         ->add('question-and-answer', 'js/question-and-answer.js')
-         ->add('vendor-image-preview', 'js/vendor-image-preview.js')
-         ->add('new-bid', 'js/new-bid.js')
-         ->add('validation', 'js/validation.js')
-         ->add('filter-projects', 'js/filter-projects.js')
-         ->add('collaborators', 'js/collaborators.js')
-         ->add('sow-composer', 'js/sow-composer.js')
-         ->add('notifications', 'js/notifications.js')
-         ->add('dsbs-lookup', 'js/dsbs-lookup.js')
-         ->add('infinite-vendor-scroll', 'js/infinite-vendor-scroll.js')
-         ->add('save-bid-draft', 'js/save-bid-draft.js')
-
-         // backbone!
-         ->add('underscore', 'js/vendor/underscore.js')
-         ->add('backbone', 'js/vendor/backbone.js')
-         ->add('comments-backbone', 'js/comments-backbone.js')
-         ->add('collaborators-backbone', 'js/collaborators-backbone.js')
-         ->add('admin-officers-backbone', 'js/admin-officers-backbone.js')
-         ->add('admin-projects-backbone', 'js/admin-projects-backbone.js')
-         ->add('sow-deliverables-backbone', 'js/sow-deliverables-backbone.js')
-
-         ->compress();
+Basset::scripts('global', function ($b){
+  $b->add('js/vendor/bootstrap.js')
+    ->add('js/vendor/jquery.validate.js')
+    ->add('js/vendor/jquery.validate_rfpez.js')
+    ->add('js/vendor/jquery.timeago.js')
+    ->add('js/vendor/jquery.form.js')
+    ->add('js/vendor/jquery.pjax.js')
+    ->add('js/flash-button.js')
+    ->add('js/main.js')
+    ->add('js/question-and-answer.js')
+    ->add('js/validation.js')
+    ->add('js/filter-projects.js')
+    ->add('js/notifications.js')
+    ->add('js/dsbs-lookup.js')
+    ->add('js/infinite-vendor-scroll.js')
+    ->add('js/vendor/underscore.js')
+    ->add('js/vendor/backbone.js')
+    ->compress();
 });
+
+Basset::scripts('vendor', function ($b){
+  $b->add('js/vendor-image-preview.js')
+    ->add('js/new-bid.js')
+    ->add('js/save-bid-draft.js')
+    ->compress();
+});
+
+Basset::scripts('officer', function ($b){
+  $b->add('js/vendor/bootstrap-datepicker.js')
+    ->add('js/vendor/wysihtml5.min.js')
+    ->add('js/vendor/bootstrap-wysihtml5.js')
+    ->add('js/vendor/jquery.sortable.js')
+    ->add('js/vendor/autogrow-input.js')
+    ->add('js/vendor/jquery.hotkeys.js')
+    ->add('js/collaborators.js')
+    ->add('js/sow-composer.js')
+    ->add('js/comments-backbone.js')
+    ->add('js/collaborators-backbone.js')
+    ->add('js/sow-deliverables-backbone.js')
+    ->compress();
+});
+
+Basset::scripts('admin', function ($b){
+  $b->add('js/admin-officers-backbone.js')
+    ->add('js/admin-projects-backbone.js')
+    ->compress();
+});
+
 
 Basset::styles('website', function($basset)
 {
   $basset->add('bootstrap', 'bootstrap.css')
-         ->add('bootstrap-responsive', 'bootstrap-responsive.css')
-         ->add('bootstrap-wysihtml5', 'bootstrap-wysihtml5.css')
-         ->add('datepicker', 'datepicker.css')
-         ->add('maincss', 'main.css')
-         ->compress();
+  ->add('bootstrap-responsive', 'bootstrap-responsive.css')
+  ->add('bootstrap-wysihtml5', 'bootstrap-wysihtml5.css')
+  ->add('datepicker', 'datepicker.css')
+  ->add('maincss', 'main.css')
+  ->compress();
 });

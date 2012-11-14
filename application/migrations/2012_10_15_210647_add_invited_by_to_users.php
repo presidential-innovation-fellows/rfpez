@@ -10,7 +10,7 @@ class Add_Invited_By_To_Users {
 	public function up()
 	{
 		Schema::table('users', function($t){
-			$t->integer('invited_by')->nullable();
+			$t->integer('invited_by')->nullable()->unsigned();
       $t->foreign('invited_by')->references('id')->on('users')->on_delete('SET NULL');
 		});
 	}
