@@ -347,18 +347,6 @@ abstract class Model {
 		return new Has_Many_And_Belongs_To($this, $model, $table, $foreign, $other);
 	}
 
-
-	/**
-	 * Updates the created_at timestamp to current time.
-	 *
-	 * @return bool
-	 */
-	public function touch()
-	{
-		$this->timestamp();
-		return $this->save();
-	}
-
 	/**
 	 * Save the model and all of its relations to the database.
 	 *

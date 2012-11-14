@@ -41,8 +41,8 @@ class Initial_Schema {
 
     Schema::create('bids', function($t){
       $t->increments('id');
-      $t->integer('vendor_id');
-      $t->integer('project_id');
+      $t->integer('vendor_id')->unsigned();
+      $t->integer('project_id')->unsigned();
       $t->text('approach');
       $t->text('previous_work');
       $t->text('employee_details');
@@ -74,8 +74,8 @@ class Initial_Schema {
 
     Schema::create('projects', function($t){
       $t->increments('id');
-      $t->integer('forked_from_project_id')->nullable();
-      $t->integer('project_type_id');
+      $t->integer('forked_from_project_id')->nullable()->unsigned();
+      $t->integer('project_type_id')->unsigned();
       $t->string('title');
       $t->string('fbo_solnbr')->nullable();
       $t->string('agency');
@@ -102,15 +102,15 @@ class Initial_Schema {
 
     Schema::create('project_section_type', function($t){
       $t->increments('id');
-      $t->integer('project_type_id');
-      $t->integer('project_section_id');
+      $t->integer('project_type_id')->unsigned();
+      $t->integer('project_section_id')->unsigned();
 
       $t->timestamps();
     });
 
     Schema::create('project_sections', function($t){
       $t->increments('id');
-      $t->integer('based_on_project_section_id')->nullable();
+      $t->integer('based_on_project_section_id')->nullable()->unsigned();
       $t->integer('times_used')->default(0);
       $t->string('section_category');
       $t->string('title');
@@ -121,18 +121,18 @@ class Initial_Schema {
 
     Schema::create('questions', function($t){
       $t->increments('id');
-      $t->integer('project_id');
-      $t->integer('vendor_id');
+      $t->integer('project_id')->unsigned();
+      $t->integer('vendor_id')->unsigned();
       $t->text('question');
       $t->text('answer')->nullable();
-      $t->integer('answered_by')->nullable();
+      $t->integer('answered_by')->nullable()->unsigned();
 
       $t->timestamps();
     });
 
     Schema::create('vendors', function($t){
       $t->increments('id');
-      $t->integer('user_id');
+      $t->integer('user_id')->unsigned();
       $t->string('company_name');
       $t->string('contact_name');
 
@@ -168,15 +168,15 @@ class Initial_Schema {
     // that a vendor offers.
     Schema::create('service_vendor', function($t){
       $t->increments('id');
-      $t->integer('service_id');
-      $t->integer('vendor_id');
+      $t->integer('service_id')->unsigned();
+      $t->integer('vendor_id')->unsigned();
 
       $t->timestamps();
     });
 
     Schema::create('officers', function($t){
       $t->increments('id');
-      $t->integer('user_id');
+      $t->integer('user_id')->unsigned();
       $t->string('phone');
       $t->string('fax');
       $t->string('name');
@@ -196,8 +196,8 @@ class Initial_Schema {
 
     Schema::create('notifications', function($t){
       $t->increments('id');
-      $t->integer('target_id');
-      $t->integer('actor_id')->nullable();
+      $t->integer('target_id')->unsigned();
+      $t->integer('actor_id')->nullable()->unsigned();
       $t->string('notification_type');
       $t->text('payload');
       $t->boolean('read');
@@ -206,8 +206,8 @@ class Initial_Schema {
 
     Schema::create('project_collaborators', function($t){
       $t->increments('id');
-      $t->integer('officer_id');
-      $t->integer('project_id');
+      $t->integer('officer_id')->unsigned();
+      $t->integer('project_id')->unsigned();
       $t->timestamps();
     });
 

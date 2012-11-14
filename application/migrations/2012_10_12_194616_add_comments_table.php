@@ -11,8 +11,8 @@ class Add_Comments_Table {
 	{
 		Schema::create('comments', function($t){
 			$t->increments('id');
-			$t->integer('project_id');
-			$t->integer('officer_id')->nullable();
+			$t->integer('project_id')->unsigned();
+			$t->integer('officer_id')->nullable()->unsigned();
 			$t->text('body');
 			$t->timestamps();
 		});

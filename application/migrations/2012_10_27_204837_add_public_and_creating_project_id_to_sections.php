@@ -10,7 +10,7 @@ class Add_Public_And_Creating_Project_Id_To_Sections {
 	public function up()
 	{
 		Schema::table('project_sections', function($t){
-			$t->integer('created_by_project_id')->nullable();
+			$t->integer('created_by_project_id')->nullable()->unsigned();
 			$t->boolean('public')->default(0);
 
       $t->foreign('created_by_project_id')->references('id')->on('projects')->on_delete('SET NULL');
