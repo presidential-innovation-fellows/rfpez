@@ -42,7 +42,7 @@
                   <a href="<?php echo Jade\Dumper::_text(route('account')); ?>" data-pjax="data-pjax">Account Settings</a>
                 </li>
                 <li>
-                  <a href="<?php echo Jade\Dumper::_text( route('signout') ); ?>" data-pjax="data-pjax">Sign Out</a>
+                  <a href="<?php echo Jade\Dumper::_text( route('signout') ); ?>">Sign Out</a>
                 </li>
               </ul>
             </li>
