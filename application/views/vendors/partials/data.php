@@ -1,11 +1,11 @@
 <?php if (!isset($defer)) $defer = false; ?>
 <div class="vendor-data">
-  <?php echo Jade\Dumper::_html(datum("Contact Name", $vendor->contact_name)); ?>
-  <?php echo Jade\Dumper::_html(datum("Email", $vendor->user->email, true)); ?>
-  <?php echo Jade\Dumper::_html(datum("Address", $vendor->address."<br />".$vendor->city.", ".$vendor->state." ".$vendor->zip)); ?>
-  <?php echo Jade\Dumper::_html(datum("Website", $vendor->homepage_url, true)); ?>
-  <?php echo Jade\Dumper::_html(datum("Portfolio", $vendor->portfolio_url, true)); ?>
-  <?php echo Jade\Dumper::_html(datum("Source code", $vendor->sourcecode_url, true)); ?>
+  <?php echo Jade\Dumper::_html(Helper::datum("Contact Name", $vendor->contact_name)); ?>
+  <?php echo Jade\Dumper::_html(Helper::datum("Email", $vendor->user->email, true)); ?>
+  <?php echo Jade\Dumper::_html(Helper::datum("Address", $vendor->address."<br />".$vendor->city.", ".$vendor->state." ".$vendor->zip)); ?>
+  <?php echo Jade\Dumper::_html(Helper::datum("Website", $vendor->homepage_url, true)); ?>
+  <?php echo Jade\Dumper::_html(Helper::datum("Portfolio", $vendor->portfolio_url, true)); ?>
+  <?php echo Jade\Dumper::_html(Helper::datum("Source code", $vendor->sourcecode_url, true)); ?>
   <div class="datum">
     <label>SAM.gov</label>
     <div class="content">

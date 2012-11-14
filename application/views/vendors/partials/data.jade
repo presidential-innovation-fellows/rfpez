@@ -1,12 +1,12 @@
 - if (!isset($defer)) $defer = false;
 
 .vendor-data
-  !{datum("Contact Name", $vendor->contact_name)}
-  !{datum("Email", $vendor->user->email, true)}
-  !{datum("Address", $vendor->address."<br />".$vendor->city.", ".$vendor->state." ".$vendor->zip)}
-  !{datum("Website", $vendor->homepage_url, true)}
-  !{datum("Portfolio", $vendor->portfolio_url, true)}
-  !{datum("Source code", $vendor->sourcecode_url, true)}
+  !{Helper::datum("Contact Name", $vendor->contact_name)}
+  !{Helper::datum("Email", $vendor->user->email, true)}
+  !{Helper::datum("Address", $vendor->address."<br />".$vendor->city.", ".$vendor->state." ".$vendor->zip)}
+  !{Helper::datum("Website", $vendor->homepage_url, true)}
+  !{Helper::datum("Portfolio", $vendor->portfolio_url, true)}
+  !{Helper::datum("Source code", $vendor->sourcecode_url, true)}
   .datum
     label SAM.gov
     div.content
