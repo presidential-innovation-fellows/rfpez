@@ -31,17 +31,17 @@
   </script>
   <?php echo Jade\Dumper::_html(Basset::show('website.js')); ?>
   <?php echo Jade\Dumper::_html(Section::yield('additional_scripts')); ?>
-  <?php if (Config::get('collect_stats')) { ?>
+</head>
+<body class="<?php echo Jade\Dumper::_text($body_class); ?>">
+  <div id="pjax-container">
+    <?php echo Jade\Dumper::_html(View::make('pjaxcontainer')->with('content', $content)); ?>
+  </div>
+  <?php if (Request::is_env('production')) { ?>
     <script src="/js/vendor/google.analytics.js"></script>
     <script src="/js/vendor/jquery.formtimer.js"></script>
     <script>
       $(document).on("ready", function() { $("form").formTimer(); });
     </script>
   <?php } ?>
-</head>
-<body class="<?php echo Jade\Dumper::_text($body_class); ?>">
-  <div id="pjax-container">
-    <?php echo Jade\Dumper::_html(View::make('pjaxcontainer')->with('content', $content)); ?>
-  </div>
 </body>
 </html>
