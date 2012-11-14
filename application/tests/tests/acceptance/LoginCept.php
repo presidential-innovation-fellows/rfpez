@@ -2,7 +2,7 @@
 
 $I = new WebGuy($scenario);
 
-/* Login with wrong password fails */
+/* Vendor login with wrong password fails */
 $I->amOnPage('/signin');
 $I->fillField('email','vendor1@example.com');
 $I->fillField('password','wrongpassword');
@@ -22,11 +22,15 @@ $I->see('Projects', 'h4');
 $I->click('Sign Out');
 $I->see('A Technology Marketplace That Everybody Loves');
 
-/* Officer login works */
-$I->amOnPage('/');
-$I->click('Sign In', 'a');
-$I->fillField('#signinModal #email','officer1@example.gov');
-$I->fillField('#signinModal input[type=password]','password');
-$I->click('#signinModal button.btn-primary');
-$I->amOnPage('/projects/mine');
+/* Officer login wrong password fails */
+$I->amOnPage('/signin');
+$I->fillField('email','officer1@example.gov');
+$I->fillField('password','wrongpassword');
+$I->click('button.btn');
+$I->see('Login incorrect', '.alert');
+
+/* Then officer login works */
+$I->fillField('email','officer1@example.gov');
+$I->fillField('password','password');
+$I->click('button.btn');
 $I->see('My Projects', 'h4');
