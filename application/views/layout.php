@@ -50,7 +50,7 @@
     <script src="/js/vendor/google.analytics.js"></script>
     <script src="/js/vendor/jquery.formtimer.js"></script>
     <script>
-      $(document).on("ready", function() { $("form").formTimer(); });
+      $(document).on("ready pjax:success", function() { $("form").formTimer(); });
     </script>
   <?php } ?>
 </body>
