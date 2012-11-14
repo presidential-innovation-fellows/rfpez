@@ -86,11 +86,6 @@
 
     - endif;
 
-    .control-group
-      label DUNS Number (optional)
-        !{Helper::helper_tooltip("DUNS numbers are unique for each business and help government agencies confirm your business information. You'll need one eventually, but don't worry -- it's free, takes about 10 minutes, and can be completed online.", "left")}
-      input(type="text", name="vendor[duns]", value="#{ $vendor['duns'] }")
-
     - if (!$signup):
       .control-group
         label Registered in SAM.gov?
@@ -135,3 +130,8 @@
     .control-group
       label Zip
       input(type="text", name="vendor[zip]", value="#{ $vendor['zip'] }")
+
+    .control-group
+      label DUNS Number (optional)
+        !{Helper::helper_tooltip("DUNS numbers are unique for each business and help government agencies confirm your business information. You'll need one eventually, but don't worry -- it's free, takes about 10 minutes, and can be completed online.", "left")}
+      input(type="text", name="vendor[duns]", value="#{ $vendor['duns'] }")

@@ -88,13 +88,6 @@
       </label>
       <h5>Contact Info</h5>
     <?php endif; ?>
-    <div class="control-group">
-      <label>
-        DUNS Number (optional)
-        <?php echo Jade\Dumper::_html(Helper::helper_tooltip("DUNS numbers are unique for each business and help government agencies confirm your business information. You'll need one eventually, but don't worry -- it's free, takes about 10 minutes, and can be completed online.", "left")); ?>
-      </label>
-      <input type="text" name="vendor[duns]" value="<?php echo Jade\Dumper::_text( $vendor['duns'] ); ?>" />
-    </div>
     <?php if (!$signup): ?>
       <div class="control-group">
         <label>Registered in SAM.gov?</label>
@@ -142,6 +135,13 @@
     <div class="control-group">
       <label>Zip</label>
       <input type="text" name="vendor[zip]" value="<?php echo Jade\Dumper::_text( $vendor['zip'] ); ?>" />
+    </div>
+    <div class="control-group">
+      <label>
+        DUNS Number (optional)
+        <?php echo Jade\Dumper::_html(Helper::helper_tooltip("DUNS numbers are unique for each business and help government agencies confirm your business information. You'll need one eventually, but don't worry -- it's free, takes about 10 minutes, and can be completed online.", "left")); ?>
+      </label>
+      <input type="text" name="vendor[duns]" value="<?php echo Jade\Dumper::_text( $vendor['duns'] ); ?>" />
     </div>
   </fieldset>
 </div>
