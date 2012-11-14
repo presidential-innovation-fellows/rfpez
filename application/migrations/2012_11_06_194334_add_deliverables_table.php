@@ -15,7 +15,7 @@ class Add_Deliverables_Table {
 
 		Schema::create('deliverables', function($t){
 			$t->increments('id');
-			$t->integer('project_id')->unsigned();
+			$t->integer('project_id');
 			$t->string('name');
 			$t->string('date')->nullable();
 			$t->string('length')->nullable();
