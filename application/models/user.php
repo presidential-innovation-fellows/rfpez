@@ -7,7 +7,7 @@ class User extends Eloquent {
   public static $hidden = array('reset_password_token', 'reset_password_sent_at', 'updated_at', 'created_at',
                                 'invited_by', 'encrypted_password', 'sign_in_count', 'current_sign_in_at',
                                 'last_sign_in_at', 'current_sign_in_ip', 'last_sign_in_ip', 'new_email',
-                                'new_email_confirm_token');
+                                'new_email_confirm_token', 'how_hear');
 
   public $unread_notifications = false;
 
