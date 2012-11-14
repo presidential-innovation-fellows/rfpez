@@ -40,6 +40,11 @@ head
 
   !{Basset::show('website.js')}
   !{Section::yield('additional_scripts')}
+  - if (Config::get('collect_stats'))
+    script(src="/js/vendor/google.analytics.js")
+    script(src="/js/vendor/jquery.formtimer.js")
+    script
+      | $(document).on("ready", function() { $("form").formTimer(); });
 
 body(class="#{$body_class}")
 

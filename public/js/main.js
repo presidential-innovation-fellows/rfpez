@@ -55,10 +55,7 @@
     $("span.timeago").timeago();
     $('.datepicker-wrapper').datepicker();
     $('.wysihtml5').wysihtml5();
-    Rfpez.current_page_string = $("#current-page").val();
-    return $("form").formTimer({
-      url: 'http://formtimer.presidentialinnovationfellows.org/create'
-    });
+    return Rfpez.current_page_string = $("#current-page").val();
   });
 
 }).call(this);

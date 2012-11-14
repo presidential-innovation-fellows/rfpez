@@ -189,7 +189,10 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 
 require 'assets.php';
 
-if (Request::is_env('production')) Config::set('error.detail', false);
+if (Request::is_env('production')) {
+	Config::set('error.detail', false);
+	Config::set('collect_stats', true);
+}
 
 Auth::extend('rfpez', function(){
 	return new Laravel\Auth\Drivers\Rfpez;

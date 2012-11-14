@@ -23,7 +23,6 @@ Basset::scripts('website', function($basset)
          ->add('jqueryvalidate', 'js/vendor/jquery.validate.js')
          ->add('jqueryvalidaterfpez', 'js/vendor/jquery.validate_rfpez.js')
          ->add('jqueryform', 'js/vendor/jquery.form.js')
-         ->add('jqueryformtimer', 'js/vendor/jquery.formtimer.js')
          ->add('jqueryhotkeys', 'js/vendor/jquery.hotkeys.js')
          ->add('jquerypjax', 'js/vendor/jquery.pjax.js')
 

@@ -9,7 +9,6 @@
     return this.each(function(){
 
       var form = $(this);
-      console.log(form);
       var startTime = false;
       var endTime = false;
       var timerSent = false;
