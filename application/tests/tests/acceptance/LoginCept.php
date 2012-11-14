@@ -16,7 +16,7 @@ $I = new WebGuy($scenario);
 $I->fillField('email','vendor1@example.com');
 $I->fillField('password','password');
 $I->click('button.btn');
-$I->see('My Bids', 'h4');
+$I->see('Projects', 'h4');
 
 /* Signout works */
 $I->click('Sign Out');
