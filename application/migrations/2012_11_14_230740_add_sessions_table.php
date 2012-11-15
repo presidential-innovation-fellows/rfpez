@@ -10,7 +10,7 @@ class Add_Sessions_Table {
 	public function up()
 	{
 		Schema::create('sessions', function($t){
-			$t->increments('id');
+			$t->string('id');
 			$t->integer('last_activity');
 			$t->text('data');
 		});
