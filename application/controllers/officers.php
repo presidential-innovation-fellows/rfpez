@@ -63,6 +63,7 @@ class Officers_Controller extends Base_Controller {
     $user_input = Input::get('user');
     $user = new User;
     $user->email = $user_input["email"];
+    $user->how_hear = $user_input["how_hear"];
     $officer = new Officer(Input::get('officer'));
 
     if ($user->validator(false, true)->passes() && $officer->validator()->passes()) {
