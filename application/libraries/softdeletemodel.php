@@ -1,19 +1,21 @@
 <?php
 
 class SoftDeleteModel extends Laravel\Database\Eloquent\Model {
+
   protected function query() {
     return new SoftDeleteQuery($this);
   }
 
   public function delete() {
-    if ($this->exists) {
-      $this->fire_event('deleting');
+    if (!$this->exists) return;
 
-      $result = $this->query()->where(static::$key, '=', $this->get_key())->update(array('deleted_at' => time()));
+    $this->fire_event('deleting');
 
-      $this->fire_event('deleted');
+    $result = $this->query()->where(static::$key, '=', $this->get_key())->update(array('deleted_at' => time()));
 
-      return $result;
-    }
+    $this->fire_event('deleted');
+
+    return $result;
   }
+
 }
