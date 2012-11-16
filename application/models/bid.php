@@ -1,6 +1,6 @@
 <?php
 
-class Bid extends Eloquent {
+class Bid extends SoftDeleteModel {
 
   public static $timestamps = true;
 
@@ -124,8 +124,7 @@ class Bid extends Eloquent {
   }
 
   public function delete_by_vendor() {
-    $this->deleted_by_vendor = true;
-    $this->save();
+    $this->delete();
 
     Notification::where_payload_type("bid")->where_payload_id($this->id)->delete();
   }

@@ -135,7 +135,6 @@ class Bids_Controller extends Base_Controller {
   public function action_mine() {
     $view = View::make('bids.mine');
     $view->bids = Bid::where_vendor_id(Auth::vendor()->id)
-                     ->where_deleted_by_vendor(false)
                      ->get();
     $this->layout->content = $view;
   }
@@ -205,7 +204,7 @@ Route::filter('bid_exists', function() {
 Route::filter('bid_is_submitted_and_not_deleted', function() {
   $bid = Config::get('bid');
   $project = Config::get('project');
-  if (!$bid->submitted_at || $bid->deleted_by_vendor) return Redirect::to_route('review_bids', array($project->id));
+  if (!$bid->submitted_at || $bid->deleted_at) return Redirect::to_route('review_bids', array($project->id));
 });
 
 Route::filter('bid_is_not_awarded', function() {

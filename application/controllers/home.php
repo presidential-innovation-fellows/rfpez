@@ -9,7 +9,7 @@ class Home_Controller extends Base_Controller {
         return Redirect::to_route('my_projects');
       } else {
         Session::reflash();
-        if (Auth::user()->vendor && Bid::where_vendor_id(Auth::vendor()->id)->where_deleted_by_vendor(0)->count() ) {
+        if (Auth::user()->vendor && Bid::where_vendor_id(Auth::vendor()->id)->count() ) {
           return Redirect::to_route('my_bids');
         } else {
           return Redirect::to_route('projects');

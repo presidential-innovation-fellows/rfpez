@@ -11,7 +11,7 @@ class SoftDeleteModel extends Laravel\Database\Eloquent\Model {
 
     $this->fire_event('deleting');
 
-    $result = $this->query()->where(static::$key, '=', $this->get_key())->update(array('deleted_at' => time()));
+    $result = $this->query()->where(static::$key, '=', $this->get_key())->update(array('deleted_at' => new \DateTime));
 
     $this->fire_event('deleted');
 
