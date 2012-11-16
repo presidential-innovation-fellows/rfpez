@@ -12,7 +12,7 @@
 </div>
 <div class="form-actions">
   <h5>Add Comment</h5>
-  <form id="add-comment-form" action="<?php echo Jade\Dumper::_text('comments'); ?>" method="POST" data-officer-name="<?php echo Jade\Dumper::_text(Auth::officer()->name); ?>" data-officer-user-id="Auth::officer()->user_id">
+  <form id="add-comment-form" action="<?php echo Jade\Dumper::_text('comments'); ?>" method="POST" data-officer-name="<?php echo Jade\Dumper::_text(Auth::officer()->name); ?>" data-officer-user-id="<?php echo Jade\Dumper::_text(Auth::officer()->user_id); ?>">
     <textarea class="span5" name="body"></textarea>
     <div>
       <button class="btn btn-primary">Submit Comment</button>
