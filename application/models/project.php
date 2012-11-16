@@ -43,7 +43,7 @@ class Project extends Eloquent {
   }
 
   public function comments() {
-    return $this->has_many('Comment')->order_by('created_at');
+    return $this->has_many('Comment')->where_null('deleted_at')->order_by('created_at');
   }
 
   public function project_type() {
@@ -63,7 +63,7 @@ class Project extends Eloquent {
   }
 
   public function bids() {
-    return $this->has_many('Bid');
+    return $this->has_many('Bid')->where_null('deleted_at');
   }
 
   public function deliverables() {
@@ -100,7 +100,6 @@ class Project extends Eloquent {
 
     if ($bid = Auth::user()->vendor->bids()
                            ->where_project_id($this->id)
-                           ->where_deleted_by_vendor(false)
                            ->first()) {
       return $bid;
     }
@@ -144,7 +143,6 @@ class Project extends Eloquent {
   public function current_bid_from($vendor) {
     $bid = Bid::where('project_id', '=', $this->id)
               ->where('vendor_id', '=', $vendor->id)
-              ->where('deleted_by_vendor', '!=', true)
               ->where_not_null('submitted_at')
               ->first();
 
@@ -154,7 +152,6 @@ class Project extends Eloquent {
   public function current_bid_draft_from($vendor) {
     $bid = Bid::where('project_id', '=', $this->id)
               ->where('vendor_id', '=', $vendor->id)
-              ->where('deleted_by_vendor', '!=', true)
               ->where_null('submitted_at')
               ->first();
 
@@ -173,7 +170,6 @@ class Project extends Eloquent {
 
   public function submitted_bids() {
     return $this->bids()
-                ->where_deleted_by_vendor(false)
                 ->where_not_null('submitted_at');
   }
 

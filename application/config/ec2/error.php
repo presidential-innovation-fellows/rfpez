@@ -2,6 +2,6 @@
 
 return array(
 
-  'profiler' => true
+  'log' => true
 
 );

@@ -65,7 +65,7 @@ class Vendor extends Eloquent {
   }
 
   public function bids() {
-    return $this->has_many('Bid');
+    return $this->has_many('Bid')->where_null('deleted_at');
   }
 
   public function ban() {
@@ -73,11 +73,7 @@ class Vendor extends Eloquent {
     $this->user->save();
 
     foreach ($this->bids as $bid) {
-      // @todo bid should have a "deleted_at" column instead.
-      if (!$bid->awarded_at) {
-        $bid->deleted_by_vendor = 1;
-        $bid->save();
-      }
+      if (!$bid->awarded_at) $bid->delete();
     }
   }
 

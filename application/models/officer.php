@@ -55,7 +55,7 @@ class Officer extends Eloquent {
   }
 
   public function comments() {
-    return $this->has_many('Comment');
+    return $this->has_many('Comment')->where_null('deleted_at');
   }
 
   public function user() {

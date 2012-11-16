@@ -1,6 +1,6 @@
 <?php
 
-class Comment extends Eloquent {
+class Comment extends SoftDeleteModel {
 
   public static $timestamps = true;
 

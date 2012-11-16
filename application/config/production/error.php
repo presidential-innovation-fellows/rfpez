@@ -1,5 +1,7 @@
 <?php
 
 return array(
-  'transport' => false
+
+  'log' => true
+
 );

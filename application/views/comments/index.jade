@@ -14,7 +14,7 @@
 .form-actions
   h5 Add Comment
 
-  form#add-comment-form(action="#{'comments'}", method="POST", data-officer-name="#{Auth::officer()->name}", data-officer-user-id="Auth::officer()->user_id")
+  form#add-comment-form(action="#{'comments'}", method="POST", data-officer-name="#{Auth::officer()->name}", data-officer-user-id="#{Auth::officer()->user_id}")
     textarea.span5(name="body")
 
     div

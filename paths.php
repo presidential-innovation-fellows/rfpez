@@ -24,8 +24,9 @@
 $environments = array(
   'test' => array('http://*-test*'),
 	'local' => array('http://localhost*', '*.dev'),
-  'production' => array('http://rfpez-staging.presidentialinnovationfellows.org*')
-
+  'ec2' => array('http://rfpez-staging.presidentialinnovationfellows.org*'),
+  'staging' => array('*rfpez-staging.reisys.com*'),
+  'production' => array('*rfpez.sba.gov*')
 );
 
 // --------------------------------------------------------------

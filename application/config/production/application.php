@@ -1,6 +1,6 @@
 <?php
 
 return array(
-  'url' => 'http://rfpez-staging.presidentialinnovationfellows.org',
-  'key' => getenv('RFPEZ_LARAVEL_KEY')
+  'url' => 'https://rfpez.sba.gov',
+  'key' => '' /* 30 characters of random gibberish */
 );
