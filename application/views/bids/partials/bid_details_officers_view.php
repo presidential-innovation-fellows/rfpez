@@ -19,8 +19,9 @@
       <p><?php echo Jade\Dumper::_html($bid->approach); ?></p>
       <h5>Previous Work</h5>
       <p><?php echo Jade\Dumper::_html($bid->previous_work); ?></p>
-      <h5>Employee Details</h5>
-      <p><?php echo Jade\Dumper::_html($bid->employee_details); ?></p>
+      <h5>Employee Details
+</h5>
+      <?php echo Jade\Dumper::_html(View::make('vendors.partials.epls_results')->with('bid', $bid)); ?>
       <h5>Prices</h5>
       <table class="table">
         <thead>

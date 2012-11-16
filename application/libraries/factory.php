@@ -117,9 +117,8 @@ Class Factory {
                        'previous_work' => $faker->paragraph,
 
                        // Not using faker because we need some real names in here.
-                       'employee_details' => "Adam Becker will be the cat wrangler, ".
-                                             "Clay Johnson will manage the Banana stand, ".
-                                             "and Jed Wood will provide aerial support.",
+                       'employee_details' => "Adam Becker\n".
+                                             "Craig Collyer",
 
                        'prices' => $prices));
 

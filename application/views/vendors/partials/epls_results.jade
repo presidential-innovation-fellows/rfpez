@@ -1,0 +1,18 @@
+//shouldn't need this ifelse, other than to account for legacy data
+- if ($bid->epls_names):
+  table.table.epls-lookups
+    thead
+      tr
+        th Name
+        th EPLS
+    tbody
+      - foreach ($bid->epls_names as $name => $epls_match)
+        tr
+          td #{$name}
+          - if ($epls_match):
+            td.red YES
+          - else:
+            td.green no
+          - endif;
+- elseif ($bid->employee_details):
+  p !{$bid->employee_details}

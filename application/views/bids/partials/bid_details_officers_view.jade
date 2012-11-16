@@ -24,7 +24,7 @@
       p !{$bid->previous_work}
 
       h5 Employee Details
-      p !{$bid->employee_details}
+      !{View::make('vendors.partials.epls_results')->with('bid', $bid)}
 
       h5 Prices
       table.table

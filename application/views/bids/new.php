@@ -21,11 +21,11 @@
       </div>
       <div class="control-group">
         <label>Previous Work</label>
-        <textarea name="bid[previous_work]" placeholder="Where possible, please provide links"><?php echo Jade\Dumper::_text( $bid["previous_work"] ); ?></textarea>
+        <textarea name="bid[previous_work]" placeholder="Where possible, please provide links."><?php echo Jade\Dumper::_text( $bid["previous_work"] ); ?></textarea>
       </div>
       <div class="control-group">
         <label>Employees who would work on this project</label>
-        <textarea name="bid[employee_details]" placeholder="We just need to make sure nobody has been put on a list of people disallowed to work on government contracts"><?php echo Jade\Dumper::_text( $bid["employee_details"] ); ?></textarea>
+        <textarea name="bid[employee_details]" placeholder="One name per line. We just need to make sure nobody has been put on a list of people disallowed to work on government contracts."><?php echo Jade\Dumper::_text( $bid["employee_details"] ); ?></textarea>
       </div>
       <h5>Prices</h5>
       <table class="table prices-table">

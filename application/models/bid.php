@@ -6,7 +6,7 @@ class Bid extends Eloquent {
 
   public $includes = array('project', 'vendor');
 
-  public static $accessible = array('project_id', 'approach', 'previous_work', 'employee_details', 'prices');
+  public static $accessible = array('project_id', 'approach', 'previous_work', 'employee_details', 'epls_names', 'prices');
 
   public static $default_dismissal_reasons = array('Price Too high',
                                            'Not Qualified',
@@ -60,6 +60,14 @@ class Bid extends Eloquent {
 
   public function deliverable_prices() {
     return $this->get_prices() ? array_values($this->get_prices()) : false;
+  }
+
+  public function get_epls_names() {
+    return json_decode($this->attributes['epls_names'], true);
+  }
+
+  public function set_epls_names($value) {
+    $this->attributes['epls_names'] = json_encode($value);
   }
 
   public function dismiss($reason = false, $explanation = false) {
@@ -156,4 +164,32 @@ class Bid extends Eloquent {
     return self::$dismissal_reasons = $returnArray;
   }
 
+  public function sync_with_epls() {
+    if (!$this->employee_details) return;
+
+    $names = preg_split('/\s?(<br\s?\/?>|\\n)\s?/i', $this->attributes['employee_details'], -1, PREG_SPLIT_NO_EMPTY);
+
+    $temp_names = array();
+    foreach ($names as $name) {
+      $name = trim($name);
+      // Check EPLS
+      if ($epls_contents = @file_get_contents("http://rfpez-apis.presidentialinnovationfellows.org/exclusions?name=" . urlencode($name))) {
+        $epls_json = json_decode($epls_contents, true);
+        if (isset($epls_json["results"]) && isset($epls_json["results"][0]) && isset($epls_json["results"][0]['exclusion_type'])) {
+          $temp_names[$name] = true;
+        } else {
+          $temp_names[$name] = false;
+        }
+      }
+    }
+    $this->epls_names = $temp_names;
+  }
+
 }
+
+// If this is a final "submit" (not just draft save), search for EPLS matches
+Event::listen('eloquent.saving: Bid', function($model){
+  //if ($model->changed('employee_details'))
+  if ($model->submitted_at)
+    $model->sync_with_epls();
+});
