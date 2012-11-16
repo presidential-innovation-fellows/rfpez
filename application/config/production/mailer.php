@@ -1,5 +1,7 @@
 <?php
 
 return array(
-  'transport' => false
+  'transport' => Swift_SmtpTransport::newInstance('', 465, 'ssl')
+                                    ->setUsername('')
+                                    ->setPassword('')
 );
