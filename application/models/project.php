@@ -43,7 +43,7 @@ class Project extends Eloquent {
   }
 
   public function comments() {
-    return $this->has_many('Comment')->order_by('created_at');
+    return $this->has_many('Comment')->where_null('deleted_at')->order_by('created_at');
   }
 
   public function project_type() {
