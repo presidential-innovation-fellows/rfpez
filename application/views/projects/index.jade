@@ -3,6 +3,7 @@
 - if (count($projects) > 0):
 
   - Section::start('inside_header');
+    small (<a href="#{route('project_rss', 'rss')}">rss</a> / <a href="#{route('project_rss', 'atom')}">atom</a>)
     a.officer-only.toggle-my-all-projects(href="#{route('my_projects')}", data-pjax) my projects only
     .search-projects.pull-right
       input.search-query#filter-projects-input(type="search", placeholder="Filter projects...")
