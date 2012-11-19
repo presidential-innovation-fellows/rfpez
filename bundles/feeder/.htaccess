@@ -1,0 +1,9 @@
+DirectoryIndex feeder.php
+
+RewriteEngine On
+
+RewriteRule ^/?(atom|rss092|rss20)/?$ feeder.php?format=$1 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME}.yml -f [OR]
+RewriteCond %{REQUEST_FILENAME}.txt -f
+RewriteRule ^(.+)$ feeder.php?$1 [L,QSA]
