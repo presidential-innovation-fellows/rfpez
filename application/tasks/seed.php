@@ -32,9 +32,15 @@ class Seed_Task {
 
   private function base_data() {
     // Create services for vendor profiles
-    Service::create(array('name' => 'Web Design', 'description' => 'This is the description for web design.'));
-    Service::create(array('name' => 'Web Development', 'description' => 'This is the description for web development.'));
-    Service::create(array('name' => 'Content Management ', 'description' => 'This is the description for content management.'));
+    Service::create(array('name' => 'Web Design', 'description' => 'Your focus is on design. You spend your time in graphic design tools.'));
+    Service::create(array('name' => 'Web Development', 'description' => 'You write code. PHP, Ruby on Rails, Python, ColdFusion. You write software.'));
+    Service::create(array('name' => 'Content Management ', 'description' => 'Your focus is on Content Management. Drupal Integrations, etc.'));
+    Service::create(array('name' => 'Social Media Marketing', 'description' => 'Facebook, Twitter, Google+, you help people use Social Media to the best of their ability.'));
+    Service::create(array('name' => 'Search Engine Optimization', 'description' => 'You make content discoverable in search engines.'));
+    Service::create(array('name' => 'Mobile Application Development', 'description' => 'You make applications for mobile phones.'));
+    Service::create(array('name' => 'Video Production', 'description' => 'Your make great online videos'));
+    Service::create(array('name' => 'Video Transcription', 'description' => 'You write transcripts of videos.'));
+
 
     // Create project types
     $pt1 = ProjectType::create(array('name' => 'Website Design', 'naics' => 541092));
