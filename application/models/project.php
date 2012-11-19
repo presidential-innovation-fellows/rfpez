@@ -26,6 +26,8 @@ class Project extends Eloquent {
 
   public $validator = false;
 
+  public $includes = array('project_type');
+
   public function validator() {
     if ($this->validator) return $this->validator;
 
