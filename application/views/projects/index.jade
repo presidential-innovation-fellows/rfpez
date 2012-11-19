@@ -1,8 +1,6 @@
 - Section::inject('page_title', (Auth::officer() ? 'Everybody\'s Projects' : 'Projects' ))
 
-- $yermom = false;
-- if ($yermom):
-//- if (count($projects) > 0)):
+- if (count($projects) > 0):
 
   - Section::start('inside_header');
     a.officer-only.toggle-my-all-projects(href="#{route('my_projects')}", data-pjax) my projects only
@@ -49,4 +47,4 @@
           td #{$project->formatted_proposals_due_at()}
 
 - else:
-  h3 No open projects. Check back soon.
+  p No open projects. Check back soon.
