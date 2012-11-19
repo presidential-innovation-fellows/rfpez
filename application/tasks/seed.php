@@ -31,6 +31,9 @@ class Seed_Task {
   }
 
   private function base_data() {
+    // If the "Web Design" service already exists, assume this task has already been run and exit.
+    if (Service::where_name('Web Design')->first()) return;
+
     // Create services for vendor profiles
     Service::create(array('name' => 'Web Design', 'description' => 'Your focus is on design. You spend your time in graphic design tools.'));
     Service::create(array('name' => 'Web Development', 'description' => 'You write code. PHP, Ruby on Rails, Python, ColdFusion. You write software.'));
