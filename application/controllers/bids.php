@@ -91,6 +91,7 @@ class Bids_Controller extends Base_Controller {
 
     if (Input::get('submit_now') === 'true') {
       if ($bid->validator()->passes()) {
+        $bid->sync_with_epls();
         $bid->submit();
         Session::flash('notice', 'Thanks for submitting your bid.');
         return Redirect::to_route('bid', array($project->id, $bid->id));

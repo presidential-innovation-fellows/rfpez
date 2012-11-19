@@ -186,9 +186,3 @@ class Bid extends SoftDeleteModel {
 
 }
 
-// If this is a final "submit" (not just draft save), search for EPLS matches
-Event::listen('eloquent.saving: Bid', function($model){
-  //if ($model->changed('employee_details'))
-  if ($model->submitted_at)
-    $model->sync_with_epls();
-});
