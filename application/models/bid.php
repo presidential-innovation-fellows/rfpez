@@ -4,7 +4,7 @@ class Bid extends SoftDeleteModel {
 
   public static $timestamps = true;
 
-  public $includes = array('project', 'vendor');
+  public $includes = array('project', 'vendor', 'vendor.user');
 
   public static $accessible = array('project_id', 'approach', 'previous_work', 'employee_details', 'epls_names', 'prices');
 
