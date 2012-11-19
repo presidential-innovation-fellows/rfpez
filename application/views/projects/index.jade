@@ -1,46 +1,52 @@
 - Section::inject('page_title', (Auth::officer() ? 'Everybody\'s Projects' : 'Projects' ))
 
-- Section::start('inside_header');
-  a.officer-only.toggle-my-all-projects(href="#{route('my_projects')}", data-pjax) my projects only
-  .search-projects.pull-right
-    input.search-query#filter-projects-input(type="search", placeholder="Filter projects...")
+- $yermom = false;
+- if ($yermom):
+//- if (count($projects) > 0)):
 
-- Section::stop();
+  - Section::start('inside_header');
+    a.officer-only.toggle-my-all-projects(href="#{route('my_projects')}", data-pjax) my projects only
+    .search-projects.pull-right
+      input.search-query#filter-projects-input(type="search", placeholder="Filter projects...")
 
-table.table.projects-table
-  thead
-    tr
-      th.type.hidden-phone Type
-      th.project-title Project Title
-      th.agency.visible-desktop Agency
-      th.due Bids Due
+  - Section::stop();
 
-  - foreach($projects as $project):
-    tbody.project
-      tr.project-meta
-        td.hidden-phone
-          img(src="#{$project->project_type->image()}", title="#{$project->project_type->name}", alt="#{$project->project_type->name}")
-        td
-          a.project-title(href="#{route('project', array($project->id))}", data-pjax) #{$project->title}
-          - if ($project->is_mine()):
-            span.admin-star
-              i.icon-star
-              a(href="#{route('review_bids', array($project->id))}", data-pjax) Review Bids
-          - endif;
+  table.table.projects-table
+    thead
+      tr
+        th.type.hidden-phone Type
+        th.project-title Project Title
+        th.agency.visible-desktop Agency
+        th.due Bids Due
 
-          - if ($bid = $project->my_bid()):
-            span.admin-star
-              i.icon-star
-              - if ($bid->submitted_at):
-                a(href="#{route('bid', array($project->id, $project->my_bid()->id))}", data-pjax) View my bid
-              - else:
-                a(href="#{route('new_bids', array($project->id))}", data-pjax) Continue Writing Bid
-              - endif;
-          - endif;
+    - foreach($projects as $project):
+      tbody.project
+        tr.project-meta
+          td.hidden-phone
+            img(src="#{$project->project_type->image()}", title="#{$project->project_type->name}", alt="#{$project->project_type->name}")
+          td
+            a.project-title(href="#{route('project', array($project->id))}", data-pjax) #{$project->title}
+            - if ($project->is_mine()):
+              span.admin-star
+                i.icon-star
+                a(href="#{route('review_bids', array($project->id))}", data-pjax) Review Bids
+            - endif;
 
-          p.project-description-truncated #{Helper::truncate($project->background, 13)}
+            - if ($bid = $project->my_bid()):
+              span.admin-star
+                i.icon-star
+                - if ($bid->submitted_at):
+                  a(href="#{route('bid', array($project->id, $project->my_bid()->id))}", data-pjax) View my bid
+                - else:
+                  a(href="#{route('new_bids', array($project->id))}", data-pjax) Continue Writing Bid
+                - endif;
+            - endif;
 
-        td.visible-desktop #{$project->agency}
+            p.project-description-truncated #{Helper::truncate($project->background, 13)}
 
-        td #{$project->formatted_proposals_due_at()}
+          td.visible-desktop #{$project->agency}
 
+          td #{$project->formatted_proposals_due_at()}
+
+- else:
+  h3 No open projects. Check back soon.
