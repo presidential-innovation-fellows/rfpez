@@ -9,7 +9,7 @@ class Accept_Task {
 
   public function setup() {
     Laravel\Request::set_env('test');
-    Laravel\CLI\Command::run(array('sync:production'));
+    Laravel\CLI\Command::run(array('sync:minimal'));
   }
 
 }

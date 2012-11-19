@@ -6,6 +6,7 @@ class Seed_Task {
 
     // Create the base data.
     $this->base_data();
+    $this->minimal_data();
     $project = Project::first();
 
     // Create a bunch more stuff, just for testin'.
@@ -21,20 +22,19 @@ class Seed_Task {
   }
 
   public function production() {
-    // Just create the minimum amount of data that we need.
     return $this->base_data();
   }
 
-  private function base_data() {
-    $faker = Faker\Factory::create();
+  public function minimal() {
+    $this->base_data();
+    $this->minimal_data();
+  }
 
+  private function base_data() {
     // Create services for vendor profiles
     Service::create(array('name' => 'Web Design', 'description' => 'This is the description for web design.'));
     Service::create(array('name' => 'Web Development', 'description' => 'This is the description for web development.'));
     Service::create(array('name' => 'Content Management ', 'description' => 'This is the description for content management.'));
-
-    for ($i = 0; $i < 5; $i++) Factory::vendor();
-    for ($i = 0; $i < 5; $i++) Factory::officer();
 
     // Create project types
     $pt1 = ProjectType::create(array('name' => 'Website Design', 'naics' => 541092));
@@ -45,6 +45,14 @@ class Seed_Task {
       $project_type->show_in_list = true;
       $project_type->save();
     }
+  }
+
+  private function minimal_data() {
+    $faker = Faker\Factory::create();
+    for ($i = 0; $i < 5; $i++) Factory::vendor();
+    for ($i = 0; $i < 5; $i++) Factory::officer();
+
+    $api_project_type = ProjectType::where_name('API Design and Development')->first();
 
     // Create project sections
     $section1 = ProjectSection::create(array('section_category' => 'Deliverables',
@@ -85,8 +93,6 @@ class Seed_Task {
 
     // ...And give it to officer1
     $project->officers()->attach(Officer::first()->id, array('owner' => true));
-
-
   }
 
 }
