@@ -5,6 +5,7 @@
     <i class="icon-plus-sign icon-white"></i>
     new project
   </a>
+  <div class="clearfix">&nbsp;</div>
 <?php } ?>
 <?php Section::stop(); ?>
 <?php if ($projects): ?>
@@ -41,5 +42,9 @@
     </tbody>
   </table>
 <?php else: ?>
-  <p>No contracts to display.</p>
+  <p>
+    You're not currently collaborating on any projects. You can
+    <a href="<?php echo Jade\Dumper::_text(route('new_projects')); ?>" data-pjax="true">create a new project</a>
+    or ask someone to add you as a collaborator on a project that already exists.
+  </p>
 <?php endif; ?>

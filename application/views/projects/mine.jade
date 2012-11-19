@@ -5,6 +5,7 @@
   a.btn.btn-small.btn-success.new-project-btn.pull-right(href="#{ route('new_projects') }", data-pjax)
     i.icon-plus-sign.icon-white
     | new project
+  .clearfix &nbsp;
 - Section::stop();
 
 - if ($projects):
@@ -31,4 +32,7 @@
           td
             a.btn.btn-mini(href="#{ route('project_admin', array($project->id)) }", data-pjax) Admin
 - else:
-  p No contracts to display.
+  p
+    | You're not currently collaborating on any projects. You can
+    | <a href="#{route('new_projects')}" data-pjax="true">create a new project</a>
+    | or ask someone to add you as a collaborator on a project that already exists.
