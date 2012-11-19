@@ -10,9 +10,11 @@
         tr
           td #{$name}
           - if ($epls_match):
-            td.red YES
+            td.red
+              a(href="http://rfpez-apis.presidentialinnovationfellows.org/exclusions?name=#{rawurlencode($name)}") yes
           - else:
-            td.green no
+            td.green
+              a(href="http://rfpez-apis.presidentialinnovationfellows.org/exclusions?name=#{rawurlencode($name)}") no
           - endif;
 - elseif ($bid->employee_details):
   p !{$bid->employee_details}

@@ -12,9 +12,13 @@
         <tr>
           <td><?php echo Jade\Dumper::_text($name); ?></td>
           <?php if ($epls_match): ?>
-            <td class="red">YES</td>
+            <td class="red">
+              <a href="http://rfpez-apis.presidentialinnovationfellows.org/exclusions?name=<?php echo Jade\Dumper::_text(rawurlencode($name)); ?>">yes</a>
+            </td>
           <?php else: ?>
-            <td class="green">no</td>
+            <td class="green">
+              <a href="http://rfpez-apis.presidentialinnovationfellows.org/exclusions?name=<?php echo Jade\Dumper::_text(rawurlencode($name)); ?>">no</a>
+            </td>
           <?php endif; ?>
         </tr>
       <?php } ?>

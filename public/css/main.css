@@ -70,7 +70,13 @@ body.super-admin .super-admin-only {
 .red {
   color: #f00;
 }
+.red > a {
+  color: #f00;
+}
 .green {
+  color: #008000;
+}
+.green > a {
   color: #008000;
 }
 .pagination-wrapper {
