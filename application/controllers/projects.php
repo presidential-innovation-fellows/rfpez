@@ -23,8 +23,10 @@ class Projects_Controller extends Base_Controller {
 
     if ($input_format == "rss") {
       $format = "rss20";
+      $content_type = "application/rss+xml; charset=ISO-8859-1";
     } elseif ($input_format == "atom") {
       $format = "atom";
+      $content_type = "application/atom+xml";
     } else {
       return Response::error('404');
     }
@@ -47,7 +49,7 @@ class Projects_Controller extends Base_Controller {
     }
 
     Config::set("application.profiler", false);
-    return Response::make($feed->send($format));
+    return Response::make($feed->send($format), 200, array('Content-type' => $content_type));
 
   }
 
