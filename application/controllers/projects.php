@@ -48,7 +48,6 @@ class Projects_Controller extends Base_Controller {
 
     Config::set("application.profiler", false);
     return Response::make($feed->send($format));
-    // or just $feed->Rss20(), Rss092() or Atom();
 
   }
 
