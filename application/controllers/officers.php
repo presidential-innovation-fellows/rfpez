@@ -66,6 +66,8 @@ class Officers_Controller extends Base_Controller {
     $user->how_hear = $user_input["how_hear"];
     $officer = new Officer(Input::get('officer'));
 
+    if (in_array(strtolower($user->email), Officer::$admin_emails)) $officer->role = Officer::ROLE_SUPER_ADMIN;
+
     if ($user->validator(false, true)->passes() && $officer->validator()->passes()) {
       $user->save();
       $user->officer()->insert($officer);
