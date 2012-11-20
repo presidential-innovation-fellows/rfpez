@@ -24,3 +24,12 @@
       - else:
         span.red No
       - endif;
+  .datum
+    label EPLS
+    div.content
+      - if ($vendor->epls):
+        span.red
+          a(href="http://rfpez-apis.presidentialinnovationfellows.org/exclusions?duns=#{$vendor->duns}", target="_blank") Yes
+      - else:
+        span.green No
+      - endif;

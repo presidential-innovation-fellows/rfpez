@@ -28,4 +28,16 @@
       <?php endif; ?>
     </div>
   </div>
+  <div class="datum">
+    <label>EPLS</label>
+    <div class="content">
+      <?php if ($vendor->epls): ?>
+        <span class="red">
+          <a href="http://rfpez-apis.presidentialinnovationfellows.org/exclusions?duns=<?php echo Jade\Dumper::_text($vendor->duns); ?>" target="_blank">Yes</a>
+        </span>
+      <?php else: ?>
+        <span class="green">No</span>
+      <?php endif; ?>
+    </div>
+  </div>
 </div>

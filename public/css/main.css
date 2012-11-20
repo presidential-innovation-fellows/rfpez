@@ -72,12 +72,16 @@ body.super-admin .super-admin-only {
 }
 .red > a {
   color: #f00;
+  font-weight: bold;
+  text-decoration: underline;
 }
 .green {
   color: #008000;
 }
 .green > a {
   color: #008000;
+  font-weight: bold;
+  text-decoration: underline;
 }
 .pagination-wrapper {
   text-align: center;

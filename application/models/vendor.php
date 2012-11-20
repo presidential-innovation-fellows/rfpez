@@ -77,7 +77,7 @@ class Vendor extends Eloquent {
     }
   }
 
-  public function sync_with_dsbs_and_sam() {
+  public function sync_with_dsbs_and_sam_and_epls() {
 
     if (!$this->duns) return;
 
@@ -102,12 +102,22 @@ class Vendor extends Eloquent {
         $this->sam_entity_name = null;
       }
     }
+
+    // Get EPLS data
+    if ($epls_contents = @file_get_contents("http://rfpez-apis.presidentialinnovationfellows.org/exclusions?duns=" . $this->duns)) {
+      $epls_json = json_decode($epls_contents, true);
+      if (isset($epls_json["results"]) && isset($epls_json["results"][0]) && isset($epls_json["results"][0]['exclusion_type'])) {
+        $this->epls = true;
+      } else {
+        $this->epls = false;
+      }
+    }
   }
 
 }
 
-// If DUNS number is updated, search for related DSBS and SAM records.
+// If DUNS number is updated, search for related DSBS and SAM and EPLS records.
 Event::listen('eloquent.saving: Vendor', function($model){
   if ($model->changed('duns') || ($model->duns && (!$model->sam_entity_name || !$model->dsbs_user_id)))
-    $model->sync_with_dsbs_and_sam();
+    $model->sync_with_dsbs_and_sam_and_epls();
 });
