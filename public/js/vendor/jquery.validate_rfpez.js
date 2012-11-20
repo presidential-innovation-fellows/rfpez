@@ -16,7 +16,7 @@
           errorElement: 'span',
 
       // change the error description span class
-      errorClass: 'help-inline',
+      errorClass: 'help-inline'
     });
     this.validate(options);
   }
