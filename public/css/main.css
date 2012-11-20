@@ -110,6 +110,9 @@ body.super-admin .super-admin-only {
 .timeline-datepicker {
   cursor: pointer;
 }
+.collapse {
+  overflow: hidden;
+}
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
   display: none !important;
