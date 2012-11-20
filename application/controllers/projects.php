@@ -5,17 +5,52 @@ class Projects_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->filter('before', 'officer_only')->except(array('show', 'index'));
+    $this->filter('before', 'officer_only')->except(array('show', 'index', 'rss'));
 
-    $this->filter('before', 'project_exists')->except(array('new', 'create', 'mine', 'index'));
+    $this->filter('before', 'project_exists')->except(array('new', 'create', 'mine', 'index', 'rss'));
 
     $this->filter('before', 'project_posted')->only(array('show'));
 
     $this->filter('before', 'template_exists_and_is_forkable')->only('template_post');
 
-    $this->filter('before', 'i_am_collaborator')->except(array('new', 'create', 'mine', 'index', 'show', 'destroy_collaborator'));
+    $this->filter('before', 'i_am_collaborator')->except(array('new', 'create', 'mine', 'index', 'show', 'destroy_collaborator', 'rss'));
 
     $this->filter('before', 'i_am_owner')->only(array('destroy_collaborator'));
+  }
+
+  public function action_rss($input_format) {
+    Log::info($input_format);
+
+    if ($input_format == "rss") {
+      $format = "rss20";
+      $content_type = "application/rss+xml; charset=ISO-8859-1";
+    } elseif ($input_format == "atom") {
+      $format = "atom";
+      $content_type = "application/atom+xml";
+    } else {
+      return Response::error('404');
+    }
+
+    $feed = Feed::make();
+
+    $feed->author('The EasyBid Team')
+         ->pubdate(time())
+         ->ttl(60)
+         ->title('Government Contracting Opportunities on EasyBid')
+         ->description('Government Contracting Opportunities on EasyBid')
+         ->permalink(route('project_rss', 'rss20'))
+         ->baseurl(URL::home());
+
+    foreach (Project::open_projects()->take(20)->order_by('posted_to_fbo_at', 'desc')->get() as $project) {
+      $feed->entry()->published($project->posted_to_fbo_at)
+                    ->description()->add('html', $project->background)->up()
+                    ->title($project->title)
+                    ->permalink(route('project', $project->id));
+    }
+
+    Config::set("application.profiler", false);
+    return Response::make($feed->send($format), 200, array('Content-type' => $content_type));
+
   }
 
   public function action_new() {

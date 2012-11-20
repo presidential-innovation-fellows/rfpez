@@ -43,7 +43,7 @@ class Vendors_Controller extends Base_Controller {
   public function action_index() {
     $view = View::make('vendors.index');
     $page = intval(Input::get('page') ?: 1);
-    $view->vendors = Vendor::skip(($page - 1) * 10)->take(10)->get();
+    $view->vendors = Vendor::join('users', 'user_id', '=', 'users.id')->where_null('users.banned_at')->skip(($page - 1) * 10)->take(10)->get();
     $this->layout->content = $view;
   }
 

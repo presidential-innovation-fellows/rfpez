@@ -1,6 +1,7 @@
 <?php Section::inject('page_title', (Auth::officer() ? 'Everybody\'s Projects' : 'Projects' )) ?>
 <?php if (count($projects) > 0): ?>
   <?php Section::start('inside_header'); { ?>
+    <small>(<a href="<?php echo Jade\Dumper::_text(route('project_rss', 'rss')); ?>">rss</a> / <a href="<?php echo Jade\Dumper::_text(route('project_rss', 'atom')); ?>">atom</a>)</small>
     <a class="officer-only toggle-my-all-projects" href="<?php echo Jade\Dumper::_text(route('my_projects')); ?>" data-pjax="data-pjax">my projects only</a>
     <div class="search-projects pull-right">
       <input id="filter-projects-input" class="search-query" type="search" placeholder="Filter projects..." />

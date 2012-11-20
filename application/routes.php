@@ -43,6 +43,8 @@ Route::get('bids/mine', array('uses' => 'bids@mine', 'as' => 'my_bids'));
 
 Route::resourceful('projects', array('new', 'create', 'edit', 'update', 'index', 'show'));
 
+Route::get('projects/feed/(:any)', array('uses' => 'projects@rss', 'as' => 'project_rss'));
+
 Route::get('projects/mine', array('uses' => 'projects@mine', 'as' => 'my_projects'));
 
 Route::get('projects/(:num)/search-available-sections', array('uses' => 'projects@search_available_sections', 'as' => 'project_search_available_sections'));

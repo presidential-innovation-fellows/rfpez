@@ -26,6 +26,10 @@ class Project extends Eloquent {
 
   public $validator = false;
 
+  public $includes = array('project_type');
+
+  public $project_sections = false;
+
   public function validator() {
     if ($this->validator) return $this->validator;
 
@@ -233,11 +237,8 @@ class Project extends Eloquent {
   }
 
   public function get_project_sections() {
-    if ($project_sections = $this->project_sections()) {
-      return $project_sections->get();
-    } else {
-      return array();
-    }
+    if ($this->project_sections !== false) return $this->project_sections;
+    return $this->project_sections = (($project_sections = $this->project_sections()) ? $project_sections->get() : array());
   }
 
   public function sections_by_category() {

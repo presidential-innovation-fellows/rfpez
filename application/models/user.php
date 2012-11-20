@@ -11,6 +11,8 @@ class User extends Eloquent {
 
   public $unread_notifications = false;
 
+  public $unread_notification_count = false;
+
   public function _find($id, $columns = array('*'))
   {
     // Uncomment this to switch back to three query version...
@@ -118,7 +120,8 @@ class User extends Eloquent {
   }
 
   public function unread_notification_count() {
-    return $this->notifications_received()->where_read(false)->count();
+    if ($this->unread_notification_count !== false) return $this->unread_notification_count;
+    return $this->unread_notification_count = $this->notifications_received()->where_read(false)->count();
   }
 
   public function notifications_received() {
