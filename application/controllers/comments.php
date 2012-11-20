@@ -62,7 +62,7 @@ Route::filter('project_exists', function() {
 
 Route::filter('i_am_collaborator', function() {
   $project = Config::get('project');
-  if (!$project->is_mine()) return Redirect::to('/');
+  if (!$project->is_mine() && !Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)) return Redirect::to('/');
 });
 
 Route::filter('comment_exists', function() {
