@@ -7,7 +7,7 @@
   </h1>
 </div>
 <div class="row-fluid">
-  <div class="span6 well">
+  <div class="span6">
     <h5>For Small Business</h5>
     <p class="main-description">
       Create a simple online profile and begin bidding
@@ -16,7 +16,7 @@
     </p>
     <a class="btn btn-warning btn-large" href="<?php echo Jade\Dumper::_text( route('new_vendors') ); ?>" data-pjax="data-pjax">Register as a Business</a>
   </div>
-  <div class="span6 well">
+  <div class="span6">
     <h5>For Government</h5>
     <p class="main-description">
       Make great statements of work.
