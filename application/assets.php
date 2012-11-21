@@ -17,6 +17,7 @@ Basset::scripts('global', function ($b){
     ->add('js/vendor/jquery.timeago.js')
     ->add('js/vendor/jquery.form.js')
     ->add('js/vendor/jquery.pjax.js')
+    ->add('js/vendor/jquery.placeholder.js')
     ->add('js/flash-button.js')
     ->add('js/main.js')
     ->add('js/question-and-answer.js')

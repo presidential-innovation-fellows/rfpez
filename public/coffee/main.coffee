@@ -37,6 +37,7 @@ $(document).on "mouseleave", ".helper-tooltip", (e) ->
 $(document).on "ready pjax:success", ->
   $("[data-onload-focus]:eq(0)").focus()
   $("span.timeago").timeago()
+  $('input, textarea').placeholder()
 
   if $("body").hasClass('officer')
     $('.datepicker-wrapper').datepicker()
