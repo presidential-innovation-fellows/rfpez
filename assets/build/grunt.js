@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
 
-  var tasks = 'stylus jader coffee:all concat cssmin:all min:js';
+  var tasks = 'stylus jader coffee concat cssmin min';
 
   var path = require('path');
   var exec = require('child_process').exec;
@@ -50,15 +50,14 @@ module.exports = function(grunt) {
           '../css/bootstrap.css',
           '../css/bootstrap-responsive.css',
           '../css/bootstrap-wysihtml5.css',
-          '../css/bootstrap-datepicker.css',
+          '../css/datepicker.css',
           '../css/compiled_styl.css'
         ],
         dest: '../../public/css/all.css'
       },
 
-      js: {
+      js_global: {
         src: [
-          // global
           '../js/vendor/bootstrap.js',
           '../js/vendor/jquery.validate.js',
           '../js/vendor/jquery.validate_rfpez.js',
@@ -75,15 +74,22 @@ module.exports = function(grunt) {
           '../js/dsbs-lookup.js',
           '../js/infinite-vendor-scroll.js',
           '../js/vendor/underscore.js',
-          '../js/vendor/backbone.js',
+          '../js/vendor/backbone.js'
+        ],
+        dest: '../../public/js/global.js'
+      },
 
-
-          // vendor
+      js_vendor: {
+        src: [
           '../js/vendor-image-preview.js',
           '../js/new-bid.js',
-          '../js/save-bid-draft.js',
+          '../js/save-bid-draft.js'
+        ],
+        dest: '../../public/js/vendor.js'
+      },
 
-          // officer
+      js_officer: {
+        src: [
           '../js/vendor/bootstrap-datepicker.js',
           '../js/vendor/wysihtml5.min.js',
           '../js/vendor/bootstrap-wysihtml5.js',
@@ -95,15 +101,19 @@ module.exports = function(grunt) {
           '../js/comments-backbone.js',
           '../js/collaborators-backbone.js',
           '../js/sow-deliverables-backbone.js',
-          '../js/bid-review.js',
+          '../js/bid-review.js'
+        ],
+        dest: '../../public/js/officer.js'
+      },
 
-          // admin
+      js_admin: {
+        src: [
           '../js/admin-officers-backbone.js',
           '../js/admin-projects-backbone.js'
-
         ],
-        dest: '../../public/js/all.js'
+        dest: '../../public/js/admin.js'
       }
+
     },
 
     cssmin: {
@@ -114,16 +124,28 @@ module.exports = function(grunt) {
     },
 
     min: {
-      js: {
-        src: ['<banner>', '../../public/js/all.js'],
-        dest: '../../public/js/all.min.js'
+      js_global: {
+        src: ['<banner>', '../../public/js/global.js'],
+        dest: '../../public/js/global.min.js'
+      },
+      js_vendor: {
+        src: ['<banner>', '../../public/js/vendor.js'],
+        dest: '../../public/js/vendor.min.js'
+      },
+      js_officer: {
+        src: ['<banner>', '../../public/js/officer.js'],
+        dest: '../../public/js/officer.min.js'
+      },
+      js_admin: {
+        src: ['<banner>', '../../public/js/admin.js'],
+        dest: '../../public/js/admin.min.js'
       }
     },
 
 
     watch: {
       app: {
-        files: ['../coffee/**/*.coffee', '../styl/**/*.styl', '../css/**/*.css', '../js/**/*.js', '../../application/views/**/*.jade'],
+        files: ['../coffee/**/*.coffee', '../styl/**/*.styl', '../css/**/*.css', '../js/**/*.js', '../../application/views/**/**/*.jade'],
         tasks: tasks
       }
     }

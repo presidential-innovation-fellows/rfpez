@@ -74,6 +74,14 @@ class Project extends Eloquent {
     return $this->has_many('Deliverable')->order_by('sort_order');
   }
 
+  public function non_blank_deliverables() {
+    return $this->has_many('Deliverable')->where_not_null('name')->where('name', '!=', '')->order_by('sort_order');
+  }
+
+  public function get_non_blank_deliverables() {
+    return $this->non_blank_deliverables()->get();
+  }
+
   public function winning_bid() {
     if ($this->winning_bid !== false) return $this->winning_bid;
     return $this->winning_bid = $this->bids()->where_not_null('awarded_at')->first();
