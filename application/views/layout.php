@@ -11,7 +11,7 @@
   <title><?php echo Jade\Dumper::_text(Helper::full_title(Section::yield('page_title'), Section::yield('page_action'))); ?>
 </title>
   <?php echo Jade\Dumper::_html(HTML::style('http://fonts.googleapis.com/css?family=Telex')); ?>
-  <?php echo Jade\Dumper::_html(Basset::show('website.css')); ?>
+  <?php echo Jade\Dumper::_html(Helper::asset('css/all')); ?>
   <?php if (Auth::guest()): ?>
     <?php $body_class = "no-auth"; ?>
     <?php print "<style>.only-user { display: none; }</style>"; ?>
@@ -24,22 +24,12 @@
   <?php elseif (Auth::officer() && Auth::officer()->role == Officer::ROLE_SUPER_ADMIN): ?>
     <?php $body_class .= " super-admin" ?>
   <?php endif; ?>
-  <?php echo Jade\Dumper::_html(HTML::script('js/vendor/modernizr-2.6.1-respond-1.1.0.min.js')); ?>
+  <?php echo Jade\Dumper::_html(HTML::script('js/modernizr.js')); ?>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
   <script>
     window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.1.min.js"><\/script>')
   </script>
-  <?php echo Jade\Dumper::_html(Basset::show('global.js')); ?>
-  <?php if (Auth::user()): ?>
-    <?php if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): ?>
-      <?php echo Jade\Dumper::_html(Basset::show('admin.js')); ?>
-    <?php endif; ?>
-    <?php if (Auth::officer()): ?>
-      <?php echo Jade\Dumper::_html(Basset::show('officer.js')); ?>
-    <?php else: ?>
-      <?php echo Jade\Dumper::_html(Basset::show('vendor.js')); ?>
-    <?php endif; ?>
-  <?php endif; ?>
+  <?php echo Jade\Dumper::_html(Helper::asset('js/all')); ?>
   <?php echo Jade\Dumper::_html(Section::yield('additional_scripts')); ?>
 </head>
 <body class="<?php echo Jade\Dumper::_text($body_class); ?>">
