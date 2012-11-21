@@ -51,6 +51,7 @@ $(document).on("mouseleave", ".helper-tooltip", function(e) {
 $(document).on("ready pjax:success", function() {
   $("[data-onload-focus]:eq(0)").focus();
   $("span.timeago").timeago();
+  $('input, textarea').placeholder();
   if ($("body").hasClass('officer')) {
     $('.datepicker-wrapper').datepicker();
     $('.wysihtml5').wysihtml5();

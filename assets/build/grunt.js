@@ -40,7 +40,7 @@ module.exports = function(grunt) {
         files: {
           '../css/compiled_styl.css': ['../styl/main.styl']
         }
-      },
+      }
     },
 
 
@@ -58,11 +58,11 @@ module.exports = function(grunt) {
 
       js_global: {
         src: [
-          // global
           '../js/vendor/bootstrap.js',
           '../js/vendor/jquery.validate.js',
           '../js/vendor/jquery.validate_rfpez.js',
           '../js/vendor/jquery.timeago.js',
+          '../js/vendor/jquery.placeholder.js',
           '../js/vendor/jquery.form.js',
           '../js/vendor/jquery.pjax.js',
           '../js/flash-button.js',

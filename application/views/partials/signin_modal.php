@@ -6,18 +6,26 @@
   <div class="modal-body">
     <form action="<?php echo Jade\Dumper::_text(route('signin')); ?>" method="POST">
       <input type="hidden" name="modal" value="true" />
-      <p>
-        <input id="email" class="span3" type="email" name="email" placeholder="Email" />
-      </p>
-      <p>
-        <input class="span3" type="password" name="password" placeholder="Password" />
-      </p>
-      <p>
-        <label class="checkbox">
-          <input type="checkbox" checked="checked" name="remember" />
-          Remember Me?
-        </label>
-      </p>
+      <div class="control-group">
+        <label class="control-label">Email</label>
+        <div class="controls">
+          <input id="email" class="span3" type="email" name="email" />
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Password</label>
+        <div class="controls">
+          <input class="span3" type="password" name="password" />
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <label class="checkbox">
+            <input type="checkbox" checked="checked" name="remember" />
+            Remember Me?
+          </label>
+        </div>
+      </div>
       <p>
         <button class="btn btn-primary" type="submit">Sign in</button>
         <a href="<?php echo Jade\Dumper::_text(route('forgot_password')); ?>">Forgot Password?</a>
