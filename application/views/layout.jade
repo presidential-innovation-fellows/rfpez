@@ -38,7 +38,22 @@ head
   script
     | window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.1.min.js"><\/script>')
 
-  !{Helper::asset('js/all')}
+
+
+  !{Helper::asset('js/global')}
+
+  - if (Auth::user()):
+    - if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)):
+      !{Helper::asset('js/admin')}
+    - endif;
+
+    - if (Auth::officer()):
+      !{Helper::asset('js/officer')}
+    - else:
+      !{Helper::asset('js/vendor')}
+    - endif;
+  - endif;
+
 
   !{Section::yield('additional_scripts')}
 
