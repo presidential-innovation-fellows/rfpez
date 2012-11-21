@@ -15,7 +15,7 @@ head
   title #{Helper::full_title(Section::yield('page_title'), Section::yield('page_action'))}
 
   !{HTML::style('http://fonts.googleapis.com/css?family=Telex')}
-  !{Basset::show('website.css')}
+  !{Helper::asset('css/all')}
 
 
   - if (Auth::guest()):
@@ -32,26 +32,13 @@ head
     - $body_class .= " super-admin"
   - endif;
 
-  !{HTML::script('js/vendor/modernizr-2.6.1-respond-1.1.0.min.js')}
+  !{HTML::script('js/modernizr.js')}
 
   script(src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js")
   script
     | window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.1.min.js"><\/script>')
 
-  !{Basset::show('global.js')}
-
-  - if (Auth::user()):
-    - if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)):
-      !{Basset::show('admin.js')}
-    - endif;
-
-    - if (Auth::officer()):
-      !{Basset::show('officer.js')}
-    - else:
-      !{Basset::show('vendor.js')}
-    - endif;
-  - endif;
-
+  !{Helper::asset('js/all')}
 
   !{Section::yield('additional_scripts')}
 
