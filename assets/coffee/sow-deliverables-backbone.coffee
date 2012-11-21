@@ -1,122 +1,126 @@
-Deliverable = Backbone.Model.extend
-  validate: (attrs) ->
+( ->
 
-  defaults: ->
-    date: ""
-    name: ""
-    sort_order: $("#deliverables-tbody tr").length
+  Deliverable = Backbone.Model.extend
+    validate: (attrs) ->
 
-  clear: ->
-    @destroy()
+    defaults: ->
+      date: ""
+      name: ""
+      sort_order: $("#deliverables-tbody tr").length
 
-DeliverableList = Backbone.Collection.extend
-  model: Deliverable
+    clear: ->
+      @destroy()
 
-DeliverableView = Backbone.View.extend
-  tagName: "tr"
+  DeliverableList = Backbone.Collection.extend
+    model: Deliverable
 
-  template: _.template """
-    <td>
-      <input type="text" placeholder="Deliverable Name" class="name-input" value="<%= name %>">
-    </td>
-    <td>
-      <div class="input-append date datepicker-wrapper">
-        <input type="text" placeholder="Due Date" class="date-input" value="<%= date %>" />
-        <span class="add-on">
-          <i class="icon-calendar"></i>
-        </span>
-      </div>
-    </td>
-    <td>
-      <a class="btn remove-deliverable-button"><i class="icon-trash"></i></a>
-    </td>
-  """
+  DeliverableView = Backbone.View.extend
+    tagName: "tr"
 
-  events:
-    "click .remove-deliverable-button": "clear"
-    "input .name-input": "updateWithDelay"
-    "input .date-input": "updateWithDelay"
-    "change .date-input": "updateWithDelay"
+    template: _.template """
+      <td>
+        <input type="text" placeholder="Deliverable Name" class="name-input" value="<%= name %>">
+      </td>
+      <td>
+        <div class="input-append date datepicker-wrapper">
+          <input type="text" placeholder="Due Date" class="date-input" value="<%= date %>" />
+          <span class="add-on">
+            <i class="icon-calendar"></i>
+          </span>
+        </div>
+      </td>
+      <td>
+        <a class="btn remove-deliverable-button"><i class="icon-trash"></i></a>
+      </td>
+    """
 
-  initialize: ->
-    @model.bind "change", @updateId, @
-    @model.bind "create", @render, @
-    @model.bind "destroy", @remove, @
+    events:
+      "click .remove-deliverable-button": "clear"
+      "input .name-input": "updateWithDelay"
+      "input .date-input": "updateWithDelay"
+      "change .date-input": "updateWithDelay"
 
-  render: ->
-    @$el.html @template(@model.toJSON())
-    @$el.find('.datepicker-wrapper').datepicker()
-    @$el.data('id', @model?.attributes?.id)
+    initialize: ->
+      @model.bind "change", @updateId, @
+      @model.bind "create", @render, @
+      @model.bind "destroy", @remove, @
 
-    return @
+    render: ->
+      @$el.html @template(@model.toJSON())
+      @$el.find('.datepicker-wrapper').datepicker()
+      @$el.data('id', @model?.attributes?.id)
 
-  updateWithDelay: ->
-    Rfpez.has_unsaved_changes = true
-    if @updateTimeout then clearTimeout(@updateTimeout)
-    @updateTimeout = setTimeout =>
-      @update()
-    , 200
+      return @
 
-  update: ->
-    Rfpez.has_unsaved_changes = false
-    @model.save
-      name: @$el.find(".name-input").val()
-      date: @$el.find(".date-input").val()
-      sort_order: $("#deliverables-tbody tr").index(@$el)
+    updateWithDelay: ->
+      Rfpez.has_unsaved_changes = true
+      if @updateTimeout then clearTimeout(@updateTimeout)
+      @updateTimeout = setTimeout =>
+        @update()
+      , 200
 
-  updateId: ->
-    @$el.data('id', @model?.attributes?.id)
+    update: ->
+      Rfpez.has_unsaved_changes = false
+      @model.save
+        name: @$el.find(".name-input").val()
+        date: @$el.find(".date-input").val()
+        sort_order: $("#deliverables-tbody tr").index(@$el)
 
-  clear: ->
-    @model.clear()
+    updateId: ->
+      @$el.data('id', @model?.attributes?.id)
 
-AppView = Backbone.View.extend
+    clear: ->
+      @model.clear()
 
-  initialize: ->
-    Deliverables.bind 'add', @addOne, @
-    Deliverables.bind 'reset', @reset, @
-    Deliverables.bind 'all', @render, @
+  AppView = Backbone.View.extend
 
-    $("#deliverables-tbody").bind 'sortupdate', =>
-      ordered_ids = []
-      $("#deliverables-tbody tr").each ->
-        ordered_ids.push $(this).data('id')
+    initialize: ->
+      Deliverables.bind 'add', @addOne, @
+      Deliverables.bind 'reset', @reset, @
+      Deliverables.bind 'all', @render, @
 
-      $.ajax
-        url: "/projects/#{@options.project_id}/deliverables/order"
-        type: "PUT"
-        data:
-          deliverable_ids: ordered_ids
+      $("#deliverables-tbody").bind 'sortupdate', =>
+        ordered_ids = []
+        $("#deliverables-tbody tr").each ->
+          ordered_ids.push $(this).data('id')
 
-    $(document).on "click", ".add-deliverable-timeline-button", =>
-      @addNew()
+        $.ajax
+          url: "/projects/#{@options.project_id}/deliverables/order"
+          type: "PUT"
+          data:
+            deliverable_ids: ordered_ids
 
-  reset: ->
-    $("#deliverables-tbody").html('')
-    @addAll()
+      $(document).on "click", ".add-deliverable-timeline-button", =>
+        @addNew()
 
-  addNew: ->
-    Deliverables.create()
+    reset: ->
+      $("#deliverables-tbody").html('')
+      @addAll()
 
-  addOne: (deliverable) ->
-    view = new DeliverableView({model: deliverable})
-    html = view.render().el
-    $("#deliverables-tbody").append(html);
+    addNew: ->
+      Deliverables.create()
 
-  render: ->
-    $('#deliverables-tbody').sortable('destroy')
-    $("#deliverables-tbody").sortable
-      forcePlaceholderSize: true
+    addOne: (deliverable) ->
+      view = new DeliverableView({model: deliverable})
+      html = view.render().el
+      $("#deliverables-tbody").append(html);
 
-  addAll: ->
-    Deliverables.each @addOne
+    render: ->
+      $('#deliverables-tbody').sortable('destroy')
+      $("#deliverables-tbody").sortable
+        forcePlaceholderSize: true
 
-App = {}
-Deliverables = {}
+    addAll: ->
+      Deliverables.each @addOne
 
-Rfpez.Backbone.SowDeliverables = (project_id, initialModels) ->
-  Deliverables = new DeliverableList
-  App = new AppView({collection: Deliverables, project_id: project_id})
-  Deliverables.reset(initialModels)
-  Deliverables.url = "/projects/#{project_id}/deliverables"
-  return App
+  App = {}
+  Deliverables = {}
+
+  Rfpez.Backbone.SowDeliverables = (project_id, initialModels) ->
+    Deliverables = new DeliverableList
+    App = new AppView({collection: Deliverables, project_id: project_id})
+    Deliverables.reset(initialModels)
+    Deliverables.url = "/projects/#{project_id}/deliverables"
+    return App
+
+)()

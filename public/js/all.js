@@ -10601,366 +10601,354 @@ $(document).on("change", "#project-type-select", function() {
   }
 });
 
-var App, AppView, Comment, CommentList, CommentView, Comments;
 
-Comment = Backbone.Model.extend({
-  validate: function(attrs) {
-    if (!attrs.body) {
-      return true;
-    }
-  },
-  defaults: function() {
-    return {
-      owner: false
-    };
-  },
-  clear: function() {
-    return this.destroy();
-  }
-});
-
-CommentList = Backbone.Collection.extend({
-  model: Comment
-});
-
-CommentView = Backbone.View.extend({
-  tagName: "div",
-  className: "well comment",
-  template: _.template("<div class=\"body\">\n  <span class=\"author\">\n    <%= officer.name %>\n  </span>\n  <%= body %>\n</div>\n<span class=\"timestamp\">\n  <span class=\"posted-at\">Posted <span class=\"timeago\" title=\"<%= formatted_created_at %>\"></span></span>\n</span>\n<a class=\"delete-comment only-user only-user-<%= officer.user_id %>\">Delete</a>"),
-  events: {
-    "click a.delete-comment": "clear"
-  },
-  initialize: function() {
-    this.model.bind("change", this.render, this);
-    return this.model.bind("destroy", this.remove, this);
-  },
-  render: function() {
-    this.$el.html(this.template(this.model.toJSON()));
-    this.$el.find(".timeago").timeago();
-    return this;
-  },
-  clear: function() {
-    return this.model.clear();
-  }
-});
-
-AppView = Backbone.View.extend({
-  initialize: function() {
-    Comments.bind('add', this.addOne, this);
-    Comments.bind('reset', this.reset, this);
-    Comments.bind('all', this.render, this);
-    this.bind('errorAdding', this.showError);
-    return $("#add-comment-form").submit(this.addNew);
-  },
-  addNew: function(e) {
-    var dateString;
-    e.preventDefault();
-    dateString = new Date().toISOString();
-    Comments.create({
-      officer: {
-        name: $("#add-comment-form").data('officer-name'),
-        user_id: $("#add-comment-form").data('officer-user-id')
-      },
-      body: $("#add-comment-form textarea").val(),
-      formatted_created_at: dateString
-    }, {
-      error: function(obj, err) {
-        return obj.clear();
+(function() {
+  var App, AppView, Comment, CommentList, CommentView, Comments;
+  Comment = Backbone.Model.extend({
+    validate: function(attrs) {
+      if (!attrs.body) {
+        return true;
       }
-    });
-    return $("#add-comment-form").resetForm();
-  },
-  showError: function(errors) {
-    return alert(errors[0]);
-  },
-  reset: function() {
-    $(".comments-list").html('');
-    return this.addAll();
-  },
-  render: function() {},
-  addOne: function(comment) {
-    var html, view;
-    view = new CommentView({
-      model: comment
-    });
-    html = view.render().el;
-    return $(".comments-list").append(html);
-  },
-  addAll: function() {
-    return Comments.each(this.addOne);
-  }
-});
-
-App = false;
-
-Comments = false;
-
-Rfpez.Backbone.Comments = function(project_id, initialModels) {
-  var initialCollection;
-  Comments = new CommentList;
-  initialCollection = Comments;
-  App = new AppView({
-    collection: initialCollection
+    },
+    defaults: function() {
+      return {
+        owner: false
+      };
+    },
+    clear: function() {
+      return this.destroy();
+    }
   });
-  initialCollection.reset(initialModels);
-  initialCollection.url = "/projects/" + project_id + "/comments";
-  return App;
-};
-
-var App, AppView, Collaborator, CollaboratorList, CollaboratorView, Collaborators;
-
-Collaborator = Backbone.Model.extend({
-  validate: function(attrs) {
-    var errors;
-    errors = [];
-    if (!attrs.User.email) {
-      return true;
-    } else if (!attrs.User.email.match(/.gov$/i)) {
-      errors.push("Sorry, .gov addresses only");
-    } else if (!attrs.id && Collaborators.existing_emails().indexOf(attrs.User.email.toLowerCase()) !== -1) {
-      errors.push("That collaborator already exists.");
-    }
-    if (errors.length > 0) {
-      App.trigger('errorAdding', errors);
-      return errors;
-    }
-  },
-  defaults: function() {
-    return {
-      owner: false
-    };
-  },
-  clear: function() {
-    return this.destroy();
-  }
-});
-
-CollaboratorList = Backbone.Collection.extend({
-  existing_emails: function() {
-    return this.map(function(c) {
-      return c.attributes.User.email.toLowerCase();
-    });
-  },
-  model: Collaborator
-});
-
-CollaboratorView = Backbone.View.extend({
-  tagName: "tr",
-  template: _.template("<td class=\"email\"><%= User.email %></td>\n<td>\n  <% if (pivot.owner === \"1\") { %>\n    <i class=\"icon-star\"></i>\n  <% } %>\n</td>\n<td>\n  <span class=\"not-user-<%= User.id %> only-user only-user-<%= owner_id %>\">\n    <% if (pivot.owner !== \"1\") { %>\n      <button class=\"btn btn-danger\">Remove</button>\n    <% } else { %>\n      Can't remove the owner.\n    <% } %>\n  </span>\n  <span class=\"only-user only-user-<%= User.id %>\">\n    That's you!\n  </span>\n</td>"),
-  events: {
-    "click .btn.btn-danger": "clear"
-  },
-  initialize: function() {
-    this.model.bind("change", this.render, this);
-    return this.model.bind("destroy", this.remove, this);
-  },
-  render: function() {
-    this.$el.html(this.template(_.extend(this.model.toJSON(), {
-      owner_id: App.options.owner_id
-    })));
-    return this;
-  },
-  clear: function() {
-    return this.model.clear();
-  }
-});
-
-AppView = Backbone.View.extend({
-  initialize: function() {
-    Collaborators.bind('add', this.addOne, this);
-    Collaborators.bind('reset', this.reset, this);
-    Collaborators.bind('all', this.render, this);
-    this.bind('errorAdding', this.showError);
-    return $("#add-collaborator-form").submit(this.addNew);
-  },
-  addNew: function(e) {
-    var email;
-    e.preventDefault();
-    email = $("#add-collaborator-form input[name=email]").val();
-    $("#add-collaborator-form input[name=email]").val('');
-    return Collaborators.create({
-      User: {
-        email: email
-      },
-      pivot: {
-        owner: 0
-      }
-    }, {
-      error: function(obj, err) {
-        return obj.clear();
-      }
-    });
-  },
-  showError: function(errors) {
-    return $("#add-collaborator-form button").flash_button_message("warning", errors[0]);
-  },
-  reset: function() {
-    $("#collaborators-tbody").html('');
-    return this.addAll();
-  },
-  render: function() {},
-  addOne: function(collaborator) {
-    var html, view;
-    view = new CollaboratorView({
-      model: collaborator
-    });
-    html = view.render().el;
-    return $("#collaborators-tbody").append(html);
-  },
-  addAll: function() {
-    return Collaborators.each(this.addOne);
-  }
-});
-
-App = false;
-
-Collaborators = false;
-
-Rfpez.Backbone.Collaborators = function(project_id, owner_id, initialModels) {
-  var initialCollection;
-  Collaborators = new CollaboratorList;
-  initialCollection = Collaborators;
-  App = new AppView({
-    collection: initialCollection,
-    owner_id: owner_id
+  CommentList = Backbone.Collection.extend({
+    model: Comment
   });
-  initialCollection.reset(initialModels);
-  initialCollection.url = "/projects/" + project_id + "/collaborators";
-  return App;
-};
-
-var App, AppView, Deliverable, DeliverableList, DeliverableView, Deliverables;
-
-Deliverable = Backbone.Model.extend({
-  validate: function(attrs) {},
-  defaults: function() {
-    return {
-      date: "",
-      name: "",
-      sort_order: $("#deliverables-tbody tr").length
-    };
-  },
-  clear: function() {
-    return this.destroy();
-  }
-});
-
-DeliverableList = Backbone.Collection.extend({
-  model: Deliverable
-});
-
-DeliverableView = Backbone.View.extend({
-  tagName: "tr",
-  template: _.template("<td>\n  <input type=\"text\" placeholder=\"Deliverable Name\" class=\"name-input\" value=\"<%= name %>\">\n</td>\n<td>\n  <div class=\"input-append date datepicker-wrapper\">\n    <input type=\"text\" placeholder=\"Due Date\" class=\"date-input\" value=\"<%= date %>\" />\n    <span class=\"add-on\">\n      <i class=\"icon-calendar\"></i>\n    </span>\n  </div>\n</td>\n<td>\n  <a class=\"btn remove-deliverable-button\"><i class=\"icon-trash\"></i></a>\n</td>"),
-  events: {
-    "click .remove-deliverable-button": "clear",
-    "input .name-input": "updateWithDelay",
-    "input .date-input": "updateWithDelay",
-    "change .date-input": "updateWithDelay"
-  },
-  initialize: function() {
-    this.model.bind("change", this.updateId, this);
-    this.model.bind("create", this.render, this);
-    return this.model.bind("destroy", this.remove, this);
-  },
-  render: function() {
-    var _ref, _ref1;
-    this.$el.html(this.template(this.model.toJSON()));
-    this.$el.find('.datepicker-wrapper').datepicker();
-    this.$el.data('id', (_ref = this.model) != null ? (_ref1 = _ref.attributes) != null ? _ref1.id : void 0 : void 0);
-    return this;
-  },
-  updateWithDelay: function() {
-    var _this = this;
-    Rfpez.has_unsaved_changes = true;
-    if (this.updateTimeout) {
-      clearTimeout(this.updateTimeout);
+  CommentView = Backbone.View.extend({
+    tagName: "div",
+    className: "well comment",
+    template: _.template("<div class=\"body\">\n  <span class=\"author\">\n    <%= officer.name %>\n  </span>\n  <%= body %>\n</div>\n<span class=\"timestamp\">\n  <span class=\"posted-at\">Posted <span class=\"timeago\" title=\"<%= formatted_created_at %>\"></span></span>\n</span>\n<a class=\"delete-comment only-user only-user-<%= officer.user_id %>\">Delete</a>"),
+    events: {
+      "click a.delete-comment": "clear"
+    },
+    initialize: function() {
+      this.model.bind("change", this.render, this);
+      return this.model.bind("destroy", this.remove, this);
+    },
+    render: function() {
+      this.$el.html(this.template(this.model.toJSON()));
+      this.$el.find(".timeago").timeago();
+      return this;
+    },
+    clear: function() {
+      return this.model.clear();
     }
-    return this.updateTimeout = setTimeout(function() {
-      return _this.update();
-    }, 200);
-  },
-  update: function() {
-    Rfpez.has_unsaved_changes = false;
-    return this.model.save({
-      name: this.$el.find(".name-input").val(),
-      date: this.$el.find(".date-input").val(),
-      sort_order: $("#deliverables-tbody tr").index(this.$el)
-    });
-  },
-  updateId: function() {
-    var _ref, _ref1;
-    return this.$el.data('id', (_ref = this.model) != null ? (_ref1 = _ref.attributes) != null ? _ref1.id : void 0 : void 0);
-  },
-  clear: function() {
-    return this.model.clear();
-  }
-});
-
-AppView = Backbone.View.extend({
-  initialize: function() {
-    var _this = this;
-    Deliverables.bind('add', this.addOne, this);
-    Deliverables.bind('reset', this.reset, this);
-    Deliverables.bind('all', this.render, this);
-    $("#deliverables-tbody").bind('sortupdate', function() {
-      var ordered_ids;
-      ordered_ids = [];
-      $("#deliverables-tbody tr").each(function() {
-        return ordered_ids.push($(this).data('id'));
-      });
-      return $.ajax({
-        url: "/projects/" + _this.options.project_id + "/deliverables/order",
-        type: "PUT",
-        data: {
-          deliverable_ids: ordered_ids
+  });
+  AppView = Backbone.View.extend({
+    initialize: function() {
+      Comments.bind('add', this.addOne, this);
+      Comments.bind('reset', this.reset, this);
+      Comments.bind('all', this.render, this);
+      this.bind('errorAdding', this.showError);
+      return $("#add-comment-form").submit(this.addNew);
+    },
+    addNew: function(e) {
+      var dateString;
+      e.preventDefault();
+      dateString = new Date().toISOString();
+      Comments.create({
+        officer: {
+          name: $("#add-comment-form").data('officer-name'),
+          user_id: $("#add-comment-form").data('officer-user-id')
+        },
+        body: $("#add-comment-form textarea").val(),
+        formatted_created_at: dateString
+      }, {
+        error: function(obj, err) {
+          return obj.clear();
         }
       });
-    });
-    return $(document).on("click", ".add-deliverable-timeline-button", function() {
-      return _this.addNew();
-    });
-  },
-  reset: function() {
-    $("#deliverables-tbody").html('');
-    return this.addAll();
-  },
-  addNew: function() {
-    return Deliverables.create();
-  },
-  addOne: function(deliverable) {
-    var html, view;
-    view = new DeliverableView({
-      model: deliverable
-    });
-    html = view.render().el;
-    return $("#deliverables-tbody").append(html);
-  },
-  render: function() {
-    $('#deliverables-tbody').sortable('destroy');
-    return $("#deliverables-tbody").sortable({
-      forcePlaceholderSize: true
-    });
-  },
-  addAll: function() {
-    return Deliverables.each(this.addOne);
-  }
-});
-
-App = {};
-
-Deliverables = {};
-
-Rfpez.Backbone.SowDeliverables = function(project_id, initialModels) {
-  Deliverables = new DeliverableList;
-  App = new AppView({
-    collection: Deliverables,
-    project_id: project_id
+      return $("#add-comment-form").resetForm();
+    },
+    showError: function(errors) {
+      return alert(errors[0]);
+    },
+    reset: function() {
+      $(".comments-list").html('');
+      return this.addAll();
+    },
+    render: function() {},
+    addOne: function(comment) {
+      var html, view;
+      view = new CommentView({
+        model: comment
+      });
+      html = view.render().el;
+      return $(".comments-list").append(html);
+    },
+    addAll: function() {
+      return Comments.each(this.addOne);
+    }
   });
-  Deliverables.reset(initialModels);
-  Deliverables.url = "/projects/" + project_id + "/deliverables";
-  return App;
-};
+  App = false;
+  Comments = false;
+  return Rfpez.Backbone.Comments = function(project_id, initialModels) {
+    var initialCollection;
+    Comments = new CommentList;
+    initialCollection = Comments;
+    App = new AppView({
+      collection: initialCollection
+    });
+    initialCollection.reset(initialModels);
+    initialCollection.url = "/projects/" + project_id + "/comments";
+    return App;
+  };
+})();
+
+
+(function() {
+  var App, AppView, Collaborator, CollaboratorList, CollaboratorView, Collaborators;
+  Collaborator = Backbone.Model.extend({
+    validate: function(attrs) {
+      var errors;
+      errors = [];
+      if (!attrs.User.email) {
+        return true;
+      } else if (!attrs.User.email.match(/.gov$/i)) {
+        errors.push("Sorry, .gov addresses only");
+      } else if (!attrs.id && Collaborators.existing_emails().indexOf(attrs.User.email.toLowerCase()) !== -1) {
+        errors.push("That collaborator already exists.");
+      }
+      if (errors.length > 0) {
+        App.trigger('errorAdding', errors);
+        return errors;
+      }
+    },
+    defaults: function() {
+      return {
+        owner: false
+      };
+    },
+    clear: function() {
+      return this.destroy();
+    }
+  });
+  CollaboratorList = Backbone.Collection.extend({
+    existing_emails: function() {
+      return this.map(function(c) {
+        return c.attributes.User.email.toLowerCase();
+      });
+    },
+    model: Collaborator
+  });
+  CollaboratorView = Backbone.View.extend({
+    tagName: "tr",
+    template: _.template("<td class=\"email\"><%= User.email %></td>\n<td>\n  <% if (pivot.owner === \"1\") { %>\n    <i class=\"icon-star\"></i>\n  <% } %>\n</td>\n<td>\n  <span class=\"not-user-<%= User.id %> only-user only-user-<%= owner_id %>\">\n    <% if (pivot.owner !== \"1\") { %>\n      <button class=\"btn btn-danger\">Remove</button>\n    <% } else { %>\n      Can't remove the owner.\n    <% } %>\n  </span>\n  <span class=\"only-user only-user-<%= User.id %>\">\n    That's you!\n  </span>\n</td>"),
+    events: {
+      "click .btn.btn-danger": "clear"
+    },
+    initialize: function() {
+      this.model.bind("change", this.render, this);
+      return this.model.bind("destroy", this.remove, this);
+    },
+    render: function() {
+      this.$el.html(this.template(_.extend(this.model.toJSON(), {
+        owner_id: App.options.owner_id
+      })));
+      return this;
+    },
+    clear: function() {
+      return this.model.clear();
+    }
+  });
+  AppView = Backbone.View.extend({
+    initialize: function() {
+      Collaborators.bind('add', this.addOne, this);
+      Collaborators.bind('reset', this.reset, this);
+      Collaborators.bind('all', this.render, this);
+      this.bind('errorAdding', this.showError);
+      return $("#add-collaborator-form").submit(this.addNew);
+    },
+    addNew: function(e) {
+      var email;
+      e.preventDefault();
+      email = $("#add-collaborator-form input[name=email]").val();
+      $("#add-collaborator-form input[name=email]").val('');
+      return Collaborators.create({
+        User: {
+          email: email
+        },
+        pivot: {
+          owner: 0
+        }
+      }, {
+        error: function(obj, err) {
+          return obj.clear();
+        }
+      });
+    },
+    showError: function(errors) {
+      return $("#add-collaborator-form button").flash_button_message("warning", errors[0]);
+    },
+    reset: function() {
+      $("#collaborators-tbody").html('');
+      return this.addAll();
+    },
+    render: function() {},
+    addOne: function(collaborator) {
+      var html, view;
+      view = new CollaboratorView({
+        model: collaborator
+      });
+      html = view.render().el;
+      return $("#collaborators-tbody").append(html);
+    },
+    addAll: function() {
+      return Collaborators.each(this.addOne);
+    }
+  });
+  App = false;
+  Collaborators = false;
+  return Rfpez.Backbone.Collaborators = function(project_id, owner_id, initialModels) {
+    var initialCollection;
+    Collaborators = new CollaboratorList;
+    initialCollection = Collaborators;
+    App = new AppView({
+      collection: initialCollection,
+      owner_id: owner_id
+    });
+    initialCollection.reset(initialModels);
+    initialCollection.url = "/projects/" + project_id + "/collaborators";
+    return App;
+  };
+})();
+
+
+(function() {
+  var App, AppView, Deliverable, DeliverableList, DeliverableView, Deliverables;
+  Deliverable = Backbone.Model.extend({
+    validate: function(attrs) {},
+    defaults: function() {
+      return {
+        date: "",
+        name: "",
+        sort_order: $("#deliverables-tbody tr").length
+      };
+    },
+    clear: function() {
+      return this.destroy();
+    }
+  });
+  DeliverableList = Backbone.Collection.extend({
+    model: Deliverable
+  });
+  DeliverableView = Backbone.View.extend({
+    tagName: "tr",
+    template: _.template("<td>\n  <input type=\"text\" placeholder=\"Deliverable Name\" class=\"name-input\" value=\"<%= name %>\">\n</td>\n<td>\n  <div class=\"input-append date datepicker-wrapper\">\n    <input type=\"text\" placeholder=\"Due Date\" class=\"date-input\" value=\"<%= date %>\" />\n    <span class=\"add-on\">\n      <i class=\"icon-calendar\"></i>\n    </span>\n  </div>\n</td>\n<td>\n  <a class=\"btn remove-deliverable-button\"><i class=\"icon-trash\"></i></a>\n</td>"),
+    events: {
+      "click .remove-deliverable-button": "clear",
+      "input .name-input": "updateWithDelay",
+      "input .date-input": "updateWithDelay",
+      "change .date-input": "updateWithDelay"
+    },
+    initialize: function() {
+      this.model.bind("change", this.updateId, this);
+      this.model.bind("create", this.render, this);
+      return this.model.bind("destroy", this.remove, this);
+    },
+    render: function() {
+      var _ref, _ref1;
+      this.$el.html(this.template(this.model.toJSON()));
+      this.$el.find('.datepicker-wrapper').datepicker();
+      this.$el.data('id', (_ref = this.model) != null ? (_ref1 = _ref.attributes) != null ? _ref1.id : void 0 : void 0);
+      return this;
+    },
+    updateWithDelay: function() {
+      var _this = this;
+      Rfpez.has_unsaved_changes = true;
+      if (this.updateTimeout) {
+        clearTimeout(this.updateTimeout);
+      }
+      return this.updateTimeout = setTimeout(function() {
+        return _this.update();
+      }, 200);
+    },
+    update: function() {
+      Rfpez.has_unsaved_changes = false;
+      return this.model.save({
+        name: this.$el.find(".name-input").val(),
+        date: this.$el.find(".date-input").val(),
+        sort_order: $("#deliverables-tbody tr").index(this.$el)
+      });
+    },
+    updateId: function() {
+      var _ref, _ref1;
+      return this.$el.data('id', (_ref = this.model) != null ? (_ref1 = _ref.attributes) != null ? _ref1.id : void 0 : void 0);
+    },
+    clear: function() {
+      return this.model.clear();
+    }
+  });
+  AppView = Backbone.View.extend({
+    initialize: function() {
+      var _this = this;
+      Deliverables.bind('add', this.addOne, this);
+      Deliverables.bind('reset', this.reset, this);
+      Deliverables.bind('all', this.render, this);
+      $("#deliverables-tbody").bind('sortupdate', function() {
+        var ordered_ids;
+        ordered_ids = [];
+        $("#deliverables-tbody tr").each(function() {
+          return ordered_ids.push($(this).data('id'));
+        });
+        return $.ajax({
+          url: "/projects/" + _this.options.project_id + "/deliverables/order",
+          type: "PUT",
+          data: {
+            deliverable_ids: ordered_ids
+          }
+        });
+      });
+      return $(document).on("click", ".add-deliverable-timeline-button", function() {
+        return _this.addNew();
+      });
+    },
+    reset: function() {
+      $("#deliverables-tbody").html('');
+      return this.addAll();
+    },
+    addNew: function() {
+      return Deliverables.create();
+    },
+    addOne: function(deliverable) {
+      var html, view;
+      view = new DeliverableView({
+        model: deliverable
+      });
+      html = view.render().el;
+      return $("#deliverables-tbody").append(html);
+    },
+    render: function() {
+      $('#deliverables-tbody').sortable('destroy');
+      return $("#deliverables-tbody").sortable({
+        forcePlaceholderSize: true
+      });
+    },
+    addAll: function() {
+      return Deliverables.each(this.addOne);
+    }
+  });
+  App = {};
+  Deliverables = {};
+  return Rfpez.Backbone.SowDeliverables = function(project_id, initialModels) {
+    Deliverables = new DeliverableList;
+    App = new AppView({
+      collection: Deliverables,
+      project_id: project_id
+    });
+    Deliverables.reset(initialModels);
+    Deliverables.url = "/projects/" + project_id + "/deliverables";
+    return App;
+  };
+})();
 
 var dismiss_selection, keep_bid_in_view, mouseover_select_timeout, on_mouseover_select, open_selection, star_selection, toggle_unread_selection;
 
@@ -11259,173 +11247,165 @@ $(document).on("mouseover.selectbidmouseover", ".bid", function() {
   }
 });
 
-var App, AppView, Officer, OfficerList, OfficerView, Officers;
 
-Officer = Backbone.Model.extend({
-  validate: function(attrs) {},
-  defaults: function() {},
-  clear: function() {
-    return this.destroy();
-  }
-});
-
-OfficerList = Backbone.Collection.extend({
-  model: Officer,
-  url: "/officers"
-});
-
-OfficerView = Backbone.View.extend({
-  tagName: "tr",
-  template: _.template("<td><%= id %></td>\n<td><%= name %></td>\n<td><%= title %></td>\n<td><%= User.email %></td>\n<td>\n  <div class=\"not-user-<%= User.id %>\">\n    <% if (role == 3 && !isSuperAdmin) { %>\n      This officer is a super-admin.\n    <% } else { %>\n      <select class=\"user_role_select\">\n        <option value=\"0\" <% if(role == 0){ %>selected <% } %>>Program Officer</option>\n        <option value=\"1\" <% if(role == 1){ %>selected <% } %>>Contracting Officer</option>\n        <option value=\"2\" <% if(role == 2){ %>selected <% } %>>Admin</option>\n        <% if (isSuperAdmin) { %>\n          <option value=\"3\" <% if(role == 3){ %>selected <% } %>>Super Admin</option>\n        <% } %>\n      </select>\n    <% } %>\n  </div>\n  <div class=\"only-user only-user-<%= User.id %>\">\n    You're a <%= role_text %>.\n  </div>\n</td>\n<td>\n  <% if (role != 3){ %>\n    <div class=\"super-admin-only\">\n      <div class=\"not-user-<%= User.id %>\">\n        <% if (!User.banned_at){ %>\n          <a class=\"btn btn-danger ban-button btn-mini\">Ban Officer</a>\n        <% } else { %>\n          <a class=\"btn unban-button btn-mini\">Un-Ban Officer</a>\n        <% } %>\n      </div>\n    </div>\n  <% } %>\n</td>"),
-  events: {
-    "change .user_role_select": "update",
-    "click .ban-button": "ban",
-    "click .unban-button": "unban"
-  },
-  initialize: function() {
-    this.model.bind("change", this.render, this);
-    return this.model.bind("destroy", this.remove, this);
-  },
-  render: function() {
-    this.$el.html(this.template(_.extend(this.model.toJSON(), {
-      isSuperAdmin: App.options.isSuperAdmin
-    })));
-    return this;
-  },
-  ban: function() {
-    if (confirm('Are you sure you want to ban this officer? This could have unintended consequences if they were the only officer on a project.')) {
-      return this.model.save({
-        command: "ban"
-      });
+(function() {
+  var App, AppView, Officer, OfficerList, OfficerView, Officers;
+  Officer = Backbone.Model.extend({
+    validate: function(attrs) {},
+    defaults: function() {},
+    clear: function() {
+      return this.destroy();
     }
-  },
-  unban: function() {
-    return this.model.save({
-      command: "unban"
-    });
-  },
-  update: function() {
-    return this.model.save({
-      role: this.$el.find(".user_role_select").val()
-    });
-  },
-  clear: function() {
-    return this.model.clear();
-  }
-});
-
-AppView = Backbone.View.extend({
-  initialize: function() {
-    Officers.bind('reset', this.reset, this);
-    return Officers.bind('all', this.render, this);
-  },
-  reset: function() {
-    $("#officers-tbody").html('');
-    return this.addAll();
-  },
-  render: function() {},
-  addOne: function(officer) {
-    var html, view;
-    view = new OfficerView({
-      model: officer
-    });
-    html = view.render().el;
-    return $("#officers-tbody").append(html);
-  },
-  addAll: function() {
-    return Officers.each(this.addOne);
-  }
-});
-
-App = {};
-
-Officers = {};
-
-Rfpez.Backbone.AdminOfficers = function(initialModels) {
-  var isSuperAdmin;
-  isSuperAdmin = $("body").hasClass('super-admin');
-  Officers = new OfficerList;
-  App = new AppView({
-    collection: Officers,
-    isSuperAdmin: isSuperAdmin
   });
-  Officers.reset(initialModels);
-  return App;
-};
-
-var App, AppView, Project, ProjectList, ProjectView, Projects;
-
-Project = Backbone.Model.extend({
-  validate: function(attrs) {},
-  defaults: function() {},
-  clear: function() {
-    return this.destroy();
-  }
-});
-
-ProjectList = Backbone.Collection.extend({
-  model: Project,
-  url: "/projects"
-});
-
-ProjectView = Backbone.View.extend({
-  tagName: "tr",
-  template: _.template("<td><%= id %></td>\n<td><%= title %></td>\n<td><%= fork_count %></td>\n<td>\n  <select class=\"recommended-select\">\n    <option value=\"1\" <% if (recommended == 1){ %>selected<% } %>>Yes</option>\n    <option value=\"0\" <% if (recommended == 0){ %>selected<% } %>>No</option>\n  </select>\n</td>\n<td>\n  <select class=\"public-select\">\n    <option value=\"1\" <% if (public == 1){ %>selected<% } %>>Yes</option>\n    <option value=\"0\" <% if (public == 0){ %>selected<% } %>>No</option>\n  </select>\n</td>\n<td><%= project_type.name %></td>"),
-  events: {
-    "change .recommended-select": "update",
-    "change .public-select": "update"
-  },
-  update: function() {
-    return this.model.save({
-      recommended: this.$el.find(".recommended-select").val(),
-      "public": this.$el.find(".public-select").val()
-    });
-  },
-  initialize: function() {
-    this.model.bind("change", this.render, this);
-    return this.model.bind("destroy", this.remove, this);
-  },
-  render: function() {
-    this.$el.html(this.template(this.model.toJSON()));
-    return this;
-  },
-  clear: function() {
-    return this.model.clear();
-  }
-});
-
-AppView = Backbone.View.extend({
-  initialize: function() {
-    Projects.bind('reset', this.reset, this);
-    return Projects.bind('all', this.render, this);
-  },
-  reset: function() {
-    $("#projects-tbody").html('');
-    return this.addAll();
-  },
-  render: function() {},
-  addOne: function(project) {
-    var html, view;
-    view = new ProjectView({
-      model: project
-    });
-    html = view.render().el;
-    return $("#projects-tbody").append(html);
-  },
-  addAll: function() {
-    return Projects.each(this.addOne);
-  }
-});
-
-App = {};
-
-Projects = {};
-
-Rfpez.Backbone.AdminProjects = function(initialModels) {
-  Projects = new ProjectList;
-  App = new AppView({
-    collection: Projects
+  OfficerList = Backbone.Collection.extend({
+    model: Officer,
+    url: "/officers"
   });
-  Projects.reset(initialModels);
-  return App;
-};
+  OfficerView = Backbone.View.extend({
+    tagName: "tr",
+    template: _.template("<td><%= id %></td>\n<td><%= name %></td>\n<td><%= title %></td>\n<td><%= User.email %></td>\n<td>\n  <div class=\"not-user-<%= User.id %>\">\n    <% if (role == 3 && !isSuperAdmin) { %>\n      This officer is a super-admin.\n    <% } else { %>\n      <select class=\"user_role_select\">\n        <option value=\"0\" <% if(role == 0){ %>selected <% } %>>Program Officer</option>\n        <option value=\"1\" <% if(role == 1){ %>selected <% } %>>Contracting Officer</option>\n        <option value=\"2\" <% if(role == 2){ %>selected <% } %>>Admin</option>\n        <% if (isSuperAdmin) { %>\n          <option value=\"3\" <% if(role == 3){ %>selected <% } %>>Super Admin</option>\n        <% } %>\n      </select>\n    <% } %>\n  </div>\n  <div class=\"only-user only-user-<%= User.id %>\">\n    You're a <%= role_text %>.\n  </div>\n</td>\n<td>\n  <% if (role != 3){ %>\n    <div class=\"super-admin-only\">\n      <div class=\"not-user-<%= User.id %>\">\n        <% if (!User.banned_at){ %>\n          <a class=\"btn btn-danger ban-button btn-mini\">Ban Officer</a>\n        <% } else { %>\n          <a class=\"btn unban-button btn-mini\">Un-Ban Officer</a>\n        <% } %>\n      </div>\n    </div>\n  <% } %>\n</td>"),
+    events: {
+      "change .user_role_select": "update",
+      "click .ban-button": "ban",
+      "click .unban-button": "unban"
+    },
+    initialize: function() {
+      this.model.bind("change", this.render, this);
+      return this.model.bind("destroy", this.remove, this);
+    },
+    render: function() {
+      this.$el.html(this.template(_.extend(this.model.toJSON(), {
+        isSuperAdmin: App.options.isSuperAdmin
+      })));
+      return this;
+    },
+    ban: function() {
+      if (confirm('Are you sure you want to ban this officer? This could have unintended consequences if they were the only officer on a project.')) {
+        return this.model.save({
+          command: "ban"
+        });
+      }
+    },
+    unban: function() {
+      return this.model.save({
+        command: "unban"
+      });
+    },
+    update: function() {
+      return this.model.save({
+        role: this.$el.find(".user_role_select").val()
+      });
+    },
+    clear: function() {
+      return this.model.clear();
+    }
+  });
+  AppView = Backbone.View.extend({
+    initialize: function() {
+      Officers.bind('reset', this.reset, this);
+      return Officers.bind('all', this.render, this);
+    },
+    reset: function() {
+      $("#officers-tbody").html('');
+      return this.addAll();
+    },
+    render: function() {},
+    addOne: function(officer) {
+      var html, view;
+      view = new OfficerView({
+        model: officer
+      });
+      html = view.render().el;
+      return $("#officers-tbody").append(html);
+    },
+    addAll: function() {
+      return Officers.each(this.addOne);
+    }
+  });
+  App = {};
+  Officers = {};
+  return Rfpez.Backbone.AdminOfficers = function(initialModels) {
+    var isSuperAdmin;
+    isSuperAdmin = $("body").hasClass('super-admin');
+    Officers = new OfficerList;
+    App = new AppView({
+      collection: Officers,
+      isSuperAdmin: isSuperAdmin
+    });
+    Officers.reset(initialModels);
+    return App;
+  };
+})();
+
+
+(function() {
+  var App, AppView, Project, ProjectList, ProjectView, Projects;
+  Project = Backbone.Model.extend({
+    validate: function(attrs) {},
+    defaults: function() {},
+    clear: function() {
+      return this.destroy();
+    }
+  });
+  ProjectList = Backbone.Collection.extend({
+    model: Project,
+    url: "/projects"
+  });
+  ProjectView = Backbone.View.extend({
+    tagName: "tr",
+    template: _.template("<td><%= id %></td>\n<td><%= title %></td>\n<td><%= fork_count %></td>\n<td>\n  <select class=\"recommended-select\">\n    <option value=\"1\" <% if (recommended == 1){ %>selected<% } %>>Yes</option>\n    <option value=\"0\" <% if (recommended == 0){ %>selected<% } %>>No</option>\n  </select>\n</td>\n<td>\n  <select class=\"public-select\">\n    <option value=\"1\" <% if (public == 1){ %>selected<% } %>>Yes</option>\n    <option value=\"0\" <% if (public == 0){ %>selected<% } %>>No</option>\n  </select>\n</td>\n<td><%= project_type.name %></td>"),
+    events: {
+      "change .recommended-select": "update",
+      "change .public-select": "update"
+    },
+    update: function() {
+      return this.model.save({
+        recommended: this.$el.find(".recommended-select").val(),
+        "public": this.$el.find(".public-select").val()
+      });
+    },
+    initialize: function() {
+      this.model.bind("change", this.render, this);
+      return this.model.bind("destroy", this.remove, this);
+    },
+    render: function() {
+      this.$el.html(this.template(this.model.toJSON()));
+      return this;
+    },
+    clear: function() {
+      return this.model.clear();
+    }
+  });
+  AppView = Backbone.View.extend({
+    initialize: function() {
+      Projects.bind('reset', this.reset, this);
+      return Projects.bind('all', this.render, this);
+    },
+    reset: function() {
+      $("#projects-tbody").html('');
+      return this.addAll();
+    },
+    render: function() {},
+    addOne: function(project) {
+      var html, view;
+      view = new ProjectView({
+        model: project
+      });
+      html = view.render().el;
+      return $("#projects-tbody").append(html);
+    },
+    addAll: function() {
+      return Projects.each(this.addOne);
+    }
+  });
+  App = {};
+  Projects = {};
+  return Rfpez.Backbone.AdminProjects = function(initialModels) {
+    Projects = new ProjectList;
+    App = new AppView({
+      collection: Projects
+    });
+    Projects.reset(initialModels);
+    return App;
+  };
+})();
