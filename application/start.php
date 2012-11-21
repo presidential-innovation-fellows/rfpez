@@ -187,9 +187,10 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 	Session::load();
 }
 
-require 'assets.php';
-
+// @todo move this into a config file
 if (Request::is_env('production')) Config::set('error.detail', false);
+
+Config::set('deploy_timestamp', file_get_contents('deploy_timestamp.txt'));
 
 Auth::extend('rfpez', function(){
 	return new RfpezAuth;

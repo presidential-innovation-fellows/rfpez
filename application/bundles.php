@@ -36,10 +36,6 @@
 return array(
 
   'bob',
-  'basset' => array(
-    'handles' => 'basset',
-    'auto'    => true
-  ),
   'jaded' => array(
   	'auto' => true
   ),
