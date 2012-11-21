@@ -241,6 +241,7 @@ class Projects_Controller extends Base_Controller {
     // if this step is not yet completed, try to create some
     // deliverables from the project's SOW sections
     if ($project->sow_progress < 5) $project->create_deliverables_from_sow_sections();
+    if ($project->deliverables()->count() == 0) $project->deliverables()->insert(new Deliverable());
 
     $view->project = $project;
     $view->deliverables_json = json_encode(Helper::to_array($view->project->deliverables));

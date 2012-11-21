@@ -50,7 +50,7 @@ module.exports = function(grunt) {
           '../css/bootstrap.css',
           '../css/bootstrap-responsive.css',
           '../css/bootstrap-wysihtml5.css',
-          '../css/bootstrap-datepicker.css',
+          '../css/datepicker.css',
           '../css/compiled_styl.css'
         ],
         dest: '../../public/css/all.css'
@@ -145,7 +145,7 @@ module.exports = function(grunt) {
 
     watch: {
       app: {
-        files: ['../coffee/**/*.coffee', '../styl/**/*.styl', '../css/**/*.css', '../js/**/*.js', '../../application/views/**/*.jade'],
+        files: ['../coffee/**/*.coffee', '../styl/**/*.styl', '../css/**/*.css', '../js/**/*.js', '../../application/views/**/**/*.jade'],
         tasks: tasks
       }
     }
