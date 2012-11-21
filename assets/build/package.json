@@ -1,0 +1,12 @@
+{
+  "name": "rfpez-build",
+  "version": "0.0.1",
+  "main": "grunt.js",
+  "dependencies": {
+    "grunt": "*",
+    "grunt-growl": "*",
+    "grunt-css": "*",
+    "grunt-coffee": "*",
+    "grunt-contrib-stylus": "*"
+  }
+}

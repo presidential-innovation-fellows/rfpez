@@ -2,30 +2,42 @@
 
 Class Helper {
 
-public static function timeago($timestamp) {
-  $str = strtotime($timestamp);
-  return "<span class='timeago' title='".date('c', $str)."'>".date('r', $str)."</abbr>";
-}
+  public static function asset($n) {
 
-public static function helper_tooltip($title, $placement = "top", $pull_right = false) {
-  return "<span class='helper-tooltip ".($pull_right ? 'pull-right' : '')."' data-title=\"".htmlspecialchars($title)."\" data-trigger='manual' data-placement='$placement'>
-      <i class='icon-question-sign icon-white'></i>
-    </span>";
-}
-
-public static function datum($label, $content, $link = false) {
-  if ($content) {
-    $isEmail = filter_var($content, FILTER_VALIDATE_EMAIL);
-    return "<div class='datum'>
-              <label>$label</label>
-              <div class='content'>".($link ? "<a href='".($isEmail ? "mailto:$content" : $content).
-                "' ".($isEmail ? '' : 'target="_blank"').">" : "")."$content".($link ? '</a>' : '')."</div>
-            </div>";
-  } else {
-    return '';
+    if (preg_match('/^css/', $n)) {
+      $ext = Config::get('assets.use_minified') === false ? ".css" : ".min.css?t=".Config::get('deploy_timestamp');
+      return HTML::style($n.$ext);
+    } elseif (preg_match('/^js/', $n)) {
+      $ext = Config::get('assets.use_minified') === false ? ".js" : ".min.js?t=".Config::get('deploy_timestamp');
+      return HTML::script($n.$ext);
+    } else {
+      throw new \Exception("Can't handle that asset type.");
+    }
   }
-}
 
+  public static function timeago($timestamp) {
+    $str = strtotime($timestamp);
+    return "<span class='timeago' title='".date('c', $str)."'>".date('r', $str)."</abbr>";
+  }
+
+  public static function helper_tooltip($title, $placement = "top", $pull_right = false) {
+    return "<span class='helper-tooltip ".($pull_right ? 'pull-right' : '')."' data-title=\"".htmlspecialchars($title)."\" data-trigger='manual' data-placement='$placement'>
+        <i class='icon-question-sign icon-white'></i>
+      </span>";
+  }
+
+  public static function datum($label, $content, $link = false) {
+    if ($content) {
+      $isEmail = filter_var($content, FILTER_VALIDATE_EMAIL);
+      return "<div class='datum'>
+                <label>$label</label>
+                <div class='content'>".($link ? "<a href='".($isEmail ? "mailto:$content" : $content).
+                  "' ".($isEmail ? '' : 'target="_blank"').">" : "")."$content".($link ? '</a>' : '')."</div>
+              </div>";
+    } else {
+      return '';
+    }
+  }
 
   public static function to_array($results) {
     $return_array = array();

@@ -6,15 +6,11 @@
 <?php echo Jade\Dumper::_html(View::make('projects.partials.toolbar')->with('project', $project)); ?>
 <?php echo Jade\Dumper::_html(View::make('bids.partials.dismiss_modal')); ?>
 <?php echo Jade\Dumper::_html(View::make('bids.partials.award_modal')->with('project', $project)); ?>
-<?php Section::start('page_scripts'); { ?>
-  <?php echo Jade\Dumper::_html(HTML::script('js/bid-review.js')); ?>
-<?php } ?>
-<?php Section::stop(); ?>
 <div class="well">
   <a id="review-tips-toggle" data-hide-text="Hide Tips [-]">Show Tips [+]</a>
   <div id="review-tips" class="collapse">
     <ul>
-      <li>Stars are shared among collaborators. By starring a bid, you can indicate to your colleagues you think that bid stands out.</li>
+      <li>Stars are shared among collaborators. By starring a bid, you can indicate to your colleagues that you think a bid stands out.</li>
     </ul>
   </div>
 </div>
