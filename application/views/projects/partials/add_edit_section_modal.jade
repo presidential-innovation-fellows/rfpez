@@ -7,13 +7,13 @@
   .modal-body
 
     ul.nav.nav-tabs#add-edit-section-tabs
-      li.section-library-li
+      li.active.section-library-li
         a(href="#section-library", data-toggle="tab") Add From Library
       li.section-form-li
         a(href="#section-form", data-toggle="tab") Add Custom Section
 
     div.tab-content
-      .tab-pane#section-library
+      .tab-pane.active#section-library
 
         h5 Available Sections
           input.search-query.pull-right#available-sections-filter(type="text", placeholder="Filter by category, title, body")

@@ -5,7 +5,7 @@
   </div>
   <div class="modal-body">
     <ul id="add-edit-section-tabs" class="nav nav-tabs">
-      <li class="section-library-li">
+      <li class="active section-library-li">
         <a href="#section-library" data-toggle="tab">Add From Library</a>
       </li>
       <li class="section-form-li">
@@ -13,7 +13,7 @@
       </li>
     </ul>
     <div class="tab-content">
-      <div id="section-library" class="tab-pane">
+      <div id="section-library" class="tab-pane active">
         <h5>
           Available Sections
           <input id="available-sections-filter" class="search-query pull-right" type="text" placeholder="Filter by category, title, body" />
