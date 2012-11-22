@@ -127,8 +127,6 @@ Route::get('admin/vendors', array('uses' => 'admin@vendors', 'as' => 'admin_vend
 Route::get('admin/vendors/(:num)/ban', array('uses' => 'admin@ban_vendor', 'as' => 'admin_ban_vendor'));
 Route::get('admin/projects', array('uses' => 'admin@projects', 'as' => 'admin_projects'));
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers

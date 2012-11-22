@@ -47,7 +47,7 @@ class Bid extends SoftDeleteModel {
 
   public function get_prices() {
     if ($this->cached_prices !== false) return $this->cached_prices;
-    return $this->cached_prices = json_decode($this->attributes['prices'], true);
+    return $this->cached_prices = isset($this->attributes['prices']) ? json_decode($this->attributes['prices'], true) : array();
   }
 
   public function set_prices($value) {
@@ -63,7 +63,7 @@ class Bid extends SoftDeleteModel {
   }
 
   public function get_epls_names() {
-    return json_decode($this->attributes['epls_names'], true);
+    return isset($this->attributes['epls_names']) ? json_decode($this->attributes['epls_names'], true) : array();
   }
 
   public function set_epls_names($value) {

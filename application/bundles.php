@@ -55,6 +55,10 @@ return array(
         'FeedOut' => '(:bundle)/feeder.php',
       ),
     ),
+  ),
+  'administrator' => array(
+    'handles' => 'superadmin',
+    'auto' => true,
   )
 
 );

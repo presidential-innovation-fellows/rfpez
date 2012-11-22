@@ -22,10 +22,6 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     pkg: '<json:package.json>',
-    meta: {
-      banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-        '<%= grunt.template.today("yyyy-mm-dd") %> */'
-    },
 
     coffee: {
       all: {
@@ -118,26 +114,26 @@ module.exports = function(grunt) {
 
     cssmin: {
       all: {
-        src: ['<banner>', '../../public/css/all.css'],
+        src: ['../../public/css/all.css'],
         dest: '../../public/css/all.min.css'
       }
     },
 
     min: {
       js_global: {
-        src: ['<banner>', '../../public/js/global.js'],
+        src: ['../../public/js/global.js'],
         dest: '../../public/js/global.min.js'
       },
       js_vendor: {
-        src: ['<banner>', '../../public/js/vendor.js'],
+        src: ['../../public/js/vendor.js'],
         dest: '../../public/js/vendor.min.js'
       },
       js_officer: {
-        src: ['<banner>', '../../public/js/officer.js'],
+        src: ['../../public/js/officer.js'],
         dest: '../../public/js/officer.min.js'
       },
       js_admin: {
-        src: ['<banner>', '../../public/js/admin.js'],
+        src: ['../../public/js/admin.js'],
         dest: '../../public/js/admin.min.js'
       }
     },
