@@ -34,6 +34,9 @@
         </span>
       </span>
       &nbsp; at 11:59pm EST
+      <p>
+        <em>You'll have a chance to change this later, so don't worry if you don't know the exact date.</em>
+      </p>
     </div>
     <div class="control-group">
       <label>Project Type</label>

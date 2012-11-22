@@ -2411,6 +2411,9 @@ body.super-admin .super-admin-only {
 .collapse {
   overflow: hidden;
 }
+.control-group p {
+  margin-top: 5px;
+}
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
   display: none !important;
