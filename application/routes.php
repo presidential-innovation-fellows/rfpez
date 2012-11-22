@@ -118,7 +118,7 @@ Route::post('projects/(:num)/toggle-public', array('uses' => 'projects@toggle_pu
 |--------------------------------------------------------------------------
 */
 
-Route::get('admin', array('uses' => 'admin@index', 'as' => 'admin_index'));
+Route::get('admin', array('uses' => 'admin@index', 'as' => 'admin_home'));
 
 Route::get('admin/project-sections', array('uses' => 'admin@project_sections', 'as' => 'admin_project_sections'));
 Route::get('admin/project-sections/(:num)/toggle-public', array('uses' => 'admin@project_sections_toggle_public', 'as' => 'admin_project_sections_toggle_public'));

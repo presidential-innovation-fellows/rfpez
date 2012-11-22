@@ -19,7 +19,7 @@
               </li>
               <?php if (Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): ?>
                 <li>
-                  <a href="<?php echo Jade\Dumper::_text(route('admin_index')); ?>">Admin</a>
+                  <a href="<?php echo Jade\Dumper::_text(route('admin_home')); ?>">Admin</a>
                 </li>
               <?php endif; ?>
               <?php if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)): ?>
