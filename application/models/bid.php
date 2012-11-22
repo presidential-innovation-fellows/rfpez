@@ -140,8 +140,10 @@ class Bid extends SoftDeleteModel {
   public function total_price() {
     if ($this->total_price !== false) return $this->total_price;
     $total = 0;
-    foreach($this->prices as $deliv => $price) {
-      $total += floatVal($price);
+    if ($this->prices) {
+      foreach($this->prices as $deliv => $price) {
+        $total += floatVal($price);
+      }
     }
     return $this->total_price = $total;
   }
