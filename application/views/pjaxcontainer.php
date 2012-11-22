@@ -10,6 +10,7 @@
   <?php endif; ?>
   <?php if (Session::has('errors')): ?>
     <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">×</button>
       <ul>
         <?php foreach(Session::get('errors') as $error): ?>
           <li><?php echo Jade\Dumper::_text($error); ?></li>
@@ -18,7 +19,10 @@
     </div>
   <?php endif; ?>
   <?php if (Session::has('notice')): ?>
-    <div class="alert alert-success"><?php echo Jade\Dumper::_text(Session::get('notice')); ?></div>
+    <div class="alert alert-success">
+      <?php echo Jade\Dumper::_text(Session::get('notice')); ?>
+      <button type="button" class="close" data-dismiss="alert">×</button>
+    </div>
   <?php endif; ?>
   <?php if (!Section::yield('no_page_header')) { ?>
     <h4>

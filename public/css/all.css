@@ -2414,6 +2414,10 @@ body.super-admin .super-admin-only {
 .control-group p {
   margin-top: 5px;
 }
+.alert.alert-success {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
   display: none !important;

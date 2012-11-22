@@ -16,6 +16,7 @@ input#current-page(type="hidden", value="#{Section::yield('current_page')}")
 
   - if (Session::has('errors')):
     .alert.alert-error
+      button(type="button", class="close", data-dismiss="alert") ×
       ul
         - foreach(Session::get('errors') as $error):
           li #{$error}
@@ -23,6 +24,7 @@ input#current-page(type="hidden", value="#{Section::yield('current_page')}")
 
   - if (Session::has('notice')):
     .alert.alert-success #{Session::get('notice')}
+      button(type="button", class="close", data-dismiss="alert") ×
   - endif;
 
   - if (!Section::yield('no_page_header'))
