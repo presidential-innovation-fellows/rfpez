@@ -77,11 +77,7 @@ class Vendor extends Eloquent {
     }
   }
 
-  public function sync_with_dsbs_and_sam_and_epls() {
-
-    if (!$this->duns) return;
-
-    // Get DSBS data
+  public function sync_with_dsbs() {
     if ($duns_contents = @file_get_contents("http://rfpez-apis.presidentialinnovationfellows.org/bizs?duns=" . $this->duns)) {
       $duns_json = json_decode($duns_contents, true);
       if (isset($duns_json["results"]) && isset($duns_json["results"][0])) {
@@ -92,8 +88,9 @@ class Vendor extends Eloquent {
         $this->dsbs_user_id = null;
       }
     }
+  }
 
-    // Get SAM.gov data
+  public function sync_with_sam() {
     if ($sam_contents = @file_get_contents("http://rfpez-apis.presidentialinnovationfellows.org/samzombie/" . $this->duns)) {
       $sam_json = json_decode($sam_contents, true);
       if (isset($sam_json["name"]) && $sam_json["duns"] == $this->duns) {
@@ -102,8 +99,9 @@ class Vendor extends Eloquent {
         $this->sam_entity_name = null;
       }
     }
+  }
 
-    // Get EPLS data
+  public function sync_with_epls() {
     if ($epls_contents = @file_get_contents("http://rfpez-apis.presidentialinnovationfellows.org/exclusions?duns=" . $this->duns)) {
       $epls_json = json_decode($epls_contents, true);
       if (isset($epls_json["results"]) && isset($epls_json["results"][0]) && isset($epls_json["results"][0]['exclusion_type'])) {
@@ -114,10 +112,27 @@ class Vendor extends Eloquent {
     }
   }
 
+  public function geocode() {
+    $address = $this->address . " " . $this->city . ", " . $this->state . " " . $this->zip;
+    if ($geocode_contents = @file_get_contents("http://50.17.218.115/maps/api/geocode/json?sensor=false&address=".rawurlencode($address))) {
+      $geocode_json = json_decode($geocode_contents, true);
+      if (isset($geocode_json["results"]) && isset($geocode_json["results"][0]) && isset($geocode_json["results"][0]["geometry"]) && isset($geocode_json["results"][0]["geometry"]["location"])) {
+        $this->latitude = $geocode_json["results"][0]["geometry"]["location"]["lat"];
+        $this->longitude = $geocode_json["results"][0]["geometry"]["location"]["lng"];
+      }
+    }
+  }
+
 }
 
-// If DUNS number is updated, search for related DSBS and SAM and EPLS records.
 Event::listen('eloquent.saving: Vendor', function($model){
-  if ($model->changed('duns') || ($model->duns && (!$model->sam_entity_name || !$model->dsbs_user_id)))
-    $model->sync_with_dsbs_and_sam_and_epls();
+  if ($model->duns && ($model->changed('duns') || ($model->duns && (!$model->sam_entity_name || !$model->dsbs_user_id)))) {
+    $model->sync_with_dsbs();
+    $model->sync_with_sam();
+    $model->sync_with_epls();
+  }
+
+  if ($model->changed('address')) {
+    $model->geocode();
+  }
 });
