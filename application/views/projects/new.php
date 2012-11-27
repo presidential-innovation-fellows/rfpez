@@ -7,9 +7,7 @@
       <strong>Congrats on using EasyBid for your procurement!</strong>
     </p>
     <p>
-      First, we just need some basic information about the project you're doing.
-      If you can't find the correct project type in the list, <a href="#">contact us</a>
-      and let us know.
+      First, we just need some basic information about your project.
     </p>
   </div>
   <form id="new-project-form" action="<?php echo Jade\Dumper::_text(route('projects')); ?>" method="POST">
