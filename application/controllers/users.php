@@ -30,7 +30,7 @@ class Users_Controller extends Base_Controller {
     }
     $user->generate_reset_password_token();
     Mailer::send("ForgotPassword", array('user' => $user));
-    Session::flash('notice', 'Reset password token generated.');
+    Session::flash('notice', 'Check your email for a link to reset your password.');
     return Redirect::to_route('signin');
   }
 
