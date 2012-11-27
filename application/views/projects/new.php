@@ -48,11 +48,11 @@
     </div>
     <div class="control-group">
       <label>Price type</label>
-      <label>
+      <label class="radio">
         <input type="radio" name="project[price_type]" value="<?php echo Jade\Dumper::_text(Project::PRICE_TYPE_FIXED); ?>" />
         Fixed price
       </label>
-      <label>
+      <label class="radio">
         <input type="radio" name="project[price_type]" value="<?php echo Jade\Dumper::_text(Project::PRICE_TYPE_HOURLY); ?>" />
         Hourly price
       </label>

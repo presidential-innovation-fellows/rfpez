@@ -47,10 +47,10 @@
 
     .control-group
       label Price type
-      label
+      label.radio
         input(type="radio", name="project[price_type]", value="#{Project::PRICE_TYPE_FIXED}")
         | Fixed price
-      label
+      label.radio
         input(type="radio", name="project[price_type]", value="#{Project::PRICE_TYPE_HOURLY}")
         | Hourly price
 
