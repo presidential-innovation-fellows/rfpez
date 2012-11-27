@@ -120,6 +120,12 @@ body.super-admin .super-admin-only {
   padding-top: 20px;
   padding-bottom: 20px;
 }
+@media (max-width: 979px) {
+  .hero-unit h1 small {
+    display: block;
+    padding-top: 10px;
+  }
+}
 body.no-auth .vendor-only,
 body.no-auth .officer-only {
   display: none !important;
