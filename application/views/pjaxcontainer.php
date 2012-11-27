@@ -1,7 +1,6 @@
 <?php if (Request::header('x-pjax')): ?>
   <title><?php echo Jade\Dumper::_text(Helper::full_title(Section::yield('page_title'), Section::yield('page_action'))); ?></title>
 <?php endif; ?>
-<?php echo Jade\Dumper::_html(Section::yield('page_scripts')); ?>
 <input id="current-page" type="hidden" value="<?php echo Jade\Dumper::_text(Section::yield('current_page')); ?>" />
 <?php echo Jade\Dumper::_html(View::make('partials.topnav')); ?>
 <div class="container">
