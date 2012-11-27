@@ -70,14 +70,14 @@ module.exports = function(grunt) {
           '../js/dsbs-lookup.js',
           '../js/infinite-vendor-scroll.js',
           '../js/vendor/underscore.js',
-          '../js/vendor/backbone.js'
+          '../js/vendor/backbone.js',
+          '../js/vendor-image-preview.js',
         ],
         dest: '../../public/js/global.js'
       },
 
       js_vendor: {
         src: [
-          '../js/vendor-image-preview.js',
           '../js/new-bid.js',
           '../js/save-bid-draft.js'
         ],
