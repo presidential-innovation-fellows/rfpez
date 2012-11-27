@@ -10,14 +10,17 @@
   </div>
   <div class="span9">
     <div class="alert alert-info">
+      <?php if ($project->price_type == Project::PRICE_TYPE_HOURLY): ?>
+        For each deliverable in the list, we'll ask the vendor to provide their hourly price.
+      <?php endif; ?>
       You can click and drag the deliverables to change their order.
     </div>
     <form method="POST">
-      <table class="table timeline-table">
+      <table class="table timeline-table <?php echo Jade\Dumper::_text($project->price_type == Project::PRICE_TYPE_HOURLY ? 'hourly-price' : 'fixed-price'); ?>">
         <thead>
           <tr>
             <th>Deliverable</th>
-            <th>Completion Date <?php echo Jade\Dumper::_html(Helper::helper_tooltip("Feel free to assign a date as 'TBD' or blank if you're not sure yet.")); ?></th>
+            <th class="completion-date">Completion Date <?php echo Jade\Dumper::_html(Helper::helper_tooltip("Feel free to assign a date as 'TBD' or blank if you're not sure yet.")); ?></th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -28,14 +31,9 @@
             })
           </script>
         </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="3">
-              <a class="btn add-deliverable-timeline-button pull-right">Add Deliverable <i class="icon-plus-sign"></i></a>
-            </td>
-          </tr>
-        </tfoot>
       </table>
+      <a class="btn add-deliverable-timeline-button pull-right">Add Deliverable <i class="icon-plus-sign"></i></a>
+      <div class="clearfix"></div>
       <div class="form-actions">
         <a class="btn btn-primary" href="<?php echo Jade\Dumper::_text(route('project_review', array($project->id))); ?>">Save and Continue &rarr;</a>
       </div>

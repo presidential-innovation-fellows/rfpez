@@ -37,16 +37,18 @@
           <?php foreach($bid->prices as $deliverable => $price): ?>
             <tr>
               <td><?php echo Jade\Dumper::_text($deliverable); ?></td>
-              <td>$<?php echo Jade\Dumper::_text($price); ?></td>
+              <td>$<?php echo Jade\Dumper::_text($price); ?><?php echo Jade\Dumper::_text($bid->project->price_type == Project::PRICE_TYPE_HOURLY ? '/hr' : ''); ?></td>
             </tr>
           <?php endforeach; ?>
         <?php endif; ?>
-        <tfoot>
-          <tr class="info">
-            <td>Total Price</td>
-            <td>$<?php echo Jade\Dumper::_text($bid->total_price()); ?></td>
-          </tr>
-        </tfoot>
+        <?php if ($bid->project->price_type == Project::PRICE_TYPE_FIXED): ?>
+          <tfoot>
+            <tr class="info">
+              <td>Total Price</td>
+              <td><?php echo Jade\Dumper::_text($bid->display_price()); ?></td>
+            </tr>
+          </tfoot>
+        <?php endif; ?>
       </table>
     </div>
     <div class="span6 example-work">

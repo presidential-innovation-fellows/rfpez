@@ -21,7 +21,7 @@
       <td>
         <input type="text" placeholder="Deliverable Name" class="name-input" value="<%= name %>">
       </td>
-      <td>
+      <td class="completion-date">
         <div class="input-append date datepicker-wrapper">
           <input type="text" placeholder="Due Date" class="date-input" value="<%= date %>" />
           <span class="add-on">

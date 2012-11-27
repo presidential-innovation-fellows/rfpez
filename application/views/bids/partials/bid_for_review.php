@@ -19,7 +19,7 @@
         <span class="label label-success">Winning Bid!</span>
       <?php endif; ?>
     </td>
-    <td>$<?php echo Jade\Dumper::_text(intval($bid->total_price())); ?></td>
+    <td><?php echo Jade\Dumper::_text($bid->display_price()); ?></td>
     <td>
       <?php if (Auth::officer()->is_verified_contracting_officer()): ?>
         <?php if (!$bid->awarded_at): ?>

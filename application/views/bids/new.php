@@ -41,7 +41,7 @@
           <?php $draft_deliverable_names = $draft ? $draft->deliverable_names() : false ?>
           <?php $draft_deliverable_prices = $draft ? $draft->deliverable_prices() : false ?>
           <?php $deliverable_prices = Input::old('deliverable_prices') ?: $draft_deliverable_prices ?>
-          <?php $deliverable_names = Input::old('deliverable_names') ?: $draft_deliverable_names ?: array_keys($project->deliverables) ?>
+          <?php $deliverable_names = Input::old('deliverable_names') ?: $draft_deliverable_names ?: $project->deliverable_names() ?>
           <?php if ($deliverable_names): ?>
             <?php foreach($deliverable_names as $deliverable_name): ?>
               <tr class="deliverables-row">
@@ -52,6 +52,9 @@
                   <div class="input-prepend">
                     <span class="add-on">$</span>
                     <input class="deliverable-price" type="text" name="deliverable_prices[]" value="<?php echo Jade\Dumper::_text( $deliverable_prices[$i] ); ?>" />
+                    <?php if ($project->price_type == Project::PRICE_TYPE_HOURLY): ?>
+                      <span class="add-on">/hr</span>
+                    <?php endif; ?>
                   </div>
                 </td>
                 <td>
@@ -71,6 +74,9 @@
                 <div class="input-prepend">
                   <span class="add-on">$</span>
                   <input class="deliverable-price" type="text" name="deliverable_prices[]" />
+                  <?php if ($project->price_type == Project::PRICE_TYPE_HOURLY): ?>
+                    <span class="add-on">/hr</span>
+                  <?php endif; ?>
                 </div>
               </td>
               <td>
@@ -80,18 +86,20 @@
               </td>
             </tr>
           <?php endif; ?>
+          <tfoot>
+            <?php if ($project->price_type == Project::PRICE_TYPE_FIXED): ?>
+              <tr class="total-price-row">
+                <th>Total Price:</th>
+                <td id="total-price" colspan="2"></td>
+              </tr>
+            <?php endif; ?>
+            <tr>
+              <td colspan="3">
+                <a id="add-deliverable-button" class="btn btn-mini">Add Custom Deliverable</a>
+              </td>
+            </tr>
+          </tfoot>
         </tbody>
-        <tfoot>
-          <tr class="total-price-row">
-            <th>Total Price:</th>
-            <td id="total-price" colspan="2"></td>
-          </tr>
-          <tr>
-            <td colspan="3">
-              <a id="add-deliverable-button" class="btn btn-mini">Add Custom Deliverable</a>
-            </td>
-          </tr>
-        </tfoot>
       </table>
       <div class="form-actions">
         <button class="btn btn-primary" type="submit">Submit Bid</button>

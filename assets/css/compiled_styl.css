@@ -646,6 +646,10 @@ ul.templates-list li.show-more.all-loaded .show-more-templates-link {
 .timeline-table {
   width: 100%;
 }
+.timeline-table.hourly-price th.completion-date,
+.timeline-table.hourly-price td.completion-date {
+  display: none;
+}
 .timeline-table tfoot {
   background: #ddd;
 }

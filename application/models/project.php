@@ -7,12 +7,15 @@ class Project extends Eloquent {
   const STATUS_REVIEWING_BIDS = 3;
   const STATUS_CONTRACT_AWARDED = 4;
 
+  const PRICE_TYPE_FIXED = 0;
+  const PRICE_TYPE_HOURLY = 1;
+
   public static $timestamps = true;
 
   public static $my_project_ids = false;
 
   public static $accessible = array('project_type_id', 'title', 'agency', 'office', 'public', 'background',
-                                    'sections', 'variables', 'proposals_due_at');
+                                    'sections', 'variables', 'proposals_due_at', 'price_type');
 
   public static $sow_progress_markers = array('project_template' => 0,
                                               'project_background' => 1,
@@ -72,6 +75,12 @@ class Project extends Eloquent {
 
   public function deliverables() {
     return $this->has_many('Deliverable')->order_by('sort_order');
+  }
+
+  public function deliverable_names() {
+    return array_map(function($d){
+      return $d->name;
+    }, $this->deliverables);
   }
 
   public function non_blank_deliverables() {

@@ -19,6 +19,8 @@ class Bid extends SoftDeleteModel {
 
   public $total_price = false;
 
+  public $average_price = false;
+
   public $cached_prices = false;
 
   public function validator() {
@@ -137,6 +139,14 @@ class Bid extends SoftDeleteModel {
     Notification::where_payload_type("bid")->where_payload_id($this->id)->delete();
   }
 
+  public function display_price() {
+    if ($this->project->price_type == Project::PRICE_TYPE_FIXED) {
+      return $this->total_price();
+    } else { // hourly
+      return $this->average_price();
+    }
+  }
+
   public function total_price() {
     if ($this->total_price !== false) return $this->total_price;
     $total = 0;
@@ -145,7 +155,20 @@ class Bid extends SoftDeleteModel {
         $total += floatVal($price);
       }
     }
-    return $this->total_price = $total;
+    return $this->total_price = "$" . intval($total);
+  }
+
+  public function average_price() {
+    if ($this->average_price !== false) return $this->average_price;
+    $counter = 0;
+    $sum = 0;
+    if ($this->prices) {
+      foreach($this->prices as $deliv => $price) {
+        $counter++;
+        $sum += floatVal($price);
+      }
+    }
+    return $this->average_price = "$" . intval($sum / $counter) . "/hr" . ($counter > 1 ? ' (avg)' : '');
   }
 
   public static function dismissal_reasons() {

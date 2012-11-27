@@ -9,7 +9,7 @@ ul.nav.nav-list.sow-sidebar
     a(href="#{route('project_blanks', array($project->id))}") 3. Fill in Blanks
       i.icon-chevron-right
   li(class="#{Helper::active_sidebar('timeline') ? 'active':''}")
-    a(href="#{route('project_timeline', array($project->id))}") 4. Timeline
+    a(href="#{route('project_timeline', array($project->id))}") 4. #{$project->price_type == Project::PRICE_TYPE_HOURLY ? 'Hourly Prices' : 'Timeline'}
       i.icon-chevron-right
   li(class="#{Helper::active_sidebar('review') ? 'active':''}")
     a(href="#{route('project_review', array($project->id))}") 5. Review

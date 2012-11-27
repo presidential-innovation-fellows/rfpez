@@ -32,7 +32,21 @@
             <i class="icon-calendar"></i>
           </span>
         </span>
-        at 11:59pm EST
+        &nbsp; at 11:59pm EST
+      </div>
+      <div class="control-group">
+        <label>Price type</label>
+        <label>
+          <input type="radio" name="project[price_type]" value="<?php echo Jade\Dumper::_text(Project::PRICE_TYPE_FIXED); ?>" <?php echo Jade\Dumper::_text($project->price_type == Project::PRICE_TYPE_FIXED ? 'checked' : ''); ?> />
+          Fixed price
+        </label>
+        <label>
+          <input type="radio" name="project[price_type]" value="<?php echo Jade\Dumper::_text(Project::PRICE_TYPE_HOURLY); ?>" <?php echo Jade\Dumper::_text($project->price_type == Project::PRICE_TYPE_HOURLY ? 'checked' : ''); ?> />
+          Hourly price
+        </label>
+        <?php if ($project->submitted_bids()->count() > 0): ?>
+          <em>Careful! Changing this now will affect bids that have already been submitted.</em>
+        <?php endif; ?>
       </div>
       <div class="form-actions">
         <button class="btn btn-primary">Save</button>

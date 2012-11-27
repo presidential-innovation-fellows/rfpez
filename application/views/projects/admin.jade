@@ -34,7 +34,19 @@
           input.span3(type="text", name="project[proposals_due_at]", value="#{$project->formatted_proposals_due_at()}")
           span.add-on
             i.icon-calendar
-        | at 11:59pm EST
+        | &nbsp; at 11:59pm EST
+
+      .control-group
+        label Price type
+        label
+          | <input type="radio" name="project[price_type]" value="#{Project::PRICE_TYPE_FIXED}" #{$project->price_type == Project::PRICE_TYPE_FIXED ? 'checked' : ''} />
+          | Fixed price
+        label
+          | <input type="radio" name="project[price_type]" value="#{Project::PRICE_TYPE_HOURLY}" #{$project->price_type == Project::PRICE_TYPE_HOURLY ? 'checked' : ''} />
+          | Hourly price
+
+        - if ($project->submitted_bids()->count() > 0):
+          em Careful! Changing this now will affect bids that have already been submitted.
 
       .form-actions
         button.btn.btn-primary Save

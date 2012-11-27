@@ -46,6 +46,17 @@
       </select>
       <input id="new-project-type-input" class="hide" type="text" name="new_project_type_name" />
     </div>
+    <div class="control-group">
+      <label>Price type</label>
+      <label>
+        <input type="radio" name="project[price_type]" value="<?php echo Jade\Dumper::_text(Project::PRICE_TYPE_FIXED); ?>" />
+        Fixed price
+      </label>
+      <label>
+        <input type="radio" name="project[price_type]" value="<?php echo Jade\Dumper::_text(Project::PRICE_TYPE_HOURLY); ?>" />
+        Hourly price
+      </label>
+    </div>
     <div class="form-actions">
       <button class="btn btn-primary" type="submit">Create Project</button>
     </div>

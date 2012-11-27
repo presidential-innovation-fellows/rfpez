@@ -19,7 +19,7 @@
   </li>
   <li class="<?php echo Jade\Dumper::_text(Helper::active_sidebar('timeline') ? 'active':''); ?>">
     <a href="<?php echo Jade\Dumper::_text(route('project_timeline', array($project->id))); ?>">
-      4. Timeline
+      4. <?php echo Jade\Dumper::_text($project->price_type == Project::PRICE_TYPE_HOURLY ? 'Hourly Prices' : 'Timeline'); ?>
       <i class="icon-chevron-right"></i>
     </a>
   </li>

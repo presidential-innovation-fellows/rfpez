@@ -36,12 +36,14 @@
           - foreach($bid->prices as $deliverable => $price):
             tr
               td #{$deliverable}
-              td $#{$price}
+              td $#{$price}#{$bid->project->price_type == Project::PRICE_TYPE_HOURLY ? '/hr' : ''}
         - endif;
-        tfoot
-          tr.info
-            td Total Price
-            td $#{$bid->total_price()}
+        - if ($bid->project->price_type == Project::PRICE_TYPE_FIXED):
+          tfoot
+            tr.info
+              td Total Price
+              td #{$bid->display_price()}
+        - endif;
 
     .span5.col2
       h5 #{$bid->vendor->company_name}

@@ -45,6 +45,15 @@
         option(value="Other") Other
       input#new-project-type-input.hide(type="text", name="new_project_type_name")
 
+    .control-group
+      label Price type
+      label
+        input(type="radio", name="project[price_type]", value="#{Project::PRICE_TYPE_FIXED}")
+        | Fixed price
+      label
+        input(type="radio", name="project[price_type]", value="#{Project::PRICE_TYPE_HOURLY}")
+        | Hourly price
+
     .form-actions
       button.btn.btn-primary(type="submit") Create Project
 

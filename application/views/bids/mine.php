@@ -14,7 +14,7 @@
           <td>
             <a href="<?php echo Jade\Dumper::_text($bid->submitted_at ? route('bid', array($bid->project->id, $bid->id)) : route('new_bids', array($bid->project->id))); ?>" data-pjax="data-pjax"><?php echo Jade\Dumper::_text($bid->project->title); ?></a>
           </td>
-          <td>$<?php echo Jade\Dumper::_text($bid->total_price()); ?></td>
+          <td><?php echo Jade\Dumper::_text($bid->display_price()); ?></td>
           <td class="status"><?php echo Jade\Dumper::_text($bid->status); ?></td>
         </tr>
       <?php endforeach; ?>

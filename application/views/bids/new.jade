@@ -50,7 +50,7 @@
           - $draft_deliverable_names = $draft ? $draft->deliverable_names() : false
           - $draft_deliverable_prices = $draft ? $draft->deliverable_prices() : false
           - $deliverable_prices = Input::old('deliverable_prices') ?: $draft_deliverable_prices
-          - $deliverable_names = Input::old('deliverable_names') ?: $draft_deliverable_names ?: array_keys($project->deliverables)
+          - $deliverable_names = Input::old('deliverable_names') ?: $draft_deliverable_names ?: $project->deliverable_names()
           - if ($deliverable_names):
             - foreach($deliverable_names as $deliverable_name):
               tr.deliverables-row
@@ -60,6 +60,9 @@
                   .input-prepend
                     span.add-on $
                     input.deliverable-price(type="text", name="deliverable_prices[]", value="#{ $deliverable_prices[$i] }")
+                    - if ($project->price_type == Project::PRICE_TYPE_HOURLY):
+                      span.add-on /hr
+                    - endif;
 
                 td
                   a.btn.btn-danger.btn-small.remove-deliverable
@@ -73,17 +76,24 @@
                 .input-prepend
                   span.add-on $
                   input.deliverable-price(type="text", name="deliverable_prices[]")
+                  - if ($project->price_type == Project::PRICE_TYPE_HOURLY):
+                    span.add-on /hr
+                  - endif;
+
               td
                 a.btn.btn-danger.btn-small.remove-deliverable
                   i.icon-white.icon-trash
+          - endif;
 
-        tfoot
-          tr.total-price-row
-            th Total Price:
-            td#total-price(colspan="2")
-          tr
-            td(colspan="3")
-              a#add-deliverable-button.btn.btn-mini Add Custom Deliverable
+          tfoot
+            - if ($project->price_type == Project::PRICE_TYPE_FIXED):
+              tr.total-price-row
+                th Total Price:
+                td#total-price(colspan="2")
+            - endif;
+            tr
+              td(colspan="3")
+                a#add-deliverable-button.btn.btn-mini Add Custom Deliverable
 
       .form-actions
         button.btn.btn-primary(type="submit") Submit Bid

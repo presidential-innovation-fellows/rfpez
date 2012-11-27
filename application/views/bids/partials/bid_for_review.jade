@@ -15,7 +15,7 @@ tbody(class="bid #{$unread ? 'unread' : ''}", data-project-id="#{$bid->project->
       - if ($bid->awarded_at):
         span.label.label-success Winning Bid!
       - endif;
-    td $#{intval($bid->total_price())}
+    td #{$bid->display_price()}
     td
       - if (Auth::officer()->is_verified_contracting_officer()):
         - if (!$bid->awarded_at):
