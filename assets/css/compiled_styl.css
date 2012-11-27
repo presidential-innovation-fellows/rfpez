@@ -165,6 +165,10 @@ body.vendor .no-auth-only {
 .sow-toolbar {
   padding-top: 20px;
 }
+.navbar .nav li a:hover {
+  background: #427ba9;
+  background: rgba(0,0,0,0.2);
+}
 #review-tips ul {
   padding: 20px 0 10px;
 }
