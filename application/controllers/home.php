@@ -15,8 +15,6 @@ class Home_Controller extends Base_Controller {
           return Redirect::to_route('projects');
         }
       }
-      // When we have something better...
-      //$view = View::make('home.index_signed_in');
     } else {
       $view = View::make('home.index_signed_out');
     }
