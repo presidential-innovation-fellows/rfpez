@@ -1,6 +1,7 @@
 <?php namespace Laravel\Routing;
 
 use Closure;
+use Laravel\Config;
 use Laravel\Str;
 use Laravel\Bundle;
 use Laravel\Request;
@@ -207,7 +208,7 @@ class Router {
 			}
 
 			$uri = ltrim(str_replace('(:bundle)', static::$bundle, $uri), '/');
-			
+
 			if($uri == '')
 			{
 				$uri = '/';
@@ -237,7 +238,7 @@ class Router {
 			{
 				$routes[$method][$uri] = static::action($action);
 			}
-			
+
 			// If a group is being registered, we'll merge all of the group
 			// options into the action, giving preference to the action
 			// for options that are specified in both.
@@ -251,7 +252,7 @@ class Router {
 			// HTTPS value in as a parameter short-cut.
 			if ( ! isset($routes[$method][$uri]['https']))
 			{
-				$routes[$method][$uri]['https'] = false;
+				$routes[$method][$uri]['https'] = (preg_match('/https/', Config::get('application.url')) ? true : false);
 			}
 		}
 	}
