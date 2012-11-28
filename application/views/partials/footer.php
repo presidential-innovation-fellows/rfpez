@@ -7,13 +7,13 @@
     </p>
     <ul>
       <li>
-        <a href="#">Terms</a>
+        <a href="http://www.sba.gov/about-sba-info/privacy-policy">Privacy Policy</a>
       </li>
       <li>
-        <a href="#">Privacy Policy</a>
+        <a href="http://www.twitter.com/projectrfpez">@ProjectRFPEZ</a>
       </li>
       <li>
-        <a href="#">@ProjectRFPEZ</a>
+        <a href="http://presidential-innovation-fellows.github.com/rfpez-blog">Blog</a>
       </li>
     </ul>
   </div>
