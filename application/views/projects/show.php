@@ -24,6 +24,22 @@
       <a class="btn btn-success" href="#signinModal" data-toggle="modal">Sign in</a> to bid on this project.
     </div>
     <hr />
+    <div class="share">
+      <h5>Share</h5>
+      <p>
+        <div class="addthis_toolbox addthis_default_style ">
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+        </div>
+        <script type="text/javascript">
+          var addthis_config = { "data_track_addressbar":true }
+          // var addthis_share = {"title": "#{}"};
+        </script>
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50b67b147c93387b"></script>
+      </p>
+    </div>
+    <hr />
     <div class="q-and-a">
       <h5>Q &amp; A</h5>
       <div class="questions">
