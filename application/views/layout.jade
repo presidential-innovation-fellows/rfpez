@@ -68,6 +68,8 @@ body(class="#{$body_class}")
 
     !{View::make('pjaxcontainer')->with('content', $content)}
 
+  !{View::make('partials.footer')}
+
   - if (Request::is_env('production'))
     script(src="/js/vendor/google.analytics.js")
     script(src="/js/vendor/jquery.formtimer.js")

@@ -49,6 +49,7 @@
   <div id="pjax-container">
     <?php echo Jade\Dumper::_html(View::make('pjaxcontainer')->with('content', $content)); ?>
   </div>
+  <?php echo Jade\Dumper::_html(View::make('partials.footer')); ?>
   <?php if (Request::is_env('production')) { ?>
     <script src="/js/vendor/google.analytics.js"></script>
     <script src="/js/vendor/jquery.formtimer.js"></script>

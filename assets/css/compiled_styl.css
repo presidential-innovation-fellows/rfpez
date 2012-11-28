@@ -57,12 +57,17 @@ hr.dark {
 body {
   padding: 0;
   margin-bottom: 25px;
+  background-color: #f5f5f5;
 }
 body.super-admin .no-super-admin {
   display: none !important;
 }
 body.super-admin .super-admin-only {
   display: inherit !important;
+}
+#pjax-container {
+  background-color: #fff;
+  padding-bottom: 70px;
 }
 .sneaky {
   display: none;
@@ -442,6 +447,29 @@ body.vendor .no-auth-only {
 }
 .modal-footer a {
   text-decoration: underline;
+}
+footer.footer {
+  padding: 30px 0;
+  border-top: 1px solid #e5e5e5;
+}
+footer.footer ul {
+  margin: 20px 0 0 0;
+}
+footer.footer ul li {
+  list-style: none;
+  display: inline;
+}
+footer.footer ul li a {
+  margin: 0 5px;
+}
+footer.footer ul li:first-child a {
+  margin-left: 0;
+}
+footer.footer ul li:after {
+  content: "·";
+}
+footer.footer ul li:last-child:after {
+  content: "";
 }
 .vendors-wrapper .loading-spinner {
   text-align: center;
