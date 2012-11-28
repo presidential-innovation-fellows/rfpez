@@ -1,131 +1,135 @@
 <?php
 
-Route::get('/', array('uses' => 'home@index', 'as' => 'root'));
+Route::group(array('https' => (preg_match('/https/', Config::get('application.url')) ? true : false)), function(){
 
-Route::get('validation/email', array('uses' => 'validation@email', 'as' => 'validation_email'));
+  Route::get('/', array('uses' => 'home@index', 'as' => 'root'));
 
-Route::get('signin', array('uses' => 'auth@new', 'as' => 'signin'));
-Route::post('signin', array('uses' => 'auth@create', 'as' => 'signin'));
+  Route::get('validation/email', array('uses' => 'validation@email', 'as' => 'validation_email'));
 
-Route::get('signout', array('uses' => 'auth@delete', 'as' => 'signout'));
+  Route::get('signin', array('uses' => 'auth@new', 'as' => 'signin'));
+  Route::post('signin', array('uses' => 'auth@create', 'as' => 'signin'));
 
-Route::get('account', array('uses' => 'users@get_account', 'as' => 'account'));
-Route::post('account', array('uses' => 'users@post_account', 'as' => 'account'));
+  Route::get('signout', array('uses' => 'auth@delete', 'as' => 'signout'));
 
-Route::get('account/email', array('uses' => 'users@get_change_email', 'as' => 'change_email'));
-Route::post('account/email', array('uses' => 'users@post_change_email', 'as' => 'change_email'));
-Route::get('account/password', array('uses' => 'users@get_change_password', 'as' => 'change_password'));
-Route::post('account/password', array('uses' => 'users@post_change_password', 'as' => 'change_password'));
-Route::get('account/confirmnewemail/(:any)', array('uses' => 'users@confirm_new_email', 'as' => 'confirm_new_email'));
-Route::put('account/viewnotifications/(:any)/(:any)', array('uses' => 'users@view_notification_payload', 'as' => 'view_notification_payload'));
+  Route::get('account', array('uses' => 'users@get_account', 'as' => 'account'));
+  Route::post('account', array('uses' => 'users@post_account', 'as' => 'account'));
 
-Route::get('forgotpassword', array('uses' => 'users@get_forgot_password', 'as' => 'forgot_password'));
-Route::post('forgotpassword', array('uses' => 'users@post_forgot_password', 'as' => 'forgot_password'));
+  Route::get('account/email', array('uses' => 'users@get_change_email', 'as' => 'change_email'));
+  Route::post('account/email', array('uses' => 'users@post_change_email', 'as' => 'change_email'));
+  Route::get('account/password', array('uses' => 'users@get_change_password', 'as' => 'change_password'));
+  Route::post('account/password', array('uses' => 'users@post_change_password', 'as' => 'change_password'));
+  Route::get('account/confirmnewemail/(:any)', array('uses' => 'users@confirm_new_email', 'as' => 'confirm_new_email'));
+  Route::put('account/viewnotifications/(:any)/(:any)', array('uses' => 'users@view_notification_payload', 'as' => 'view_notification_payload'));
 
-Route::get('finishsignup/(:any)', array('uses' => 'users@get_reset_password', 'as' => 'finish_signup'));
-Route::get('resetpassword/(:any)', array('uses' => 'users@get_reset_password', 'as' => 'reset_password'));
-Route::post('resetpassword/(:any)', array('uses' => 'users@post_reset_password', 'as' => 'reset_password'));
+  Route::get('forgotpassword', array('uses' => 'users@get_forgot_password', 'as' => 'forgot_password'));
+  Route::post('forgotpassword', array('uses' => 'users@post_forgot_password', 'as' => 'forgot_password'));
 
-Route::resourceful('vendors', array('new', 'create', 'index', 'show'));
+  Route::get('finishsignup/(:any)', array('uses' => 'users@get_reset_password', 'as' => 'finish_signup'));
+  Route::get('resetpassword/(:any)', array('uses' => 'users@get_reset_password', 'as' => 'reset_password'));
+  Route::post('resetpassword/(:any)', array('uses' => 'users@post_reset_password', 'as' => 'reset_password'));
 
-Route::resourceful('officers', array('new', 'create', 'update', 'index'));
-Route::get('officers/typeahead', array('uses' => 'officers@typeahead', 'as' => 'officers_typeahead'));
+  Route::resourceful('vendors', array('new', 'create', 'index', 'show'));
 
-Route::resourceful('questions', array('create', 'update'));
+  Route::resourceful('officers', array('new', 'create', 'update', 'index'));
+  Route::get('officers/typeahead', array('uses' => 'officers@typeahead', 'as' => 'officers_typeahead'));
 
-Route::resourceful('notifications', array('index'));
-Route::get('notifications/json', array('uses' => 'notifications@json', 'as' => 'notifications_json'));
-Route::put('notifications/(:num)/markasread', array('uses' => 'notifications@mark_as_read', 'as' => 'notification_mark_as_read'));
+  Route::resourceful('questions', array('create', 'update'));
 
-Route::get('bids/mine', array('uses' => 'bids@mine', 'as' => 'my_bids'));
+  Route::resourceful('notifications', array('index'));
+  Route::get('notifications/json', array('uses' => 'notifications@json', 'as' => 'notifications_json'));
+  Route::put('notifications/(:num)/markasread', array('uses' => 'notifications@mark_as_read', 'as' => 'notification_mark_as_read'));
 
-////////
+  Route::get('bids/mine', array('uses' => 'bids@mine', 'as' => 'my_bids'));
 
-Route::resourceful('projects', array('new', 'create', 'edit', 'update', 'index', 'show'));
+  ////////
 
-Route::get('projects/feed/(:any)', array('uses' => 'projects@rss', 'as' => 'project_rss'));
+  Route::resourceful('projects', array('new', 'create', 'edit', 'update', 'index', 'show'));
 
-Route::get('projects/mine', array('uses' => 'projects@mine', 'as' => 'my_projects'));
+  Route::get('projects/feed/(:any)', array('uses' => 'projects@rss', 'as' => 'project_rss'));
 
-Route::get('projects/(:num)/search-available-sections', array('uses' => 'projects@search_available_sections', 'as' => 'project_search_available_sections'));
+  Route::get('projects/mine', array('uses' => 'projects@mine', 'as' => 'my_projects'));
 
-Route::get('projects/(:num)/more-templates', array('uses' => 'projects@more_templates', 'as' => 'project_more_templates'));
+  Route::get('projects/(:num)/search-available-sections', array('uses' => 'projects@search_available_sections', 'as' => 'project_search_available_sections'));
 
-Route::get('projects/(:num)/admin', array('uses' => 'projects@admin', 'as' => 'project_admin'));
+  Route::get('projects/(:num)/more-templates', array('uses' => 'projects@more_templates', 'as' => 'project_more_templates'));
 
-Route::get('projects/(:num)/collaborators', array('uses' => 'projects@get_collaborators'));
+  Route::get('projects/(:num)/admin', array('uses' => 'projects@admin', 'as' => 'project_admin'));
 
-
-Route::post('projects/(:num)/collaborators', array('uses' => 'projects@add_collaborator', 'as' => 'project_collaborators'));
-Route::delete('projects/(:num)/collaborators/(:num)', array('uses' => 'projects@destroy_collaborator', 'as' => 'project_collaborators_destroy'));
-
-Route::get('projects/(:num)/bids', array('uses' => 'bids@review', 'as' => 'review_bids'));
-
-Route::get('projects/(:num)/postonfbo', array('uses' => 'projects@post_on_fbo', 'as' => 'project_post_on_fbo'));
-Route::post('projects/(:num)/postonfbo', array('uses' => 'projects@post_on_fbo_post', 'as' => 'project_post_on_fbo'));
-
-Route::get('projects/(:num)/comments', array('uses' => 'comments@index', 'as' => 'comments'));
-Route::post('projects/(:num)/comments', array('uses' => 'comments@create', 'as' => 'comments'));
-Route::delete('projects/(:num)/comments/(:num)', array('uses' => 'comments@destroy', 'as' => 'comment_destroy'));
-
-Route::get('projects/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
-Route::post('projects/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));
-Route::get('projects/(:num)/bids/(:num)', array('uses' => 'bids@show', 'as' => 'bid'));
-Route::get('projects/(:num)/bids/(:num)/dismiss', array('uses' => 'bids@dismiss', 'as' => 'bid_dismiss'));
-Route::get('projects/(:num)/bids/(:num)/award', array('uses' => 'bids@award', 'as' => 'bid_award'));
-Route::get('projects/(:num)/bids/(:num)/star', array('uses' => 'bids@star', 'as' => 'bid_star'));
-Route::get('projects/(:num)/bids/(:num)/destroy', array('uses' => 'bids@destroy', 'as' => 'bid_destroy'));
-// Route::get('contracts/(:num)/bids/(:num)/sf1449.pdf', array('uses' => 'bids@sf1449', 'as' => 'bid_sf1449'));
+  Route::get('projects/(:num)/collaborators', array('uses' => 'projects@get_collaborators'));
 
 
-/*
-|--------------------------------------------------------------------------
-| SOW Composer
-|--------------------------------------------------------------------------
-*/
+  Route::post('projects/(:num)/collaborators', array('uses' => 'projects@add_collaborator', 'as' => 'project_collaborators'));
+  Route::delete('projects/(:num)/collaborators/(:num)', array('uses' => 'projects@destroy_collaborator', 'as' => 'project_collaborators_destroy'));
 
-Route::get('projects/(:num)/template', array('uses' => 'projects@template', 'as' => 'project_template'));
-Route::get('projects/(:num)/template/(:num)', array('uses' => 'projects@template_post', 'as' => 'project_template_post'));
+  Route::get('projects/(:num)/bids', array('uses' => 'bids@review', 'as' => 'review_bids'));
 
-Route::get('projects/(:num)/background', array('uses' => 'projects@background', 'as' => 'project_background'));
-Route::post('projects/(:num)/background', array('uses' => 'projects@background_post', 'as' => 'project_background'));
+  Route::get('projects/(:num)/postonfbo', array('uses' => 'projects@post_on_fbo', 'as' => 'project_post_on_fbo'));
+  Route::post('projects/(:num)/postonfbo', array('uses' => 'projects@post_on_fbo_post', 'as' => 'project_post_on_fbo'));
 
-Route::get('projects/(:num)/sections', array('uses' => 'projects@sections', 'as' => 'project_sections'));
-Route::post('projects/(:num)/sections', array('uses' => 'projects@sections_post', 'as' => 'project_sections'));
+  Route::get('projects/(:num)/comments', array('uses' => 'comments@index', 'as' => 'comments'));
+  Route::post('projects/(:num)/comments', array('uses' => 'comments@create', 'as' => 'comments'));
+  Route::delete('projects/(:num)/comments/(:num)', array('uses' => 'comments@destroy', 'as' => 'comment_destroy'));
 
-Route::post('projects/(:num)/sections/(:num)', array('uses' => 'projects@sections_add', 'as' => 'project_section_add'));
-Route::delete('projects/(:num)/sections/(:num)', array('uses' => 'projects@sections_remove', 'as' => 'project_section_delete'));
+  Route::get('projects/(:num)/bids/new', array('uses' => 'bids@new', 'as' => 'new_bids'));
+  Route::post('projects/(:num)/bids', array('uses' => 'bids@create', 'as' => 'bids'));
+  Route::get('projects/(:num)/bids/(:num)', array('uses' => 'bids@show', 'as' => 'bid'));
+  Route::get('projects/(:num)/bids/(:num)/dismiss', array('uses' => 'bids@dismiss', 'as' => 'bid_dismiss'));
+  Route::get('projects/(:num)/bids/(:num)/award', array('uses' => 'bids@award', 'as' => 'bid_award'));
+  Route::get('projects/(:num)/bids/(:num)/star', array('uses' => 'bids@star', 'as' => 'bid_star'));
+  Route::get('projects/(:num)/bids/(:num)/destroy', array('uses' => 'bids@destroy', 'as' => 'bid_destroy'));
+  // Route::get('contracts/(:num)/bids/(:num)/sf1449.pdf', array('uses' => 'bids@sf1449', 'as' => 'bid_sf1449'));
 
-Route::post('projects/(:num)/sections/reorder', array('uses' => 'projects@sections_reorder', 'as' => 'project_sections_reorder'));
 
-Route::get('projects/(:num)/blanks', array('uses' => 'projects@blanks', 'as' => 'project_blanks'));
-Route::post('projects/(:num)/blanks', array('uses' => 'projects@blanks_post', 'as' => 'project_blanks'));
+  /*
+  |--------------------------------------------------------------------------
+  | SOW Composer
+  |--------------------------------------------------------------------------
+  */
 
-Route::get('projects/(:num)/timeline', array('uses' => 'projects@timeline', 'as' => 'project_timeline'));
+  Route::get('projects/(:num)/template', array('uses' => 'projects@template', 'as' => 'project_template'));
+  Route::get('projects/(:num)/template/(:num)', array('uses' => 'projects@template_post', 'as' => 'project_template_post'));
 
-Route::post('projects/(:num)/deliverables', array('uses' => 'deliverables@create'));
-Route::put('projects/(:num)/deliverables/(:num)', array('uses' => 'deliverables@update'));
-Route::delete('projects/(:num)/deliverables/(:num)', array('uses' => 'deliverables@delete'));
-Route::put('projects/(:num)/deliverables/order', array('uses' => 'deliverables@save_order'));
+  Route::get('projects/(:num)/background', array('uses' => 'projects@background', 'as' => 'project_background'));
+  Route::post('projects/(:num)/background', array('uses' => 'projects@background_post', 'as' => 'project_background'));
 
-Route::get('projects/(:num)/review', array('uses' => 'projects@review', 'as' => 'project_review'));
+  Route::get('projects/(:num)/sections', array('uses' => 'projects@sections', 'as' => 'project_sections'));
+  Route::post('projects/(:num)/sections', array('uses' => 'projects@sections_post', 'as' => 'project_sections'));
 
-Route::post('projects/(:num)/toggle-public', array('uses' => 'projects@toggle_public', 'as' => 'project_toggle_public'));
+  Route::post('projects/(:num)/sections/(:num)', array('uses' => 'projects@sections_add', 'as' => 'project_section_add'));
+  Route::delete('projects/(:num)/sections/(:num)', array('uses' => 'projects@sections_remove', 'as' => 'project_section_delete'));
 
-/*
-|--------------------------------------------------------------------------
-| Admin Section
-|--------------------------------------------------------------------------
-*/
+  Route::post('projects/(:num)/sections/reorder', array('uses' => 'projects@sections_reorder', 'as' => 'project_sections_reorder'));
 
-Route::get('admin', array('uses' => 'admin@index', 'as' => 'admin_home'));
+  Route::get('projects/(:num)/blanks', array('uses' => 'projects@blanks', 'as' => 'project_blanks'));
+  Route::post('projects/(:num)/blanks', array('uses' => 'projects@blanks_post', 'as' => 'project_blanks'));
 
-Route::get('admin/project-sections', array('uses' => 'admin@project_sections', 'as' => 'admin_project_sections'));
-Route::get('admin/project-sections/(:num)/toggle-public', array('uses' => 'admin@project_sections_toggle_public', 'as' => 'admin_project_sections_toggle_public'));
-Route::get('admin/officers', array('uses' => 'admin@officers', 'as' => 'admin_officers'));
-Route::get('admin/vendors', array('uses' => 'admin@vendors', 'as' => 'admin_vendors'));
-Route::get('admin/vendors/(:num)/ban', array('uses' => 'admin@ban_vendor', 'as' => 'admin_ban_vendor'));
-Route::get('admin/projects', array('uses' => 'admin@projects', 'as' => 'admin_projects'));
+  Route::get('projects/(:num)/timeline', array('uses' => 'projects@timeline', 'as' => 'project_timeline'));
+
+  Route::post('projects/(:num)/deliverables', array('uses' => 'deliverables@create'));
+  Route::put('projects/(:num)/deliverables/(:num)', array('uses' => 'deliverables@update'));
+  Route::delete('projects/(:num)/deliverables/(:num)', array('uses' => 'deliverables@delete'));
+  Route::put('projects/(:num)/deliverables/order', array('uses' => 'deliverables@save_order'));
+
+  Route::get('projects/(:num)/review', array('uses' => 'projects@review', 'as' => 'project_review'));
+
+  Route::post('projects/(:num)/toggle-public', array('uses' => 'projects@toggle_public', 'as' => 'project_toggle_public'));
+
+  /*
+  |--------------------------------------------------------------------------
+  | Admin Section
+  |--------------------------------------------------------------------------
+  */
+
+  Route::get('admin', array('uses' => 'admin@index', 'as' => 'admin_home'));
+
+  Route::get('admin/project-sections', array('uses' => 'admin@project_sections', 'as' => 'admin_project_sections'));
+  Route::get('admin/project-sections/(:num)/toggle-public', array('uses' => 'admin@project_sections_toggle_public', 'as' => 'admin_project_sections_toggle_public'));
+  Route::get('admin/officers', array('uses' => 'admin@officers', 'as' => 'admin_officers'));
+  Route::get('admin/vendors', array('uses' => 'admin@vendors', 'as' => 'admin_vendors'));
+  Route::get('admin/vendors/(:num)/ban', array('uses' => 'admin@ban_vendor', 'as' => 'admin_ban_vendor'));
+  Route::get('admin/projects', array('uses' => 'admin@projects', 'as' => 'admin_projects'));
+
+});
 
 /*
 |--------------------------------------------------------------------------
