@@ -38,28 +38,22 @@
       <div id="section-form" class="tab-pane">
         <form id="edit-section-form" action="<?php echo Jade\Dumper::_text(route('project_sections', array($project->id))); ?>" method="POST">
           <input type="hidden" name="section_id" />
-          <div class="row-fluid">
-            <div class="span5">
-              <div class="control-group">
-                <label class="control-label">Title</label>
-                <div class="controls">
-                  <input type="text" name="project_section[title]" />
-                </div>
-              </div>
+          <div class="control-group">
+            <label class="control-label">Category</label>
+            <div class="controls category-controls">
+              <select id="section-category-select">
+                <?php foreach (ProjectSection::$categories as $category): ?>
+                  <option value="<?php echo Jade\Dumper::_text($category); ?>"><?php echo Jade\Dumper::_text($category); ?></option>
+                <?php endforeach; ?>
+                <option value="Other">Other</option>
+              </select>
+              <input id="section-category-input" type="text" name="project_section[section_category]" />
             </div>
-            <div class="span7">
-              <div class="control-group">
-                <label class="control-label">Category</label>
-                <div class="controls category-controls">
-                  <select id="section-category-select">
-                    <?php foreach (ProjectSection::$categories as $category): ?>
-                      <option value="<?php echo Jade\Dumper::_text($category); ?>"><?php echo Jade\Dumper::_text($category); ?></option>
-                    <?php endforeach; ?>
-                    <option value="Other">Other</option>
-                  </select>
-                  <input id="section-category-input" type="text" name="project_section[section_category]" />
-                </div>
-              </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Subheader</label>
+            <div class="controls">
+              <input type="text" name="project_section[title]" />
             </div>
           </div>
           <div class="control-group">

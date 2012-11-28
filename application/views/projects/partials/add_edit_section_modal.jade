@@ -38,23 +38,20 @@
         form#edit-section-form(action="#{route('project_sections', array($project->id))}", method="POST")
           input(type="hidden", name="section_id")
 
-          .row-fluid
-            .span5
-              .control-group
-                label.control-label Title
-                .controls
-                  input(type="text", name='project_section[title]')
+          .control-group
+            label.control-label Category
+            .controls.category-controls
+              select#section-category-select
+                - foreach (ProjectSection::$categories as $category):
+                  option(value="#{$category}") #{$category}
+                option(value="Other") Other
 
-            .span7
-              .control-group
-                label.control-label Category
-                .controls.category-controls
-                  select#section-category-select
-                    - foreach (ProjectSection::$categories as $category):
-                      option(value="#{$category}") #{$category}
-                    option(value="Other") Other
+              input#section-category-input(type="text", name='project_section[section_category]')
 
-                  input#section-category-input(type="text", name='project_section[section_category]')
+          .control-group
+            label.control-label Subheader
+            .controls
+              input(type="text", name='project_section[title]')
 
           .control-group
             .controls
