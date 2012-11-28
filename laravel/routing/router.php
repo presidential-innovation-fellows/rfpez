@@ -1,7 +1,6 @@
 <?php namespace Laravel\Routing;
 
 use Closure;
-use Laravel\Config;
 use Laravel\Str;
 use Laravel\Bundle;
 use Laravel\Request;
@@ -252,7 +251,7 @@ class Router {
 			// HTTPS value in as a parameter short-cut.
 			if ( ! isset($routes[$method][$uri]['https']))
 			{
-				$routes[$method][$uri]['https'] = (preg_match('/https/', Config::get('application.url')) ? true : false);
+				$routes[$method][$uri]['https'] = false;
 			}
 		}
 	}
