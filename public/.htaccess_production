@@ -8,6 +8,10 @@
 # Turning on the rewrite engine is necessary for the following rules and
 # features. "+FollowSymLinks" must be enabled for this to work symbolically.
 
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L]
+
 <IfModule mod_rewrite.c>
   Options +FollowSymLinks
   RewriteEngine On
@@ -22,6 +26,3 @@
   RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
 
-RewriteEngine On
-RewriteCond %{HTTPS} off
-RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
