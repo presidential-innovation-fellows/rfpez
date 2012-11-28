@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width" />
   <title><?php echo Jade\Dumper::_text(Helper::full_title(Section::yield('page_title'), Section::yield('page_action'))); ?>
 </title>
-  <?php echo Jade\Dumper::_html(HTML::style('http://fonts.googleapis.com/css?family=Telex')); ?>
+  <link href="//fonts.googleapis.com/css?family=Telex" media="all" type="text/css" rel="stylesheet">
   <?php echo Jade\Dumper::_html(Helper::asset('css/all')); ?>
   <?php if (Auth::guest()): ?>
     <?php $body_class = "no-auth"; ?>
