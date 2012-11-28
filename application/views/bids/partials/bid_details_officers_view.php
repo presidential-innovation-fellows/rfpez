@@ -53,7 +53,7 @@
         <?php echo Jade\Dumper::_text($bid->vendor->company_name); ?>
         <a href="<?php echo Jade\Dumper::_text(route('vendor', array($bid->vendor->id))); ?>">(view profile)</a>
       </h5>
-      <?php echo Jade\Dumper::_html(View::make('vendors.partials.data')->with('vendor', $bid->vendor)->with('defer', true)); ?>
+      <?php echo Jade\Dumper::_html(View::make('vendors.partials.data')->with('vendor', $bid->vendor)->with('defer', $defer)); ?>
       <h5>Example Work</h5>
       <div class="vendor-image-preview-frame">
         <img src="<?php echo Jade\Dumper::_text($bid->vendor->image_url); ?>" />
