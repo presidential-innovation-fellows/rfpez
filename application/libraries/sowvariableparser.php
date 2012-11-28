@@ -22,8 +22,11 @@ class SowVariableParser {
     }
 
     $output = $input;
+    $count = 0;
 
     foreach($vars as $key => $help_text) {
+
+      $count++;
 
       if ($mode == "write") {
 
@@ -38,7 +41,13 @@ class SowVariableParser {
       }
     }
 
-    return $output;
+    if ($mode == "write") {
+      return array('output' => $output,
+                   'count' => $count);
+
+    } else {
+      return $output;
+    }
   }
 
 }
