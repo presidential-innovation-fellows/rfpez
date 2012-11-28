@@ -10,7 +10,7 @@
           Forked <a href="#"><?php echo Jade\Dumper::_text($template->fork_count); ?> <?php echo Jade\Dumper::_text(Str::plural('time', $template->fork_count)); ?></a>
         </div>
         <?php if ($template->recommended): ?>
-          <div class="recommended">&star; Recommended Template</div>
+          <div class="recommended">&#9733; Recommended Template</div>
         <?php endif; ?>
       </div>
       <div class="span3">
