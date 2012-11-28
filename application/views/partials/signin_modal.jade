@@ -16,6 +16,7 @@
         label.control-label Password
         .controls
           input.span3(type='password', name='password')
+          a.forgot(href="#{route('forgot_password')}") Forgot Password?
 
       .control-group
         .controls
@@ -25,7 +26,8 @@
 
       p
         button.btn.btn-primary(type='submit') Sign in
-        a(href="#{route('forgot_password')}") Forgot Password?
   .modal-footer
-    | Are you new?
-    a.btn.btn-success(href='/') Register
+    | Are you new? Register as
+    a(href='/vendors/new') a business
+    | or
+    a(href='/officers/new') a government officer

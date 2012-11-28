@@ -11,6 +11,7 @@
     <label class="control-label">Password</label>
     <div class="controls">
       <input type="password" name="password" />
+      <a class="forgot" href="<?php echo Jade\Dumper::_text(route('forgot_password')); ?>" data-pjax="data-pjax">Forgot Password?</a>
     </div>
   </div>
   <div class="control-group">
@@ -19,12 +20,6 @@
         <input type="checkbox" checked="checked" name="remember" />
         Remember Me?
       </label>
-    </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label">&nbsp;</label>
-    <div class="controls">
-      <a href="<?php echo Jade\Dumper::_text(route('forgot_password')); ?>" data-pjax="data-pjax">Forgot Password?</a>
     </div>
   </div>
   <div class="form-actions">

@@ -12,17 +12,13 @@ form.form-horizontal(action="#{ route('signin') }", method="POST")
     label.control-label Password
     .controls
       input(type='password', name='password')
+      a.forgot(href="#{route('forgot_password')}", data-pjax) Forgot Password?
 
   .control-group
     .controls
       label.checkbox
         input(type='checkbox', checked, name='remember')
         | Remember Me?
-
-  .control-group
-    label.control-label &nbsp;
-    .controls
-      a(href="#{route('forgot_password')}", data-pjax) Forgot Password?
 
   .form-actions
     button.btn.btn-primary(type='submit') Sign In

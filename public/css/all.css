@@ -2730,6 +2730,12 @@ body.vendor .no-auth-only {
   text-align: center;
   font-size: 12px;
 }
+.forgot {
+  padding-left: 8px;
+}
+.modal-footer a {
+  text-decoration: underline;
+}
 .vendors-wrapper .loading-spinner {
   text-align: center;
   margin: 0 0 35px;
