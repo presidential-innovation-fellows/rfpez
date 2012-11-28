@@ -48,7 +48,7 @@
     .span5.col2
       h5 #{$bid->vendor->company_name}
         a(href="#{route('vendor', array($bid->vendor->id))}") (view profile)
-      !{View::make('vendors.partials.data')->with('vendor', $bid->vendor)->with('defer', true)}
+      !{View::make('vendors.partials.data')->with('vendor', $bid->vendor)->with('defer', $defer)}
 
       h5 Example Work
       .vendor-image-preview-frame

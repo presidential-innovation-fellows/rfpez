@@ -2983,7 +2983,11 @@ ul.templates-list li.show-more.all-loaded .show-more-templates-link {
 }
 #add-edit-section-modal {
   width: 700px;
-  min-height: 530px;
+  min-height: 500px;
+  margin-top: -280px;
+}
+#add-edit-section-modal .modal-body {
+  max-height: 500px;
 }
 #add-edit-section-modal .category-controls select {
   width: 150px;
