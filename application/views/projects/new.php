@@ -4,11 +4,11 @@
   <h4>New Project</h4>
   <div class="well">
     <p>
-      <strong><?php echo Jade\Dumper::_html(__("r.projects.new.congrats")); ?></strong>
+      <strong><?php echo __("r.projects.new.congrats"); ?></strong>
     </p>
-    <p><?php echo Jade\Dumper::_html(__("r.projects.new.helper")); ?></p>
+    <p><?php echo __("r.projects.new.helper"); ?></p>
   </div>
-  <form id="new-project-form" action="<?php echo Jade\Dumper::_text(route('projects')); ?>" method="POST">
+  <form id="new-project-form" action="<?php echo route('projects'); ?>" method="POST">
     <div class="control-group">
       <label>Project Title</label>
       <input type="text" name="project[title]" />
@@ -31,14 +31,14 @@
       </span>
       &nbsp; at 11:59pm EST
       <p>
-        <em><?php echo Jade\Dumper::_html(__("r.projects.new.no_date")); ?></em>
+        <em><?php echo __("r.projects.new.no_date"); ?></em>
       </p>
     </div>
     <div class="control-group">
       <label>Project Type</label>
       <select id="project-type-select" name="project[project_type_id]">
         <?php foreach (ProjectType::defaults() as $project_type): ?>
-          <option value="<?php echo Jade\Dumper::_text($project_type->id); ?>"><?php echo Jade\Dumper::_text($project_type->name); ?></option>
+          <option value="<?php echo $project_type->id; ?>"><?php echo $project_type->name; ?></option>
         <?php endforeach; ?>
         <option value="Other">Other</option>
       </select>
@@ -47,11 +47,11 @@
     <div class="control-group">
       <label>Price type</label>
       <label class="radio">
-        <input type="radio" name="project[price_type]" value="<?php echo Jade\Dumper::_text(Project::PRICE_TYPE_FIXED); ?>" checked="checked" />
+        <input type="radio" name="project[price_type]" value="<?php echo Project::PRICE_TYPE_FIXED; ?>" checked="checked" />
         Fixed price
       </label>
       <label class="radio">
-        <input type="radio" name="project[price_type]" value="<?php echo Jade\Dumper::_text(Project::PRICE_TYPE_HOURLY); ?>" />
+        <input type="radio" name="project[price_type]" value="<?php echo Project::PRICE_TYPE_HOURLY; ?>" />
         Hourly price
       </label>
     </div>

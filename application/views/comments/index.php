@@ -2,17 +2,17 @@
 <?php Section::inject('page_action', "Comments") ?>
 <?php Section::inject('active_subnav', 'comments') ?>
 <?php Section::inject('no_page_header', true) ?>
-<?php echo Jade\Dumper::_html(View::make('projects.partials.toolbar')->with('project', $project)); ?>
+<?php echo View::make('projects.partials.toolbar')->with('project', $project); ?>
 <div class="comments-list">
   <script type="text/javascript">
     $(function(){
-     new Rfpez.Backbone.Comments( <?php echo Jade\Dumper::_text($project->id); ?>, <?php echo Jade\Dumper::_text($comments); ?> )
+     new Rfpez.Backbone.Comments( <?php echo $project->id; ?>, <?php echo $comments; ?> )
     })
   </script>
 </div>
 <div class="form-actions">
   <h5>Add Comment</h5>
-  <form id="add-comment-form" action="<?php echo Jade\Dumper::_text('comments'); ?>" method="POST" data-officer-name="<?php echo Jade\Dumper::_text(Auth::officer()->name); ?>" data-officer-user-id="<?php echo Jade\Dumper::_text(Auth::officer()->user_id); ?>">
+  <form id="add-comment-form" action="<?php echo 'comments'; ?>" method="POST" data-officer-name="<?php echo Auth::officer()->name; ?>" data-officer-user-id="<?php echo Auth::officer()->user_id; ?>">
     <textarea class="span5" name="body"></textarea>
     <div>
       <button class="btn btn-primary">Submit Comment</button>

@@ -18,7 +18,7 @@
           Available Sections
           <input id="available-sections-filter" class="search-query pull-right" type="text" placeholder="Filter by category, title, body" />
         </h5>
-        <table class="table available-sections-table" data-project-id="<?php echo Jade\Dumper::_text($project->id); ?>">
+        <table class="table available-sections-table" data-project-id="<?php echo $project->id; ?>">
           <thead>
             <tr>
               <th width="50%" colspan="2">Title</th>
@@ -27,7 +27,7 @@
               <th width="15%">Use</th>
             </tr>
           </thead>
-          <?php echo Jade\Dumper::_html(View::make('projects.partials.available_sections_tbody')->with('project', $project)->with('available_sections', $available_sections)); ?>
+          <?php echo View::make('projects.partials.available_sections_tbody')->with('project', $project)->with('available_sections', $available_sections); ?>
           <tbody class="no-sections hide">
             <tr>
               <td colspan="5">No sections found.</td>
@@ -36,14 +36,14 @@
         </table>
       </div>
       <div id="section-form" class="tab-pane">
-        <form id="edit-section-form" action="<?php echo Jade\Dumper::_text(route('project_sections', array($project->id))); ?>" method="POST">
+        <form id="edit-section-form" action="<?php echo route('project_sections', array($project->id)); ?>" method="POST">
           <input type="hidden" name="section_id" />
           <div class="control-group">
             <label class="control-label">Category</label>
             <div class="controls category-controls">
               <select id="section-category-select">
                 <?php foreach (ProjectSection::$categories as $category): ?>
-                  <option value="<?php echo Jade\Dumper::_text($category); ?>"><?php echo Jade\Dumper::_text($category); ?></option>
+                  <option value="<?php echo $category; ?>"><?php echo $category; ?></option>
                 <?php endforeach; ?>
                 <option value="Other">Other</option>
               </select>

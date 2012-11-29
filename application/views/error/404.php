@@ -1,1 +1,1 @@
-<?php echo Jade\Dumper::_html(View::make('layout')->with('content', View::make('error.404_content'))); ?>
+<?php echo View::make('layout')->with('content', View::make('error.404_content')); ?>

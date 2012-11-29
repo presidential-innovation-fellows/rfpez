@@ -1,24 +1,24 @@
 <div class="details-inner">
   <?php if ($bid->dismissed()): ?>
     <div class="alert alert-danger dismissed-alert">
-      <div class="dismissal-notice"><?php echo Jade\Dumper::_text(__('r.bids.partials.bid_details_vendors_view.dismissed')); ?></div>
+      <div class="dismissal-notice"><?php echo __('r.bids.partials.bid_details_vendors_view.dismissed'); ?></div>
     </div>
   <?php elseif (!$bid->awarded_at): ?>
-    <div class="alert alert-info"><?php echo Jade\Dumper::_text(__('r.bids.partials.bid_details_vendors_view.review')); ?></div>
+    <div class="alert alert-info"><?php echo __('r.bids.partials.bid_details_vendors_view.review'); ?></div>
   <?php else: ?>
     <div class="alert alert-success">
-      <?php echo Jade\Dumper::_html(__('r.bids.partials.bid_details_vendors_view.won_header')); ?>
+      <?php echo __('r.bids.partials.bid_details_vendors_view.won_header'); ?>
       <?php if (trim($bid->awarded_message) != ""): ?>
-        <?php echo Jade\Dumper::_html(__('r.bids.partials.bid_details_vendors_view.won_body', array('message' => $bid->awarded_message))); ?>
+        <?php echo __('r.bids.partials.bid_details_vendors_view.won_body', array('message' => $bid->awarded_message)); ?>
       <?php endif; ?>
     </div>
   <?php endif; ?>
   <h5>Approach</h5>
-  <p><?php echo Jade\Dumper::_html($bid->approach); ?></p>
+  <p><?php echo $bid->approach; ?></p>
   <h5>Previous Work</h5>
-  <p><?php echo Jade\Dumper::_html($bid->previous_work); ?></p>
+  <p><?php echo $bid->previous_work; ?></p>
   <h5>Employee Details</h5>
-  <p><?php echo Jade\Dumper::_html($bid->employee_details); ?></p>
+  <p><?php echo $bid->employee_details; ?></p>
   <div class="row">
     <div class="span6 prices">
       <h5>Prices</h5>
@@ -32,8 +32,8 @@
         <?php if ($bid->prices): ?>
           <?php foreach($bid->prices as $deliverable => $price): ?>
             <tr>
-              <td><?php echo Jade\Dumper::_text($deliverable); ?></td>
-              <td>$<?php echo Jade\Dumper::_text($price); ?><?php echo Jade\Dumper::_text($bid->project->price_type == Project::PRICE_TYPE_HOURLY ? '/hr' : ''); ?></td>
+              <td><?php echo $deliverable; ?></td>
+              <td>$<?php echo $price; ?><?php echo $bid->project->price_type == Project::PRICE_TYPE_HOURLY ? '/hr' : ''; ?></td>
             </tr>
           <?php endforeach; ?>
         <?php endif; ?>
@@ -41,7 +41,7 @@
           <tfoot>
             <tr class="info">
               <td>Total Price</td>
-              <td><?php echo Jade\Dumper::_text($bid->display_price()); ?></td>
+              <td><?php echo $bid->display_price(); ?></td>
             </tr>
           </tfoot>
         <?php endif; ?>
@@ -50,12 +50,12 @@
     <div class="span6 example-work">
       <h5>Example Work</h5>
       <div class="vendor-image-preview-frame">
-        <img src="<?php echo Jade\Dumper::_text($bid->vendor->image_url); ?>" />
+        <img src="<?php echo $bid->vendor->image_url; ?>" />
       </div>
     </div>
   </div>
   <?php if (!$bid->dismissed_at && !$bid->awarded_at): ?>
-    <a href="<?php echo Jade\Dumper::_text(route('bid_destroy', array($bid->project->id, $bid->id))); ?>" data-confirm="<?php echo Jade\Dumper::_html(__('r.delete_bid_confirmation')); ?>">
+    <a href="<?php echo route('bid_destroy', array($bid->project->id, $bid->id)); ?>" data-confirm="<?php echo __('r.delete_bid_confirmation'); ?>">
       Delete Bid
     </a>
   <?php endif; ?>

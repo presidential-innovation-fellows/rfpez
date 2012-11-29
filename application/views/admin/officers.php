@@ -1,5 +1,5 @@
 <?php Section::inject('no_page_header', true) ?>
-<?php echo Jade\Dumper::_html(View::make('admin.partials.subnav')->with('current_page', 'officers')); ?>
+<?php echo View::make('admin.partials.subnav')->with('current_page', 'officers'); ?>
 <table class="table table-bordered table-striped admin-officers-table">
   <thead>
     <tr>
@@ -14,11 +14,11 @@
   <tbody id="officers-tbody">
     <script type="text/javascript">
       $(function(){
-       new Rfpez.Backbone.AdminOfficers( <?php echo Jade\Dumper::_text($officers_json); ?> )
+       new Rfpez.Backbone.AdminOfficers( <?php echo $officers_json; ?> )
       })
     </script>
   </tbody>
 </table>
 <div class="pagination-wrapper">
-  <?php echo Jade\Dumper::_html($officers->links()); ?>
+  <?php echo $officers->links(); ?>
 </div>

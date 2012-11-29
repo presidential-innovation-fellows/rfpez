@@ -8,14 +8,14 @@
       </h3>
     </div>
     <div class="modal-body">
-      <div class="alert alert-info"><?php echo Jade\Dumper::_html(__('r.bids.partials.dismiss_modal.optional_fields')); ?></div>
+      <div class="alert alert-info"><?php echo __('r.bids.partials.dismiss_modal.optional_fields'); ?></div>
       <div class="control-group">
         <label class="control-label">Dismissal Reason:</label>
         <div class="controls">
           <select name="reason">
             <option value="">-- Select a Reason --</option>
             <?php foreach (Bid::dismissal_reasons() as $reason): ?>
-              <option value="<?php echo Jade\Dumper::_text($reason); ?>"><?php echo Jade\Dumper::_text($reason); ?></option>
+              <option value="<?php echo $reason; ?>"><?php echo $reason; ?></option>
             <?php endforeach; ?>
             <option value="Other">Other</option>
           </select>

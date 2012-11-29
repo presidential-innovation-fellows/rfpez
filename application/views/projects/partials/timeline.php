@@ -10,8 +10,8 @@
     <tbody>
       <?php foreach ($deliverables as $deliverable): ?>
         <tr>
-          <td><?php echo Jade\Dumper::_text($deliverable->name); ?></td>
-          <td><?php echo Jade\Dumper::_text($deliverable->date_or_length()); ?></td>
+          <td><?php echo $deliverable->name; ?></td>
+          <td><?php echo $deliverable->date_or_length(); ?></td>
         </tr>
       <?php endforeach; ?>
     </tbody>

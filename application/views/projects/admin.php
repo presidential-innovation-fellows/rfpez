@@ -2,32 +2,32 @@
 <?php Section::inject('page_action', "Admin") ?>
 <?php Section::inject('active_subnav', 'admin') ?>
 <?php Section::inject('no_page_header', true) ?>
-<?php echo Jade\Dumper::_html(View::make('projects.partials.toolbar')->with('project', $project)); ?>
+<?php echo View::make('projects.partials.toolbar')->with('project', $project); ?>
 <div class="row-fluid">
   <div class="span6">
     <h5>Update Project</h5>
-    <form id="update-project-form" action="<?php echo Jade\Dumper::_text(route('project', array($project->id))); ?>" method="POST">
+    <form id="update-project-form" action="<?php echo route('project', array($project->id)); ?>" method="POST">
       <input type="hidden" name="_method" value="PUT" />
       <div class="control-group">
         <label>Project Title</label>
-        <input type="text" name="project[title]" value="<?php echo Jade\Dumper::_text($project->title); ?>" />
+        <input type="text" name="project[title]" value="<?php echo $project->title; ?>" />
       </div>
       <div class="control-group">
         <label>Agency</label>
-        <input type="text" name="project[agency]" value="<?php echo Jade\Dumper::_text($project->agency); ?>" />
+        <input type="text" name="project[agency]" value="<?php echo $project->agency; ?>" />
       </div>
       <div class="control-group">
         <label>Office</label>
-        <input type="text" name="project[office]" value="<?php echo Jade\Dumper::_text($project->office); ?>" />
+        <input type="text" name="project[office]" value="<?php echo $project->office; ?>" />
       </div>
       <div class="control-group">
         <label>Project Type</label>
-        <input type="text" value="<?php echo Jade\Dumper::_text($project->project_type->name); ?>" readonly="readonly" />
+        <input type="text" value="<?php echo $project->project_type->name; ?>" readonly="readonly" />
       </div>
       <div class="control-group">
         <label>Bids Due</label>
         <span class="input-append date datepicker-wrapper">
-          <input class="span3" type="text" name="project[proposals_due_at]" value="<?php echo Jade\Dumper::_text($project->formatted_proposals_due_at()); ?>" />
+          <input class="span3" type="text" name="project[proposals_due_at]" value="<?php echo $project->formatted_proposals_due_at(); ?>" />
           <span class="add-on">
             <i class="icon-calendar"></i>
           </span>
@@ -37,15 +37,15 @@
       <div class="control-group">
         <label>Price type</label>
         <label>
-          <input type="radio" name="project[price_type]" value="<?php echo Jade\Dumper::_text(Project::PRICE_TYPE_FIXED); ?>" <?php echo Jade\Dumper::_text($project->price_type == Project::PRICE_TYPE_FIXED ? 'checked' : ''); ?> />
+          <input type="radio" name="project[price_type]" value="<?php echo Project::PRICE_TYPE_FIXED; ?>" <?php echo $project->price_type == Project::PRICE_TYPE_FIXED ? 'checked' : ''; ?> />
           Fixed price
         </label>
         <label>
-          <input type="radio" name="project[price_type]" value="<?php echo Jade\Dumper::_text(Project::PRICE_TYPE_HOURLY); ?>" <?php echo Jade\Dumper::_text($project->price_type == Project::PRICE_TYPE_HOURLY ? 'checked' : ''); ?> />
+          <input type="radio" name="project[price_type]" value="<?php echo Project::PRICE_TYPE_HOURLY; ?>" <?php echo $project->price_type == Project::PRICE_TYPE_HOURLY ? 'checked' : ''; ?> />
           Hourly price
         </label>
         <?php if ($project->submitted_bids()->count() > 0): ?>
-          <em><?php echo Jade\Dumper::_text(__("r.projects.admin.change_price_type_warning")); ?></em>
+          <em><?php echo __("r.projects.admin.change_price_type_warning"); ?></em>
         <?php endif; ?>
       </div>
       <div class="form-actions">
@@ -55,8 +55,8 @@
   </div>
   <div class="span6">
     <h5>Collaborators</h5>
-    <p><?php echo Jade\Dumper::_text(__("r.projects.admin.collaborators")); ?></p>
-    <table class="table collaborators-table" data-project-id="<?php echo Jade\Dumper::_text($project->id); ?>">
+    <p><?php echo __("r.projects.admin.collaborators"); ?></p>
+    <table class="table collaborators-table" data-project-id="<?php echo $project->id; ?>">
       <thead>
         <tr>
           <th>Email</th>
@@ -67,14 +67,14 @@
       <tbody id="collaborators-tbody">
         <script type="text/javascript">
           $(function(){
-           new Rfpez.Backbone.Collaborators( <?php echo Jade\Dumper::_text($project->id); ?>, <?php echo Jade\Dumper::_text($project->owner()->user->id); ?>, <?php echo Jade\Dumper::_text($collaborators_json); ?> )
+           new Rfpez.Backbone.Collaborators( <?php echo $project->id; ?>, <?php echo $project->owner()->user->id; ?>, <?php echo $collaborators_json; ?> )
           })
         </script>
       </tbody>
       <tfoot>
         <tr>
           <td colspan="3">
-            <form id="add-collaborator-form" action="<?php echo Jade\Dumper::_text(route('project_collaborators', array($project->id))); ?>" method="POST">
+            <form id="add-collaborator-form" action="<?php echo route('project_collaborators', array($project->id)); ?>" method="POST">
               <div class="input-append">
                 <input type="text" name="email" placeholder="Email Address" autocomplete="off" />
                 <button class="btn btn-success">Add</button>
@@ -86,8 +86,8 @@
     </table>
     <h5>Sharing</h5>
     <p>
-      <?php echo Jade\Dumper::_text(__("r.projects.admin.sharing")); ?>
-      <form action="<?php echo Jade\Dumper::_text(route('project_toggle_public', array($project->id))); ?>?redirect=<?php echo Jade\Dumper::_text(URI::current()); ?>" method="POST">
+      <?php echo __("r.projects.admin.sharing"); ?>
+      <form action="<?php echo route('project_toggle_public', array($project->id)); ?>?redirect=<?php echo URI::current(); ?>" method="POST">
         <div class="well">
           <?php if ($project->public): ?>
             <span class="public-status">Status: Public</span>

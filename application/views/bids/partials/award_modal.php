@@ -9,18 +9,18 @@
     </div>
     <div class="modal-body">
       <p>
-        <strong><?php echo Jade\Dumper::_text(__("r.bids.partials.award_modal.header")); ?>
+        <strong><?php echo __("r.bids.partials.award_modal.header"); ?>
 </strong>
-        <?php echo Jade\Dumper::_html(__("r.bids.partials.award_modal.description")); ?>
+        <?php echo __("r.bids.partials.award_modal.description"); ?>
       </p>
-      <p><?php echo Jade\Dumper::_html(__("r.bids.partials.award_modal.co_warning")); ?></p>
+      <p><?php echo __("r.bids.partials.award_modal.co_warning"); ?></p>
       <?php if ($project->is_open_for_bids()): ?>
-        <div class="alert alert-danger"><?php echo Jade\Dumper::_html(__("r.bids.partials.award_modal.due_date_warning")); ?></div>
+        <div class="alert alert-danger"><?php echo __("r.bids.partials.award_modal.due_date_warning"); ?></div>
       <?php endif; ?>
       <label class="bold-label">Message to vendor: (will be sent to <em class="vendor-email"></em>)</label>
-      <textarea class="awarded-message" name="awarded_message"><?php echo Jade\Dumper::_html(__("r.bid_award_message", array("title" => $project->title, "officer_name" => Auth::officer()->name, "officer_email" => Auth::officer()->user->email))); ?></textarea>
+      <textarea class="awarded-message" name="awarded_message"><?php echo __("r.bid_award_message", array("title" => $project->title, "officer_name" => Auth::officer()->name, "officer_email" => Auth::officer()->user->email)); ?></textarea>
       <label class="checkbox">
-        <?php echo Jade\Dumper::_html(__("r.bids.partials.award_modal.no_email_label")); ?>
+        <?php echo __("r.bids.partials.award_modal.no_email_label"); ?>
         <input class="manual-awarded-message-checkbox" type="checkbox" />
       </label>
     </div>

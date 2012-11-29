@@ -1,1 +1,1 @@
-Please visit <?php echo Jade\Dumper::_text(route('project', array($project->id))); ?> for more info on this project.
+Please visit <?php echo route('project', array($project->id)); ?> for more info on this project.

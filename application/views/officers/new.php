@@ -1,8 +1,8 @@
 <?php Section::inject('page_title', 'New Officer') ?>
-<form id="new-officer-form" action="<?php echo Jade\Dumper::_text(route('officers')); ?>" method="post">
+<form id="new-officer-form" action="<?php echo route('officers'); ?>" method="post">
   <?php $user = Input::get('user'); ?>
   <?php $officer = Input::get('officer'); ?>
-  <?php echo Jade\Dumper::_html(View::make('users.account_officer_fields')->with('officer', Input::old('officer'))->with('user', Input::old('user'))->with('signup', true)); ?>
+  <?php echo View::make('users.account_officer_fields')->with('officer', Input::old('officer'))->with('user', Input::old('user'))->with('signup', true); ?>
   <div class="form-actions">
     <div class="control-group form-inline">
       <label>How did you hear about RFP-EZ?</label>

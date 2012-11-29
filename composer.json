@@ -1,8 +1,14 @@
 {
     "name": "RFPEZ",
+    "repositories": [
+      {
+        "type": "vcs",
+        "url": "git://github.com/adamjacobbecker/jade.php.git"
+      }
+    ],
     "require": {
         "php": ">=5.3.0",
-        "dz0ny/jade.php": "@dev",
+        "adamjacobbecker/jade.php": "dev-master",
         "fzaninotto/faker": "dev-master",
         "swiftmailer/swiftmailer": "4.2.2",
         "symfony/yaml": "2.0.*"
