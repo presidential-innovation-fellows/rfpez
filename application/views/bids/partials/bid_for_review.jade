@@ -29,10 +29,10 @@ tbody(class="bid #{$unread ? 'unread' : ''}", data-project-id="#{$bid->project->
               a(class="btn btn-primary show-award-modal", data-move-to-table="true") Award
             - endif;
         - else:
-          | Congrats on finding a great bid!
+          | !{__('r.bids.partials.bid_for_review.congrats')}
         - endif;
       - else:
-        | Only COs can dismiss bids.
+        | !{__('r.bids.partials.bid_for_review.co_only')}
       - endif;
 
   tr

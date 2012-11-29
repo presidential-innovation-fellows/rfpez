@@ -2,17 +2,14 @@
 
   - if ($bid->dismissed()):
     .alert.alert-danger.dismissed-alert
-      .dismissal-notice Your bid has been dismissed.
+      .dismissal-notice #{__('r.bids.partials.bid_details_vendors_view.dismissed')}
   - elseif (!$bid->awarded_at):
-    .alert.alert-info
-      | Your bid is currently being reviewed. We'll let you know when the status changes.
+    .alert.alert-info #{__('r.bids.partials.bid_details_vendors_view.review')}
   - else:
     .alert.alert-success
-      | <strong>Your bid won!</strong>
+      | !{__('r.bids.partials.bid_details_vendors_view.won_header')}
       - if (trim($bid->awarded_message) != ""):
-        | Here's what the government officer said:
-        | <br /><br />
-        | <em>"#{$bid->awarded_message}"</em>
+        | !{__('r.bids.partials.bid_details_vendors_view.won_body', array('message' => $bid->awarded_message))}
       - endif;
   - endif;
 
@@ -53,7 +50,7 @@
 
 
   - if (!$bid->dismissed_at && !$bid->awarded_at):
-    a(href="#{route('bid_destroy', array($bid->project->id, $bid->id))}", data-confirm="Are you sure you want to delete your bid?")
+    a(href="#{route('bid_destroy', array($bid->project->id, $bid->id))}", data-confirm="!{__('r.delete_bid_confirmation')}")
       | Delete Bid
   - endif;
 

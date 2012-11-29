@@ -8,10 +8,7 @@
       </h3>
     </div>
     <div class="modal-body">
-      <div class="alert alert-info">
-        These fields are <strong>optional</strong>, and will not be shown to the vendor. They may be useful to log,
-        however, in case of a future contest.
-      </div>
+      <div class="alert alert-info"><?php echo Jade\Dumper::_html(__('r.bids.partials.dismiss_modal.optional_fields')); ?></div>
       <div class="control-group">
         <label class="control-label">Dismissal Reason:</label>
         <div class="controls">

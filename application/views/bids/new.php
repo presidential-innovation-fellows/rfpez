@@ -13,19 +13,19 @@
       <?php $draft_array = $draft ? $draft->to_array() : false ?>
       <?php $bid = Input::old('bid') ?: $draft_array ?>
       <?php if ($draft): ?>
-        <div class="alert alert-success">You are editing a draft saved on <?php echo Jade\Dumper::_text($draft->updated_at); ?>.</div>
+        <div class="alert alert-success"><?php echo Jade\Dumper::_html(__("r.bids.new.editing_draft", array("date" => $draft->updated_at))); ?></div>
       <?php endif; ?>
       <div class="control-group">
         <label>Your Approach</label>
-        <textarea name="bid[approach]" placeholder="Give us some quick details of the tools, techniques, and processes you'd use to create a great solution."><?php echo Jade\Dumper::_text( $bid["approach"] ); ?></textarea>
+        <textarea name="bid[approach]" placeholder="<?php echo Jade\Dumper::_text(__('r.bids.new.approach_placeholder')); ?>"><?php echo Jade\Dumper::_text( $bid["approach"] ); ?></textarea>
       </div>
       <div class="control-group">
         <label>Previous Work</label>
-        <textarea name="bid[previous_work]" placeholder="Where possible, please provide links."><?php echo Jade\Dumper::_text( $bid["previous_work"] ); ?></textarea>
+        <textarea name="bid[previous_work]" placeholder="<?php echo Jade\Dumper::_text(__('r.bids.new.previous_work_placeholder')); ?>"><?php echo Jade\Dumper::_text( $bid["previous_work"] ); ?></textarea>
       </div>
       <div class="control-group">
         <label>Employees who would work on this project</label>
-        <textarea name="bid[employee_details]" placeholder="One name per line. We just need to make sure nobody has been put on a list of people disallowed to work on government contracts."><?php echo Jade\Dumper::_text( $bid["employee_details"] ); ?></textarea>
+        <textarea name="bid[employee_details]" placeholder="<?php echo Jade\Dumper::_text(__('r.bids.new.employee_details_placeholder')); ?>"><?php echo Jade\Dumper::_text( $bid["employee_details"] ); ?></textarea>
       </div>
       <h5>Prices</h5>
       <table class="table prices-table">
@@ -104,7 +104,7 @@
       <div class="form-actions">
         <button class="btn btn-primary" type="submit">Submit Bid</button>
         <a id="save-draft-button" class="btn" data-loading-text="All Changes Saved">Save Draft</a>
-        <span class="help-inline">note: bids cannot be edited once submitted!</span>
+        <span class="help-inline"><?php echo Jade\Dumper::_text(__("r.bids.new.no_edit_warning")); ?></span>
       </div>
     </form>
   </div>

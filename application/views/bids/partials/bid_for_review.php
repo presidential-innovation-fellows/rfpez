@@ -35,10 +35,10 @@
             <?php endif; ?>
           <?php endif; ?>
         <?php else: ?>
-          Congrats on finding a great bid!
+          <?php echo Jade\Dumper::_html(__('r.bids.partials.bid_for_review.congrats')); ?>
         <?php endif; ?>
       <?php else: ?>
-        Only COs can dismiss bids.
+        <?php echo Jade\Dumper::_html(__('r.bids.partials.bid_for_review.co_only')); ?>
       <?php endif; ?>
     </td>
   </tr>

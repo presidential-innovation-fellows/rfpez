@@ -1,19 +1,15 @@
 <div class="details-inner">
   <?php if ($bid->dismissed()): ?>
     <div class="alert alert-danger dismissed-alert">
-      <div class="dismissal-notice">Your bid has been dismissed.</div>
+      <div class="dismissal-notice"><?php echo Jade\Dumper::_text(__('r.bids.partials.bid_details_vendors_view.dismissed')); ?></div>
     </div>
   <?php elseif (!$bid->awarded_at): ?>
-    <div class="alert alert-info">
-      Your bid is currently being reviewed. We'll let you know when the status changes.
-    </div>
+    <div class="alert alert-info"><?php echo Jade\Dumper::_text(__('r.bids.partials.bid_details_vendors_view.review')); ?></div>
   <?php else: ?>
     <div class="alert alert-success">
-      <strong>Your bid won!</strong>
+      <?php echo Jade\Dumper::_html(__('r.bids.partials.bid_details_vendors_view.won_header')); ?>
       <?php if (trim($bid->awarded_message) != ""): ?>
-        Here's what the government officer said:
-        <br /><br />
-        <em>"<?php echo Jade\Dumper::_text($bid->awarded_message); ?>"</em>
+        <?php echo Jade\Dumper::_html(__('r.bids.partials.bid_details_vendors_view.won_body', array('message' => $bid->awarded_message))); ?>
       <?php endif; ?>
     </div>
   <?php endif; ?>
@@ -59,7 +55,7 @@
     </div>
   </div>
   <?php if (!$bid->dismissed_at && !$bid->awarded_at): ?>
-    <a href="<?php echo Jade\Dumper::_text(route('bid_destroy', array($bid->project->id, $bid->id))); ?>" data-confirm="Are you sure you want to delete your bid?">
+    <a href="<?php echo Jade\Dumper::_text(route('bid_destroy', array($bid->project->id, $bid->id))); ?>" data-confirm="<?php echo Jade\Dumper::_html(__('r.delete_bid_confirmation')); ?>">
       Delete Bid
     </a>
   <?php endif; ?>

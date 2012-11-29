@@ -7,9 +7,7 @@
         span.company-name
 
     .modal-body
-      .alert.alert-info
-        | These fields are <strong>optional</strong>, and will not be shown to the vendor. They may be useful to log,
-        | however, in case of a future contest.
+      .alert.alert-info !{__('r.bids.partials.dismiss_modal.optional_fields')}
 
       .control-group
         label.control-label Dismissal Reason:

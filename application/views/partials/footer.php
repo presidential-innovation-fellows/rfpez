@@ -1,10 +1,6 @@
 <footer class="footer">
   <div class="container">
-    <p>
-      EasyBid is an official website of the United States Government, and was created by
-      <a href="http://wh.gov/innovationfellows/rfpez">Team Project RFP-EZ</a> as part of the
-      Presidential Innovation Fellowship program.
-    </p>
+    <p><?php echo Jade\Dumper::_html(__('r.footer_text')); ?></p>
     <ul>
       <li>
         <a href="http://www.sba.gov/about-sba-info/privacy-policy">Privacy Policy</a>

@@ -9,7 +9,7 @@
       <th>recommended</th>
       <th>
         public
-        <?php echo Jade\Dumper::_html(Helper::helper_tooltip("A 'public' project is shown in the list of templates that are available for forking.", "top")); ?>
+        <?php echo Jade\Dumper::_html(Helper::helper_tooltip(__("r.admin.projects.project_helper_text"), "top")); ?>
       </th>
       <th>project_type</th>
     </tr>

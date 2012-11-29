@@ -10,7 +10,7 @@
   <a id="review-tips-toggle" data-hide-text="Hide Tips [-]">Show Tips [+]</a>
   <div id="review-tips" class="collapse">
     <ul>
-      <li>Stars are shared among collaborators. By starring a bid, you can indicate to your colleagues that you think a bid stands out.</li>
+      <li><?php echo Jade\Dumper::_text(__("r.bids.review.stars_tip")); ?></li>
     </ul>
   </div>
 </div>

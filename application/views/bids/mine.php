@@ -23,6 +23,6 @@
 <?php else: ?>
   <p>No bids.</p>
   <p>
-    <a class="btn btn-success" href="<?php echo Jade\Dumper::_text(route('projects')); ?>" data-pjax="data-pjax">Find some projects!</a>
+    <a class="btn btn-success" href="<?php echo Jade\Dumper::_text(route('projects')); ?>" data-pjax="data-pjax"><?php echo Jade\Dumper::_html(__('r.bids.mine.find_projects')); ?></a>
   </p>
 <?php endif; ?>

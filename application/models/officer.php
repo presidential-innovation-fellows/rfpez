@@ -69,7 +69,8 @@ class Officer extends Eloquent {
   }
 
   public function is_verified_contracting_officer() {
-    return $this->role == self::ROLE_CONTRACTING_OFFICER ? true : false;
+    // superadmin also returns true
+    return ($this->role == self::ROLE_CONTRACTING_OFFICER || $this->role == self::ROLE_SUPER_ADMIN) ? true : false;
   }
 
   public function ban() {

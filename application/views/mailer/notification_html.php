@@ -8,6 +8,4 @@
   <?= $parsed["line2"] ?>
 </p>
 
-<p>
-  <em>-<?= Config::get('rfpez.email_signature_name') ?></em>
-</p>
+<?= __('r.email_signature_html') ?>

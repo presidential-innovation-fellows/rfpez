@@ -9,24 +9,20 @@
     .modal-body
 
       p
-        strong You've selected a vendor!
-        | When you award this contract, we'll send the message below to the vendor
-        | that you have accepted their bid and are ready to start working with them.
-        | Make sure all your "i"s are dotted and "t"s are crossed before you hit the button below.
-        | We will also automatically dismiss all other bids on this project.
+        strong #{__("r.bids.partials.award_modal.header")}
+        | !{__("r.bids.partials.award_modal.description")}
 
-      p
-        | Awarding contracts is for <strong>registered contracting officers</strong> only.
-        | If you're not a CO, turn back now.
+
+      p !{__("r.bids.partials.award_modal.co_warning")}
 
       - if ($project->is_open_for_bids()):
-        .alert.alert-danger <strong>Careful!</strong> The due date for proposals hasn't passed. Awarding now may yield a protest.
+        .alert.alert-danger !{__("r.bids.partials.award_modal.due_date_warning")}
       - endif;
 
       label.bold-label Message to vendor: (will be sent to <em class="vendor-email"></em>)
-      textarea.awarded-message(name='awarded_message') !{View::make('bids.partials.award_message')->with('project', $project)->with('officer', Auth::officer())}
+      textarea.awarded-message(name='awarded_message') !{__("r.bid_award_message", array("title" => $project->title, "officer_name" => Auth::officer()->name, "officer_email" => Auth::officer()->user->email))}
 
-      label.checkbox No thanks, I'd prefer to send an email to the vendor by myself
+      label.checkbox !{__("r.bids.partials.award_modal.no_email_label")}
         input.manual-awarded-message-checkbox(type="checkbox")
 
     .modal-footer

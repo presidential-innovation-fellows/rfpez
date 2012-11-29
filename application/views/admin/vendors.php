@@ -17,7 +17,7 @@
           <?php if ($vendor->user->banned_at): ?>
             Banned.
           <?php else: ?>
-            <a class="btn btn-danger" href="<?php echo Jade\Dumper::_text(route('admin_ban_vendor', array($vendor->id))); ?>" data-confirm="Are you sure you want to ban this vendor? This will also remove any pending bids that they have submitted.">Ban Vendor</a>
+            <a class="btn btn-danger" href="<?php echo Jade\Dumper::_text(route('admin_ban_vendor', array($vendor->id))); ?>" data-confirm="<?php echo Jade\Dumper::_text(__('r.admin.vendors.ban_vendor_confirmation')); ?>">Ban Vendor</a>
           <?php endif; ?>
         </td>
       </tr>

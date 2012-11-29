@@ -21,20 +21,20 @@
       - $bid = Input::old('bid') ?: $draft_array
 
       - if ($draft):
-        .alert.alert-success You are editing a draft saved on #{$draft->updated_at}.
+        .alert.alert-success !{__("r.bids.new.editing_draft", array("date" => $draft->updated_at))}
       - endif;
 
       .control-group
         label Your Approach
-        textarea(name="bid[approach]", placeholder="Give us some quick details of the tools, techniques, and processes you'd use to create a great solution.") #{ $bid["approach"] }
+        textarea(name="bid[approach]", placeholder="#{__('r.bids.new.approach_placeholder')}") #{ $bid["approach"] }
 
       .control-group
         label Previous Work
-        textarea(name="bid[previous_work]", placeholder="Where possible, please provide links.") #{ $bid["previous_work"] }
+        textarea(name="bid[previous_work]", placeholder="#{__('r.bids.new.previous_work_placeholder')}") #{ $bid["previous_work"] }
 
       .control-group
         label Employees who would work on this project
-        textarea(name="bid[employee_details]", placeholder="One name per line. We just need to make sure nobody has been put on a list of people disallowed to work on government contracts.") #{ $bid["employee_details"] }
+        textarea(name="bid[employee_details]", placeholder="#{__('r.bids.new.employee_details_placeholder')}") #{ $bid["employee_details"] }
 
       h5 Prices
 
@@ -98,4 +98,4 @@
       .form-actions
         button.btn.btn-primary(type="submit") Submit Bid
         a.btn#save-draft-button(data-loading-text="All Changes Saved") Save Draft
-        span.help-inline note: bids cannot be edited once submitted!
+        span.help-inline #{__("r.bids.new.no_edit_warning")}

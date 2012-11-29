@@ -5,20 +5,16 @@
 
 .hero-unit
   h1 EasyBid
-    small A Technology Marketplace That Everybody Loves
+    small #{__('r.home.index_signed_out.site_tagline')}
 
 
 .row-fluid
   .span6
-    h5 For Small Business
-    p.main-description Create a simple online profile and begin bidding
-      | on <a href="#{ route('projects') }">projects</a>.
-      | If you're selected to work on one, we'll walk you through the government registration process.
-    a.btn.btn-warning.btn-large(href="#{ route('new_vendors') }", data-pjax) Register as a Business
+    h5 !{__('r.home.index_signed_out.biz_header')}
+    p.main-description !{__('r.home.index_signed_out.biz_description', array('url' => route('projects')))}
+    a.btn.btn-warning.btn-large(href="#{ route('new_vendors') }", data-pjax) !{__('r.home.index_signed_out.biz_button')}
 
   .span6
-    h5 For Government
-    p.main-description Make great statements of work.
-      | Browse innovative tech businesses and see their online portfolios.
-      | Receive and review bids on your projects.
-    a.btn.btn-warning.btn-large(href="#{ route('new_officers') }", data-pjax) Register as a Government Officer
+    h5 !{__('r.home.index_signed_out.gov_header')}
+    p.main-description !{__('r.home.index_signed_out.gov_description')}
+    a.btn.btn-warning.btn-large(href="#{ route('new_officers') }", data-pjax) !{__('r.home.index_signed_out.gov_button')}
