@@ -66,7 +66,7 @@
                 <span class="badge badge-inverse unread-notification-badge <?php echo Jade\Dumper::_text($count == 0 ? 'hide' : ''); ?>"><?php echo Jade\Dumper::_text($count); ?></span>
               </a>
               <ul id="notifications-dropdown" class="dropdown-menu loading">
-                <li class="no-notifications">No notifications to display.</li>
+                <li class="no-notifications"><?php echo Jade\Dumper::_text(__("r.partials.topnav.no_notifications")); ?></li>
               </ul>
             </li>
           </ul>

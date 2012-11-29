@@ -5,12 +5,12 @@
     <?php foreach($vendors as $vendor): ?>
       <div class="media vendor well">
         <div class="company-name pull-left">
-          <a href="<?php echo Jade\Dumper::_text(route('vendor', array($vendor->id))); ?>" data-pjax="data-pjax"><?php echo Jade\Dumper::_text($vendor->company_name); ?></a>
+          <a href="<?php echo Jade\Dumper::_text(route('vendor', array($vendor->vendor_id))); ?>" data-pjax="data-pjax"><?php echo Jade\Dumper::_text($vendor->company_name); ?></a>
         </div>
         <div class="ballpark-price pull-right"><?php echo Jade\Dumper::_text($vendor->ballpark_price_display()); ?></div>
         <div class="clearfix"></div>
         <div class="vendor-image-preview-frame">
-          <a href="<?php echo Jade\Dumper::_text(route('vendor', array($vendor->id))); ?>" data-pjax="data-pjax">
+          <a href="<?php echo Jade\Dumper::_text(route('vendor', array($vendor->vendor_id))); ?>" data-pjax="data-pjax">
             <img src="<?php echo Jade\Dumper::_text($vendor->image_url); ?>" />
           </a>
         </div>
@@ -21,5 +21,5 @@
   <div class="loading-spinner">
     <?= HTML::image('img/spinner.gif') ?>
   </div>
-  <div class="finished-loading-text">You're currently viewing all vendors.</div>
+  <div class="finished-loading-text"><?php echo Jade\Dumper::_html(__("r.vendors.index.viewing_all")); ?></div>
 </div>

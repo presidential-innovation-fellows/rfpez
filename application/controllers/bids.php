@@ -93,7 +93,7 @@ class Bids_Controller extends Base_Controller {
       if ($bid->validator()->passes()) {
         $bid->sync_with_epls();
         $bid->submit();
-        Session::flash('notice', 'Thanks for submitting your bid.');
+        Session::flash('notice', __("r.flashes.bid_submitted"));
         return Redirect::to_route('bid', array($project->id, $bid->id));
       } else {
         Session::flash('errors', $bid->validator()->errors->all());
@@ -235,7 +235,7 @@ Route::filter('i_have_not_already_bid', function() {
   $bid = $project->current_bid_from(Auth::vendor());
 
   if ($bid) {
-    Session::flash('notice', 'Sorry, but you already placed a bid on this project.');
+    Session::flash('notice', __("r.flashes.already_bid"));
     return Redirect::to_route('project', array($project->id));
   }
 });
@@ -243,7 +243,7 @@ Route::filter('i_have_not_already_bid', function() {
 Route::filter('project_has_not_already_been_awarded', function() {
   $project = Config::get('project');
   if ($project->winning_bid())
-    return Redirect::to_route('project', array($project->id))->with('errors', array('That project has already been awarded.'));
+    return Redirect::to_route('project', array($project->id))->with('errors', array(__("r.flashes.already_awarded")));
 });
 
 Route::filter('bid_has_not_been_dismissed_or_awarded', function(){

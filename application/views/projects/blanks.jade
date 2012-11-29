@@ -17,7 +17,7 @@
       .fill-in-blanks
         - $parsed = SowVariableParser::parse(View::make('projects.partials.background_and_sections')->with('project', $project), $project->variables)
         - if ($parsed["count"] == 0):
-          .alert.alert-info Looks like there are no blanks for you to fill in. Go ahead and proceed to the next step!
+          .alert.alert-info #{__("r.projects.blanks.none")}
         - endif;
         !{$parsed["output"]}
 

@@ -14,11 +14,7 @@
     !{View::make('projects.partials.sow_composer_sidebar')->with('project', $project)}
 
   .span9
-    .well
-      | Everything look good? If you're a contracting officer, you can now
-      | <a href="#{route('project_post_on_fbo', array($project->id))}">post this project</a>
-      | on FedBizOpps. If not, you can <a href="#{route('project_admin', array($project->id))}">invite your CO</a>
-      | to collaborate with you on this project and they can help you get it out the door.
+    .well !{__("r.projects.review.text", array("post_url" => route('project_post_on_fbo', array($project->id)), "invite_url" =>route('project_admin', array($project->id))))}
 
     !{View::make('projects.partials.full_sow')->with('project', $project)}
 

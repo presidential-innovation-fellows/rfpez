@@ -64,7 +64,7 @@ class Projects_Controller extends Base_Controller {
     if ($project_input["project_type_id"] == "Other") {
 
       if (!Input::get('new_project_type_name')) {
-        Session::flash('errors', array('Please enter a project type.'));
+        Session::flash('errors', array(__("r.flashes.new_project_no_project_type")));
         return Redirect::to_route('new_projects')->with_input();
 
       } elseif ($existing_project_type = ProjectType::where_name(Input::get('new_project_type_name'))->first()) {
@@ -142,12 +142,6 @@ class Projects_Controller extends Base_Controller {
     if (Input::get('requested_html') == "sections_for_editing") {
       return Response::json(array('status' => 'success',
                                   'sections_for_editing_html' => View::make('projects.partials.sections_for_editing')
-                                                                  ->with('project', $project)
-                                                                  ->render()));
-
-    } elseif (Input::get('requested_html') == "selected_sections") {
-      return Response::json(array('status' => 'success',
-                                  'selected_sections_html' => View::make('projects.partials.selected_sections')
                                                                   ->with('project', $project)
                                                                   ->render()));
 

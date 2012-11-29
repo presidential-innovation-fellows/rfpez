@@ -27,7 +27,7 @@ class Auth_Controller extends Base_Controller {
 
       if (Auth::user()->banned_at) {
         Auth::logout();
-        return Redirect::to('/')->with('errors', array('Sorry, your account has been banned.'));
+        return Redirect::to('/')->with('errors', array(__("r.flashes.account_banned")));
       }
 
       if (Input::has('modal') && Request::referrer() != route('signout')) return Redirect::back();
@@ -35,7 +35,7 @@ class Auth_Controller extends Base_Controller {
       return Redirect::to('/');
     } else {
       return Redirect::to_route('signin')
-                     ->with('errors', array('Login incorrect.'))
+                     ->with('errors', array(__("r.flashes.login_fail")))
                      ->with('redirect_to', Request::referrer())
                      ->with_input();
     }

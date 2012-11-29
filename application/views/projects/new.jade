@@ -8,10 +8,9 @@
 
   .well
     p
-      strong Congrats on using EasyBid for your procurement!
+      strong !{__("r.projects.new.congrats")}
 
-    p
-      | First, we just need some basic information about your project.
+    p !{__("r.projects.new.helper")}
 
   form(action="#{route('projects')}", method="POST", id="new-project-form")
     .control-group
@@ -35,7 +34,7 @@
       | &nbsp; at 11:59pm EST
 
       p
-        em You'll have a chance to change this later, so don't worry if you don't know the exact date.
+        em !{__("r.projects.new.no_date")}
 
     .control-group
       label Project Type
@@ -48,7 +47,7 @@
     .control-group
       label Price type
       label.radio
-        input(type="radio", name="project[price_type]", value="#{Project::PRICE_TYPE_FIXED}")
+        input(type="radio", name="project[price_type]", value="#{Project::PRICE_TYPE_FIXED}", checked)
         | Fixed price
       label.radio
         input(type="radio", name="project[price_type]", value="#{Project::PRICE_TYPE_HOURLY}")

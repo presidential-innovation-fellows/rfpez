@@ -7,7 +7,7 @@
       .answerer
         em Answered by #{$question->answerer->user->email}
     - else:
-      em This question has not been answered.
+      em #{__("r.projects.partials.question.not_answered")}
       - if (Auth::officer() && Auth::officer()->collaborates_on($question->project->id)):
         div(class="answer-question")
           a.answer-question-toggle Answer Question

@@ -2,12 +2,12 @@
   <table class="table table-bordered">
     <tbody class="loading">
       <tr>
-        <td colspan="2">Certifications loading...</td>
+        <td colspan="2"><?php echo Jade\Dumper::_text(__("r.vendors.partials.dsbs_certifications.loading")); ?></td>
       </tr>
     </tbody>
     <tbody class="no-certs">
       <tr>
-        <td colspan="2">No record found.</td>
+        <td colspan="2"><?php echo Jade\Dumper::_text(__("r.vendors.partials.dsbs_certifications.not_found")); ?></td>
       </tr>
     </tbody>
     <tbody class="certs">

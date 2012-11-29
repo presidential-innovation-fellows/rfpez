@@ -11,16 +11,16 @@
   <div class="span9">
     <div class="alert alert-info">
       <?php if ($project->price_type == Project::PRICE_TYPE_HOURLY): ?>
-        For each deliverable in the list, we'll ask the vendor to provide their hourly price.
+        <?php echo Jade\Dumper::_html(__("r.projects.timeline.hourly")); ?>
       <?php endif; ?>
-      You can click and drag the deliverables to change their order.
+      <?php echo Jade\Dumper::_html(__("r.projects.timeline.drag_helper")); ?>
     </div>
     <form method="POST">
       <table class="table timeline-table <?php echo Jade\Dumper::_text($project->price_type == Project::PRICE_TYPE_HOURLY ? 'hourly-price' : 'fixed-price'); ?>">
         <thead>
           <tr>
             <th>Deliverable</th>
-            <th class="completion-date">Completion Date <?php echo Jade\Dumper::_html(Helper::helper_tooltip("Feel free to assign a date as 'TBD' or blank if you're not sure yet.")); ?></th>
+            <th class="completion-date">Completion Date <?php echo Jade\Dumper::_html(Helper::helper_tooltip(__("r.projects.timeline.tbd"))); ?></th>
             <th>Actions</th>
           </tr>
         </thead>

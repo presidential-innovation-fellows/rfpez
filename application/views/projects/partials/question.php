@@ -7,7 +7,7 @@
         <em>Answered by <?php echo Jade\Dumper::_text($question->answerer->user->email); ?></em>
       </div>
     <?php else: ?>
-      <em>This question has not been answered.</em>
+      <em><?php echo Jade\Dumper::_text(__("r.projects.partials.question.not_answered")); ?></em>
       <?php if (Auth::officer() && Auth::officer()->collaborates_on($question->project->id)): ?>
         <div class="answer-question">
           <a class="answer-question-toggle">Answer Question</a>

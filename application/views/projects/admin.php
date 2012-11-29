@@ -45,7 +45,7 @@
           Hourly price
         </label>
         <?php if ($project->submitted_bids()->count() > 0): ?>
-          <em>Careful! Changing this now will affect bids that have already been submitted.</em>
+          <em><?php echo Jade\Dumper::_text(__("r.projects.admin.change_price_type_warning")); ?></em>
         <?php endif; ?>
       </div>
       <div class="form-actions">
@@ -55,10 +55,7 @@
   </div>
   <div class="span6">
     <h5>Collaborators</h5>
-    <p>
-      Invite anyone with a .gov email address to collaborate on this project. If they
-      don't already have an account on EasyBid, we'll let them create one.
-    </p>
+    <p><?php echo Jade\Dumper::_text(__("r.projects.admin.collaborators")); ?></p>
     <table class="table collaborators-table" data-project-id="<?php echo Jade\Dumper::_text($project->id); ?>">
       <thead>
         <tr>
@@ -89,8 +86,7 @@
     </table>
     <h5>Sharing</h5>
     <p>
-      By setting this project to public, it will show up in the list of "templates"
-      that officers can start from when writing a SOW.
+      <?php echo Jade\Dumper::_text(__("r.projects.admin.sharing")); ?>
       <form action="<?php echo Jade\Dumper::_text(route('project_toggle_public', array($project->id))); ?>?redirect=<?php echo Jade\Dumper::_text(URI::current()); ?>" method="POST">
         <div class="well">
           <?php if ($project->public): ?>

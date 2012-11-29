@@ -191,7 +191,7 @@ Route::filter('before', function() {
   // Do stuff before every request to your application...
   if (Auth::user() && Auth::user()->banned_at) {
     Auth::logout();
-    return Redirect::to('/')->with('errors', array('Sorry, your account has been banned.'));
+    return Redirect::to('/')->with('errors', array(__("r.flashes.account_banned")));
   }
 });
 

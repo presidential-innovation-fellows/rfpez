@@ -44,7 +44,7 @@
 </head>
 <body class="<?php echo Jade\Dumper::_text($body_class); ?>">
   <!--[if lt IE 8]>
-    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <p class="chromeframe"><?= __("r.chromeframe_text") ?></p>
   <![endif]-->
   <div id="pjax-container">
     <?php echo Jade\Dumper::_html(View::make('pjaxcontainer')->with('content', $content)); ?>

@@ -47,7 +47,7 @@
             <?php echo Jade\Dumper::_html(View::make('projects.partials.question')->with('question', $question)); ?>
           <?php endforeach; ?>
         <?php else: ?>
-          <p class="no-questions-asked">No questions have been asked.</p>
+          <p class="no-questions-asked"><?php echo Jade\Dumper::_html(__("r.projects.show.no_questions")); ?></p>
         <?php endif; ?>
       </div>
       <div class="vendor-only">

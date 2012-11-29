@@ -133,5 +133,5 @@
 
     .control-group
       label DUNS Number (optional)
-        !{Helper::helper_tooltip("DUNS numbers are unique for each business and help government agencies confirm your business information. You'll need one eventually, but don't worry -- it's free, takes about 10 minutes, and can be completed online.", "left")}
+        !{Helper::helper_tooltip(__("r.users.account_vendor_fields.duns_help"), "left")}
       input(type="text", name="vendor[duns]", value="#{ $vendor['duns'] }")

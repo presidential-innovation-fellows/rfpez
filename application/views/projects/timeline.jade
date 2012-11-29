@@ -13,9 +13,9 @@
   .span9
     .alert.alert-info
       - if ($project->price_type == Project::PRICE_TYPE_HOURLY):
-        | For each deliverable in the list, we'll ask the vendor to provide their hourly price.
+        | !{__("r.projects.timeline.hourly")}
       - endif;
-      | You can click and drag the deliverables to change their order.
+      | !{__("r.projects.timeline.drag_helper")}
 
     form(method="POST")
 
@@ -23,7 +23,7 @@
         thead
           tr
             th Deliverable
-            th.completion-date Completion Date !{Helper::helper_tooltip("Feel free to assign a date as 'TBD' or blank if you're not sure yet.")}
+            th.completion-date Completion Date !{Helper::helper_tooltip(__("r.projects.timeline.tbd"))}
             th Actions
         tbody#deliverables-tbody
           :javascript

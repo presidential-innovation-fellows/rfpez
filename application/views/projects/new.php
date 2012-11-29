@@ -4,11 +4,9 @@
   <h4>New Project</h4>
   <div class="well">
     <p>
-      <strong>Congrats on using EasyBid for your procurement!</strong>
+      <strong><?php echo Jade\Dumper::_html(__("r.projects.new.congrats")); ?></strong>
     </p>
-    <p>
-      First, we just need some basic information about your project.
-    </p>
+    <p><?php echo Jade\Dumper::_html(__("r.projects.new.helper")); ?></p>
   </div>
   <form id="new-project-form" action="<?php echo Jade\Dumper::_text(route('projects')); ?>" method="POST">
     <div class="control-group">
@@ -33,7 +31,7 @@
       </span>
       &nbsp; at 11:59pm EST
       <p>
-        <em>You'll have a chance to change this later, so don't worry if you don't know the exact date.</em>
+        <em><?php echo Jade\Dumper::_html(__("r.projects.new.no_date")); ?></em>
       </p>
     </div>
     <div class="control-group">
@@ -49,7 +47,7 @@
     <div class="control-group">
       <label>Price type</label>
       <label class="radio">
-        <input type="radio" name="project[price_type]" value="<?php echo Jade\Dumper::_text(Project::PRICE_TYPE_FIXED); ?>" />
+        <input type="radio" name="project[price_type]" value="<?php echo Jade\Dumper::_text(Project::PRICE_TYPE_FIXED); ?>" checked="checked" />
         Fixed price
       </label>
       <label class="radio">

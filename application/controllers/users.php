@@ -25,12 +25,12 @@ class Users_Controller extends Base_Controller {
   public function action_post_forgot_password() {
     $user = User::where_email(Input::get('email'))->first();
     if (!$user) {
-      Session::flash('errors', array('User not found.'));
+      Session::flash('errors', array(__("r.flashes.forgot_password_user_not_found")));
       return Redirect::to_route('forgot_password')->with_input();
     }
     $user->generate_reset_password_token();
     Mailer::send("ForgotPassword", array('user' => $user));
-    Session::flash('notice', 'Check your email for a link to reset your password.');
+    Session::flash('notice', __("r.flashes.forgot_password_success"));
     return Redirect::to_route('signin');
   }
 
@@ -55,7 +55,7 @@ class Users_Controller extends Base_Controller {
 
       return Redirect::to('/');
     } else {
-      Session::flash('errors', array('New password not valid.'));
+      Session::flash('errors', array(__("r.flashes.reset_password_invalid")));
       return Redirect::to_route('reset_password', array($user->reset_password_token));
     }
   }

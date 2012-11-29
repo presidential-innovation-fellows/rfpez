@@ -42,9 +42,5 @@
     </tbody>
   </table>
 <?php else: ?>
-  <p>
-    You're not currently collaborating on any projects. You can
-    <a href="<?php echo Jade\Dumper::_text(route('new_projects')); ?>" data-pjax="true">create a new project</a>
-    or ask someone to add you as a collaborator on a project that already exists.
-  </p>
+  <p><?php echo Jade\Dumper::_html(__("r.projects.mine.none", array("url" => route('new_projects')))); ?></p>
 <?php endif; ?>

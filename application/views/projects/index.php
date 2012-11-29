@@ -50,5 +50,5 @@
     <?php endforeach; ?>
   </table>
 <?php else: ?>
-  <p>No open projects. Check back soon.</p>
+  <p><?php echo Jade\Dumper::_text(__("r.projects.index.none")); ?></p>
 <?php endif; ?>

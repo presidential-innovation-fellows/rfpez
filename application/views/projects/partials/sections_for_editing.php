@@ -17,7 +17,7 @@
         </div>
       <?php endforeach; ?>
     <?php else: ?>
-      <p>No sections have been added yet.</p>
+      <p><?php echo Jade\Dumper::_text(__("r.projects.partials.sections_for_editing.none")); ?></p>
     <?php endif; ?>
   </div>
 </div>

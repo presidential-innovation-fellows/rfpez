@@ -9,17 +9,14 @@
     <?php echo Jade\Dumper::_html(View::make('projects.partials.sow_composer_sidebar')->with('project', $project)); ?>
   </div>
   <div class="span9">
-    <div class="alert alert-info">
-      First, let's compose a background and scope for your SOW. Tell us about your organization,
-      and the problem you're trying to solve with this SOW.
-    </div>
-    <h5 class="sidebar-section-title">Writing A Great SOW</h5>
+    <div class="alert alert-info"><?php echo Jade\Dumper::_text(__("r.projects.background.helper")); ?></div>
+    <h5><?php echo Jade\Dumper::_text(__("r.projects.background.tips_header")); ?></h5>
     <ul>
-      <li>The background should identify the work in very general terms</li>
-      <li>Describe your organization and why you're pursuing these goals</li>
-      <li>Now is the time to mention any regulations or laws affecting the job.</li>
-      <li>2-5 Paragraphs in total</li>
-      <li>Write so your neighbor can understand what you write.</li>
+      <li><?php echo Jade\Dumper::_text(__("r.projects.background.tips.0")); ?></li>
+      <li><?php echo Jade\Dumper::_text(__("r.projects.background.tips.1")); ?></li>
+      <li><?php echo Jade\Dumper::_text(__("r.projects.background.tips.2")); ?></li>
+      <li><?php echo Jade\Dumper::_text(__("r.projects.background.tips.3")); ?></li>
+      <li><?php echo Jade\Dumper::_text(__("r.projects.background.tips.4")); ?></li>
     </ul>
     <form class="background-form" method="POST">
       <div class="wysiwyg-wrapper">

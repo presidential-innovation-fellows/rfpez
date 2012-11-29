@@ -1,6 +1,6 @@
 <footer class="footer">
   <div class="container">
-    <p><?php echo Jade\Dumper::_html(__('r.footer_text')); ?></p>
+    <p><?php echo Jade\Dumper::_html(__('r.partials.footer.text')); ?></p>
     <ul>
       <li>
         <a href="http://www.sba.gov/about-sba-info/privacy-policy">Privacy Policy</a>

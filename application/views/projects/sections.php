@@ -10,9 +10,7 @@
     <?php echo Jade\Dumper::_html(View::make('projects.partials.sow_composer_sidebar')->with('project', $project)); ?>
   </div>
   <div class="span9">
-    <div class="alert alert-info">
-      Click and drag the sections and section headers to reorder your SOW.
-    </div>
+    <div class="alert alert-info"><?php echo Jade\Dumper::_html(__("r.projects.sections.drag_helper")); ?></div>
     <button class="btn btn-success pull-right add-section-button">
       Add Section
       <i class="icon-white icon-plus-sign"></i>

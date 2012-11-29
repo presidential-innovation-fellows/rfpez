@@ -13,7 +13,7 @@
       <div class="fill-in-blanks">
         <?php $parsed = SowVariableParser::parse(View::make('projects.partials.background_and_sections')->with('project', $project), $project->variables) ?>
         <?php if ($parsed["count"] == 0): ?>
-          <div class="alert alert-info">Looks like there are no blanks for you to fill in. Go ahead and proceed to the next step!</div>
+          <div class="alert alert-info"><?php echo Jade\Dumper::_text(__("r.projects.blanks.none")); ?></div>
         <?php endif; ?>
         <?php echo Jade\Dumper::_html($parsed["output"]); ?>
       </div>

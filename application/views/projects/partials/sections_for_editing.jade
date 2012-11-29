@@ -13,5 +13,5 @@
                 a.btn.btn-danger.btn-mini.remove-button(data-href="#{route('project_section_delete', array($project->id, $section->id))}", data-loading-text="Removing...") Remove
                 p.body !{$section->body}
     - else:
-      p No sections have been added yet.
+      p #{__("r.projects.partials.sections_for_editing.none")}
     - endif;
