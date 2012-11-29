@@ -221,7 +221,17 @@ class Lang {
 		if (file_exists($path))
 		{
 			$lines = require $path;
+		} else {
+			$yml_path = static::yml_path($bundle, $language, $file);
+
+			if (file_exists($yml_path))
+			{
+				$parser = IoC::resolve('yaml_parser');
+				$yml_contents = file_get_contents($yml_path);
+				$lines = $parser->parse($yml_contents);
+			}
 		}
+
 
 		return $lines;
 	}
@@ -237,6 +247,11 @@ class Lang {
 	protected static function path($bundle, $language, $file)
 	{
 		return Bundle::path($bundle)."language/{$language}/{$file}".EXT;
+	}
+
+	protected static function yml_path($bundle, $language, $file)
+	{
+		return Bundle::path($bundle)."language/{$language}/{$file}".".yml";
 	}
 
 	/**

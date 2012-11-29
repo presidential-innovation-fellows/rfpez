@@ -28,7 +28,7 @@ ini_set('display_errors', 'On');
 
 Laravel\Event::listen(Laravel\Config::loader, function($bundle, $file)
 {
-	return Laravel\Config::file($bundle, $file);
+  return Laravel\Config::file($bundle, $file);
 });
 
 /*
@@ -195,4 +195,16 @@ Config::set('deploy_timestamp', file_get_contents('deploy_timestamp.txt'));
 
 Auth::extend('rfpez', function(){
 	return new RfpezAuth;
+});
+
+IoC::singleton('yaml_parser', function() {
+  return new \Symfony\Component\Yaml\Parser();
+});
+
+IoC::singleton('yaml_dumper', function() {
+  return new \Symfony\Component\Yaml\Dumper();
+});
+
+Event::listen('laravel.language.loader', function(){
+ return array('asdfadsf' => 'asdf');
 });
