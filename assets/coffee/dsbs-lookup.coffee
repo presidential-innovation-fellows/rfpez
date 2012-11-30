@@ -1,4 +1,4 @@
-$(document).on "ready pjax:success", ->
+$(document).on "ready page:load", ->
 
   $("[data-dsbs-user-id]").each ->
     el = $(this)

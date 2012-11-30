@@ -6,16 +6,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href="<?php echo e(route('root')); ?>">EasyBid</a>
+      <a class="brand" href="<?php echo e(route('root')); ?>" data-no-turbolink="data-no-turbolink">EasyBid</a>
       <div class="nav-collapse collapse">
         <?php if (Auth::check()): ?>
           <ul class="nav">
             <?php if (Auth::user()->officer): ?>
               <li>
-                <a href="<?php echo e( route('vendors') ); ?>" data-pjax="data-pjax">Vendors</a>
+                <a href="<?php echo e( route('vendors') ); ?>">Vendors</a>
               </li>
               <li>
-                <a href="<?php echo e( route('my_projects') ); ?>" data-pjax="data-pjax">Projects</a>
+                <a href="<?php echo e( route('my_projects') ); ?>">Projects</a>
               </li>
               <?php if (Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): ?>
                 <li>
@@ -29,10 +29,10 @@
               <?php endif; ?>
             <?php else: ?>
               <li>
-                <a href="<?php echo e( route('my_bids') ); ?>" data-pjax="data-pjax">Bids</a>
+                <a href="<?php echo e( route('my_bids') ); ?>">Bids</a>
               </li>
               <li>
-                <a href="<?php echo e( route('projects') ); ?>" data-pjax="data-pjax">Projects</a>
+                <a href="<?php echo e( route('projects') ); ?>">Projects</a>
               </li>
             <?php endif; ?>
           </ul>
@@ -44,10 +44,10 @@
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a href="<?php echo e(route('account')); ?>" data-pjax="data-pjax">Account Settings</a>
+                  <a href="<?php echo e(route('account')); ?>">Account Settings</a>
                 </li>
                 <li>
-                  <a href="<?php echo e( route('signout') ); ?>">Sign Out</a>
+                  <a href="<?php echo e( route('signout') ); ?>" data-no-turbolink="data-no-turbolink">Sign Out</a>
                 </li>
               </ul>
             </li>
@@ -73,7 +73,7 @@
         <?php else: ?>
           <ul class="nav">
             <li>
-              <a href="<?php echo e( route('projects') ); ?>" data-pjax="data-pjax">Browse Projects</a>
+              <a href="<?php echo e( route('projects') ); ?>">Browse Projects</a>
             </li>
           </ul>
           <ul class="nav pull-right">

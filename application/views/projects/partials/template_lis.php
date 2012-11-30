@@ -7,7 +7,7 @@
       </div>
       <div class="span3">
         <div class="forked">
-          Forked <a href="#"><?php echo e($template->fork_count); ?> <?php echo e(Str::plural('time', $template->fork_count)); ?></a>
+          Forked <?php echo e($template->fork_count); ?> <?php echo e(Str::plural('time', $template->fork_count)); ?>
         </div>
         <?php if ($template->recommended): ?>
           <div class="recommended">&#9733; Recommended Template</div>

@@ -36,7 +36,7 @@ Rfpez.view_notification_payload = function(key, val, mark_as) {
 };
 
 render_notification = function(notification) {
-  return "<li class=\"notification " + (notification.object.read === '0' ? 'unread' : 'read') + "\">\n  <a href=\"" + notification.parsed.link + "\" data-pjax>\n    <span class=\"line1\">" + notification.parsed.subject + "</span>\n    <span class=\"timeago\" title=\"" + notification.parsed.timestamp + "\"></span>\n  </a>\n</li>";
+  return "<li class=\"notification " + (notification.object.read === '0' ? 'unread' : 'read') + "\">\n  <a href=\"" + notification.parsed.link + "\">\n    <span class=\"line1\">" + notification.parsed.subject + "</span>\n    <span class=\"timeago\" title=\"" + notification.parsed.timestamp + "\"></span>\n  </a>\n</li>";
 };
 
 notifications_loaded = false;
@@ -71,7 +71,7 @@ $(document).on("click", ".notification-item .mark-as-read, .notification-item .m
   });
 });
 
-$(document).on("ready pjax:success pjax:popstate", function() {
+$(document).on("ready page:load pjax:popstate", function() {
   notifications_loaded = false;
   return $("#notifications-dropdown-trigger").on("click", function() {
     if (notifications_loaded) {
@@ -90,7 +90,7 @@ $(document).on("ready pjax:success pjax:popstate", function() {
           $(data.results).each(function() {
             return str += render_notification(this);
           });
-          str += "<li class=\"view-all\"><a href=\"/notifications\" data-pjax>view all " + data.count + " notifications</a></li>";
+          str += "<li class=\"view-all\"><a href=\"/notifications\">view all " + data.count + " notifications</a></li>";
           $("#notifications-dropdown").removeClass("loading");
           $("#notifications-dropdown").html(str);
           $("#notifications-dropdown span.timeago").timeago();

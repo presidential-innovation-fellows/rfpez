@@ -5,18 +5,18 @@ h4
 .nav.nav-tabs.project-subnav
   - if ($project->status() == Project::STATUS_WRITING_SOW):
     li(class="#{Helper::active_subnav('create') ? 'active':''}")
-      a(href="#{route('project', array($project->id))}", data-pjax) Write SOW
+      a(href="#{route('project', array($project->id))}") Write SOW
     li(class="#{Helper::active_subnav('post_on_fbo') ? 'active':''}")
-      a(href="#{route('project_post_on_fbo', array($project->id))}", data-pjax) Post on FBO
+      a(href="#{route('project_post_on_fbo', array($project->id))}") Post on FBO
   - elseif ($project->status() == Project::STATUS_ACCEPTING_BIDS || $project->status() == Project::STATUS_REVIEWING_BIDS || $project->status() == Project::STATUS_CONTRACT_AWARDED):
     li(class="#{Helper::active_subnav('view') ? 'active':''}")
-      a(href="#{route('project', array($project->id))}", data-pjax) View Posting
+      a(href="#{route('project', array($project->id))}") View Posting
     li(class="#{Helper::active_subnav('review_bids') ? 'active':''}")
-      a(href="#{route('review_bids', array($project->id))}", data-pjax) Review Bids (#{$project->submitted_bids()->count()})
+      a(href="#{route('review_bids', array($project->id))}") Review Bids (#{$project->submitted_bids()->count()})
   - endif;
 
     li(class="pull-right #{Helper::active_subnav('admin') ? 'active':''}")
-      a(href="#{route('project_admin', array($project->id))}", data-pjax) Admin
+      a(href="#{route('project_admin', array($project->id))}") Admin
     li(class="pull-right #{Helper::active_subnav('comments') ? 'active':''}")
-      a(href="#{route('comments', array($project->id))}", data-pjax) Comments (#{$project->comments()->count()})
+      a(href="#{route('comments', array($project->id))}") Comments (#{$project->comments()->count()})
 

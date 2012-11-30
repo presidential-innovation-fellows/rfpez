@@ -26,9 +26,9 @@
         <td><?php echo e($project_section->body); ?></td>
         <td>
           <?php if ($project_section->public): ?>
-            <a class="btn btn-success" href="<?php echo e(route('admin_project_sections_toggle_public', array($project_section->id))); ?>">Public</a>
+            <a class="btn btn-success" href="<?php echo e(route('admin_project_sections_toggle_public', array($project_section->id))); ?>" data-no-turbolink="data-no-turbolink">Public</a>
           <?php else: ?>
-            <a class="btn" href="<?php echo e(route('admin_project_sections_toggle_public', array($project_section->id))); ?>">Private</a>
+            <a class="btn" href="<?php echo e(route('admin_project_sections_toggle_public', array($project_section->id))); ?>" data-no-turbolink="data-no-turbolink">Private</a>
           <?php endif; ?>
         </td>
         <td><?php echo e(date('m/d/y', strtotime($project_section->created_at))); ?></td>

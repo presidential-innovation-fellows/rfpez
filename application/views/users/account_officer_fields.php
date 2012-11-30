@@ -9,11 +9,11 @@
 <?php else: ?>
   <label class="larger">
     <?php echo e(Auth::user()->email); ?>
-    <a class="smaller" href="<?php echo e(route('change_email')); ?>" data-pjax="data-pjax">change email</a>
+    <a class="smaller" href="<?php echo e(route('change_email')); ?>">change email</a>
   </label>
   <label class="larger">
     (password hidden)
-    <a class="smaller" href="<?php echo e(route('change_password')); ?>" data-pjax="data-pjax">change password</a>
+    <a class="smaller" href="<?php echo e(route('change_password')); ?>">change password</a>
   </label>
   <label class="larger">Role: <?php echo e($officer['role_text']); ?></label>
 <?php endif; ?>

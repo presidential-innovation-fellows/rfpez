@@ -54,19 +54,47 @@ head
     - endif;
   - endif;
 
+  !{Helper::asset('js/vendor/turbolinks')}
 
-  !{Section::yield('additional_scripts')}
 
-body(class="#{$body_class}")
+body(class="#{$body_class}", data-current-page="#{Section::yield('current_page')}")
 
   | <!--[if lt IE 8]>
   |   <p class="chromeframe"><?= __("r.chromeframe_text") ?></p>
   | <![endif]-->
 
 
-  #pjax-container
+  #outer-container
 
-    !{View::make('pjaxcontainer')->with('content', $content)}
+    !{View::make('partials.topnav')}
+
+    .container
+
+      - if (Auth::guest()):
+        !{View::make('partials.signin_modal')}
+      - endif;
+
+      - if (Session::has('errors')):
+        .alert.alert-error
+          button(type="button", class="close", data-dismiss="alert") ×
+          ul
+            - foreach(Session::get('errors') as $error):
+              li #{$error}
+      - endif;
+
+      - if (Session::has('notice')):
+        .alert.alert-success #{Session::get('notice')}
+          button(type="button", class="close", data-dismiss="alert") ×
+      - endif;
+
+      - if (!Section::yield('no_page_header'))
+        h4 #{Section::yield('page_title')}
+          | !{Section::yield('inside_header')}
+
+      !{Section::yield('subnav')}
+
+      !{$content}
+
 
   !{View::make('partials.footer')}
 
@@ -74,6 +102,6 @@ body(class="#{$body_class}")
     script(src="/js/vendor/google.analytics.js")
     script(src="/js/vendor/jquery.formtimer.js")
     script
-      | $(document).on("ready pjax:success", function() { $("form").formTimer(); });
+      | $(document).on("ready page:load", function() { $("form").formTimer(); });
 
 | </html>

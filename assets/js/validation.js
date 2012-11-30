@@ -15,7 +15,7 @@ $.validator.addMethod('urladdhttp', function(value, element) {
   }
 }, 'Please enter a valid URL.');
 
-$(document).on("ready pjax:success", function() {
+$(document).on("ready page:load", function() {
   $("#change-password-form").validate_rfpez({
     rules: {
       "old_password": {

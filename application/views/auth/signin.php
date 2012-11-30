@@ -11,7 +11,7 @@
     <label class="control-label">Password</label>
     <div class="controls">
       <input type="password" name="password" />
-      <a class="forgot" href="<?php echo e(route('forgot_password')); ?>" data-pjax="data-pjax">Forgot Password?</a>
+      <a class="forgot" href="<?php echo e(route('forgot_password')); ?>">Forgot Password?</a>
     </div>
   </div>
   <div class="control-group">

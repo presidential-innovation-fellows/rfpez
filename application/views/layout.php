@@ -40,21 +40,50 @@
       <?php echo Helper::asset('js/vendor'); ?>
     <?php endif; ?>
   <?php endif; ?>
-  <?php echo Section::yield('additional_scripts'); ?>
+  <?php echo Helper::asset('js/vendor/turbolinks'); ?>
 </head>
-<body class="<?php echo e($body_class); ?>">
+<body class="<?php echo e($body_class); ?>" data-current-page="<?php echo e(Section::yield('current_page')); ?>">
   <!--[if lt IE 8]>
     <p class="chromeframe"><?= __("r.chromeframe_text") ?></p>
   <![endif]-->
-  <div id="pjax-container">
-    <?php echo View::make('pjaxcontainer')->with('content', $content); ?>
+  <div id="outer-container">
+    <?php echo View::make('partials.topnav'); ?>
+    <div class="container">
+      <?php if (Auth::guest()): ?>
+        <?php echo View::make('partials.signin_modal'); ?>
+      <?php endif; ?>
+      <?php if (Session::has('errors')): ?>
+        <div class="alert alert-error">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <ul>
+            <?php foreach(Session::get('errors') as $error): ?>
+              <li><?php echo e($error); ?></li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      <?php endif; ?>
+      <?php if (Session::has('notice')): ?>
+        <div class="alert alert-success">
+          <?php echo e(Session::get('notice')); ?>
+          <button type="button" class="close" data-dismiss="alert">×</button>
+        </div>
+      <?php endif; ?>
+      <?php if (!Section::yield('no_page_header')) { ?>
+        <h4>
+          <?php echo e(Section::yield('page_title')); ?>
+          <?php echo Section::yield('inside_header'); ?>
+        </h4>
+      <?php } ?>
+      <?php echo Section::yield('subnav'); ?>
+      <?php echo $content; ?>
+    </div>
   </div>
   <?php echo View::make('partials.footer'); ?>
   <?php if (Request::is_env('production')) { ?>
     <script src="/js/vendor/google.analytics.js"></script>
     <script src="/js/vendor/jquery.formtimer.js"></script>
     <script>
-      $(document).on("ready pjax:success", function() { $("form").formTimer(); });
+      $(document).on("ready page:load", function() { $("form").formTimer(); });
     </script>
   <?php } ?>
 </body>

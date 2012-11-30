@@ -1,7 +1,7 @@
 <?php Section::inject('page_title', 'My Projects') ?>
 <?php Section::start('inside_header'); { ?>
-  <a class="officer-only toggle-my-all-projects" href="<?php echo e(route('projects')); ?>" data-pjax="data-pjax">everybody's projects</a>
-  <a class="btn btn-small btn-success new-project-btn pull-right" href="<?php echo e( route('new_projects') ); ?>" data-pjax="data-pjax">
+  <a class="officer-only toggle-my-all-projects" href="<?php echo e(route('projects')); ?>">everybody's projects</a>
+  <a class="btn btn-small btn-success new-project-btn pull-right" href="<?php echo e( route('new_projects') ); ?>">
     <i class="icon-plus-sign icon-white"></i>
     new project
   </a>
@@ -27,15 +27,15 @@
           </td>
           <td>
             <?php if ($project->status() != Project::STATUS_WRITING_SOW): ?>
-              <a class="project-title" href="<?php echo e( route('review_bids', array($project->id)) ); ?>" data-pjax="data-pjax"><?php echo e($project->title); ?></a>
+              <a class="project-title" href="<?php echo e( route('review_bids', array($project->id)) ); ?>"><?php echo e($project->title); ?></a>
             <?php else: ?>
-              <a class="project-title" href="<?php echo e( route('project', array($project->id)) ); ?>" data-pjax="data-pjax"><?php echo e($project->title); ?></a>
+              <a class="project-title" href="<?php echo e( route('project', array($project->id)) ); ?>"><?php echo e($project->title); ?></a>
             <?php endif; ?>
           </td>
           <td><?php echo e($project->status_text()); ?></td>
           <td><?php echo e($project->formatted_proposals_due_at()); ?></td>
           <td>
-            <a class="btn btn-mini" href="<?php echo e( route('project_admin', array($project->id)) ); ?>" data-pjax="data-pjax">Admin</a>
+            <a class="btn btn-mini" href="<?php echo e( route('project_admin', array($project->id)) ); ?>">Admin</a>
           </td>
         </tr>
       <?php endforeach; ?>

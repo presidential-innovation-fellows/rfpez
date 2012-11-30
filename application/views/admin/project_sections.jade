@@ -27,9 +27,9 @@ table.table.table-bordered.table-striped
         td #{$project_section->body}
         td
           - if ($project_section->public):
-            a.btn.btn-success(href="#{route('admin_project_sections_toggle_public', array($project_section->id))}") Public
+            a.btn.btn-success(href="#{route('admin_project_sections_toggle_public', array($project_section->id))}", data-no-turbolink) Public
           - else:
-            a.btn(href="#{route('admin_project_sections_toggle_public', array($project_section->id))}") Private
+            a.btn(href="#{route('admin_project_sections_toggle_public', array($project_section->id))}", data-no-turbolink) Private
 
         td #{date('m/d/y', strtotime($project_section->created_at))}
 

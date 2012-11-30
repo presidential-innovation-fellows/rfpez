@@ -30,6 +30,6 @@ $(document).on("blur", ".vendor-image-url input", update_vendor_image_preview);
 
 $(document).on("keydown", ".vendor-image-url input", vendor_image_keydown);
 
-$(document).on("ready pjax:success", function() {
+$(document).on("ready page:load", function() {
   return update_vendor_image_preview();
 });

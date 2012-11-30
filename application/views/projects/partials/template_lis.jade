@@ -7,7 +7,7 @@
 
       .span3
         .forked
-          | Forked <a href="#">#{$template->fork_count} #{Str::plural('time', $template->fork_count)}</a>
+          | Forked #{$template->fork_count} #{Str::plural('time', $template->fork_count)}
         - if ($template->recommended):
           .recommended &#9733; Recommended Template
 

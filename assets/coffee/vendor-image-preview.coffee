@@ -23,6 +23,6 @@ $(document).on "blur", ".vendor-image-url input", update_vendor_image_preview
 
 $(document).on "keydown", ".vendor-image-url input", vendor_image_keydown
 
-$(document).on "ready pjax:success", ->
+$(document).on "ready page:load", ->
 
   update_vendor_image_preview()

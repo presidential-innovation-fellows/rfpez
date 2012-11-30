@@ -9,10 +9,10 @@
 - else:
 
   label.larger #{Auth::user()->email}
-    a.smaller(href="#{route('change_email')}", data-pjax) change email
+    a.smaller(href="#{route('change_email')}") change email
 
   label.larger (password hidden)
-    a.smaller(href="#{route('change_password')}", data-pjax) change password
+    a.smaller(href="#{route('change_password')}") change password
 
   label.larger Role: #{$officer['role_text']}
 

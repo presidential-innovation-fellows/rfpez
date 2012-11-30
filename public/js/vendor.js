@@ -27,14 +27,14 @@ $(document).on("click", ".remove-deliverable", function() {
 
 $(document).on("input", ".deliverable-price", update_total_price);
 
-$(document).on("ready pjax:success", function() {
+$(document).on("ready page:load", function() {
   if ($("#current-page").val() === "new-bid") {
     return update_total_price();
   }
 });
 
 
-$(document).on("ready pjax:success", function() {
+$(document).on("ready page:load", function() {
   var draft_saved, form_update_handler, save_draft, save_draft_button;
   if (!Rfpez.current_page("new-bid")) {
     return;

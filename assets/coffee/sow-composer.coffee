@@ -85,7 +85,7 @@ search_available_sections = ->
 
 Rfpez.has_unsaved_changes = false
 
-$(document).on "ready pjax:success sectionsreloaded", ->
+$(document).on "ready page:load sectionsreloaded", ->
   hide_already_selected_sections()
 
   $(".category-sections").sortable
