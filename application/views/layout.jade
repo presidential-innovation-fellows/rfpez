@@ -57,7 +57,7 @@ head
   !{Helper::asset('js/vendor/turbolinks')}
 
 
-body(class="#{$body_class}")
+body(class="#{$body_class}", data-current-page="#{Section::yield('current_page')}")
 
   | <!--[if lt IE 8]>
   |   <p class="chromeframe"><?= __("r.chromeframe_text") ?></p>

@@ -4820,7 +4820,7 @@ $(document).on("ready page:load", function() {
     $('.datepicker-wrapper').datepicker();
     $('.wysihtml5').wysihtml5();
   }
-  return Rfpez.current_page_string = $("#current-page").val();
+  return Rfpez.current_page_string = $("body").data('current-page');
 });
 
 

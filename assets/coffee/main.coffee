@@ -83,4 +83,4 @@ $(document).on "ready page:load", ->
     $('.datepicker-wrapper').datepicker()
     $('.wysihtml5').wysihtml5()
 
-  Rfpez.current_page_string = $("#current-page").val()
+  Rfpez.current_page_string = $("body").data('current-page')

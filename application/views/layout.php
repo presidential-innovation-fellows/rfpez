@@ -42,7 +42,7 @@
   <?php endif; ?>
   <?php echo Helper::asset('js/vendor/turbolinks'); ?>
 </head>
-<body class="<?php echo e($body_class); ?>">
+<body class="<?php echo e($body_class); ?>" data-current-page="<?php echo e(Section::yield('current_page')); ?>">
   <!--[if lt IE 8]>
     <p class="chromeframe"><?= __("r.chromeframe_text") ?></p>
   <![endif]-->
