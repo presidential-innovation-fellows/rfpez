@@ -17,7 +17,7 @@ class Comments_Controller extends Base_Controller {
   public function action_index() {
     $view = View::make('comments.index');
     $view->project = Config::get('project');
-    $view->comments = json_encode(Helper::to_array($view->project->comments));
+    $view->comments = eloquent_to_json($view->project->comments);
     $this->layout->content = $view;
 
     $comment_ids = array();

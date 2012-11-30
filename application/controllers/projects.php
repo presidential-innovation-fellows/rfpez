@@ -238,7 +238,7 @@ class Projects_Controller extends Base_Controller {
     if ($project->deliverables()->count() == 0) $project->deliverables()->insert(new Deliverable());
 
     $view->project = $project;
-    $view->deliverables_json = json_encode(Helper::to_array($view->project->deliverables));
+    $view->deliverables_json = json_encode(eloquent_to_json($view->project->deliverables));
     $this->layout->content = $view;
 
     $view->project->save_progress('project_timeline');
@@ -299,7 +299,7 @@ class Projects_Controller extends Base_Controller {
   public function action_admin() {
     $view = View::make('projects.admin');
     $view->project = Config::get('project');
-    $view->collaborators_json = json_encode(Helper::to_array($view->project->officers()->get()));
+    $view->collaborators_json = json_encode(eloquent_to_json($view->project->officers()->get()));
     $this->layout->content = $view;
   }
 
