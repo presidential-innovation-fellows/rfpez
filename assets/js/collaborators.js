@@ -1,5 +1,5 @@
 
-$(document).on("ready pjax:success", function() {
+$(document).on("ready page:load", function() {
   var typeahead_searching;
   typeahead_searching = false;
   return $("#add-collaborator-form input[name=email]").typeahead({

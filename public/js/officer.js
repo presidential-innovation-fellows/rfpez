@@ -2209,7 +2209,7 @@ $.fn.sortable = function(options) {
 
 })( jQuery );
 
-$(document).on("ready pjax:success", function() {
+$(document).on("ready page:load", function() {
   var typeahead_searching;
   typeahead_searching = false;
   return $("#add-collaborator-form input[name=email]").typeahead({
@@ -2349,7 +2349,7 @@ search_available_sections = function() {
 
 Rfpez.has_unsaved_changes = false;
 
-$(document).on("ready pjax:success sectionsreloaded", function() {
+$(document).on("ready page:load sectionsreloaded", function() {
   hide_already_selected_sections();
   $(".category-sections").sortable({
     forcePlaceholderSize: true

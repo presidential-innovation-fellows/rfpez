@@ -1,4 +1,4 @@
-$(document).on "ready pjax:success", ->
+$(document).on "ready page:load", ->
 
   return unless Rfpez.current_page("new-bid")
 

@@ -4917,7 +4917,7 @@ $.validator.addMethod('urladdhttp', function(value, element) {
   }
 }, 'Please enter a valid URL.');
 
-$(document).on("ready pjax:success", function() {
+$(document).on("ready page:load", function() {
   $("#change-password-form").validate_rfpez({
     rules: {
       "old_password": {
@@ -5124,7 +5124,7 @@ $(document).on("click", ".notification-item .mark-as-read, .notification-item .m
   });
 });
 
-$(document).on("ready pjax:success pjax:popstate", function() {
+$(document).on("ready page:load pjax:popstate", function() {
   notifications_loaded = false;
   return $("#notifications-dropdown-trigger").on("click", function() {
     if (notifications_loaded) {
@@ -5155,7 +5155,7 @@ $(document).on("ready pjax:success pjax:popstate", function() {
 });
 
 
-$(document).on("ready pjax:success", function() {
+$(document).on("ready page:load", function() {
   return $("[data-dsbs-user-id]").each(function() {
     var el, user_id;
     el = $(this);
@@ -7900,6 +7900,6 @@ $(document).on("blur", ".vendor-image-url input", update_vendor_image_preview);
 
 $(document).on("keydown", ".vendor-image-url input", vendor_image_keydown);
 
-$(document).on("ready pjax:success", function() {
+$(document).on("ready page:load", function() {
   return update_vendor_image_preview();
 });

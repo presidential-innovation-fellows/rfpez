@@ -71,7 +71,7 @@ $(document).on("click", ".notification-item .mark-as-read, .notification-item .m
   });
 });
 
-$(document).on("ready pjax:success pjax:popstate", function() {
+$(document).on("ready page:load pjax:popstate", function() {
   notifications_loaded = false;
   return $("#notifications-dropdown-trigger").on("click", function() {
     if (notifications_loaded) {

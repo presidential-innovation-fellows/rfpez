@@ -58,7 +58,7 @@ $(document).on "click", ".notification-item .mark-as-read, .notification-item .m
         notification_item.replaceWith(new_notification_item)
         Rfpez.update_notification_badge(data.unread_count)
 
-$(document).on "ready pjax:success pjax:popstate", ->
+$(document).on "ready page:load pjax:popstate", ->
 
   notifications_loaded = false
 

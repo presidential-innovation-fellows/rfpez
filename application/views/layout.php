@@ -40,6 +40,7 @@
       <?php echo Helper::asset('js/vendor'); ?>
     <?php endif; ?>
   <?php endif; ?>
+  <?php echo Helper::asset('js/vendor/turbolinks'); ?>
 </head>
 <body class="<?php echo e($body_class); ?>">
   <!--[if lt IE 8]>
@@ -82,9 +83,8 @@
     <script src="/js/vendor/google.analytics.js"></script>
     <script src="/js/vendor/jquery.formtimer.js"></script>
     <script>
-      $(document).on("ready pjax:success", function() { $("form").formTimer(); });
+      $(document).on("ready page:load", function() { $("form").formTimer(); });
     </script>
   <?php } ?>
-  <?php echo Helper::asset('js/vendor/turbolinks'); ?>
 </body>
 </html>

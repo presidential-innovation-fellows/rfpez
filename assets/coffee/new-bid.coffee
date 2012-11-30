@@ -17,6 +17,6 @@ $(document).on "click", ".remove-deliverable", ->
 
 $(document).on "input", ".deliverable-price", update_total_price
 
-$(document).on "ready pjax:success", ->
+$(document).on "ready page:load", ->
   if $("#current-page").val() is "new-bid"
     update_total_price()

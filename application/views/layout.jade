@@ -54,6 +54,8 @@ head
     - endif;
   - endif;
 
+  !{Helper::asset('js/vendor/turbolinks')}
+
 
 body(class="#{$body_class}")
 
@@ -100,8 +102,6 @@ body(class="#{$body_class}")
     script(src="/js/vendor/google.analytics.js")
     script(src="/js/vendor/jquery.formtimer.js")
     script
-      | $(document).on("ready pjax:success", function() { $("form").formTimer(); });
-
-  !{Helper::asset('js/vendor/turbolinks')}
+      | $(document).on("ready page:load", function() { $("form").formTimer(); });
 
 | </html>
