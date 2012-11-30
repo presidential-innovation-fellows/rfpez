@@ -10,7 +10,7 @@
         <div class="ballpark-price pull-right"><?php echo e($vendor->ballpark_price_display()); ?></div>
         <div class="clearfix"></div>
         <div class="vendor-image-preview-frame">
-          <a href="<?php echo e(route('vendor', array($vendor->vendor_id))); ?>" data-pjax="data-pjax">
+          <a href="<?php echo e(route('vendor', array($vendor->vendor_id))); ?>">
             <img src="<?php echo e($vendor->image_url); ?>" />
           </a>
         </div>

@@ -126,7 +126,7 @@ projects:
   mine:
     none: >
       You're not currently collaborating on any projects. You can
-      <a href=':url' data-pjax='true'>create a new project</a>
+      <a href=':url'>create a new project</a>
       or ask someone to add you as a collaborator on a project that already exists.
 
   new:

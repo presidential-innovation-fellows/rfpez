@@ -8,7 +8,7 @@
       <a href="<?php echo e(route('project', array($project->id))); ?>">Write SOW</a>
     </li>
     <li class="<?php echo e(Helper::active_subnav('post_on_fbo') ? 'active':''); ?>">
-      <a href="<?php echo e(route('project_post_on_fbo', array($project->id))); ?>" data-pjax="data-pjax">Post on FBO</a>
+      <a href="<?php echo e(route('project_post_on_fbo', array($project->id))); ?>">Post on FBO</a>
     </li>
   <?php elseif ($project->status() == Project::STATUS_ACCEPTING_BIDS || $project->status() == Project::STATUS_REVIEWING_BIDS || $project->status() == Project::STATUS_CONTRACT_AWARDED): ?>
     <li class="<?php echo e(Helper::active_subnav('view') ? 'active':''); ?>">

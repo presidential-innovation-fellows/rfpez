@@ -7,7 +7,7 @@ h4
     li(class="#{Helper::active_subnav('create') ? 'active':''}")
       a(href="#{route('project', array($project->id))}") Write SOW
     li(class="#{Helper::active_subnav('post_on_fbo') ? 'active':''}")
-      a(href="#{route('project_post_on_fbo', array($project->id))}", data-pjax) Post on FBO
+      a(href="#{route('project_post_on_fbo', array($project->id))}") Post on FBO
   - elseif ($project->status() == Project::STATUS_ACCEPTING_BIDS || $project->status() == Project::STATUS_REVIEWING_BIDS || $project->status() == Project::STATUS_CONTRACT_AWARDED):
     li(class="#{Helper::active_subnav('view') ? 'active':''}")
       a(href="#{route('project', array($project->id))}") View Posting

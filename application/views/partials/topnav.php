@@ -73,7 +73,7 @@
         <?php else: ?>
           <ul class="nav">
             <li>
-              <a href="<?php echo e( route('projects') ); ?>" data-pjax="data-pjax">Browse Projects</a>
+              <a href="<?php echo e( route('projects') ); ?>">Browse Projects</a>
             </li>
           </ul>
           <ul class="nav pull-right">
