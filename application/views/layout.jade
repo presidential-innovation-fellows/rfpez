@@ -62,9 +62,37 @@ body(class="#{$body_class}")
   | <![endif]-->
 
 
-  #pjax-container
+  #outer-container
 
-    !{View::make('pjaxcontainer')->with('content', $content)}
+    !{View::make('partials.topnav')}
+
+    .container
+
+      - if (Auth::guest()):
+        !{View::make('partials.signin_modal')}
+      - endif;
+
+      - if (Session::has('errors')):
+        .alert.alert-error
+          button(type="button", class="close", data-dismiss="alert") ×
+          ul
+            - foreach(Session::get('errors') as $error):
+              li #{$error}
+      - endif;
+
+      - if (Session::has('notice')):
+        .alert.alert-success #{Session::get('notice')}
+          button(type="button", class="close", data-dismiss="alert") ×
+      - endif;
+
+      - if (!Section::yield('no_page_header'))
+        h4 #{Section::yield('page_title')}
+          | !{Section::yield('inside_header')}
+
+      !{Section::yield('subnav')}
+
+      !{$content}
+
 
   !{View::make('partials.footer')}
 

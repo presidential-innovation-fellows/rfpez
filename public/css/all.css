@@ -2363,7 +2363,7 @@ body.super-admin .no-super-admin {
 body.super-admin .super-admin-only {
   display: inherit !important;
 }
-#pjax-container {
+#outer-container {
   background-color: #fff;
   padding-bottom: 70px;
 }
