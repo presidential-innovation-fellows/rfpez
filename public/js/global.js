@@ -5428,6 +5428,16 @@ $.fn.extend({
   }
 });
 
+Date.prototype.toISOString = Date.prototype.toISOString || function() {
+  return this.getUTCFullYear() + "-"
+    + ("0" + this.getUTCMonth() + 1 + "-").slice(-3)
+    + ("0" + this.getUTCDate() + "T").slice(-3)
+    + ("0" + this.getUTCHours() + ":").slice(-3)
+    + ("0" + this.getUTCMinutes() + ":").slice(-3)
+    + ("0" + this.getUTCSeconds() + ".").slice(-3)
+    + ("00" + this.getUTCMilliseconds() + "Z").slice(-4);
+};
+
 if (!Array.prototype.indexOf) {
   Array.prototype.indexOf = function (searchElement /*, fromIndex */ ) {
     "use strict";
@@ -5459,17 +5469,7 @@ if (!Array.prototype.indexOf) {
     }
     return -1;
   }
-};
-
-Date.prototype.toISOString = Date.prototype.toISOString || function() {
-  return this.getUTCFullYear() + "-";
-  +("0" + this.getUTCMonth() + 1 + "-").slice(-3);
-  +("0" + this.getUTCDate() + "T").slice(-3);
-  +("0" + this.getUTCHours() + ":").slice(-3);
-  +("0" + this.getUTCMinutes() + ":").slice(-3);
-  +("0" + this.getUTCSeconds() + ".").slice(-3);
-  return +("00" + this.getUTCMilliseconds() + "Z").slice(-4);
-};
+}
 
 window.Rfpez || (window.Rfpez = {
   Backbone: {}

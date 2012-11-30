@@ -62,6 +62,7 @@ module.exports = function(grunt) {
           '../js/vendor/jquery.form.js',
           '../js/vendor/jquery.pjax.js',
           '../js/flash-button.js',
+          '../js/prototype-hacks.js',
           '../js/main.js',
           '../js/question-and-answer.js',
           '../js/validation.js',
