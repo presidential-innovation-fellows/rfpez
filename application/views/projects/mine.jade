@@ -16,6 +16,7 @@
         th.project-title Project
         th.status Status
         th.due Bids Due
+          !{Helper::helper_tooltip("Bids are due at 11:59pm EST on the date listed.", "top", false, true)}
         th.actions Actions
     tbody.project
       - foreach($projects as $project):

@@ -16,7 +16,9 @@
         th.type.hidden-phone Type
         th.project-title Project Title
         th.agency.visible-desktop Agency
-        th.due Bids Due
+        th.due
+          | Bids Due
+          !{Helper::helper_tooltip("Bids are due at 11:59pm EST on the date listed.", "top", false, true)}
 
     - foreach($projects as $project):
       tbody.project

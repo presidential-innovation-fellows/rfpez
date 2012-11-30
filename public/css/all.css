@@ -2895,6 +2895,9 @@ h4 span.forked-from {
 .projects-table {
   margin-top: 25px;
 }
+.projects-table tr th.due {
+  min-width: 100px;
+}
 .projects-table tr td {
   border: 0;
 }

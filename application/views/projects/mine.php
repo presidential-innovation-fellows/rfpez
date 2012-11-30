@@ -15,7 +15,10 @@
         <th class="type"></th>
         <th class="project-title">Project</th>
         <th class="status">Status</th>
-        <th class="due">Bids Due</th>
+        <th class="due">
+          Bids Due
+          <?php echo Helper::helper_tooltip("Bids are due at 11:59pm EST on the date listed.", "top", false, true); ?>
+        </th>
         <th class="actions">Actions</th>
       </tr>
     </thead>
