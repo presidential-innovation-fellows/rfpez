@@ -197,6 +197,7 @@ Route::filter('before', function() {
 
 Route::filter('after', function($response) {
   // Do stuff after every request to your application...
+  $response->header('X-XHR-Current-Location', URL::full());
 });
 
 Route::filter('csrf', function() {
