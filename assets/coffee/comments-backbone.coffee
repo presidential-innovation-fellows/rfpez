@@ -52,6 +52,7 @@
     template: _.template """
       <i class="<%= js_parsed.icon %>"></i>
       <%= js_parsed.text %>
+      <div class="date"><span class="timeago" title="<%= created_at %>"></span></div>
     """
     parse: ->
       if @model.attributes.notification_type is "Dismissal"
