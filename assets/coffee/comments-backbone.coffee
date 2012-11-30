@@ -50,34 +50,30 @@
     className: "notification"
 
     template: _.template """
-      <i class="icon-arrow-right"></i>
-      <%= js_parsed %>
+      <i class="<%= js_parsed.icon %>"></i>
+      <%= js_parsed.text %>
     """
     parse: ->
       if @model.attributes.notification_type is "Dismissal"
-        """
-          <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}'s</a> bid was dismissed.
-        """
+        text = """ <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}'s</a> bid was dismissed. """
+        icon = "icon-thumbs-down"
       else if @model.attributes.notification_type is "Undismissal"
-        """
-          <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}'s</a> bid was un-dismissed.
-        """
+        text = """ <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}'s</a> bid was un-dismissed. """
+        icon = "icon-repeat"
       else if @model.attributes.notification_type is "BidSubmit"
-        """
-          <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}</a> submitted a bid.
-        """
+        text = """ <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}</a> submitted a bid. """
+        icon = "icon-list-alt"
       else if @model.attributes.notification_type is "Award"
-        """
-          You awarded the contract to <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}</a>.
-        """
+        text = """ You awarded the contract to <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}</a>. """
+        icon = "icon-thumbs-up"
       else if @model.attributes.notification_type is "ProjectCollaboratorAdded"
-        """
-          #{@model.attributes.payload.officer.name} was added as a collaborator.
-        """
+        text = """ #{@model.attributes.payload.officer.name} was added as a collaborator. """
+        icon = "icon-user"
 
-
-      else
-        @model.attributes.notification_type
+      return {
+        text: if text? then text else @model.attributes.notification_type
+        icon: if icon? then icon else "icon-arrow-right"
+      }
 
     # events:
 
