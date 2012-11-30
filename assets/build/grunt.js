@@ -28,6 +28,11 @@ module.exports = function(grunt) {
         src: ['../coffee/**/*.coffee'],
         dest: '../js',
         options: {bare: true}
+      },
+      vendor: {
+        src: ['../js/vendor/*.coffee'],
+        dest: '../../public/js/vendor',
+        options: {bare: true}
       }
     },
 
@@ -52,6 +57,25 @@ module.exports = function(grunt) {
         dest: '../../public/css/all.css'
       },
 
+      bootstrap: {
+        src: [
+          '../js/vendor/bootstrap/bootstrap-transition.js',
+          '../js/vendor/bootstrap/bootstrap-alert.js',
+          '../js/vendor/bootstrap/bootstrap-modal.js',
+          '../js/vendor/bootstrap/bootstrap-dropdown.js',
+          '../js/vendor/bootstrap/bootstrap-scrollspy.js',
+          '../js/vendor/bootstrap/bootstrap-tab.js',
+          '../js/vendor/bootstrap/bootstrap-tooltip.js',
+          '../js/vendor/bootstrap/bootstrap-popover.js',
+          '../js/vendor/bootstrap/bootstrap-button.js',
+          '../js/vendor/bootstrap/bootstrap-collapse.js',
+          '../js/vendor/bootstrap/bootstrap-carousel.js',
+          '../js/vendor/bootstrap/bootstrap-typeahead.js',
+          '../js/vendor/bootstrap/bootstrap-affix.js'
+        ],
+        dest: '../js/vendor/bootstrap.js'
+      },
+
       js_global: {
         src: [
           '../js/vendor/bootstrap.js',
@@ -60,7 +84,6 @@ module.exports = function(grunt) {
           '../js/vendor/jquery.timeago.js',
           '../js/vendor/jquery.placeholder.js',
           '../js/vendor/jquery.form.js',
-          '../js/vendor/jquery.pjax.js',
           '../js/flash-button.js',
           '../js/main.js',
           '../js/question-and-answer.js',
@@ -135,6 +158,10 @@ module.exports = function(grunt) {
       js_admin: {
         src: ['../../public/js/admin.js'],
         dest: '../../public/js/admin.min.js'
+      },
+      turbolinks: {
+        src: ['../../public/js/vendor/turbolinks.js'],
+        dest: '../../public/js/vendor/turbolinks.min.js'
       }
     },
 

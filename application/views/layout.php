@@ -8,7 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width" />
-  <title><?php echo Helper::full_title(Section::yield('page_title'), Section::yield('page_action')); ?>
+  <title><?php echo e(Helper::full_title(Section::yield('page_title'), Section::yield('page_action'))); ?>
 </title>
   <link href="//fonts.googleapis.com/css?family=Telex" media="all" type="text/css" rel="stylesheet">
   <?php echo Helper::asset('css/all'); ?>
@@ -40,9 +40,8 @@
       <?php echo Helper::asset('js/vendor'); ?>
     <?php endif; ?>
   <?php endif; ?>
-  <?php echo Section::yield('additional_scripts'); ?>
 </head>
-<body class="<?php echo $body_class; ?>">
+<body class="<?php echo e($body_class); ?>">
   <!--[if lt IE 8]>
     <p class="chromeframe"><?= __("r.chromeframe_text") ?></p>
   <![endif]-->
@@ -57,5 +56,6 @@
       $(document).on("ready pjax:success", function() { $("form").formTimer(); });
     </script>
   <?php } ?>
+  <?php echo Helper::asset('js/vendor/turbolinks'); ?>
 </body>
 </html>

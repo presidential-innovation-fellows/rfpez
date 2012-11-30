@@ -67,9 +67,6 @@ $(document).on "submit", "#new-contract-form", (e) ->
 $(document).on "click", "[data-select-text-on-focus]", (e) ->
   $(this).select()
 
-$(document).on "click", "a[data-pjax]", (e) ->
-  $.pjax.click e, "#pjax-container"
-
 $(document).on "mouseenter", ".helper-tooltip", (e) ->
   $(this).tooltip()
   $(this).tooltip('show')
@@ -77,7 +74,7 @@ $(document).on "mouseenter", ".helper-tooltip", (e) ->
 $(document).on "mouseleave", ".helper-tooltip", (e) ->
   $(this).tooltip('hide')
 
-$(document).on "ready pjax:success", ->
+$(document).on "ready page:load", ->
   $("[data-onload-focus]:eq(0)").focus()
   $("span.timeago").timeago()
   $('input, textarea').placeholder()

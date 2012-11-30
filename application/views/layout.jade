@@ -55,8 +55,6 @@ head
   - endif;
 
 
-  !{Section::yield('additional_scripts')}
-
 body(class="#{$body_class}")
 
   | <!--[if lt IE 8]>
@@ -75,5 +73,7 @@ body(class="#{$body_class}")
     script(src="/js/vendor/jquery.formtimer.js")
     script
       | $(document).on("ready pjax:success", function() { $("form").formTimer(); });
+
+  !{Helper::asset('js/vendor/turbolinks')}
 
 | </html>

@@ -77,10 +77,6 @@ $(document).on("click", "[data-select-text-on-focus]", function(e) {
   return $(this).select();
 });
 
-$(document).on("click", "a[data-pjax]", function(e) {
-  return $.pjax.click(e, "#pjax-container");
-});
-
 $(document).on("mouseenter", ".helper-tooltip", function(e) {
   $(this).tooltip();
   return $(this).tooltip('show');
@@ -90,7 +86,7 @@ $(document).on("mouseleave", ".helper-tooltip", function(e) {
   return $(this).tooltip('hide');
 });
 
-$(document).on("ready pjax:success", function() {
+$(document).on("ready page:load", function() {
   $("[data-onload-focus]:eq(0)").focus();
   $("span.timeago").timeago();
   $('input, textarea').placeholder();

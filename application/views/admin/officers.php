@@ -14,7 +14,7 @@
   <tbody id="officers-tbody">
     <script type="text/javascript">
       $(function(){
-       new Rfpez.Backbone.AdminOfficers( <?php echo $officers_json; ?> )
+       new Rfpez.Backbone.AdminOfficers( <?php echo e($officers_json); ?> )
       })
     </script>
   </tbody>
