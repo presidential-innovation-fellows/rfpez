@@ -55,7 +55,7 @@
         text = " <a href=\"" + this.model.attributes.parsed.link + "\">" + this.model.attributes.payload.bid.vendor.company_name + "</a> submitted a bid. ";
         icon = "icon-list-alt";
       } else if (this.model.attributes.notification_type === "Award") {
-        text = " You awarded the contract to <a href=\"" + this.model.attributes.parsed.link + "\">" + this.model.attributes.payload.bid.vendor.company_name + "</a>. ";
+        text = " The Contract was awarded to <a href=\"" + this.model.attributes.parsed.link + "\">" + this.model.attributes.payload.bid.vendor.company_name + "</a>. ";
         icon = "icon-thumbs-up";
       } else if (this.model.attributes.notification_type === "ProjectCollaboratorAdded") {
         text = " " + this.model.attributes.payload.officer.name + " was added as a collaborator. ";

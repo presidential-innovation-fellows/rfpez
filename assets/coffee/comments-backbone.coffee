@@ -65,7 +65,7 @@
         text = """ <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}</a> submitted a bid. """
         icon = "icon-list-alt"
       else if @model.attributes.notification_type is "Award"
-        text = """ You awarded the contract to <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}</a>. """
+        text = """ The Contract was awarded to <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}</a>. """
         icon = "icon-thumbs-up"
       else if @model.attributes.notification_type is "ProjectCollaboratorAdded"
         text = """ #{@model.attributes.payload.officer.name} was added as a collaborator. """
