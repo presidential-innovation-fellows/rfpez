@@ -28,7 +28,7 @@
         tbody#deliverables-tbody
           :javascript
             | $(function(){
-            |   new Rfpez.Backbone.SowDeliverables( #{$project->id}, #{$deliverables_json} )
+            |   new Rfpez.Backbone.SowDeliverables( !{$project->id}, !{$deliverables_json} )
             | })
 
       a.btn.add-deliverable-timeline-button.pull-right Add Deliverable <i class="icon-plus-sign"></i>

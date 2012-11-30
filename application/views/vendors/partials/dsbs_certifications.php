@@ -1,13 +1,13 @@
-<div class="dsbs-certifications loading" data-dsbs-user-id="<?php echo $user_id; ?>" data-defer="<?php echo (isset($defer) && $defer) ? 'true' : 'false'; ?>">
+<div class="dsbs-certifications loading" data-dsbs-user-id="<?php echo e($user_id); ?>" data-defer="<?php echo e((isset($defer) && $defer) ? 'true' : 'false'); ?>">
   <table class="table table-bordered">
     <tbody class="loading">
       <tr>
-        <td colspan="2"><?php echo __("r.vendors.partials.dsbs_certifications.loading"); ?></td>
+        <td colspan="2"><?php echo e(__("r.vendors.partials.dsbs_certifications.loading")); ?></td>
       </tr>
     </tbody>
     <tbody class="no-certs">
       <tr>
-        <td colspan="2"><?php echo __("r.vendors.partials.dsbs_certifications.not_found"); ?></td>
+        <td colspan="2"><?php echo e(__("r.vendors.partials.dsbs_certifications.not_found")); ?></td>
       </tr>
     </tbody>
     <tbody class="certs">

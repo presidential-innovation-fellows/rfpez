@@ -9,5 +9,5 @@
     <?php echo $notifications->links(); ?>
   </div>
 <?php else: ?>
-  <p><?php echo __("r.notifications.index.no_notifications"); ?></p>
+  <p><?php echo e(__("r.notifications.index.no_notifications")); ?></p>
 <?php endif; ?>

@@ -67,7 +67,7 @@
       tbody#collaborators-tbody
         :javascript
           | $(function(){
-          |  new Rfpez.Backbone.Collaborators( #{$project->id}, #{$project->owner()->user->id}, #{$collaborators_json} )
+          |  new Rfpez.Backbone.Collaborators( !{$project->id}, !{$project->owner()->user->id}, !{$collaborators_json} )
           | })
 
       tfoot

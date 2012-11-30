@@ -18,7 +18,7 @@
           Available Sections
           <input id="available-sections-filter" class="search-query pull-right" type="text" placeholder="Filter by category, title, body" />
         </h5>
-        <table class="table available-sections-table" data-project-id="<?php echo $project->id; ?>">
+        <table class="table available-sections-table" data-project-id="<?php echo e($project->id); ?>">
           <thead>
             <tr>
               <th width="50%" colspan="2">Title</th>
@@ -36,14 +36,14 @@
         </table>
       </div>
       <div id="section-form" class="tab-pane">
-        <form id="edit-section-form" action="<?php echo route('project_sections', array($project->id)); ?>" method="POST">
+        <form id="edit-section-form" action="<?php echo e(route('project_sections', array($project->id))); ?>" method="POST">
           <input type="hidden" name="section_id" />
           <div class="control-group">
             <label class="control-label">Category</label>
             <div class="controls category-controls">
               <select id="section-category-select">
                 <?php foreach (ProjectSection::$categories as $category): ?>
-                  <option value="<?php echo $category; ?>"><?php echo $category; ?></option>
+                  <option value="<?php echo e($category); ?>"><?php echo e($category); ?></option>
                 <?php endforeach; ?>
                 <option value="Other">Other</option>
               </select>

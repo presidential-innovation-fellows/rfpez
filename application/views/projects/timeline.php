@@ -16,7 +16,7 @@
       <?php echo __("r.projects.timeline.drag_helper"); ?>
     </div>
     <form method="POST">
-      <table class="table timeline-table <?php echo $project->price_type == Project::PRICE_TYPE_HOURLY ? 'hourly-price' : 'fixed-price'; ?>">
+      <table class="table timeline-table <?php echo e($project->price_type == Project::PRICE_TYPE_HOURLY ? 'hourly-price' : 'fixed-price'); ?>">
         <thead>
           <tr>
             <th>Deliverable</th>
@@ -35,7 +35,7 @@
       <a class="btn add-deliverable-timeline-button pull-right">Add Deliverable <i class="icon-plus-sign"></i></a>
       <div class="clearfix"></div>
       <div class="form-actions">
-        <a class="btn btn-primary" href="<?php echo route('project_review', array($project->id)); ?>">Save and Continue &rarr;</a>
+        <a class="btn btn-primary" href="<?php echo e(route('project_review', array($project->id))); ?>">Save and Continue &rarr;</a>
       </div>
     </form>
   </div>

@@ -12,7 +12,7 @@
 </div>
 <div class="form-actions">
   <h5>Add Comment</h5>
-  <form id="add-comment-form" action="<?php echo 'comments'; ?>" method="POST" data-officer-name="<?php echo Auth::officer()->name; ?>" data-officer-user-id="<?php echo Auth::officer()->user_id; ?>">
+  <form id="add-comment-form" action="<?php echo e('comments'); ?>" method="POST" data-officer-name="<?php echo e(Auth::officer()->name); ?>" data-officer-user-id="<?php echo e(Auth::officer()->user_id); ?>">
     <textarea class="span5" name="body"></textarea>
     <div>
       <button class="btn btn-primary">Submit Comment</button>

@@ -15,7 +15,7 @@ table.table.table-bordered.table-striped.admin-officers-table
   tbody#officers-tbody
     :javascript
       | $(function(){
-      |  new Rfpez.Backbone.AdminOfficers( #{$officers_json} )
+      |  new Rfpez.Backbone.AdminOfficers( !{$officers_json} )
       | })
 
 .pagination-wrapper

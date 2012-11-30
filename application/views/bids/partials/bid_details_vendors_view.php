@@ -1,10 +1,10 @@
 <div class="details-inner">
   <?php if ($bid->dismissed()): ?>
     <div class="alert alert-danger dismissed-alert">
-      <div class="dismissal-notice"><?php echo __('r.bids.partials.bid_details_vendors_view.dismissed'); ?></div>
+      <div class="dismissal-notice"><?php echo e(__('r.bids.partials.bid_details_vendors_view.dismissed')); ?></div>
     </div>
   <?php elseif (!$bid->awarded_at): ?>
-    <div class="alert alert-info"><?php echo __('r.bids.partials.bid_details_vendors_view.review'); ?></div>
+    <div class="alert alert-info"><?php echo e(__('r.bids.partials.bid_details_vendors_view.review')); ?></div>
   <?php else: ?>
     <div class="alert alert-success">
       <?php echo __('r.bids.partials.bid_details_vendors_view.won_header'); ?>
@@ -32,8 +32,8 @@
         <?php if ($bid->prices): ?>
           <?php foreach($bid->prices as $deliverable => $price): ?>
             <tr>
-              <td><?php echo $deliverable; ?></td>
-              <td>$<?php echo $price; ?><?php echo $bid->project->price_type == Project::PRICE_TYPE_HOURLY ? '/hr' : ''; ?></td>
+              <td><?php echo e($deliverable); ?></td>
+              <td>$<?php echo e($price); ?><?php echo e($bid->project->price_type == Project::PRICE_TYPE_HOURLY ? '/hr' : ''); ?></td>
             </tr>
           <?php endforeach; ?>
         <?php endif; ?>
@@ -41,7 +41,7 @@
           <tfoot>
             <tr class="info">
               <td>Total Price</td>
-              <td><?php echo $bid->display_price(); ?></td>
+              <td><?php echo e($bid->display_price()); ?></td>
             </tr>
           </tfoot>
         <?php endif; ?>
@@ -50,12 +50,12 @@
     <div class="span6 example-work">
       <h5>Example Work</h5>
       <div class="vendor-image-preview-frame">
-        <img src="<?php echo $bid->vendor->image_url; ?>" />
+        <img src="<?php echo e($bid->vendor->image_url); ?>" />
       </div>
     </div>
   </div>
   <?php if (!$bid->dismissed_at && !$bid->awarded_at): ?>
-    <a href="<?php echo route('bid_destroy', array($bid->project->id, $bid->id)); ?>" data-confirm="<?php echo __('r.delete_bid_confirmation'); ?>">
+    <a href="<?php echo e(route('bid_destroy', array($bid->project->id, $bid->id))); ?>" data-confirm="<?php echo __('r.delete_bid_confirmation'); ?>">
       Delete Bid
     </a>
   <?php endif; ?>

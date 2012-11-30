@@ -4,7 +4,7 @@
     <h3>Login to EasyBid</h3>
   </div>
   <div class="modal-body">
-    <form action="<?php echo route('signin'); ?>" method="POST">
+    <form action="<?php echo e(route('signin')); ?>" method="POST">
       <input type="hidden" name="modal" value="true" />
       <div class="control-group">
         <label class="control-label">Email</label>
@@ -16,7 +16,7 @@
         <label class="control-label">Password</label>
         <div class="controls">
           <input class="span3" type="password" name="password" />
-          <a class="forgot" href="<?php echo route('forgot_password'); ?>">Forgot Password?</a>
+          <a class="forgot" href="<?php echo e(route('forgot_password')); ?>">Forgot Password?</a>
         </div>
       </div>
       <div class="control-group">

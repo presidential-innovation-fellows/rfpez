@@ -9,7 +9,7 @@
     </div>
     <div class="modal-body">
       <p>
-        <strong><?php echo __("r.bids.partials.award_modal.header"); ?>
+        <strong><?php echo e(__("r.bids.partials.award_modal.header")); ?>
 </strong>
         <?php echo __("r.bids.partials.award_modal.description"); ?>
       </p>

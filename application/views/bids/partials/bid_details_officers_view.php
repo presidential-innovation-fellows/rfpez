@@ -5,11 +5,11 @@
       <div class="dismissal-notice">You have dismissed this bid.</div>
       <div class="dismissal-reason">
         <strong>Reason:</strong>
-        <span><?php echo $bid->dismissal_reason; ?></span>
+        <span><?php echo e($bid->dismissal_reason); ?></span>
       </div>
       <div class="dismissal-explanation">
         <strong>Explanation:</strong>
-        <span><?php echo $bid->dismissal_explanation; ?></span>
+        <span><?php echo e($bid->dismissal_explanation); ?></span>
       </div>
     </div>
   <?php endif; ?>
@@ -33,8 +33,8 @@
         <?php if ($bid->prices): ?>
           <?php foreach($bid->prices as $deliverable => $price): ?>
             <tr>
-              <td><?php echo $deliverable; ?></td>
-              <td>$<?php echo $price; ?><?php echo $bid->project->price_type == Project::PRICE_TYPE_HOURLY ? '/hr' : ''; ?></td>
+              <td><?php echo e($deliverable); ?></td>
+              <td>$<?php echo e($price); ?><?php echo e($bid->project->price_type == Project::PRICE_TYPE_HOURLY ? '/hr' : ''); ?></td>
             </tr>
           <?php endforeach; ?>
         <?php endif; ?>
@@ -42,7 +42,7 @@
           <tfoot>
             <tr class="info">
               <td>Total Price</td>
-              <td><?php echo $bid->display_price(); ?></td>
+              <td><?php echo e($bid->display_price()); ?></td>
             </tr>
           </tfoot>
         <?php endif; ?>
@@ -50,13 +50,13 @@
     </div>
     <div class="span5 col2">
       <h5>
-        <?php echo $bid->vendor->company_name; ?>
-        <a href="<?php echo route('vendor', array($bid->vendor->id)); ?>">(view profile)</a>
+        <?php echo e($bid->vendor->company_name); ?>
+        <a href="<?php echo e(route('vendor', array($bid->vendor->id))); ?>">(view profile)</a>
       </h5>
       <?php echo View::make('vendors.partials.data')->with('vendor', $bid->vendor)->with('defer', $defer); ?>
       <h5>Example Work</h5>
       <div class="vendor-image-preview-frame">
-        <img src="<?php echo $bid->vendor->image_url; ?>" />
+        <img src="<?php echo e($bid->vendor->image_url); ?>" />
       </div>
     </div>
   </div>

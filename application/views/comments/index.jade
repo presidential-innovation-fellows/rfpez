@@ -8,7 +8,7 @@
 .comments-list
   :javascript
     | $(function(){
-    |  new Rfpez.Backbone.Comments( #{$project->id}, #{$comments} )
+    |  new Rfpez.Backbone.Comments( !{$project->id}, !{$comments} )
     | })
 
 .form-actions

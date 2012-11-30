@@ -15,7 +15,7 @@
           <select name="reason">
             <option value="">-- Select a Reason --</option>
             <?php foreach (Bid::dismissal_reasons() as $reason): ?>
-              <option value="<?php echo $reason; ?>"><?php echo $reason; ?></option>
+              <option value="<?php echo e($reason); ?>"><?php echo e($reason); ?></option>
             <?php endforeach; ?>
             <option value="Other">Other</option>
           </select>

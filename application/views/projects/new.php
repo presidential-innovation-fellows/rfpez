@@ -8,7 +8,7 @@
     </p>
     <p><?php echo __("r.projects.new.helper"); ?></p>
   </div>
-  <form id="new-project-form" action="<?php echo route('projects'); ?>" method="POST">
+  <form id="new-project-form" action="<?php echo e(route('projects')); ?>" method="POST">
     <div class="control-group">
       <label>Project Title</label>
       <input type="text" name="project[title]" />
@@ -38,7 +38,7 @@
       <label>Project Type</label>
       <select id="project-type-select" name="project[project_type_id]">
         <?php foreach (ProjectType::defaults() as $project_type): ?>
-          <option value="<?php echo $project_type->id; ?>"><?php echo $project_type->name; ?></option>
+          <option value="<?php echo e($project_type->id); ?>"><?php echo e($project_type->name); ?></option>
         <?php endforeach; ?>
         <option value="Other">Other</option>
       </select>
@@ -47,11 +47,11 @@
     <div class="control-group">
       <label>Price type</label>
       <label class="radio">
-        <input type="radio" name="project[price_type]" value="<?php echo Project::PRICE_TYPE_FIXED; ?>" checked="checked" />
+        <input type="radio" name="project[price_type]" value="<?php echo e(Project::PRICE_TYPE_FIXED); ?>" checked="checked" />
         Fixed price
       </label>
       <label class="radio">
-        <input type="radio" name="project[price_type]" value="<?php echo Project::PRICE_TYPE_HOURLY; ?>" />
+        <input type="radio" name="project[price_type]" value="<?php echo e(Project::PRICE_TYPE_HOURLY); ?>" />
         Hourly price
       </label>
     </div>

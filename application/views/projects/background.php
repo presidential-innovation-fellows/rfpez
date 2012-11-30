@@ -9,14 +9,14 @@
     <?php echo View::make('projects.partials.sow_composer_sidebar')->with('project', $project); ?>
   </div>
   <div class="span9">
-    <div class="alert alert-info"><?php echo __("r.projects.background.helper"); ?></div>
-    <h5><?php echo __("r.projects.background.tips_header"); ?></h5>
+    <div class="alert alert-info"><?php echo e(__("r.projects.background.helper")); ?></div>
+    <h5><?php echo e(__("r.projects.background.tips_header")); ?></h5>
     <ul>
-      <li><?php echo __("r.projects.background.tips.0"); ?></li>
-      <li><?php echo __("r.projects.background.tips.1"); ?></li>
-      <li><?php echo __("r.projects.background.tips.2"); ?></li>
-      <li><?php echo __("r.projects.background.tips.3"); ?></li>
-      <li><?php echo __("r.projects.background.tips.4"); ?></li>
+      <li><?php echo e(__("r.projects.background.tips.0")); ?></li>
+      <li><?php echo e(__("r.projects.background.tips.1")); ?></li>
+      <li><?php echo e(__("r.projects.background.tips.2")); ?></li>
+      <li><?php echo e(__("r.projects.background.tips.3")); ?></li>
+      <li><?php echo e(__("r.projects.background.tips.4")); ?></li>
     </ul>
     <form class="background-form" method="POST">
       <div class="wysiwyg-wrapper">

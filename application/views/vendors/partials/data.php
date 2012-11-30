@@ -10,7 +10,7 @@
     <label>SAM.gov</label>
     <div class="content">
       <?php if ($vendor->sam_entity_name): ?>
-        <span class="green">Yes, under "<?php echo $vendor->sam_entity_name; ?>"</span>
+        <span class="green">Yes, under "<?php echo e($vendor->sam_entity_name); ?>"</span>
       <?php else: ?>
         <span class="red">No</span>
       <?php endif; ?>
@@ -20,7 +20,7 @@
     <label>DSBS</label>
     <div class="content">
       <?php if ($vendor->dsbs_name): ?>
-        <span class="green">Yes, under "<?php echo $vendor->dsbs_name; ?>"
+        <span class="green">Yes, under "<?php echo e($vendor->dsbs_name); ?>"
 </span>
         <?php echo View::make('vendors.partials.dsbs_certifications')->with('user_id', $vendor->dsbs_user_id)->with('defer', $defer); ?>
       <?php else: ?>
@@ -33,7 +33,7 @@
     <div class="content">
       <?php if ($vendor->epls): ?>
         <span class="red">
-          <a href="http://rfpez-apis.presidentialinnovationfellows.org/exclusions?duns=<?php echo $vendor->duns; ?>" target="_blank">Yes</a>
+          <a href="http://rfpez-apis.presidentialinnovationfellows.org/exclusions?duns=<?php echo e($vendor->duns); ?>" target="_blank">Yes</a>
         </span>
       <?php else: ?>
         <span class="green">No</span>

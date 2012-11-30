@@ -10,11 +10,11 @@
   <a id="review-tips-toggle" data-hide-text="Hide Tips [-]">Show Tips [+]</a>
   <div id="review-tips" class="collapse">
     <ul>
-      <li><?php echo __("r.bids.review.stars_tip"); ?></li>
+      <li><?php echo e(__("r.bids.review.stars_tip")); ?></li>
     </ul>
   </div>
 </div>
-<div class="winning-bid-table-wrapper <?php echo $project->winning_bid() ? '' : 'hide'; ?>">
+<div class="winning-bid-table-wrapper <?php echo e($project->winning_bid() ? '' : 'hide'); ?>">
   <h5>Winning Bid</h5>
   <table class="table bids-table winning-bid">
     <thead>
