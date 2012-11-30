@@ -16,7 +16,7 @@ table.table.table-bordered.table-striped.admin-projects-table
   tbody#projects-tbody
     :javascript
       | $(function(){
-      |  new Rfpez.Backbone.AdminProjects( #{$projects_json} )
+      |  new Rfpez.Backbone.AdminProjects( !{$projects_json} )
       | })
 
 .pagination-wrapper

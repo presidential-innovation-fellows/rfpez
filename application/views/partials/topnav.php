@@ -6,20 +6,20 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href="<?php echo route('root'); ?>">EasyBid</a>
+      <a class="brand" href="<?php echo e(route('root')); ?>" data-no-turbolink="data-no-turbolink">EasyBid</a>
       <div class="nav-collapse collapse">
         <?php if (Auth::check()): ?>
           <ul class="nav">
             <?php if (Auth::user()->officer): ?>
               <li>
-                <a href="<?php echo  route('vendors') ; ?>" data-pjax="data-pjax">Vendors</a>
+                <a href="<?php echo e( route('vendors') ); ?>">Vendors</a>
               </li>
               <li>
-                <a href="<?php echo  route('my_projects') ; ?>" data-pjax="data-pjax">Projects</a>
+                <a href="<?php echo e( route('my_projects') ); ?>">Projects</a>
               </li>
               <?php if (Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): ?>
                 <li>
-                  <a href="<?php echo route('admin_home'); ?>">Admin</a>
+                  <a href="<?php echo e(route('admin_home')); ?>">Admin</a>
                 </li>
               <?php endif; ?>
               <?php if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)): ?>
@@ -29,32 +29,32 @@
               <?php endif; ?>
             <?php else: ?>
               <li>
-                <a href="<?php echo  route('my_bids') ; ?>" data-pjax="data-pjax">Bids</a>
+                <a href="<?php echo e( route('my_bids') ); ?>">Bids</a>
               </li>
               <li>
-                <a href="<?php echo  route('projects') ; ?>" data-pjax="data-pjax">Projects</a>
+                <a href="<?php echo e( route('projects') ); ?>">Projects</a>
               </li>
             <?php endif; ?>
           </ul>
           <ul class="nav pull-right">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <?php echo Auth::user()->email; ?>
+                <?php echo e(Auth::user()->email); ?>
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a href="<?php echo route('account'); ?>" data-pjax="data-pjax">Account Settings</a>
+                  <a href="<?php echo e(route('account')); ?>">Account Settings</a>
                 </li>
                 <li>
-                  <a href="<?php echo  route('signout') ; ?>">Sign Out</a>
+                  <a href="<?php echo e( route('signout') ); ?>" data-no-turbolink="data-no-turbolink">Sign Out</a>
                 </li>
               </ul>
             </li>
             <li class="hidden-desktop">
-              <a href="<?php echo route('notifications'); ?>">
+              <a href="<?php echo e(route('notifications')); ?>">
                 <i class="icon-white icon-envelope"></i>
-                Notifications (<?php echo Auth::user()->unread_notification_count(); ?> Unread)
+                Notifications (<?php echo e(Auth::user()->unread_notification_count()); ?> Unread)
               </a>
             </li>
             <li class="dropdown notification-nav-item visible-desktop">
@@ -63,17 +63,17 @@
                 <i class="icon-white icon-envelope"></i>
                 <?php $count = Auth::user()->unread_notification_count() ?>
                 &nbsp;
-                <span class="badge badge-inverse unread-notification-badge <?php echo $count == 0 ? 'hide' : ''; ?>"><?php echo $count; ?></span>
+                <span class="badge badge-inverse unread-notification-badge <?php echo e($count == 0 ? 'hide' : ''); ?>"><?php echo e($count); ?></span>
               </a>
               <ul id="notifications-dropdown" class="dropdown-menu loading">
-                <li class="no-notifications"><?php echo __("r.partials.topnav.no_notifications"); ?></li>
+                <li class="no-notifications"><?php echo e(__("r.partials.topnav.no_notifications")); ?></li>
               </ul>
             </li>
           </ul>
         <?php else: ?>
           <ul class="nav">
             <li>
-              <a href="<?php echo  route('projects') ; ?>" data-pjax="data-pjax">Browse Projects</a>
+              <a href="<?php echo e( route('projects') ); ?>" data-pjax="data-pjax">Browse Projects</a>
             </li>
           </ul>
           <ul class="nav pull-right">

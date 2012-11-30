@@ -6,14 +6,14 @@
     - foreach($vendors as $vendor):
       .media.vendor.well
         .company-name.pull-left
-          a(href="#{route('vendor', array($vendor->vendor_id))}", data-pjax) #{$vendor->company_name}
+          a(href="#{route('vendor', array($vendor->vendor_id))}") #{$vendor->company_name}
 
         .ballpark-price.pull-right #{$vendor->ballpark_price_display()}
 
         .clearfix
 
         .vendor-image-preview-frame
-          a(href="#{route('vendor', array($vendor->vendor_id))}", data-pjax)
+          a(href="#{route('vendor', array($vendor->vendor_id))}")
             img(src="#{$vendor->image_url}")
 
         .more-info #{$vendor->more_info}

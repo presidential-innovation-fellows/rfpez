@@ -18,11 +18,11 @@
 
     - if (Auth::vendor()):
       - if ($bid = $project->my_current_bid()):
-        a.btn.btn-small.btn-primary(href="#{route('bid', array($project->id, $bid->id))}", data-pjax) View my bid
+        a.btn.btn-small.btn-primary(href="#{route('bid', array($project->id, $bid->id))}") View my bid
       - elseif ($bid = $project->my_current_bid_draft()):
-        a.btn.btn-success(href="#{route('new_bids', array($project->id))}", data-pjax) Continue Writing Bid
+        a.btn.btn-success(href="#{route('new_bids', array($project->id))}") Continue Writing Bid
       - else:
-        a.btn.btn-success(href="#{route('new_bids', array($project->id))}", data-pjax) Bid on this Contract
+        a.btn.btn-success(href="#{route('new_bids', array($project->id))}") Bid on this Contract
       - endif;
     - endif;
 

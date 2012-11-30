@@ -17,7 +17,7 @@
   <tbody id="projects-tbody">
     <script type="text/javascript">
       $(function(){
-       new Rfpez.Backbone.AdminProjects( <?php echo e($projects_json); ?> )
+       new Rfpez.Backbone.AdminProjects( <?php echo $projects_json; ?> )
       })
     </script>
   </tbody>

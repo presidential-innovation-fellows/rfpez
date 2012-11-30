@@ -10,14 +10,14 @@
     <?php echo View::make('projects.partials.full_sow')->with('project', $project); ?>
   </div>
   <div class="span5 offset1">
-    <h5>Bids due in <?php echo RelativeTime::format($project->proposals_due_at); ?></h5>
+    <h5>Bids due in <?php echo e(RelativeTime::format($project->proposals_due_at)); ?></h5>
     <?php if (Auth::vendor()): ?>
       <?php if ($bid = $project->my_current_bid()): ?>
-        <a class="btn btn-small btn-primary" href="<?php echo route('bid', array($project->id, $bid->id)); ?>" data-pjax="data-pjax">View my bid</a>
+        <a class="btn btn-small btn-primary" href="<?php echo e(route('bid', array($project->id, $bid->id))); ?>">View my bid</a>
       <?php elseif ($bid = $project->my_current_bid_draft()): ?>
-        <a class="btn btn-success" href="<?php echo route('new_bids', array($project->id)); ?>" data-pjax="data-pjax">Continue Writing Bid</a>
+        <a class="btn btn-success" href="<?php echo e(route('new_bids', array($project->id))); ?>">Continue Writing Bid</a>
       <?php else: ?>
-        <a class="btn btn-success" href="<?php echo route('new_bids', array($project->id)); ?>" data-pjax="data-pjax">Bid on this Contract</a>
+        <a class="btn btn-success" href="<?php echo e(route('new_bids', array($project->id))); ?>">Bid on this Contract</a>
       <?php endif; ?>
     <?php endif; ?>
     <div class="no-auth-only">
@@ -52,8 +52,8 @@
       </div>
       <div class="vendor-only">
         <h4>Ask a question about this project</h4>
-        <form id="ask-question-form" action="<?php echo route('questions'); ?>" method="post">
-          <input type="hidden" name="project_id" value="<?php echo $project->id; ?>" />
+        <form id="ask-question-form" action="<?php echo e(route('questions')); ?>" method="post">
+          <input type="hidden" name="project_id" value="<?php echo e($project->id); ?>" />
           <textarea name="question" placeholder="Type your question here"></textarea>
           <button class="btn btn-primary btn-small" data-loading-text="Sending...">Submit Question</button>
         </form>

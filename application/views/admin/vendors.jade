@@ -18,7 +18,7 @@ table.table.table-bordered.table-striped.admin-vendors-table
           - if ($vendor->user->banned_at):
             | Banned.
           - else:
-            a.btn.btn-danger(href="#{route('admin_ban_vendor', array($vendor->id))}", data-confirm="#{__('r.admin.vendors.ban_vendor_confirmation')}") Ban Vendor
+            a.btn.btn-danger(href="#{route('admin_ban_vendor', array($vendor->id))}", data-confirm="#{__('r.admin.vendors.ban_vendor_confirmation')}", data-no-turbolink) Ban Vendor
           - endif;
 
 .pagination-wrapper
