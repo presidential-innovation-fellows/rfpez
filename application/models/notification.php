@@ -4,6 +4,8 @@ class Notification extends Eloquent {
 
   public static $timestamps = true;
 
+  public $includes_in_array = array('parsed');
+
   public function target() {
     return $this->belongs_to('User', 'target_id');
   }
@@ -74,7 +76,7 @@ class Notification extends Eloquent {
       $officer = $attributes["officer"];
       $notification->fill(array('target_id' => $officer->user_id,
                                 'actor_id' => $attributes["actor_id"],
-                                'payload' => array('project' => $project->to_array()),
+                                'payload' => array('project' => $project->to_array(), 'officer' => $officer->to_array()),
                                 'payload_type' => 'project',
                                 'payload_id' => $project->id));
 

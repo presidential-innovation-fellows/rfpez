@@ -2673,8 +2673,14 @@ body.vendor .no-auth-only {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.comments-list .comment {
+  margin: 10px 0;
+}
 .comments-list .comment .body .author {
   font-weight: bold;
+}
+.comments-list .notification {
+  padding: 10px 0;
 }
 #add-comment-form textarea {
   min-height: 100px;

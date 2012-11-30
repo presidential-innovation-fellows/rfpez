@@ -2588,7 +2588,7 @@ $(document).on("change", "#project-type-select", function() {
 
 
 (function() {
-  var App, AppView, Comment, CommentList, CommentView, Comments;
+  var App, AppView, Comment, CommentList, CommentView, Comments, NotificationView;
   Comment = Backbone.Model.extend({
     validate: function(attrs) {
       if (!attrs.body) {
@@ -2621,6 +2621,39 @@ $(document).on("change", "#project-type-select", function() {
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
       this.$el.find(".timeago").timeago();
+      return this;
+    },
+    clear: function() {
+      return this.model.clear();
+    }
+  });
+  NotificationView = Backbone.View.extend({
+    tagName: "div",
+    className: "notification",
+    template: _.template("<i class=\"icon-arrow-right\"></i>\n<%= js_parsed %>"),
+    parse: function() {
+      if (this.model.attributes.notification_type === "Dismissal") {
+        return "<a href=\"" + this.model.attributes.parsed.link + "\">" + this.model.attributes.payload.bid.vendor.company_name + "'s</a> bid was dismissed.";
+      } else if (this.model.attributes.notification_type === "Undismissal") {
+        return "<a href=\"" + this.model.attributes.parsed.link + "\">" + this.model.attributes.payload.bid.vendor.company_name + "'s</a> bid was un-dismissed.";
+      } else if (this.model.attributes.notification_type === "BidSubmit") {
+        return "<a href=\"" + this.model.attributes.parsed.link + "\">" + this.model.attributes.payload.bid.vendor.company_name + "</a> submitted a bid.";
+      } else if (this.model.attributes.notification_type === "Award") {
+        return "You awarded the contract to <a href=\"" + this.model.attributes.parsed.link + "\">" + this.model.attributes.payload.bid.vendor.company_name + "</a>.";
+      } else if (this.model.attributes.notification_type === "ProjectCollaboratorAdded") {
+        return "" + this.model.attributes.payload.officer.name + " was added as a collaborator.";
+      } else {
+        return this.model.attributes.notification_type;
+      }
+    },
+    initialize: function() {
+      this.model.bind("change", this.render, this);
+      return this.model.bind("destroy", this.remove, this);
+    },
+    render: function() {
+      this.$el.html(this.template(_.extend(this.model.toJSON(), {
+        js_parsed: this.parse()
+      })));
       return this;
     },
     clear: function() {
@@ -2661,11 +2694,17 @@ $(document).on("change", "#project-type-select", function() {
       return this.addAll();
     },
     render: function() {},
-    addOne: function(comment) {
+    addOne: function(model) {
       var html, view;
-      view = new CommentView({
-        model: comment
-      });
+      if (model.attributes.notification_type) {
+        view = new NotificationView({
+          model: model
+        });
+      } else {
+        view = new CommentView({
+          model: model
+        });
+      }
       html = view.render().el;
       return $(".comments-list").append(html);
     },

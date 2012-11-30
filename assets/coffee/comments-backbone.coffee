@@ -45,6 +45,53 @@
     clear: ->
       @model.clear()
 
+  NotificationView = Backbone.View.extend
+    tagName: "div"
+    className: "notification"
+
+    template: _.template """
+      <i class="icon-arrow-right"></i>
+      <%= js_parsed %>
+    """
+    parse: ->
+      if @model.attributes.notification_type is "Dismissal"
+        """
+          <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}'s</a> bid was dismissed.
+        """
+      else if @model.attributes.notification_type is "Undismissal"
+        """
+          <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}'s</a> bid was un-dismissed.
+        """
+      else if @model.attributes.notification_type is "BidSubmit"
+        """
+          <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}</a> submitted a bid.
+        """
+      else if @model.attributes.notification_type is "Award"
+        """
+          You awarded the contract to <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}</a>.
+        """
+      else if @model.attributes.notification_type is "ProjectCollaboratorAdded"
+        """
+          #{@model.attributes.payload.officer.name} was added as a collaborator.
+        """
+
+
+      else
+        @model.attributes.notification_type
+
+    # events:
+
+    initialize: ->
+      @model.bind "change", @render, @
+      @model.bind "destroy", @remove, @
+
+    render: ->
+      @$el.html @template(_.extend(@model.toJSON(), js_parsed: @parse()))
+      return @
+
+    clear: ->
+      @model.clear()
+
   AppView = Backbone.View.extend
 
     initialize: ->
@@ -81,8 +128,11 @@
     render: ->
       #
 
-    addOne: (comment) ->
-      view = new CommentView({model: comment})
+    addOne: (model) ->
+      if model.attributes.notification_type
+        view = new NotificationView({model: model})
+      else
+        view = new CommentView({model: model})
       html = view.render().el
       $(".comments-list").append(html);
 

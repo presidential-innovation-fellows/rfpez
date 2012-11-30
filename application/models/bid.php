@@ -120,13 +120,13 @@ class Bid extends SoftDeleteModel {
     $this->awarded_by = Auth::officer()->id;
     $this->save();
 
+    Notification::send("Award", array('actor_id' => Auth::user()->id, 'bid' => $this));
+
     // Dismiss all the other bids.
     foreach ($this->project->bids as $bid) {
       if ($bid->id != $this->id && !$bid->dismissed_at)
         $bid->dismiss();
     }
-
-    Notification::send("Award", array('actor_id' => Auth::user()->id, 'bid' => $this));
 
     if (trim($message) != "") {
       Mailer::send("BidAwarded", array('bid' => $this));

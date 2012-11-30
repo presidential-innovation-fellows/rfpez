@@ -366,6 +366,36 @@ class Project extends Eloquent {
     }
   }
 
+  public function notifications() {
+    // notifications that are about this project, its bids,
+    // or its collaborators.
+    $project = $this;
+
+    return Notification::where(function($query){
+                    $query->where('payload_type', '=', 'bid');
+                    $query->where_in('payload_id', $this->bids()->lists('id'));
+                })->or_where(function($query)use($project){
+                  $query->where('payload_type', '=', 'project');
+                  $query->where('payload_id', '=', $project->id);
+                })
+                ->get();
+  }
+
+  public function stream_json($json = true) {
+    $comments = array_map(function($m) { return $m->to_array(); }, $this->comments);
+    $notifications = array_map(function($m) { return $m->to_array(); }, $this->notifications());
+
+    $return_array = $comments + $notifications;
+
+    usort($return_array, function($a, $b){
+      // oldest first
+      return $a["created_at"] > $b["created_at"];
+    });
+
+    // this could get unruly with a really big project
+    return $json ? json_encode($return_array) : $return_array;
+  }
+
   //////////// OVERRIDE SETTER FOR PROPOSALS_DUE_AT ////////////
 
   public function set_proposals_due_at($val) {

@@ -33,14 +33,14 @@ class Admin_Controller extends Base_Controller {
   public function action_projects() {
     $view = View::make('admin.projects');
     $view->projects = Project::with('project_type')->paginate(10);
-    $view->projects_json = json_encode(eloquent_to_json($view->projects->results));
+    $view->projects_json = eloquent_to_json($view->projects->results);
     $this->layout->content = $view;
   }
 
   public function action_officers() {
     $view = View::make('admin.officers');
     $view->officers = Officer::paginate(10);
-    $view->officers_json = json_encode(eloquent_to_json($view->officers->results));
+    $view->officers_json = eloquent_to_json($view->officers->results);
     $this->layout->content = $view;
   }
 
