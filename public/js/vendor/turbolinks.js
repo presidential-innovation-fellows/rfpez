@@ -105,7 +105,7 @@ executeScriptTags = function() {
   _results = [];
   for (_i = 0, _len = _ref.length; _i < _len; _i++) {
     script = _ref[_i];
-    if ((_ref1 = script.type) === '' || _ref1 === 'text/javascript') {
+    if (script && ((_ref1 = script.type) === '' || _ref1 === 'text/javascript')) {
       if ((script.src != null) && script.src !== '' && !(script.getAttribute('data-turbolinks-evaluated') != null)) {
         copy = document.createElement('script');
         _ref2 = script.attributes;

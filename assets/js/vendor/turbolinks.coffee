@@ -72,7 +72,7 @@ changePage = (title, body, runScripts) ->
   triggerEvent 'page:change'
 
 executeScriptTags = ->
-  for script in document.body.getElementsByTagName 'script' when script.type in ['', 'text/javascript']
+  for script in document.body.getElementsByTagName 'script' when script and script.type in ['', 'text/javascript']
     if script.src? and script.src isnt '' and not script.getAttribute('data-turbolinks-evaluated')?
       copy = document.createElement 'script'
       copy.setAttribute attr.name, attr.value for attr in script.attributes
