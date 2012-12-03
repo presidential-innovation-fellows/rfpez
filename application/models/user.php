@@ -185,6 +185,7 @@ class User extends Eloquent {
     if ($this->validator()->passes()) {
       $this->reset_password_token = null;
       $this->reset_password_sent_at = null;
+      $this->generate_api_key();
       $this->save();
       return true;
     } else {

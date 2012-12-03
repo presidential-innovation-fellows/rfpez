@@ -168,6 +168,7 @@ class Users_Controller extends Base_Controller {
     $user->password = Input::get('new_password');
 
     if ($user->validator()->passes()) {
+      $user->generate_api_key();
       $user->save();
       Session::flash('notice', 'Your password was successfully changed.');
       return Redirect::to_route('account');
