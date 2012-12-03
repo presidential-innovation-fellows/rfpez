@@ -502,7 +502,7 @@ footer.footer ul li:last-child:after {
   color: #317eac;
 }
 #api-key-label.showing .key {
-  display: inherit !important;
+  display: inline;
 }
 #api-key-label.showing .stars {
   display: none;
