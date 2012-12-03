@@ -13,7 +13,8 @@ class Users_Controller extends Base_Controller {
                                                    'get_reset_password', 'post_reset_password'));
 
     $this->filter('before', 'auth')->only(array('get_account', 'post_account', 'get_change_email', 'post_change_email',
-                                                'get_change_password', 'post_change_password', 'view_notification_payload'));
+                                                'get_change_password', 'post_change_password', 'view_notification_payload',
+                                                'reset_api_key'));
   }
 
 
@@ -182,6 +183,14 @@ class Users_Controller extends Base_Controller {
     $user->view_notification_payload($key, $val, Input::get('action'));
     return Response::json(array("status" => "success",
                                 "unread_count" => $user->unread_notification_count()));
+  }
+
+  public function action_reset_api_key() {
+    $user = Auth::user();
+    $user->generate_api_key();
+    $user->save();
+
+    return Redirect::to_route('account');
   }
 
 

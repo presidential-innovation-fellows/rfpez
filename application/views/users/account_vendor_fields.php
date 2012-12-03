@@ -89,7 +89,10 @@
       </label>
       <label id="api-key-label" class="larger">
         <span class="stars">****************************</span>
-        <span class="key"><?php echo e($api_key); ?></span>
+        <span class="key">
+          <?php echo e($api_key); ?>
+          <a class="smaller" href="<?php echo e(route('reset_api_key')); ?>">reset</a>
+        </span>
         <br />
         <a class="smaller" data-toggle="class" data-target="#api-key-label" data-class="showing">show API key</a>
       </label>

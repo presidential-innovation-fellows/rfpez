@@ -86,6 +86,7 @@
       label.larger#api-key-label
         span.stars ****************************
         span.key #{$api_key}
+          a.smaller(href="#{route('reset_api_key')}") reset
         br
         a.smaller(data-toggle="class", data-target="#api-key-label", data-class="showing") show API key
 
