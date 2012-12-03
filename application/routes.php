@@ -129,6 +129,17 @@ Route::group(array('https' => (preg_match('/https/', Config::get('application.ur
   Route::get('admin/vendors/(:num)/ban', array('uses' => 'admin@ban_vendor', 'as' => 'admin_ban_vendor'));
   Route::get('admin/projects', array('uses' => 'admin@projects', 'as' => 'admin_projects'));
 
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | API
+  |--------------------------------------------------------------------------
+  */
+
+  Route::get('api/projects', array('uses' => 'api@get_projects'));
+  Route::get('api/projects/(:num)', array('uses' => 'api@get_project'));
+
 });
 
 /*

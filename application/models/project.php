@@ -31,6 +31,8 @@ class Project extends Eloquent {
 
   public $includes = array('project_type');
 
+  public $includes_in_array = array('full_sow_html');
+
   public $project_sections = false;
 
   public function validator() {
@@ -442,4 +444,29 @@ class Project extends Eloquent {
                ->where('proposals_due_at', '>', new \DateTime);
   }
 
+  public function full_sow_html() {
+    return View::make('projects.partials.full_sow')->with('project', $this)->render();
+  }
+
+  // SCOPES FOR SERIALIZATION //
+
+  public static function to_array_for_vendor($projects) {
+    if ($projects instanceof Laravel\Database\Eloquent\Model) {
+      return self::serialize_for_vendor($projects);
+    }
+
+    return array_map(function($m) { return self::serialize_for_vendor($m); }, $projects);
+  }
+
+  public static function serialize_for_vendor($project) {
+    $old_hidden = self::$hidden;
+
+    // define new $hidden properties
+    self::$hidden = array('sections', 'forked_from_project_id', 'project_type_id', 'fork_count', 'recommended',
+                          'public', 'variables', 'sow_progress', 'posted_to_fbo_at', 'price_type');
+
+    $return_array = $project->to_array();
+    self::$hidden = $old_hidden;
+    return $return_array;
+  }
 }
