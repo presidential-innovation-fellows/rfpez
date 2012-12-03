@@ -143,6 +143,7 @@ Route::group(array('https' => (preg_match('/https/', Config::get('application.ur
 
   Route::get('api/projects/(:num)/questions', array('uses' => 'api@get_project_questions'));
   Route::get('api/projects/(:num)/questions/(:num)', array('uses' => 'api@get_project_question'));
+  Route::post('api/projects/(:num)/questions', array('uses' => 'api@post_project_question'));
 
 });
 
