@@ -8,6 +8,12 @@ Rfpez.current_page = (str) ->
   else
     false
 
+$(document).on 'click', '[data-toggle=class]', (e) ->
+  target = $(this).data('target')
+  newClass = $(this).data('class')
+
+  $(target).toggleClass(newClass)
+
 $(document).on 'shown', '#signinModal', ->
   $("#signinModal #email").focus()
 

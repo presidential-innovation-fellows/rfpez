@@ -1,6 +1,7 @@
 
 - if (!isset($vendor) && Auth::user() && Auth::user()->vendor)
   - $vendor = Input::old('vendor') ?: Auth::vendor()->to_array();
+  - $api_key = Auth::vendor()->user->api_key
 
 - if (!isset($services) && Auth::user() && Auth::user()->vendor)
   - $services_list = Auth::user()->vendor->services()->lists('id')
@@ -81,6 +82,12 @@
 
       label.larger (password hidden)
         a.smaller(href="#{route('change_password')}") change password
+
+      label.larger#api-key-label
+        span.stars ****************************
+        span.key #{$api_key}
+        br
+        a.smaller(data-toggle="class", data-target="#api-key-label", data-class="showing") show API key
 
       h5 Contact Info
 

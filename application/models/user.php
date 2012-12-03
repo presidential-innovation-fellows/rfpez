@@ -7,7 +7,7 @@ class User extends Eloquent {
   public static $hidden = array('reset_password_token', 'reset_password_sent_at', 'updated_at', 'created_at',
                                 'invited_by', 'encrypted_password', 'sign_in_count', 'current_sign_in_at',
                                 'last_sign_in_at', 'current_sign_in_ip', 'last_sign_in_ip', 'new_email',
-                                'new_email_confirm_token', 'how_hear');
+                                'new_email_confirm_token', 'how_hear', 'api_key');
 
   public $unread_notifications = false;
 
@@ -197,6 +197,20 @@ class User extends Eloquent {
     $this->new_email = NULL;
     $this->new_email_confirm_token = NULL;
     $this->save();
+  }
+
+  public function generate_api_key() {
+    return $this->api_key = Str::random(32);
+  }
+
+  // account for legacy data by generating keys on-the-fly for users who don't already have them
+  public function get_api_key() {
+    if (isset($this->attributes["api_key"]) && $this->attributes["api_key"] != "") return $this->attributes["api_key"];
+
+    $key = $this->generate_api_key();
+    $this->save();
+
+    return $key;
   }
 
   public static function new_officer_from_invite($email, $invited_by, $project) {

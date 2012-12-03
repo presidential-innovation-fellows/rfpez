@@ -1,5 +1,6 @@
 <?php if (!isset($vendor) && Auth::user() && Auth::user()->vendor) { ?>
   <?php $vendor = Input::old('vendor') ?: Auth::vendor()->to_array(); ?>
+  <?php $api_key = Auth::vendor()->user->api_key ?>
 <?php } ?>
 <?php if (!isset($services) && Auth::user() && Auth::user()->vendor) { ?>
   <?php $services_list = Auth::user()->vendor->services()->lists('id') ?>
@@ -85,6 +86,12 @@
       <label class="larger">
         (password hidden)
         <a class="smaller" href="<?php echo e(route('change_password')); ?>">change password</a>
+      </label>
+      <label id="api-key-label" class="larger">
+        <span class="stars">****************************</span>
+        <span class="key"><?php echo e($api_key); ?></span>
+        <br />
+        <a class="smaller" data-toggle="class" data-target="#api-key-label" data-class="showing">show API key</a>
       </label>
       <h5>Contact Info</h5>
     <?php endif; ?>

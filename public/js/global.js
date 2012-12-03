@@ -4779,6 +4779,13 @@ Rfpez.current_page = function(str) {
   }
 };
 
+$(document).on('click', '[data-toggle=class]', function(e) {
+  var newClass, target;
+  target = $(this).data('target');
+  newClass = $(this).data('class');
+  return $(target).toggleClass(newClass);
+});
+
 $(document).on('shown', '#signinModal', function() {
   return $("#signinModal #email").focus();
 });

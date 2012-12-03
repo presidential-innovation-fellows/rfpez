@@ -2799,6 +2799,15 @@ footer.footer ul li:last-child:after {
 #new-vendor-form h5 {
   color: #317eac;
 }
+#api-key-label.showing .key {
+  display: inherit !important;
+}
+#api-key-label.showing .stars {
+  display: none;
+}
+#api-key-label .key {
+  display: none;
+}
 .new-bid-form .section {
   padding: 5px 0;
 }
