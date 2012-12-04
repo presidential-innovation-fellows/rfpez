@@ -7,12 +7,16 @@ class Api_Controller extends Base_Controller {
 
     Config::set('application.profiler', false);
 
-    $this->filter('before', 'auth_with_key')->only('post_project_question');
-
-    $this->filter('before', 'vendor_only')->only('post_project_question');
+    $this->filter('before', 'auth_with_key_vendor')->only(array('post_project_question', 'get_my_bids', 'get_my_bid',
+                                                                'delete_my_bid', 'get_my_notifications',
+                                                                'update_notification'));
 
     $this->filter('before', 'project_exists')->only(array('get_project', 'get_project_questions',
-                                                          'get_project_question', 'post_project_question'));
+                                                          'post_project_question', 'get_my_bid', 'delete_my_bid'));
+
+    $this->filter('before', 'my_bid_exists')->only(array('get_my_bid', 'delete_my_bid'));
+
+    $this->filter('before', 'notification_exists_and_is_mine')->only('update_notification');
   }
 
   public function action_get_projects() {
@@ -28,11 +32,6 @@ class Api_Controller extends Base_Controller {
   public function action_get_project_questions() {
     $project = Config::get('project');
     return Response::json(Question::to_array_for_vendor($project->questions));
-  }
-
-  public function action_get_project_question($project_id, $question_id) {
-    $question = Question::where_project_id($project_id)->where_id($question_id)->first();
-    return Response::json(Question::to_array_for_vendor($question));
   }
 
   public function action_post_project_question($project_id) {
@@ -52,24 +51,53 @@ class Api_Controller extends Base_Controller {
     }
   }
 
+  public function action_get_my_bids() {
+    $user = Config::get('api_user');
+    return Response::json(Bid::to_array_for_vendor($user->vendor->bids));
+  }
+
+  public function action_get_my_bid($project_id) {
+    return Response::json(Bid::to_array_for_vendor(Config::get('bid')));
+  }
+
+  public function action_delete_my_bid($project_id) {
+    if (Config::get('bid')->delete()) {
+      return Response::json(array('status' => 'OK'));
+    }
+  }
+
+  public function action_get_my_notifications() {
+    $user = Config::get('api_user');
+    return Response::json(Notification::to_array_for_vendor($user->notifications_received));
+  }
+
+  public function action_update_notification() {
+    $notification = Config::get('notification');
+
+    // currently, all we're changing is read/unread status
+    $notification->read = Input::get('read');
+    $notification->save();
+    $notification = Notification::find($notification->id); // hack for refresh
+
+    return Response::json(Notification::to_array_for_vendor($notification));
+  }
+
 }
 
-Route::filter('auth_with_key', function() {
+Route::filter('auth_with_key_vendor', function() {
   $key = Input::get('key');
-  $user = User::where_null('banned_at')
-              ->where_not_null('api_key')
-              ->where_api_key($key)
-              ->first();
 
-  if (!$user) return Response::json('Authentication failed. Please provide an API key, e.g. `?key=XXXXXXXXXXXXXX`.', '401');
+  if ($key != ""){
+    $user = User::where_null('banned_at')
+                ->where_not_null('api_key')
+                ->where_api_key($key)
+                ->first();
+  }
+
+  if (!isset($user) || !$user) return Response::json(array("error" => 'Authentication failed. Please provide an API key, e.g. `?key=XXXXXXXXXXXXXX`.'), '401');
+  if (!$user->vendor) return Response::json(array("error" => 'This method is for vendors only.'), '401');
 
   Config::set('api_user', $user);
-});
-
-Route::filter('vendor_only', function() {
-  $user = Config::get('api_user');
-
-  if (!$user->vendor) return Response::json('This method is for vendors only.', '401');
 });
 
 Route::filter('project_exists', function() {
@@ -78,7 +106,30 @@ Route::filter('project_exists', function() {
                     ->where_id($id)
                     ->first();
 
-  if (!$project) return Response::json("Couldn't find a project with id $id.", '400');
+  if (!$project) return Response::json(array("error" => "Couldn't find a project with id $id."), '400');
 
   Config::set('project', $project);
+});
+
+Route::filter('my_bid_exists', function() {
+  $project = Config::get('project');
+  $bid = $project->current_bid_from(Config::get('api_user')->vendor);
+
+  if (!$bid) return Response::json(array("error" => "Couldn't find your bid on project $project->id."), '400');
+
+  Config::set('bid', $bid);
+});
+
+Route::filter('notification_exists_and_is_mine', function(){
+  $user = Config::get('api_user');
+  $id = Request::$route->parameters[0];
+  $notification = Notification::find($id);
+
+  if (!$notification)
+    return Response::json(array("error" => "Couldn't find notification id $id."), '400');
+
+  if ($notification->target_id != $user->id)
+    return Response::json(array("error" => '404 page not found'), '404');
+
+  Config::set('notification', $notification);
 });

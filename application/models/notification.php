@@ -96,4 +96,29 @@ class Notification extends Eloquent {
     if ($send_email) Mailer::send("Notification", array('notification' => $notification));
   }
 
+  // SCOPES FOR SERIALIZATION //
+
+  public static function to_array_for_vendor($models) {
+    if ($models instanceof Laravel\Database\Eloquent\Model) {
+      return self::serialize_for_vendor($models);
+    }
+
+    return array_map(function($m) { return self::serialize_for_vendor($m); }, $models);
+  }
+
+  public static function serialize_for_vendor($model) {
+    $old_hidden = self::$hidden;
+
+    // define new $hidden properties
+    self::$hidden = array('actor_id');
+
+    $return_array = $model->to_array();
+
+    unset($return_array["payload"]);
+
+    self::$hidden = $old_hidden;
+    return $return_array;
+  }
+
+
 }

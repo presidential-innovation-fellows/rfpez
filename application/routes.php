@@ -142,8 +142,14 @@ Route::group(array('https' => (preg_match('/https/', Config::get('application.ur
   Route::get('api/projects/(:num)', array('uses' => 'api@get_project'));
 
   Route::get('api/projects/(:num)/questions', array('uses' => 'api@get_project_questions'));
-  Route::get('api/projects/(:num)/questions/(:num)', array('uses' => 'api@get_project_question'));
   Route::post('api/projects/(:num)/questions', array('uses' => 'api@post_project_question'));
+
+  Route::get('api/bids', array('uses' => 'api@get_my_bids'));
+  Route::get('api/projects/(:num)/bid', array('uses' => 'api@get_my_bid'));
+  Route::delete('api/projects/(:num)/bid', array('uses' => 'api@delete_my_bid'));
+
+  Route::get('api/notifications', array('uses' => 'api@get_my_notifications'));
+  Route::put('api/notifications/(:num)', array('uses' => 'api@update_notification'));
 
 });
 

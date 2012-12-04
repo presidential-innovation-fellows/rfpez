@@ -209,5 +209,32 @@ class Bid extends SoftDeleteModel {
     $this->epls_names = $temp_names;
   }
 
+  // SCOPES FOR SERIALIZATION //
+
+  public static function to_array_for_vendor($models) {
+    if ($models instanceof Laravel\Database\Eloquent\Model) {
+      return self::serialize_for_vendor($models);
+    }
+
+    return array_map(function($m) { return self::serialize_for_vendor($m); }, $models);
+  }
+
+  public static function serialize_for_vendor($model) {
+    $old_hidden = self::$hidden;
+
+    // define new $hidden properties
+    self::$hidden = array('starred', 'dismissal_reason', 'dismissal_explanation', 'updated_at', 'epls_names',
+                          'project', 'vendor');
+
+    $return_array = $model->to_array();
+    unset($return_array["project"]);
+    unset($return_array["vendor"]);
+
+    $return_array["project"] = Project::to_array_for_vendor($model->project);
+
+    self::$hidden = $old_hidden;
+    return $return_array;
+  }
+
 }
 
