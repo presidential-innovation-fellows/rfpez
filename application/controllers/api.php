@@ -165,7 +165,7 @@ Route::filter('project_exists', function() {
 
 Route::filter('my_bid_exists', function() {
   $project = Config::get('project');
-  $bid = $project->current_bid_from(Config::get('api_user')->vendor);
+  $bid = $project->bids()->where_vendor_id(Config::get('api_user')->vendor->id)->first();
 
   if (!$bid) return Response::json(array("error" => "Couldn't find your bid on project $project->id."), '400');
 
