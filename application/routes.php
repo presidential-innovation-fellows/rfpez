@@ -153,6 +153,7 @@ Route::group(array('https' => (preg_match('/https/', Config::get('application.ur
 
   Route::get('api/account', array('uses' => 'api@get_my_account'));
   Route::post('api/account', array('uses' => 'api@create_account'));
+  Route::put('api/account', array('uses' => 'api@update_my_account'));
 
 });
 

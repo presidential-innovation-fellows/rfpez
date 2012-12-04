@@ -9,7 +9,8 @@ class Api_Controller extends Base_Controller {
 
     $this->filter('before', 'auth_with_key_vendor')->only(array('post_project_question', 'get_my_bids', 'get_my_bid',
                                                                 'delete_my_bid', 'get_my_notifications',
-                                                                'update_notification', 'get_my_account'));
+                                                                'update_notification', 'get_my_account',
+                                                                'update_my_account'));
 
     $this->filter('before', 'project_exists')->only(array('get_project', 'get_project_questions',
                                                           'post_project_question', 'get_my_bid', 'delete_my_bid'));
@@ -46,7 +47,7 @@ class Api_Controller extends Base_Controller {
       $question = Question::find($question->id); // reload hack to fix datetime fields
       return Response::json(Question::to_array_for_vendor($question));
     } else {
-      $response = array('errors' => $question->validator()->errors->all());
+      $response = array('error' => $question->validator()->errors->all());
       return Response::json($response, '400');
     }
   }
@@ -107,7 +108,28 @@ class Api_Controller extends Base_Controller {
       return Response::json(User::to_array_for_vendor($user));
     } else {
       $errors = array_merge($user->validator()->errors->all(), $vendor->validator()->errors->all());
-      return Response::json($errors, '400');
+      return Response::json(array('error' => $errors), '400');
+    }
+
+  }
+
+  public function action_update_my_account() {
+    $user = Config::get('api_user');
+
+    $input = array();
+
+    foreach (Input::get('vendor') as $key => $val) {
+      if ($val != "") $input[$key] = $val;
+    }
+
+    $user->vendor->fill($input);
+
+    if ($user->vendor->validator()->passes()) {
+      $user->vendor->save();
+      return Response::json(User::to_array_for_vendor($user));
+    } else {
+      $errors = $user->vendor->validator()->errors->all();
+      return Response::json(array('error' => $errors), '400');
     }
 
   }
