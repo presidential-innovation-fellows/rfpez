@@ -227,7 +227,6 @@ class Bid extends SoftDeleteModel {
                           'project', 'vendor');
 
     $return_array = $model->to_array();
-    unset($return_array["project"]);
     unset($return_array["vendor"]);
 
     $return_array["project"] = Project::to_array_for_vendor($model->project);

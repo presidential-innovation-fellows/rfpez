@@ -123,6 +123,28 @@ class Vendor extends Eloquent {
     }
   }
 
+  // SCOPES FOR SERIALIZATION //
+
+  public static function to_array_for_vendor($models) {
+    if ($models instanceof Laravel\Database\Eloquent\Model) {
+      return self::serialize_for_vendor($models);
+    }
+
+    return array_map(function($m) { return self::serialize_for_vendor($m); }, $models);
+  }
+
+  public static function serialize_for_vendor($model) {
+    $old_hidden = self::$hidden;
+
+    // define new $hidden properties
+    self::$hidden = array('dsbs_user_id', 'epls');
+
+    $return_array = $model->to_array();
+
+    self::$hidden = $old_hidden;
+    return $return_array;
+  }
+
 }
 
 Event::listen('eloquent.saving: Vendor', function($model){

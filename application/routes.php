@@ -151,6 +151,8 @@ Route::group(array('https' => (preg_match('/https/', Config::get('application.ur
   Route::get('api/notifications', array('uses' => 'api@get_my_notifications'));
   Route::put('api/notifications/(:num)', array('uses' => 'api@update_notification'));
 
+  Route::get('api/account', array('uses' => 'api@get_my_account'));
+
 });
 
 /*

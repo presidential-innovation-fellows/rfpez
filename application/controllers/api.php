@@ -9,7 +9,7 @@ class Api_Controller extends Base_Controller {
 
     $this->filter('before', 'auth_with_key_vendor')->only(array('post_project_question', 'get_my_bids', 'get_my_bid',
                                                                 'delete_my_bid', 'get_my_notifications',
-                                                                'update_notification'));
+                                                                'update_notification', 'get_my_account'));
 
     $this->filter('before', 'project_exists')->only(array('get_project', 'get_project_questions',
                                                           'post_project_question', 'get_my_bid', 'delete_my_bid'));
@@ -79,7 +79,12 @@ class Api_Controller extends Base_Controller {
     $notification->save();
     $notification = Notification::find($notification->id); // hack for refresh
 
-    return Response::json(Notification::to_array_for_vendor($notification));
+    return Response::json();
+  }
+
+  public function action_get_my_account() {
+    $user = Config::get('api_user');
+    return Response::json(User::to_array_for_vendor($user));
   }
 
 }

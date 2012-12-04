@@ -231,6 +231,33 @@ class User extends Eloquent {
     return $user;
   }
 
+  // SCOPES FOR SERIALIZATION //
+
+  public static function to_array_for_vendor($models) {
+    if ($models instanceof Laravel\Database\Eloquent\Model) {
+      return self::serialize_for_vendor($models);
+    }
+
+    return array_map(function($m) { return self::serialize_for_vendor($m); }, $models);
+  }
+
+  public static function serialize_for_vendor($model) {
+    $old_hidden = self::$hidden;
+
+    // define new $hidden properties
+    self::$hidden = array('encrypted_password', 'reset_password_token', 'reset_password_sent_at',
+                          'current_sign_in_at', 'last_sign_in_at', 'current_sign_in_ip',
+                          'last_sign_in_ip', 'new_email', 'new_email_confirm_token',
+                          'invited_by', 'banned_at', 'api_key');
+
+    $return_array = $model->to_array();
+
+    $return_array["vendor"] = Vendor::to_array_for_vendor($model->vendor);
+
+    self::$hidden = $old_hidden;
+    return $return_array;
+  }
+
 }
 
 Event::listen('eloquent.saving: User', function($model) {
