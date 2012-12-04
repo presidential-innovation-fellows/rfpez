@@ -87,6 +87,31 @@ class Api_Controller extends Base_Controller {
     return Response::json(User::to_array_for_vendor($user));
   }
 
+  public function action_create_account() {
+    // vendor only right now
+
+    $user_input = Input::get('user') ?: array();
+    $user = new User;
+    $user->email = @$user_input["email"];
+    $user->password = @$user_input["password"];
+    $user->how_hear = @$user_input["how_hear"];
+
+    $vendor = new Vendor(Input::get('vendor') ?: array());
+
+    if ($user->validator()->passes() && $vendor->validator()->passes()) {
+      $user->save();
+      $vendor->user_id = $user->id;
+      $vendor->save();
+      Mailer::send("NewVendorRegistered", array("user" => $user));
+      $user = User::find($user->id);
+      return Response::json(User::to_array_for_vendor($user));
+    } else {
+      $errors = array_merge($user->validator()->errors->all(), $vendor->validator()->errors->all());
+      return Response::json($errors, '400');
+    }
+
+  }
+
 }
 
 Route::filter('auth_with_key_vendor', function() {

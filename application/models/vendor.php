@@ -18,7 +18,8 @@ class Vendor extends Eloquent {
   public function validator() {
     if ($this->validator) return $this->validator;
 
-    $rules = array('company_name' => 'required',
+    $rules = array('more_info' => 'required',
+                   'company_name' => 'required',
                    'contact_name' => 'required',
                    'address' => 'required',
                    'city' => 'required',

@@ -248,7 +248,7 @@ class User extends Eloquent {
     self::$hidden = array('encrypted_password', 'reset_password_token', 'reset_password_sent_at',
                           'current_sign_in_at', 'last_sign_in_at', 'current_sign_in_ip',
                           'last_sign_in_ip', 'new_email', 'new_email_confirm_token',
-                          'invited_by', 'banned_at', 'api_key');
+                          'invited_by', 'banned_at');
 
     $return_array = $model->to_array();
 
