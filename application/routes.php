@@ -138,22 +138,22 @@ Route::group(array('https' => (preg_match('/https/', Config::get('application.ur
   |--------------------------------------------------------------------------
   */
 
-  Route::get('api/projects', array('uses' => 'api@get_projects'));
-  Route::get('api/projects/(:num)', array('uses' => 'api@get_project'));
+  Route::get('api/v1/projects', array('uses' => 'api@get_projects'));
+  Route::get('api/v1/projects/(:num)', array('uses' => 'api@get_project'));
 
-  Route::get('api/projects/(:num)/questions', array('uses' => 'api@get_project_questions'));
-  Route::post('api/projects/(:num)/questions', array('uses' => 'api@post_project_question'));
+  Route::get('api/v1/projects/(:num)/questions', array('uses' => 'api@get_project_questions'));
+  Route::post('api/v1/projects/(:num)/questions', array('uses' => 'api@post_project_question'));
 
-  Route::get('api/bids', array('uses' => 'api@get_my_bids'));
-  Route::get('api/projects/(:num)/bid', array('uses' => 'api@get_my_bid'));
-  Route::delete('api/projects/(:num)/bid', array('uses' => 'api@delete_my_bid'));
+  Route::get('api/v1/bids', array('uses' => 'api@get_my_bids'));
+  Route::get('api/v1/projects/(:num)/bid', array('uses' => 'api@get_my_bid'));
+  Route::delete('api/v1/projects/(:num)/bid', array('uses' => 'api@delete_my_bid'));
 
-  Route::get('api/notifications', array('uses' => 'api@get_my_notifications'));
-  Route::put('api/notifications/(:num)', array('uses' => 'api@update_notification'));
+  Route::get('api/v1/notifications', array('uses' => 'api@get_my_notifications'));
+  Route::put('api/v1/notifications/(:num)', array('uses' => 'api@update_notification'));
 
-  Route::get('api/account', array('uses' => 'api@get_my_account'));
-  Route::post('api/account', array('uses' => 'api@create_account'));
-  Route::put('api/account', array('uses' => 'api@update_my_account'));
+  Route::get('api/v1/account', array('uses' => 'api@get_my_account'));
+  Route::post('api/v1/account', array('uses' => 'api@create_account'));
+  Route::put('api/v1/account', array('uses' => 'api@update_my_account'));
 
 });
 
