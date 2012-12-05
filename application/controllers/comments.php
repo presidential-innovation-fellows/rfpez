@@ -5,6 +5,8 @@ class Comments_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
+    $this->filter('before', 'officer_only');
+
     $this->filter('before', 'project_exists');
 
     $this->filter('before', 'i_am_collaborator');
