@@ -7,16 +7,6 @@
   <?php echo Helper::datum("Portfolio", $vendor->portfolio_url, true); ?>
   <?php echo Helper::datum("Source code", $vendor->sourcecode_url, true); ?>
   <div class="datum">
-    <label>SAM.gov</label>
-    <div class="content">
-      <?php if ($vendor->sam_entity_name): ?>
-        <span class="green">Yes, under "<?php echo e($vendor->sam_entity_name); ?>"</span>
-      <?php else: ?>
-        <span class="red">No</span>
-      <?php endif; ?>
-    </div>
-  </div>
-  <div class="datum">
     <label>DSBS</label>
     <div class="content">
       <?php if ($vendor->dsbs_name): ?>

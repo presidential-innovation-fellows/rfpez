@@ -128,7 +128,7 @@ class Vendor extends Eloquent {
 Event::listen('eloquent.saving: Vendor', function($model){
   if ($model->duns && ($model->changed('duns') || ($model->duns && (!$model->sam_entity_name || !$model->dsbs_user_id)))) {
     $model->sync_with_dsbs();
-    $model->sync_with_sam();
+    // $model->sync_with_sam(); scraper is currently broken
     $model->sync_with_epls();
   }
 
