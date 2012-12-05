@@ -2761,6 +2761,14 @@ footer.footer {
   padding: 30px 0;
   border-top: 1px solid #e5e5e5;
 }
+footer.footer p.help {
+  font-size: 20px;
+  color: #666;
+  margin-bottom: 20px;
+}
+footer.footer p.help a {
+  color: #666;
+}
 footer.footer ul {
   margin: 20px 0 0 0;
 }

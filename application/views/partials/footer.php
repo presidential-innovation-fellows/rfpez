@@ -1,5 +1,6 @@
 <footer class="footer">
   <div class="container">
+    <p class="help"><?php echo __('r.partials.footer.help'); ?></p>
     <p><?php echo __('r.partials.footer.text'); ?></p>
     <ul>
       <li>
