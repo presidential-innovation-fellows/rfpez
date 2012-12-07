@@ -373,7 +373,7 @@ class Project extends Eloquent {
 
     return Notification::where(function($query){
                     $query->where('payload_type', '=', 'bid');
-                    $query->where_in('payload_id', $this->bids()->lists('id'));
+                    $query->where_in('payload_id', $this->bids()->lists('id') ?: array(''));
                 })->or_where(function($query)use($project){
                   $query->where('payload_type', '=', 'project');
                   $query->where('payload_id', '=', $project->id);
