@@ -386,7 +386,7 @@ class Project extends Eloquent {
     $comments = array_map(function($m) { return $m->to_array(); }, $this->comments);
     $notifications = array_map(function($m) { return $m->to_array(); }, $this->notifications());
 
-    $return_array = $comments + $notifications;
+    $return_array = array_merge($comments, $notifications);
 
     usort($return_array, function($a, $b){
       // oldest first
