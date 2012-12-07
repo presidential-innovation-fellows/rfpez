@@ -8,7 +8,7 @@ RFP-EZ is working to create a streamlined process for the federal government to 
 
 ## Setting up your development environment
 
-##### 1. Grab the code 
+##### 1. Grab the code
 `git clone git://github.com/presidential-innovation-fellows/rfpez.git`
 
 ##### 2. Install dependencies
@@ -19,25 +19,8 @@ RFP-EZ is working to create a streamlined process for the federal government to 
 
 ##### 3. Configure your local database
 - Create an empty MySQL database named "rfpez" (or whatever your heart desires)
-- Create a file at `application/config/local/database.php` with the following contents:
-
-```php
-<?php
-
-return array(
-  'connections' => array(
-    'mysql' => array(
-      'driver'   => 'mysql',
-      'host'     => 'your database host',
-      'database' => 'your database name',
-      'username' => 'your mysql username',
-      'password' => 'your mysql password',
-      'charset'  => 'utf8',
-      'prefix'   => '',
-    )
-  )
-);
-```
+- Copy the `application/config/local_example` directory to `application/config/local` (which will be .gitignore'd)
+- Enter your database credentials in `application/config/local/database.php`
 - Install the Laravel migrations table: `php artisan migrate:install --env=local`
 - Give yourself some seed data: `php artisan seed --env=local`
 
