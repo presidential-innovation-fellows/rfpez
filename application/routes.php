@@ -1,6 +1,6 @@
 <?php
 
-Route::group(array('https' => (preg_match('/https/', Config::get('application.url')) ? true : false)), function(){
+Route::group(array('https' => true), function(){
 
   Route::get('/', array('uses' => 'home@index', 'as' => 'root'));
 
@@ -185,9 +185,6 @@ Event::listen('500', function()
 */
 
 Route::filter('before', function() {
-  if (preg_match('/https/', Config::get('application.url')) && (!Request::secure()))
-   return Redirect::to_secure(URI::current());
-
   // Do stuff before every request to your application...
   if (Auth::user() && Auth::user()->banned_at) {
     Auth::logout();
