@@ -67,6 +67,11 @@ class Users_Controller extends Base_Controller {
 
   public function action_post_account() {
 
+    $user = Auth::user();
+    $user_input = Input::get('user');
+    $user->send_emails = (isset($user_input["send_emails"]) ? true : false);
+    $user->save();
+
     if ($vendor = Auth::user()->vendor) {
 
       $vendor->fill(Input::get('vendor'));

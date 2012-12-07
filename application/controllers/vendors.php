@@ -21,6 +21,7 @@ class Vendors_Controller extends Base_Controller {
     $user->email = $user_input["email"];
     $user->password = $user_input["password"];
     $user->how_hear = $user_input["how_hear"];
+    $user->send_emails = isset($user_input["send_emails"]) ? true : false;
 
     $vendor = new Vendor(Input::get('vendor'));
 

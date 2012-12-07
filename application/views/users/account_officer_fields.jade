@@ -6,6 +6,11 @@
   .control-group
     label Email
     input(type="text", name="user[email]", value="#{$user['email']}")
+
+    label.checkbox
+      | <input type="checkbox" name="user[send_emails]" #{isset($user['send_emails']) && !$user['send_emails'] ? '' : 'checked'} />
+      | Yes, email me with updates about EasyBid
+
 - else:
 
   label.larger #{Auth::user()->email}
@@ -15,6 +20,10 @@
     a.smaller(href="#{route('change_password')}") change password
 
   label.larger Role: #{$officer['role_text']}
+
+  label.checkbox
+    | <input type="checkbox" name="user[send_emails]" #{Auth::user()->send_emails ? 'checked' : ''} />
+    | Yes, email me with updates about EasyBid
 
 - endif;
 

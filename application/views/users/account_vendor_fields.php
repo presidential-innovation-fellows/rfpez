@@ -73,6 +73,12 @@
         <input type="text" name="user[email]" value="<?php echo e( isset($user) ? $user['email'] : '' ); ?>" />
       </div>
       <div class="control-group">
+        <label class="checkbox">
+          <input type="checkbox" name="user[send_emails]" <?php echo e(isset($user['send_emails']) && !$user['send_emails'] ? '' : 'checked'); ?> />
+          Send email updates about new projects open for bids
+        </label>
+      </div>
+      <div class="control-group">
         <label>Choose a Password</label>
         <input type="password" name="user[password]" />
       </div>
@@ -89,6 +95,12 @@
       <h5>Contact Info</h5>
     <?php endif; ?>
     <?php if (!$signup): ?>
+      <div class="control-group">
+        <label class="checkbox">
+          <input type="checkbox" name="user[send_emails]" <?php echo e(Auth::user()->send_emails ? 'checked' : ''); ?> />
+          Send email updates about new projects open for bids
+        </label>
+      </div>
       <div class="control-group">
         <label>Registered in SAM.gov?</label>
         <?php if ($vendor["sam_entity_name"]): ?>

@@ -69,6 +69,12 @@
       .control-group
         label Email
         input(type="text", name="user[email]", value="#{ isset($user) ? $user['email'] : '' }")
+
+      .control-group
+        label.checkbox
+          | <input type="checkbox" name="user[send_emails]" #{isset($user['send_emails']) && !$user['send_emails'] ? '' : 'checked'} />
+          | Send email updates about new projects open for bids
+
       .control-group
         label Choose a Password
         input(type="password", name="user[password]")
@@ -87,6 +93,12 @@
     - endif;
 
     - if (!$signup):
+
+      .control-group
+        label.checkbox
+          | <input type="checkbox" name="user[send_emails]" #{Auth::user()->send_emails ? 'checked' : ''} />
+          | Send email updates about new projects open for bids
+
       .control-group
         label Registered in SAM.gov?
         - if ($vendor["sam_entity_name"]):
