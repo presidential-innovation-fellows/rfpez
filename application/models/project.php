@@ -131,7 +131,7 @@ class Project extends Eloquent {
   public function status() {
     if (!$this->posted_to_fbo_at) {
       return self::STATUS_WRITING_SOW;
-    } elseif (strtotime($this->proposals_due_at) > time() && !$this->winning_bid()) {
+    } elseif (new DateTime($this->proposals_due_at, new DateTimeZone('UTC')) > new DateTime('', new DateTimeZone('UTC')) && !$this->winning_bid()) {
       return self::STATUS_ACCEPTING_BIDS;
     } elseif (!$this->winning_bid()) {
       return self::STATUS_REVIEWING_BIDS;
@@ -421,7 +421,7 @@ class Project extends Eloquent {
 
   public static function open_projects() {
     return self::where_not_null('posted_to_fbo_at')
-               ->where('proposals_due_at', '>', new \DateTime);
+               ->where('proposals_due_at', '>', new \DateTime("", new DateTimeZone('UTC')));
   }
 
 }
