@@ -128,6 +128,7 @@ Route::group(array('https' => true), function(){
   Route::get('admin/vendors', array('uses' => 'admin@vendors', 'as' => 'admin_vendors'));
   Route::get('admin/vendors/(:num)/ban', array('uses' => 'admin@ban_vendor', 'as' => 'admin_ban_vendor'));
   Route::get('admin/projects', array('uses' => 'admin@projects', 'as' => 'admin_projects'));
+  Route::get('admin/emails', array('uses' => 'admin@emails', 'as' => 'admin_emails'));
 
 });
 

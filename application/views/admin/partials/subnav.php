@@ -12,6 +12,9 @@
         <a href="<?php echo e(route('admin_vendors')); ?>">Vendors</a>
       </li>
       <?php if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)): ?>
+        <li class="<?php echo e($current_page == 'emails' ? 'active' : ''); ?>">
+          <a href="<?php echo e(route('admin_emails')); ?>">Emails</a>
+        </li>
         <li class="<?php echo e($current_page == 'project_sections' ? 'active' : ''); ?>">
           <a href="<?php echo e(route('admin_project_sections')); ?>">Project Sections</a>
         </li>

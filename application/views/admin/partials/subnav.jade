@@ -13,5 +13,8 @@ h4 Admin Panel
         a(href="#{route('admin_vendors')}") Vendors
 
       - if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)):
+        li(class="#{$current_page == 'emails' ? 'active' : ''}")
+          a(href="#{route('admin_emails')}") Emails
+
         li(class="#{$current_page == 'project_sections' ? 'active' : ''}")
           a(href="#{route('admin_project_sections')}") Project Sections

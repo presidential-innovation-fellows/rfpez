@@ -9,7 +9,7 @@ class Admin_Controller extends Base_Controller {
 
     $this->filter('before', 'admin_only');
 
-    $this->filter('before', 'super_admin_only')->only(array('project_sections', 'ban_officer'));
+    $this->filter('before', 'super_admin_only')->only(array('project_sections', 'ban_officer', 'emails'));
   }
 
   public function action_index() {
@@ -61,6 +61,19 @@ class Admin_Controller extends Base_Controller {
     $project->recommended = $project->recommended == 1 ? 0 : 1;
     $project->save();
     return Redirect::back();
+  }
+
+  public function action_emails() {
+    $view = View::make('admin.emails');
+    $view->vendor_emails = Vendor::join('users', 'user_id', '=', 'users.id')
+                           ->where_null('banned_at')
+                           ->where('send_emails', '=', true)
+                           ->lists('email');
+    $view->officer_emails = Officer::join('users', 'user_id', '=', 'users.id')
+                           ->where_null('banned_at')
+                           ->where('send_emails', '=', true)
+                           ->lists('email');
+    $this->layout->content = $view;
   }
 
 }

@@ -1,0 +1,9 @@
+- Section::inject('no_page_header', true)
+
+!{View::make('admin.partials.subnav')->with('current_page', 'emails')}
+
+h5 Vendors
+p #{implode(', ', $vendor_emails)}
+
+h5 Officers
+p #{implode(', ', $officer_emails)}
