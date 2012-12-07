@@ -306,7 +306,8 @@ class Project extends Eloquent {
   }
 
   public function formatted_proposals_due_at() {
-    $dt = new \DateTime($this->get_attribute('proposals_due_at'));
+    $dt = new \DateTime($this->get_attribute('proposals_due_at'), new DateTimeZone('UTC'));
+    $dt->setTimeZone(new DateTimeZone('America/New_York'));
     return $dt->format('n/d/y');
   }
 
@@ -394,25 +395,6 @@ class Project extends Eloquent {
 
     // this could get unruly with a really big project
     return $json ? json_encode($return_array) : $return_array;
-  }
-
-  //////////// OVERRIDE SETTER FOR PROPOSALS_DUE_AT ////////////
-
-  public function set_proposals_due_at($val) {
-
-    // if not valid, set to a month from now
-    if (is_string($val) && !strtotime($val)) {
-      $dt = new \DateTime;
-      $this->set_attribute('proposals_due_at', $dt->modify('+1 month')->setTime(23, 59, 59));
-
-    } elseif (is_string($val)) {
-      $dt = new \DateTime;
-      $dt->setTimestamp(strtotime($val));
-      $this->set_attribute('proposals_due_at', $dt);
-
-    } else {
-      $this->set_attribute('proposals_due_at', $val);
-    }
   }
 
   //////////// GETTERS AND SETTERS FOR SERIALIZED FIELDS ////////////

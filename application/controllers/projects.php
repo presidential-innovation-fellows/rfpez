@@ -81,6 +81,8 @@ class Projects_Controller extends Base_Controller {
     $project = new Project($project_input);
 
     $dt = new \DateTime($project_input["proposals_due_at"] . " 23:59:59", new DateTimeZone('America/New_York'));
+    // if user doesn't specify a date, set it to 1 month from now
+    if (!$project_input["proposals_due_at"]) $dt->modify('+1 month');
     $dt->setTimeZone(new DateTimeZone('UTC'));
     $project->proposals_due_at = $dt;
 
