@@ -10,7 +10,7 @@
     <?php echo View::make('projects.partials.full_sow')->with('project', $project); ?>
   </div>
   <div class="span5 offset1">
-    <h5>Bids due in <?php echo e(RelativeTime::format($project->proposals_due_at)); ?></h5>
+    <h5>Bids due <?php echo Helper::timeago($project->proposals_due_at); ?></h5>
     <?php if (Auth::vendor()): ?>
       <?php if ($bid = $project->my_current_bid()): ?>
         <a class="btn btn-small btn-primary" href="<?php echo e(route('bid', array($project->id, $bid->id))); ?>">View my bid</a>

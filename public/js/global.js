@@ -3306,7 +3306,7 @@ $.format = $.validator.format;
   $.extend($.timeago, {
     settings: {
       refreshMillis: 60000,
-      allowFuture: false,
+      allowFuture: true,
       strings: {
         prefixAgo: null,
         prefixFromNow: null,

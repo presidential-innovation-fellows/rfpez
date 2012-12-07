@@ -9,7 +9,7 @@
     <td>
       <div class="line1"><?= $parsed["line1"] ?></div>
       <div class="line2"><?= $parsed["line2"] ?></div>
-      <div class="timestamp"><?= RelativeTime::format($notification->created_at) ?></div>
+      <div class="timestamp"><?= Helper::timeago($notification->created_at) ?></div>
     </td>
   </tr>
 </tbody>
