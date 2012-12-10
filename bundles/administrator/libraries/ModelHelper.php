@@ -10,38 +10,19 @@ class ModelHelper {
 
 
 	/**
-	 * List of possible field types in the edit array. this will grow to be more complex in time...
-	 */
-	static $fieldTypes = array('text', 'relation', 'currency', 'date', 'time', 'datetime' );
-
-	/**
-	 * List of possible field types in the edit array. this will grow to be more complex in time...
-	 */
-	static $relationshipTypes = array('relation_belongs_to', 'relation_has_one', 'relation_has_many', 'relation_has_many_and_belongs_to');
-
-	/**
-	 * List of fields that are min/max filter types
-	 */
-	static $minMaxTypes = array('currency', 'date', 'datetime', 'time');
-
-	/**
-	 * List of possible related object class names
-	 */
-	static $relationshipBase = 'Laravel\\Database\\Eloquent\\Relationships\\';
-
-
-	/**
 	 * Gets an instance of the supplied model given the id
 	 *
 	 * @param string	$modelName
 	 * @param id		$id
+	 * @param bool		$updateRelationships	//if this is true, the model will come back with an extra "[field]_options" attribute
+	 *												for relationships
 	 *
 	 * @return object|null	$model
 	 * object with data => if the id exists
 	 * new object => if id doesn't exist
 	 * null => if there is no model by that name
 	 */
-	public static function getModel($modelName, $id = false)
+	public static function getModel($modelName, $id = false, $updateRelationships = false)
 	{
 		//first instantiate a blank version of this object
 		$classname = Config::get('administrator::administrator.models.'.$modelName.'.model', '');
@@ -54,7 +35,9 @@ class ModelHelper {
 		//get an empty model to work with and its included columns
 		$emptyModel = static::getModelInstance($modelName);
 		$columns = Column::getColumns($emptyModel);
-		$editFields = Field::getEditFields($emptyModel);
+
+		//if we're getting an existing model, we'll want to first get the edit fields without the relationships loaded
+		$editFields = Field::getEditFields($emptyModel, ($id ? false : true));
 
 		//make sure the edit fields are included
 		foreach ($editFields['objectFields'] as $field => $obj)
@@ -67,12 +50,13 @@ class ModelHelper {
 
 		//get the model
 		$model = $classname::find($id, $columns['includedColumns']);
+		$model = $model ? $model : $emptyModel;
 
-		if (!$model)
-		{
-			$model = $emptyModel;
-		}
-		else if ($model->exists)
+		//now we get the edit fields with the relationships loaded
+		$editFields = Field::getEditFields($model);
+
+		//if the model exists, load up the existing related items
+		if ($model->exists)
 		{
 			//make sure the relationships are loaded
 			foreach ($editFields['objectFields'] as $field => $info)
@@ -87,6 +71,7 @@ class ModelHelper {
 						//iterate over the items
 						foreach ($relatedItems as $item)
 						{
+
 							//if this is a mutliple-value type (i.e. HasMany, HasManyAndBelongsTo), make sure this is an array
 							if ($info->multipleValues)
 							{
@@ -94,7 +79,7 @@ class ModelHelper {
 							}
 							else
 							{
-								$model->{$field} = $item->{$item::$key};
+								$model->set_attribute($field, $item->{$item::$key});
 							}
 						}
 
@@ -104,6 +89,20 @@ class ModelHelper {
 							$model->{$field} = $relationsArray;
 						}
 
+						//set the options attribute if $updateRelationships is true
+						if ($updateRelationships)
+						{
+							$model->set_attribute($field.'_options', $info->options);
+
+							//unset the relationships so we only get back what we need
+							$model->relationships = array();
+
+							//include the item link if one exists
+							if (method_exists($model, 'create_link'))
+							{
+								$model->set_attribute('admin_item_link', $model->create_link());
+							}
+						}
 					}
 				}
 			}
@@ -132,6 +131,21 @@ class ModelHelper {
 		{
 			return null;
 		}
+	}
+
+	/**
+	 * Checks if a user has permission to access a model
+	 *
+	 * @param string	$modelName
+	 *
+	 * @return bool
+	 */
+	public static function checkPermission($modelName)
+	{
+		//grab the config item if it exists
+		$permissionCheck = Config::get('administrator::administrator.models.'.$modelName.'.permission_check', false);
+
+		return $permissionCheck && !$permissionCheck() ? false : true;
 	}
 
 	/**
@@ -173,6 +187,33 @@ class ModelHelper {
 
 		//then delete the model
 		return $model->delete();
+	}
+
+	/**
+	 * Gets the expand width for the model
+	 *
+	 * @param object		$model
+	 *
+	 * @return int
+	 */
+	public static function getExpandWidth(&$model)
+	{
+		$defaultWidth = 285;
+
+		//check if the expand property is set
+		if (isset($model->expand))
+		{
+			if ($model->expand === true)
+			{
+				return 500;
+			}
+			else if (is_int($model->expand) && $model->expand > $defaultWidth)
+			{
+				return $model->expand;
+			}
+		}
+
+		return $defaultWidth;
 	}
 
 	/**
@@ -281,14 +322,18 @@ class ModelHelper {
 		//then wrap the inner table and perform the count
 		$sql = "SELECT COUNT({$model::$key}) AS aggregate FROM ({$sql}) AS agg";
 
-		//then perform the
+		//then perform the count query
 		$results = $query->table->connection->query($sql, $query->table->bindings);
 		$num_rows = $results[0]->aggregate;
 		$page = (int) \Input::get('page', 1);
+		$last = (int) ceil($num_rows/$per_page);
+
+		//if the current page is greater than the last page, set the current page to the last page
+		$page = $page > $last ? $last : $page;
 
 		//now we need to limit and offset the rows in remembrance of our dear lost friend paginate()
 		$query->take($per_page);
-		$query->skip($per_page * ($page - 1));
+		$query->skip($per_page * ($page === 0 ? $page : $page - 1));
 
 		//order the set by the model table's id
 		$query->order_by($sort->field, $sort->direction);
@@ -320,7 +365,7 @@ class ModelHelper {
 
 		return array(
 			'page' => $page,
-			'last' => ceil($num_rows/$per_page),
+			'last' => $last,
 			'total' => $num_rows,
 			'results' => $results,
 		);
@@ -370,5 +415,86 @@ class ModelHelper {
 				$info->fillModel($model, \Input::get($field, NULL));
 			}
 		}
+	}
+
+	/**
+	 * Given a model, field, type (filter or edit), and search term, this returns an array of arrays with 'id' and 'name'
+	 *
+	 * @param Eloquent		$model
+	 * @param string		$field
+	 * @param string		$type			//either 'filter' or 'edit'
+	 * @param array|false	$selectedItems	//an array of ids of currently-selected items (necessary to maintain selections)
+	 * @param string		$term			//the search term
+	 *
+	 * @return array
+	 */
+	public static function getRelationshipSuggestions($model, $field, $type, $selectedItems, $term)
+	{
+		//first get the related model
+		$related_model = $model->{$field}()->model;
+		$info = false;
+
+		//now we can sort out what the actual field info is
+		if ($type === 'filter')
+		{
+			$fields = static::getFilters($model);
+		}
+		else
+		{
+			$editFields = Field::getEditFields($model);
+			$fields = $editFields['arrayFields'];
+		}
+
+		//iterate over the fields to get the one for this $field value
+		foreach ($fields as $key => $val)
+		{
+			if ($key === $field)
+			{
+				$info = $val;
+			}
+		}
+
+		//if we can't find the field, return an empty array
+		if (!$info)
+		{
+			return array();
+		}
+
+		//set up the field object
+		$info = Field::get($field, $info, $model, false);
+
+		//now we can start to set up the query
+		$query = new \Laravel\Database\Eloquent\Query($related_model);
+
+		//set up the wheres
+		foreach ($info->searchFields as $search)
+		{
+			$query->or_where(DB::raw($search), 'LIKE', '%'.$term.'%');
+		}
+
+		//include the currently-selected items
+		if ($selectedItems)
+		{
+			//if this isn't an array, set it up as one
+			$selectedItems = is_array($selectedItems) ? $selectedItems : array($selectedItems);
+
+			$query->or_where_in($related_model::$key, $selectedItems);
+		}
+		else
+		{
+			$selectedItems = array();
+		}
+
+		//set up the limits
+		$query->take($info->numOptions + count($selectedItems));
+
+		//return the array map based on the result set
+		return array_map(function($m) use ($info, $field, $related_model)
+		{
+			return array(
+				$related_model::$key => $m->{$related_model::$key},
+				$info->nameField => $m->{$info->nameField},
+			);
+		}, $query->get());
 	}
 }

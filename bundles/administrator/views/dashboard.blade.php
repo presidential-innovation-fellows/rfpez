@@ -1,7 +1,14 @@
 <div id="dashboard">
-	<h2>WARNING!</h2>
+	<h2>Dashboard</h2>
 
-	<p>
-    Dragons lie ahead. This is essentially just a glorified SQL admin interface, so be <em>super careful</em> what you do here.
-  </p>
+	<ul class="models">
+		@foreach (Config::get('administrator::administrator.models') as $key => $model)
+			@if (Admin\Libraries\ModelHelper::checkPermission($key))
+				<?php $key = is_numeric($key) ? $model : $key; ?>
+				<li>
+					{{ HTML::link(URL::to_route('admin_index', array($key)), $model['title']) }}
+				</li>
+			@endif
+		@endforeach
+	</ul>
 </div>

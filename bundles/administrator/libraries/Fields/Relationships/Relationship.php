@@ -63,6 +63,27 @@ abstract class Relationship extends Field {
 	public $options = array();
 
 	/**
+	 * If this is true, the field will start with no options and be an autocomplete
+	 *
+	 * @var bool
+	 */
+	public $autocomplete = false;
+
+	/**
+	 * The number of options to display to a user when the autocomplete is turned on
+	 *
+	 * @var int
+	 */
+	public $numOptions = 10;
+
+	/**
+	 * The search fields on the other table to look for when autocomplete is on. If left empty, default is the name_field
+	 *
+	 * @var array
+	 */
+	public $searchFields = array();
+
+	/**
 	 * Constructor function
 	 *
 	 * @param string|int	$field
@@ -77,15 +98,32 @@ abstract class Relationship extends Field {
 		$relationship = $model->{$field}();
 
 		//get the name field option
-		$this->nameField = $info['name_field'] = array_get($info, 'name_field', $this->nameField);
+		$this->nameField = array_get($info, 'name_field', $this->nameField);
+		$this->autocomplete = array_get($info, 'autocomplete', $this->autocomplete);
+		$this->numOptions = array_get($info, 'num_options', $this->numOptions);
+		$this->searchFields = array_get($info, 'search_fields', array($this->nameField));
 
+		//if we want all of the possible items on the other model, load them up, otherwise leave the options empty
+		$options = array();
+
+		if (array_get($info, 'load_relationships', false))
+		{
+			$options = $relationship->model->all();
+		}
+		//otherwise if there are relationship items, we need them in the initial options list
+		else if ($relationshipItems = $relationship->get())
+		{
+			$options = $relationshipItems;
+		}
+
+		//map the options to the options property where array([key]: int, [name_field]: string)
 		$this->options = array_map(function($m) use ($info, $model)
 		{
 			return array(
-				$model::$key => $m->{$model::$key},
+				$m::$key => $m->{$m::$key},
 				$info['name_field'] => $m->{$info['name_field']},
 			);
-		}, $relationship->model->all());
+		}, $options);
 	}
 
 	/**
@@ -99,8 +137,12 @@ abstract class Relationship extends Field {
 
 		$arr['table'] = $this->table;
 		$arr['column'] = $this->column;
+		$arr['foreignKey'] = $this->foreignKey;
 		$arr['name_field'] = $this->nameField;
 		$arr['options'] = $this->options;
+		$arr['autocomplete'] = $this->autocomplete;
+		$arr['num_options'] = $this->numOptions;
+		$arr['search_fields'] = $this->searchFields;
 
 		return $arr;
 	}

@@ -8,7 +8,7 @@
 
 	<!--styles -->
 	{{ Asset::container('container')->styles() }}
-
+	
 	<!-- Soporte para IE6-8 de elementos HTML5 -->
 	<!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -23,11 +23,11 @@
 <body>
 	<div class="row-fluid">
 		<div id="wrapper">
-
+			
 			@include('administrator::partials.header')
-
+			
 			{{ $content }}
-
+			
 			@include('administrator::partials.footer')
 		</div>
 	</div>
