@@ -7,6 +7,13 @@
   </div>
   <div class="span6">
     <h5>New Bid</h5>
+    <div class="alert alert-success">
+      <p>
+        <strong>Eligibility:
+</strong>
+        This project is reserved for small businesses. In this case, the government defines small as having annual revenues of less than <strong>$<?php echo e(intval($project->project_type->threshold)); ?> million<strong>.
+      </p>
+    </div>
     <form class="new-bid-form" action="<?php echo e( route('bids', array($project->id)) ); ?>" method="POST">
       <input type="hidden" name="submit_now" value="true" />
       <?php $draft = $project->my_current_bid_draft() ?>
@@ -102,10 +109,6 @@
         </tbody>
       </table>
       <div class="form-actions">
-        <p>
-          <?php setlocale(LC_MONETARY, 'en_US'); ?>
-          <em>By submitting this bid, you certify that your company makes less than <?php echo e(money_format('%n', 1000000 * $project->project_type->threshold)); ?> in revenue per year.</em>
-        </p>
         <button class="btn btn-primary" type="submit">Submit Bid</button>
         <a id="save-draft-button" class="btn" data-loading-text="All Changes Saved">Save Draft</a>
         <span class="help-inline"><?php echo e(__("r.bids.new.no_edit_warning")); ?></span>
