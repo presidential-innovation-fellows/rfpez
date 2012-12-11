@@ -32,6 +32,10 @@ class ProjectType extends Eloquent {
     }
   }
 
+  public function get_threshold() {
+    return $this->get_attribute('threshold') ?: 7;
+  }
+
   public static function defaults() {
     return self::where_show_in_list(true)->get();
   }
