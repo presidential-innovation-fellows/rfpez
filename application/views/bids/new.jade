@@ -96,6 +96,9 @@
                 a#add-deliverable-button.btn.btn-mini Add Custom Deliverable
 
       .form-actions
+        p
+          - setlocale(LC_MONETARY, 'en_US');
+          em By submitting this bid, you certify that your company makes less than #{money_format('%n', 1000000 * $project->project_type->threshold)} in revenue per year.
         button.btn.btn-primary(type="submit") Submit Bid
         a.btn#save-draft-button(data-loading-text="All Changes Saved") Save Draft
         span.help-inline #{__("r.bids.new.no_edit_warning")}

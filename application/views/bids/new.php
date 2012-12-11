@@ -102,6 +102,10 @@
         </tbody>
       </table>
       <div class="form-actions">
+        <p>
+          <?php setlocale(LC_MONETARY, 'en_US'); ?>
+          <em>By submitting this bid, you certify that your company makes less than <?php echo e(money_format('%n', 1000000 * $project->project_type->threshold)); ?> in revenue per year.</em>
+        </p>
         <button class="btn btn-primary" type="submit">Submit Bid</button>
         <a id="save-draft-button" class="btn" data-loading-text="All Changes Saved">Save Draft</a>
         <span class="help-inline"><?php echo e(__("r.bids.new.no_edit_warning")); ?></span>
