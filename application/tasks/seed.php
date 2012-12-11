@@ -44,13 +44,19 @@ class Seed_Task {
     Service::create(array('name' => 'Video Production', 'description' => 'Your make great online videos'));
     Service::create(array('name' => 'Video Transcription', 'description' => 'You write transcripts of videos.'));
 
-
     // Create project types
-    $pt1 = ProjectType::create(array('name' => 'Website Design', 'naics' => 541092));
-    $api_project_type = ProjectType::create(array('name' => 'API Design and Development', 'naics' => 541093));
-    $pt2 = ProjectType::create(array('name' => 'Content Management System Integration', 'naics' => 541094));
+    $project_types = array();
 
-    foreach (array($pt1, $api_project_type, $pt2) as $project_type) {
+    $project_types[] = ProjectType::create(array('name' => 'Web Design', 'naics' => 541430));
+    $project_types[] = ProjectType::create(array('name' => 'Web Development', 'naics' => 541511));
+    $project_types[] = ProjectType::create(array('name' => 'Content Management', 'naics' => 541511));
+    $project_types[] = ProjectType::create(array('name' => 'Social Media Marketing','naics' => 541511));
+    $project_types[] = ProjectType::create(array('name' => 'Search Engine Optimization', 'naics' => 541511));
+    $project_types[] = ProjectType::create(array('name' => 'Mobile Application Development', 'naics' => 541511));
+    $project_types[] = ProjectType::create(array('name' => 'Video Production', 'naics' => 512110));
+    $project_types[] = ProjectType::create(array('name' => 'Video Transcription', 'naics' => 561410));
+
+    foreach ($project_types as $project_type) {
       $project_type->show_in_list = true;
       $project_type->save();
     }
@@ -61,7 +67,7 @@ class Seed_Task {
     for ($i = 0; $i < 5; $i++) Factory::vendor();
     for ($i = 0; $i < 5; $i++) Factory::officer();
 
-    $api_project_type = ProjectType::where_name('API Design and Development')->first();
+    $project_type_1 = ProjectType::first();
 
     // Create project sections
     $section1 = ProjectSection::create(array('section_category' => 'Deliverables',
@@ -80,10 +86,10 @@ class Seed_Task {
                                              'body' => $faker->paragraph));
 
     // Link project sections to api project type
-    $api_project_type->project_sections()->sync(array($section1->id, $section2->id, $section3->id));
+    $project_type_1->project_sections()->sync(array($section1->id, $section2->id, $section3->id));
 
     // Create first project
-    $project = new Project(array('project_type_id' => $api_project_type->id,
+    $project = new Project(array('project_type_id' => $project_type_1->id,
                                      'title' => 'API for SBA.gov Dynamic Small Business Search',
                                      'agency' => 'Small Business Administration',
                                      'office' => 'Office of Innovation and Research',
