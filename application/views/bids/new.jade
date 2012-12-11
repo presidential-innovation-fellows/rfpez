@@ -13,9 +13,8 @@
     h5 New Bid
 
     .alert.alert-success
-      p
-        strong Eligibility:
-        | This project is reserved for small businesses. In this case, the government defines small as having annual revenues of less than <strong>$#{intval($project->project_type->threshold)} million<strong>.
+      strong Eligibility:
+      | This project is reserved for small businesses. In this case, the government defines small as having annual revenues of less than <strong>$#{intval($project->project_type->threshold)} million</strong>.
 
     form.new-bid-form(action="#{ route('bids', array($project->id)) }", method="POST")
 

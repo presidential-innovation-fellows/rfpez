@@ -63,7 +63,7 @@
         </div>
       <?php endif; ?>
       <?php if (Session::has('notice')): ?>
-        <div class="alert alert-success">
+        <div class="alert alert-success alert-bigger">
           <?php echo e(Session::get('notice')); ?>
           <button type="button" class="close" data-dismiss="alert">×</button>
         </div>
