@@ -8,11 +8,9 @@
   <div class="span6">
     <h5>New Bid</h5>
     <div class="alert alert-success">
-      <p>
-        <strong>Eligibility:
+      <strong>Eligibility:
 </strong>
-        This project is reserved for small businesses. In this case, the government defines small as having annual revenues of less than <strong>$<?php echo e(intval($project->project_type->threshold)); ?> million<strong>.
-      </p>
+      This project is reserved for small businesses. In this case, the government defines small as having annual revenues of less than <strong>$<?php echo e(intval($project->project_type->threshold)); ?> million</strong>.
     </div>
     <form class="new-bid-form" action="<?php echo e( route('bids', array($project->id)) ); ?>" method="POST">
       <input type="hidden" name="submit_now" value="true" />

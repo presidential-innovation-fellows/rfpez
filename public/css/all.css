@@ -2419,7 +2419,7 @@ body.super-admin .super-admin-only {
 .control-group p {
   margin-top: 5px;
 }
-.alert.alert-success {
+.alert.alert-bigger {
   padding-top: 20px;
   padding-bottom: 20px;
 }

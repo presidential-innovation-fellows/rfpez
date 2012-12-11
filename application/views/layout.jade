@@ -83,7 +83,7 @@ body(class="#{$body_class}", data-current-page="#{Section::yield('current_page')
       - endif;
 
       - if (Session::has('notice')):
-        .alert.alert-success #{Session::get('notice')}
+        .alert.alert-success.alert-bigger #{Session::get('notice')}
           button(type="button", class="close", data-dismiss="alert") ×
       - endif;
 
