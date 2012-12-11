@@ -17,7 +17,7 @@
       <?php elseif ($bid = $project->my_current_bid_draft()): ?>
         <a class="btn btn-success" href="<?php echo e(route('new_bids', array($project->id))); ?>">Continue Writing Bid</a>
       <?php else: ?>
-        <a class="btn btn-success" href="<?php echo e(route('new_bids', array($project->id))); ?>">Bid on this Contract</a>
+        <a class="btn btn-success" href="<?php echo e(route('new_bids', array($project->id))); ?>">Bid on this Project</a>
       <?php endif; ?>
     <?php endif; ?>
     <div class="no-auth-only">
@@ -51,12 +51,16 @@
         <?php endif; ?>
       </div>
       <div class="vendor-only">
-        <h4>Ask a question about this project</h4>
-        <form id="ask-question-form" action="<?php echo e(route('questions')); ?>" method="post">
-          <input type="hidden" name="project_id" value="<?php echo e($project->id); ?>" />
-          <textarea name="question" placeholder="Type your question here"></textarea>
-          <button class="btn btn-primary btn-small" data-loading-text="Sending...">Submit Question</button>
-        </form>
+        <?php if ($project->question_period_is_open()): ?>
+          <h4>Ask a question about this project</h4>
+          <form id="ask-question-form" action="<?php echo e(route('questions')); ?>" method="post">
+            <input type="hidden" name="project_id" value="<?php echo e($project->id); ?>" />
+            <textarea name="question" placeholder="Type your question here"></textarea>
+            <button class="btn btn-primary btn-small" data-loading-text="Sending...">Submit Question</button>
+          </form>
+        <?php else: ?>
+          <p>Sorry, the Q+A period is over and no new questions can be asked.</p>
+        <?php endif; ?>
       </div>
     </div>
   </div>

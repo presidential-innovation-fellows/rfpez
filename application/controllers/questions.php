@@ -15,6 +15,11 @@ class Questions_Controller extends Base_Controller {
   }
 
   public function action_create() {
+    $project = Project::find(Input::get('project_id'));
+    if (!$project || !$project->question_period_is_open()) {
+      return Redirect::to_route('project', $project->id);
+    }
+
     $question = new Question(array('project_id' => Input::get('project_id'),
                                    'question' => Input::get('question')));
     $question->vendor_id = Auth::user()->vendor->id;

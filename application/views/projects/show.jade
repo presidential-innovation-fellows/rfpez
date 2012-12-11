@@ -55,9 +55,12 @@
           p.no-questions-asked !{__("r.projects.show.no_questions")}
 
       .vendor-only
-        h4 Ask a question about this project
-        form#ask-question-form(action="#{route('questions')}", id="ask-question-form", method="post")
-          input(type="hidden", name="project_id", value="#{$project->id}")
-          textarea(name="question", placeholder="Type your question here")
-          button.btn.btn-primary.btn-small(data-loading-text="Sending...") Submit Question
+        - if ($project->question_period_is_open()):
+          h4 Ask a question about this project
+          form#ask-question-form(action="#{route('questions')}", id="ask-question-form", method="post")
+            input(type="hidden", name="project_id", value="#{$project->id}")
+            textarea(name="question", placeholder="Type your question here")
+            button.btn.btn-primary.btn-small(data-loading-text="Sending...") Submit Question
+        - else:
+          p Sorry, the Q+A period is over and no new questions can be asked.
 

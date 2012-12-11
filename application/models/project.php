@@ -144,6 +144,11 @@ class Project extends Eloquent {
     return $this->status() == self::STATUS_ACCEPTING_BIDS;
   }
 
+  public function question_period_is_open() {
+    if (!$this->question_period_over_at) return true;
+    return new DateTime($this->question_period_over_at, new DateTimeZone('UTC')) > new DateTime('', new DateTimeZone('UTC'));
+  }
+
   public function status_text() {
     return self::status_to_text($this->status());
   }
@@ -303,6 +308,13 @@ class Project extends Eloquent {
     // @todo check that we're not adding or removing sections, just reordering them
     $this->sections = $new_order;
     $this->save();
+  }
+
+  public function formatted_question_period_over_at() {
+    if (!$this->get_attribute('question_period_over_at')) return false;
+    $dt = new \DateTime($this->get_attribute('question_period_over_at'), new DateTimeZone('UTC'));
+    $dt->setTimeZone(new DateTimeZone('America/New_York'));
+    return $dt->format('n/d/y');
   }
 
   public function formatted_proposals_due_at() {
