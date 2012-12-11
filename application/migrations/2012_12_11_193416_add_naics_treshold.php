@@ -10,7 +10,7 @@ class Add_Naics_Treshold {
 	public function up()
 	{
 		Schema::table('project_types', function($t){
-			$t->decimal('threshshold', 4, 2)->default(7);
+			$t->decimal('threshold', 4, 2)->default(7);
 		});
 	}
 
@@ -22,7 +22,7 @@ class Add_Naics_Treshold {
 	public function down()
 	{
 			Schema::table('project_types', function($t){
-				$t->drop_column('threshshold');
+				$t->drop_column('threshold');
 			});
 	}
 

@@ -47,14 +47,14 @@ class Seed_Task {
     // Create project types
     $project_types = array();
 
-    $project_types[] = ProjectType::create(array('name' => 'Web Design', 'naics' => 541430));
-    $project_types[] = ProjectType::create(array('name' => 'Web Development', 'naics' => 541511));
-    $project_types[] = ProjectType::create(array('name' => 'Content Management', 'naics' => 541511));
-    $project_types[] = ProjectType::create(array('name' => 'Social Media Marketing','naics' => 541511));
-    $project_types[] = ProjectType::create(array('name' => 'Search Engine Optimization', 'naics' => 541511));
-    $project_types[] = ProjectType::create(array('name' => 'Mobile Application Development', 'naics' => 541511));
-    $project_types[] = ProjectType::create(array('name' => 'Video Production', 'naics' => 512110));
-    $project_types[] = ProjectType::create(array('name' => 'Video Transcription', 'naics' => 561410));
+    $project_types[] = ProjectType::create(array('name' => 'Web Design', 'naics' => 541430, 'threshold' => 7));
+    $project_types[] = ProjectType::create(array('name' => 'Web Development', 'naics' => 541511, 'threshold' => 25.5));
+    $project_types[] = ProjectType::create(array('name' => 'Content Management', 'naics' => 541511, 'threshold' => 25.5));
+    $project_types[] = ProjectType::create(array('name' => 'Social Media Marketing','naics' => 541511, 'threshold' => 25.5));
+    $project_types[] = ProjectType::create(array('name' => 'Search Engine Optimization', 'naics' => 541511, 'threshold' => 25.5));
+    $project_types[] = ProjectType::create(array('name' => 'Mobile Application Development', 'naics' => 541511, 'threshold' => 25.5));
+    $project_types[] = ProjectType::create(array('name' => 'Video Production', 'naics' => 512110, 'threshold' => 29.5));
+    $project_types[] = ProjectType::create(array('name' => 'Video Transcription', 'naics' => 561410, 'threshold' => 7));
 
     foreach ($project_types as $project_type) {
       $project_type->show_in_list = true;

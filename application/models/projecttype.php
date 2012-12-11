@@ -6,7 +6,7 @@ class ProjectType extends Eloquent {
 
   public static $table = "project_types";
 
-  public static $accessible = array('name', 'naics');
+  public static $accessible = array('name', 'naics', 'threshold');
 
   public function projects() {
     return $this->has_many('Project');
