@@ -1,4 +1,4 @@
-<?php Section::inject('page_title', 'A Technology Marketplace That Everybody Loves') ?>
+<?php Section::inject('page_title', __('r.home.index_signed_out.site_tagline')) ?>
 <?php Section::inject('no_page_header', true) ?>
 <div class="hero-unit">
   <h1>
