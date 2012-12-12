@@ -47,6 +47,8 @@
           </tfoot>
         <?php endif; ?>
       </table>
+      <h5>Small Business Program Representations</h5>
+      <a href="<?php echo e(route('bid_sba_program_representations', array($bid->project->id, $bid->id))); ?>">Click to view</a>
     </div>
     <div class="span5 col2">
       <h5>

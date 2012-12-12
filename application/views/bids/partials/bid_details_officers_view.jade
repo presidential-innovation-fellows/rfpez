@@ -45,6 +45,9 @@
               td #{$bid->display_price()}
         - endif;
 
+      h5 Small Business Program Representations
+      a(href="#{route('bid_sba_program_representations', array($bid->project->id, $bid->id))}") Click to view
+
     .span5.col2
       h5 #{$bid->vendor->company_name}
         a(href="#{route('vendor', array($bid->vendor->id))}") (view profile)

@@ -2428,6 +2428,9 @@ body.super-admin .super-admin-only {
   color: #000;
   padding: 0.2em;
 }
+label.required {
+  font-weight: bold;
+}
 @media (max-width: 979px) {
   .hero-unit h1 small {
     display: block;

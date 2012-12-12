@@ -1,6 +1,6 @@
 update_vendor_image_preview = ->
   el = $(".vendor-image-url input")
-  frame = el.closest(".vendor-image-url").find(".vendor-image-preview-frame")
+  frame = $(".vendor-image-preview-frame")
   hideshow = $(".vendor-image-preview")
   imgval = el.val()
   $("#prev-img-btn").addClass('disabled')

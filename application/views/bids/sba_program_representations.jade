@@ -1,0 +1,7 @@
+- Section::inject('page_title', $bid->vendor->company_name)
+- Section::inject('page_action', 'Small Business Program Representations')
+- Section::inject('no_page_header', true)
+
+h4 #{$bid->vendor->company_name} - Small Business Program Representations
+
+pre !{View::make('bids.partials.sba_body')->with('bid', $bid)}

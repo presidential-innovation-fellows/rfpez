@@ -5,8 +5,9 @@ form#new-vendor-form(action="#{route('vendors')}", method="POST")
 
   !{View::make('users.account_vendor_fields')->with('vendor', Input::old('vendor'))->with('user', Input::old('user'))->with('services', Input::old('services'))->with('signup', true)}
 
+  h5 How did you hear about RFP-EZ?
+  .control-group
+    input.input-xlarge(type="text", name="user[how_hear]", value="")
+
   .form-actions
-    .control-group.form-inline
-      label How did you hear about RFP-EZ?
-      input.input-xlarge(type="text", name="user[how_hear]", value="")
     button.btn.btn-primary(type="submit") Create Profile

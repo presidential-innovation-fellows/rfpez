@@ -77,6 +77,8 @@ Route::group(array('https' => true), function(){
   Route::get('projects/(:num)/bids/(:num)/award', array('uses' => 'bids@award', 'as' => 'bid_award'));
   Route::get('projects/(:num)/bids/(:num)/star', array('uses' => 'bids@star', 'as' => 'bid_star'));
   Route::get('projects/(:num)/bids/(:num)/destroy', array('uses' => 'bids@destroy', 'as' => 'bid_destroy'));
+  Route::get('projects/(:num)/bids/(:num)/sba_program_representations', array('uses' => 'bids@sba_program_representations', 'as' => 'bid_sba_program_representations'));
+
   // Route::get('contracts/(:num)/bids/(:num)/sf1449.pdf', array('uses' => 'bids@sf1449', 'as' => 'bid_sf1449'));
 
 

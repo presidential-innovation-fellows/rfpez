@@ -6,7 +6,9 @@ class Vendor extends Eloquent {
 
   public static $accessible = array('company_name', 'contact_name', 'address', 'city', 'state', 'zip',
                                     'latitude', 'longitude', 'ballpark_price', 'more_info', 'homepage_url',
-                                    'image_url', 'portfolio_url', 'sourcecode_url', 'duns');
+                                    'image_url', 'portfolio_url', 'sourcecode_url', 'duns',
+                                    'sba_b2', 'sba_b3', 'sba_b4i', 'sba_b5i', 'sba_b6', 'sba_b7',
+                                    'sba_b8i', 'sba_b9');
 
   public static $ballpark_prices = array(1 => "$10,000 - $25,000",
                                          2 => "$25,000 - $50,000",

@@ -7873,7 +7873,7 @@ var update_vendor_image_preview, vendor_image_keydown;
 update_vendor_image_preview = function() {
   var el, frame, hideshow, img, imgval;
   el = $(".vendor-image-url input");
-  frame = el.closest(".vendor-image-url").find(".vendor-image-preview-frame");
+  frame = $(".vendor-image-preview-frame");
   hideshow = $(".vendor-image-preview");
   imgval = el.val();
   $("#prev-img-btn").addClass('disabled');

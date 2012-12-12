@@ -16,48 +16,28 @@
     h5 Work and Capabilities
 
     .control-group
-      label
-        strong Your company in 50 words or less
+      label.required Company Name
+      input(type="text", name="vendor[company_name]", value="#{ $vendor['company_name'] }")
+
+    .control-group
+      label.required Person to Contact
+      input(type="text", name="vendor[contact_name]", value="#{ $vendor['contact_name'] }")
+
+    .control-group
+      label.required Your company in 50 words or less
       textarea.input-xlarge(name="vendor[more_info]", rows="7") #{$vendor['more_info']}
 
     .control-group
-      strong What kind of work does your company do?
+      label.required What kind of work does your company do?
       - foreach(Service::all() as $service):
         label.checkbox
           <input type="checkbox" name="services[#{ $service->id }]" #{ (isset($services[$service->id])) ? "checked" : "" } />
           | #{$service->name}
     .control-group
-      label
-        strong Ballpark average project price
+      label.required Ballpark average project price
       select(type="text", name="vendor[ballpark_price]")
         - foreach(Vendor::$ballpark_prices as $id => $ballpark_price):
           <option value="#{ $id }" #{ ($vendor['ballpark_price'] == $id) ? "selected" : "" }> #{ $ballpark_price } </option>
-
-    hr
-    h5 Company links
-
-    .control-group
-      label Home page
-      input.input-xlarge(type="text", name="vendor[homepage_url]", value="#{ $vendor['homepage_url'] }")
-
-    .control-group
-      label Portfolio (optional)
-      input.input-xlarge(type="text", name="vendor[portfolio_url]", value="#{ $vendor['portfolio_url'] }")
-
-    .control-group
-      label Public source (optional, e.g. github)
-      input.input-xlarge(type="text", name="vendor[sourcecode_url]", value="#{ $vendor['sourcecode_url'] }")
-
-    .vendor-image-url
-      .control-group
-        label Link to an image of your best work (400 x 300px)
-        .input-append
-          input.input-xlarge(type="text", name="vendor[image_url]", value="#{ $vendor['image_url'] }")
-          button#prev-img-btn.btn.btn-primary.disabled(type="button") Preview
-
-      label.vendor-image-preview.hide (Preview)
-      .vendor-image-preview.vendor-image-preview-frame.hide
-        img
 
 
   fieldset.span5.offset1
@@ -67,7 +47,7 @@
       h5 Contact Info
 
       .control-group
-        label Email
+        label.required Email
         input(type="text", name="user[email]", value="#{ isset($user) ? $user['email'] : '' }")
 
       .control-group
@@ -76,7 +56,7 @@
           | Send email updates about new projects open for bids
 
       .control-group
-        label Choose a Password
+        label.required Choose a Password
         input(type="password", name="user[password]")
 
     - else:
@@ -118,32 +98,108 @@
     - endif;
 
     .control-group
-      label Company Name
-      input(type="text", name="vendor[company_name]", value="#{ $vendor['company_name'] }")
-
-    .control-group
-      label Person to Contact
-      input(type="text", name="vendor[contact_name]", value="#{ $vendor['contact_name'] }")
-
-    .control-group
-      label Address
+      label.required Address
       input(type="text", name="vendor[address]", value="#{ $vendor['address'] }")
 
     .control-group
-      label City
+      label.required City
       input(type="text", name="vendor[city]", value="#{ $vendor['city'] }")
 
     .control-group
-      label State
+      label.required State
       select(name="vendor[state]")
         - foreach(Helper::all_us_states() as $code => $state):
           <option value="#{ $code }" #{ ($vendor['state'] == $code) ? "selected" : "" }> #{$state} </option>
 
     .control-group
-      label Zip
+      label.required Zip
       input(type="text", name="vendor[zip]", value="#{ $vendor['zip'] }")
 
     .control-group
       label DUNS Number (optional)
         !{Helper::helper_tooltip(__("r.users.account_vendor_fields.duns_help"), "left")}
       input(type="text", name="vendor[duns]", value="#{ $vendor['duns'] }")
+
+h5 Company links
+.row
+  .span6
+
+    .control-group
+      label.required Home page
+      input.input-xlarge(type="text", name="vendor[homepage_url]", value="#{ $vendor['homepage_url'] }")
+
+    .vendor-image-url
+      .control-group
+        label.required Link to an image of your best work (400 x 300px)
+        .input-append
+          input.input-xlarge(type="text", name="vendor[image_url]", value="#{ $vendor['image_url'] }")
+          button#prev-img-btn.btn.btn-primary.disabled(type="button") Preview
+
+    .control-group
+      label Portfolio (optional)
+      input.input-xlarge(type="text", name="vendor[portfolio_url]", value="#{ $vendor['portfolio_url'] }")
+
+    .control-group
+      label Public source (optional, e.g. github)
+      input.input-xlarge(type="text", name="vendor[sourcecode_url]", value="#{ $vendor['sourcecode_url'] }")
+
+  .span6
+    label.vendor-image-preview.hide (Preview)
+    .vendor-image-preview.vendor-image-preview-frame.hide
+      img
+
+h5 Small Business Program Representations
+.row
+
+  .span12
+
+    .control-group
+      label.checkbox
+        | <input type="checkbox" name="vendor[sba_b2]" #{isset($vendor['sba_b2']) && $vendor['sba_b2'] ? 'checked' : ''} value="1" />
+        | Are you a registered Small Disadvantaged Business 8(a)?
+
+    .control-group
+      label.checkbox
+        | <input type="checkbox" name="vendor[sba_b3]" #{isset($vendor['sba_b3']) && $vendor['sba_b3'] ? 'checked' : ''} value="1" />
+        | Are you a Woman Owned Small Business?
+
+    .control-group
+      label.checkbox
+        | <input type="checkbox" name="vendor[sba_b4i]" #{isset($vendor['sba_b4i']) && $vendor['sba_b4i'] ? 'checked' : ''} value="1" />
+        | Have you Registered for the Woman Owned Small Business?
+        a(href="http://www.sba.gov/content/contracting-opportunities-women-owned-small-businesses", target="_blank") What's this?
+
+    .control-group
+      label.checkbox
+        | <input type="checkbox" name="vendor[sba_b5i]" #{isset($vendor['sba_b5i']) && $vendor['sba_b5i'] ? 'checked' : ''} value="1" />
+        | Are you an economically disadvantaged woman owned small business?
+
+    .control-group
+      label.checkbox
+        | <input type="checkbox" name="vendor[sba_b6]" #{isset($vendor['sba_b6']) && $vendor['sba_b6'] ? 'checked' : ''} value="1" />
+        | Are you a veteran-owned small business concern?
+
+    .control-group
+      label.checkbox
+        | <input type="checkbox" name="vendor[sba_b7]" #{isset($vendor['sba_b7']) && $vendor['sba_b7'] ? 'checked' : ''} value="1" />
+        | Are you a service-disabled veteran-owned small business concern?
+
+    .control-group
+      label.checkbox
+        | <input type="checkbox" name="vendor[sba_b8i]" #{isset($vendor['sba_b8i']) && $vendor['sba_b8i'] ? 'checked' : ''} value="1" />
+        | Are you in a HUBZone?
+        a(href="http://www.sba.gov/hubzone/", target="_blank") What's this?
+
+    .control-group
+      label
+        | If you said yes to "Are you a small disadvantaged business concern", then
+        | please select the category in which your ownership falls:
+      select(type="text", name="vendor[sba_b9]")
+        | <option value="none" #{$vendor['sba_b9'] == "none" ? "selected" : ""}>-- select an option --</option>
+        | <option value="black_american" #{$vendor['sba_b9'] == "black_american" ? "selected" : ""}>Black American</option>
+        | <option value="hispanic_american" #{$vendor['sba_b9'] == "hispanic_american" ? "selected" : ""}>Hispanic American</option>
+        | <option value="native_american" #{$vendor['sba_b9'] == "native_american" ? "selected" : ""}>Native American</option>
+        | <option value="asian_pacific_american" #{$vendor['sba_b9'] == "asian_pacific_american" ? "selected" : ""}>Asian-Pacific American</option>
+        | <option value="asian_indian_american" #{$vendor['sba_b9'] == "asian_indian_american" ? "selected" : ""}>Asian (Asian-Indian) American</option>
+        | <option value="individual_concern_other" #{$vendor['sba_b9'] == "individual_concern_other" ? "selected" : ""}>Individual/concern, other than one of the preceding.</option>
+

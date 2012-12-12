@@ -9,9 +9,9 @@ class Bids_Controller extends Base_Controller {
 
     $this->filter('before', 'project_exists')->except(array('mine'));
 
-    $this->filter('before', 'i_am_collaborator')->only(array('review', 'star', 'dismiss', 'award'));
+    $this->filter('before', 'i_am_collaborator')->only(array('review', 'star', 'dismiss', 'award', 'sba_program_representations'));
 
-    $this->filter('before', 'bid_exists')->only(array('show', 'star', 'dismiss', 'destroy', 'award'));
+    $this->filter('before', 'bid_exists')->only(array('show', 'star', 'dismiss', 'destroy', 'award', 'sba_program_representations'));
 
     $this->filter('before', 'bid_is_submitted_and_not_deleted')->only(array('show', 'star', 'dismiss', 'award'));
 
@@ -146,6 +146,12 @@ class Bids_Controller extends Base_Controller {
     $bid = Config::get('bid');
     $bid->delete_by_vendor();
     return Redirect::to_route('project', array($project->id));
+  }
+
+  public function action_sba_program_representations() {
+    $view = View::make('bids.sba_program_representations');
+    $view->bid = Config::get('bid');
+    $this->layout->content = $view;
   }
 
   // public function action_sf1449() {
