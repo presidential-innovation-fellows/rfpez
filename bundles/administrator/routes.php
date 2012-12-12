@@ -12,8 +12,6 @@ require __DIR__.'/filters.php';
 require __DIR__.'/viewComposers.php';
 
 
-
-
 /**
  * Routes
  */
@@ -22,15 +20,16 @@ Route::get('(:bundle)', array(
 	'as' => 'admin_dashboard',
 	'uses' => 'administrator::admin@dashboard',
 	'before' => 'validate_admin|add_assets', //only needs to validate admin and add assets
+	'https' => true
 ));
 
 //The route group for all other requests needs to validate admin, model, and add assets
-Route::group(array('before' => 'validate_admin|validate_model|add_assets'), function()
+Route::group(array('before' => 'validate_admin|validate_model|add_assets', 'https' => true), function()
 {
 	//Model Index
 	Route::get('(:bundle)/(:any)', array(
 		'as' => 'admin_index',
-		'uses' => 'administrator::admin@index'
+		'uses' => 'administrator::admin@index',
 	));
 
 	//Get Item
