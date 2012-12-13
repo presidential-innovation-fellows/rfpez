@@ -384,9 +384,9 @@ class Project extends Eloquent {
     // or its collaborators.
     $project = $this;
 
-    return Notification::where(function($query){
+    return Notification::where(function($query)use($project){
                     $query->where('payload_type', '=', 'bid');
-                    $query->where_in('payload_id', $this->bids()->lists('id') ?: array(''));
+                    $query->where_in('payload_id', $project->bids()->lists('id') ?: array(''));
                 })->or_where(function($query)use($project){
                   $query->where('payload_type', '=', 'project');
                   $query->where('payload_id', '=', $project->id);
