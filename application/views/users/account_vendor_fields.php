@@ -164,8 +164,21 @@
     <div class="control-group">
       <label class="checkbox">
         <input type="checkbox" name="vendor[sba_b2]" <?php echo e(isset($vendor['sba_b2']) && $vendor['sba_b2'] ? 'checked' : ''); ?> value="1" />
-        Are you a registered Small Disadvantaged Business 8(a)?
+        Are you a registered as a Small Disadvantaged Business 8(a)?
+        <a href="http://www.sba.gov/content/8a-business-development-1" target="_blank">What's this?</a>
       </label>
+      <label>
+        If yes, please select the category in which your ownership falls:
+      </label>
+      <select type="text" name="vendor[sba_b9]">
+        <option value="none" <?php echo e($vendor['sba_b9'] == "none" ? "selected" : ""); ?>></option>
+        <option value="black_american" <?php echo e($vendor['sba_b9'] == "black_american" ? "selected" : ""); ?>>Black American</option>
+        <option value="hispanic_american" <?php echo e($vendor['sba_b9'] == "hispanic_american" ? "selected" : ""); ?>>Hispanic American</option>
+        <option value="native_american" <?php echo e($vendor['sba_b9'] == "native_american" ? "selected" : ""); ?>>Native American</option>
+        <option value="asian_pacific_american" <?php echo e($vendor['sba_b9'] == "asian_pacific_american" ? "selected" : ""); ?>>Asian-Pacific American</option>
+        <option value="asian_indian_american" <?php echo e($vendor['sba_b9'] == "asian_indian_american" ? "selected" : ""); ?>>Asian (Asian-Indian) American</option>
+        <option value="individual_concern_other" <?php echo e($vendor['sba_b9'] == "individual_concern_other" ? "selected" : ""); ?>>Individual/concern, other than one of the preceding.</option>
+      </select>
     </div>
     <div class="control-group">
       <label class="checkbox">
@@ -176,26 +189,29 @@
     <div class="control-group">
       <label class="checkbox">
         <input type="checkbox" name="vendor[sba_b4i]" <?php echo e(isset($vendor['sba_b4i']) && $vendor['sba_b4i'] ? 'checked' : ''); ?> value="1" />
-        Have you Registered for the Woman Owned Small Business?
+        Have you registered for the Woman Owned Small Business program?
         <a href="http://www.sba.gov/content/contracting-opportunities-women-owned-small-businesses" target="_blank">What's this?</a>
       </label>
     </div>
     <div class="control-group">
       <label class="checkbox">
         <input type="checkbox" name="vendor[sba_b5i]" <?php echo e(isset($vendor['sba_b5i']) && $vendor['sba_b5i'] ? 'checked' : ''); ?> value="1" />
-        Are you an economically disadvantaged woman owned small business?
+        Are you an Economically Disadvantaged Woman Owned Small Business?
+        <a href="http://www.sba.gov/content/contracting-opportunities-women-owned-small-businesses" target="_blank">What's this?</a>
       </label>
     </div>
     <div class="control-group">
       <label class="checkbox">
         <input type="checkbox" name="vendor[sba_b6]" <?php echo e(isset($vendor['sba_b6']) && $vendor['sba_b6'] ? 'checked' : ''); ?> value="1" />
-        Are you a veteran-owned small business concern?
+        Are you a Veteran-Owned Small Business?
+        <a href="http://www.sba.gov/content/veteran-service-disabled-veteran-owned" target="_blank">What's this?</a>
       </label>
     </div>
     <div class="control-group">
       <label class="checkbox">
         <input type="checkbox" name="vendor[sba_b7]" <?php echo e(isset($vendor['sba_b7']) && $vendor['sba_b7'] ? 'checked' : ''); ?> value="1" />
-        Are you a service-disabled veteran-owned small business concern?
+        Are you a Service-Disabled Veteran-Owned Small Business?
+        <a href="http://www.sba.gov/content/veteran-service-disabled-veteran-owned" target="_blank">What's this?</a>
       </label>
     </div>
     <div class="control-group">
@@ -204,21 +220,6 @@
         Are you in a HUBZone?
         <a href="http://www.sba.gov/hubzone/" target="_blank">What's this?</a>
       </label>
-    </div>
-    <div class="control-group">
-      <label>
-        If you said yes to "Are you a small disadvantaged business concern", then
-        please select the category in which your ownership falls:
-      </label>
-      <select type="text" name="vendor[sba_b9]">
-        <option value="none" <?php echo e($vendor['sba_b9'] == "none" ? "selected" : ""); ?>>-- select an option --</option>
-        <option value="black_american" <?php echo e($vendor['sba_b9'] == "black_american" ? "selected" : ""); ?>>Black American</option>
-        <option value="hispanic_american" <?php echo e($vendor['sba_b9'] == "hispanic_american" ? "selected" : ""); ?>>Hispanic American</option>
-        <option value="native_american" <?php echo e($vendor['sba_b9'] == "native_american" ? "selected" : ""); ?>>Native American</option>
-        <option value="asian_pacific_american" <?php echo e($vendor['sba_b9'] == "asian_pacific_american" ? "selected" : ""); ?>>Asian-Pacific American</option>
-        <option value="asian_indian_american" <?php echo e($vendor['sba_b9'] == "asian_indian_american" ? "selected" : ""); ?>>Asian (Asian-Indian) American</option>
-        <option value="individual_concern_other" <?php echo e($vendor['sba_b9'] == "individual_concern_other" ? "selected" : ""); ?>>Individual/concern, other than one of the preceding.</option>
-      </select>
     </div>
   </div>
 </div>
