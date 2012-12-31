@@ -47,8 +47,7 @@ bids:
       Give us some quick details of the tools, techniques, and processes you'd use to create a great solution.
     previous_work_placeholder: "Where possible, please provide links."
     employee_details_placeholder: >
-      One name per line. We just need to make sure nobody has been put on a list of people
-      disallowed to work on government contracts.
+      Please tell us about the specific people (include names) that are going to work on this project, and what their backgrounds are.
     no_edit_warning: note: bids cannot be edited once submitted!
 
   review:
