@@ -1,8 +1,8 @@
 <div class="question-wrapper well" data-question-id="<?php echo e($question->id); ?>">
-  <div class="question">Q: <?php echo e($question->question); ?></div>
+  <div class="question">Q: <?php echo nl2br(e($question->question)); ?></div>
   <div class="answer">
     <?php if ($question->answer): ?>
-      A: <?php echo e($question->answer); ?>
+      A: <?php echo nl2br(e($question->answer)); ?>
       <div class="answerer">
         <em>Answered by <?php echo e($question->answerer->user->email); ?></em>
       </div>

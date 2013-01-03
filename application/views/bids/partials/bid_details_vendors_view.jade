@@ -14,13 +14,13 @@
   - endif;
 
   h5 Approach
-  p !{$bid->approach}
+  p !{nl2br(e($bid->approach))}
 
   h5 Previous Work
-  p !{$bid->previous_work}
+  p !{nl2br(e($bid->previous_work))}
 
   h5 Employee Details
-  p !{$bid->employee_details}
+  p !{nl2br(e($bid->employee_details))}
 
   .row
     .span6.prices

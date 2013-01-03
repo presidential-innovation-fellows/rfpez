@@ -17,4 +17,4 @@
               a(href="http://rfpez-apis.presidentialinnovationfellows.org/exclusions?name=#{rawurlencode($name)}") no
           - endif;
 - elseif ($bid->employee_details):
-  p !{$bid->employee_details}
+  p !{nl2br(e($bid->employee_details))}

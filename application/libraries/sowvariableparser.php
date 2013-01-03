@@ -26,18 +26,20 @@ class SowVariableParser {
 
     foreach($vars as $key => $help_text) {
 
+      $key = e($key);
+
       $count++;
 
       if ($mode == "write") {
 
         if (!isset($variable_values[$key])) $variable_values[$key] = "";
 
-        $text_input_html = "<input type='text' placeholder='$key' data-variable='$key' data-helper-text='$help_text' name='variables[$key]' value='".$variable_values[$key]."' />";
+        $text_input_html = "<input type='text' placeholder='$key' data-variable='$key' data-helper-text='".e($help_text)."' name='variables[$key]' value='".e($variable_values[$key])."' />";
 
         $output = preg_replace('/\{\{\s*([^\}]*'.$key.'[^\}]*)\}\}/', $text_input_html, $output);
 
       } else if ($mode == "read") {
-        $output = preg_replace('/\{\{\s*([^\}]*'.$key.'[^\}]*)\}\}/', (@$variable_values[$key] ?: "_______________"), $output);
+        $output = preg_replace('/\{\{\s*([^\}]*'.$key.'[^\}]*)\}\}/', e((@$variable_values[$key] ?: "_______________")), $output);
       }
     }
 

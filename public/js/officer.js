@@ -2610,7 +2610,7 @@ $(document).on("change", "#project-type-select", function() {
   CommentView = Backbone.View.extend({
     tagName: "div",
     className: "well comment",
-    template: _.template("<div class=\"body\">\n  <span class=\"author\">\n    <%= officer.name %>\n  </span>\n  <%= body %>\n</div>\n<span class=\"timestamp\">\n  <span class=\"posted-at\">Posted <span class=\"timeago\" title=\"<%= formatted_created_at %>\"></span></span>\n</span>\n<a class=\"delete-comment only-user only-user-<%= officer.user_id %>\">Delete</a>"),
+    template: _.template("<div class=\"body\">\n  <span class=\"author\">\n    <%- officer.name %>\n  </span>\n  <span class=\"timestamp\">\n    <span class=\"posted-at\">Posted <span class=\"timeago\" title=\"<%- formatted_created_at %>\"></span></span>\n  </span>\n  <a class=\"delete-comment only-user only-user-<%- officer.user_id %>\">Delete</a>\n\n  <p class=\"no-margin\"><%= _.escape(body).replace(new RegExp('\\r?\\n', 'g'), '<br />') %></p>\n</div>"),
     events: {
       "click a.delete-comment": "clear"
     },
@@ -2630,7 +2630,7 @@ $(document).on("change", "#project-type-select", function() {
   NotificationView = Backbone.View.extend({
     tagName: "div",
     className: "notification",
-    template: _.template("<i class=\"<%= js_parsed.icon %>\"></i>\n<%= js_parsed.text %>\n<div class=\"date\"><span class=\"timeago\" title=\"<%= created_at %>\"></span></div>"),
+    template: _.template("<i class=\"<%- js_parsed.icon %>\"></i>\n<%= js_parsed.text %>\n<div class=\"date\"><span class=\"timeago\" title=\"<%- created_at %>\"></span></div>"),
     parse: function() {
       var icon, text;
       if (this.model.attributes.notification_type === "Dismissal") {
@@ -2773,7 +2773,7 @@ $(document).on("change", "#project-type-select", function() {
   });
   CollaboratorView = Backbone.View.extend({
     tagName: "tr",
-    template: _.template("<td class=\"email\"><%= User.email %></td>\n<td>\n  <% if (pivot.owner === \"1\") { %>\n    <i class=\"icon-star\"></i>\n  <% } %>\n</td>\n<td>\n  <span class=\"not-user-<%= User.id %> only-user only-user-<%= owner_id %>\">\n    <% if (pivot.owner !== \"1\") { %>\n      <button class=\"btn btn-danger\">Remove</button>\n    <% } else { %>\n      Can't remove the owner.\n    <% } %>\n  </span>\n  <span class=\"only-user only-user-<%= User.id %>\">\n    That's you!\n  </span>\n</td>"),
+    template: _.template("<td class=\"email\"><%- User.email %></td>\n<td>\n  <% if (pivot.owner === \"1\") { %>\n    <i class=\"icon-star\"></i>\n  <% } %>\n</td>\n<td>\n  <span class=\"not-user-<%- User.id %> only-user only-user-<%- owner_id %>\">\n    <% if (pivot.owner !== \"1\") { %>\n      <button class=\"btn btn-danger\">Remove</button>\n    <% } else { %>\n      Can't remove the owner.\n    <% } %>\n  </span>\n  <span class=\"only-user only-user-<%- User.id %>\">\n    That's you!\n  </span>\n</td>"),
     events: {
       "click .btn.btn-danger": "clear"
     },
@@ -2874,7 +2874,7 @@ $(document).on("change", "#project-type-select", function() {
   });
   DeliverableView = Backbone.View.extend({
     tagName: "tr",
-    template: _.template("<td>\n  <input type=\"text\" placeholder=\"Deliverable Name\" class=\"name-input\" value=\"<%= name %>\">\n</td>\n<td class=\"completion-date\">\n  <div class=\"input-append date datepicker-wrapper\">\n    <input type=\"text\" placeholder=\"Due Date\" class=\"date-input\" value=\"<%= date %>\" />\n    <span class=\"add-on\">\n      <i class=\"icon-calendar\"></i>\n    </span>\n  </div>\n</td>\n<td>\n  <a class=\"btn remove-deliverable-button\"><i class=\"icon-trash\"></i></a>\n</td>"),
+    template: _.template("<td>\n  <input type=\"text\" placeholder=\"Deliverable Name\" class=\"name-input\" value=\"<%- name %>\">\n</td>\n<td class=\"completion-date\">\n  <div class=\"input-append date datepicker-wrapper\">\n    <input type=\"text\" placeholder=\"Due Date\" class=\"date-input\" value=\"<%- date %>\" />\n    <span class=\"add-on\">\n      <i class=\"icon-calendar\"></i>\n    </span>\n  </div>\n</td>\n<td>\n  <a class=\"btn remove-deliverable-button\"><i class=\"icon-trash\"></i></a>\n</td>"),
     events: {
       "click .remove-deliverable-button": "clear",
       "input .name-input": "updateWithDelay",

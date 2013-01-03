@@ -16,9 +16,9 @@
     tagName: "tr"
 
     template: _.template """
-      <td><%= id %></td>
-      <td><%= title %></td>
-      <td><%= fork_count %></td>
+      <td><%- id %></td>
+      <td><%- title %></td>
+      <td><%- fork_count %></td>
       <td>
         <select class="recommended-select">
           <option value="1" <% if (recommended == 1){ %>selected<% } %>>Yes</option>
@@ -31,7 +31,7 @@
           <option value="0" <% if (public == 0){ %>selected<% } %>>No</option>
         </select>
       </td>
-      <td><%= project_type.name %></td>
+      <td><%- project_type.name %></td>
     """
 
     events:

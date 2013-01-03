@@ -1,9 +1,9 @@
 .question-wrapper.well(data-question-id="#{$question->id}")
-  .question Q: #{$question->question}
+  .question Q: !{nl2br(e($question->question))}
 
   .answer
     - if ($question->answer):
-      | A: #{$question->answer}
+      | A: !{nl2br(e($question->answer))}
       .answerer
         em Answered by #{$question->answerer->user->email}
     - else:

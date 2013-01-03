@@ -22,7 +22,7 @@
   CommentView = Backbone.View.extend({
     tagName: "div",
     className: "well comment",
-    template: _.template("<div class=\"body\">\n  <span class=\"author\">\n    <%= officer.name %>\n  </span>\n  <%= body %>\n</div>\n<span class=\"timestamp\">\n  <span class=\"posted-at\">Posted <span class=\"timeago\" title=\"<%= formatted_created_at %>\"></span></span>\n</span>\n<a class=\"delete-comment only-user only-user-<%= officer.user_id %>\">Delete</a>"),
+    template: _.template("<div class=\"body\">\n  <span class=\"author\">\n    <%- officer.name %>\n  </span>\n  <span class=\"timestamp\">\n    <span class=\"posted-at\">Posted <span class=\"timeago\" title=\"<%- formatted_created_at %>\"></span></span>\n  </span>\n  <a class=\"delete-comment only-user only-user-<%- officer.user_id %>\">Delete</a>\n\n  <p class=\"no-margin\"><%= _.escape(body).replace(new RegExp('\\r?\\n', 'g'), '<br />') %></p>\n</div>"),
     events: {
       "click a.delete-comment": "clear"
     },
@@ -42,7 +42,7 @@
   NotificationView = Backbone.View.extend({
     tagName: "div",
     className: "notification",
-    template: _.template("<i class=\"<%= js_parsed.icon %>\"></i>\n<%= js_parsed.text %>\n<div class=\"date\"><span class=\"timeago\" title=\"<%= created_at %>\"></span></div>"),
+    template: _.template("<i class=\"<%- js_parsed.icon %>\"></i>\n<%= js_parsed.text %>\n<div class=\"date\"><span class=\"timeago\" title=\"<%- created_at %>\"></span></div>"),
     parse: function() {
       var icon, text;
       if (this.model.attributes.notification_type === "Dismissal") {

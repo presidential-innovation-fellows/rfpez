@@ -20,14 +20,15 @@
     template: _.template """
       <div class="body">
         <span class="author">
-          <%= officer.name %>
+          <%- officer.name %>
         </span>
-        <%= body %>
+        <span class="timestamp">
+          <span class="posted-at">Posted <span class="timeago" title="<%- formatted_created_at %>"></span></span>
+        </span>
+        <a class="delete-comment only-user only-user-<%- officer.user_id %>">Delete</a>
+
+        <p class="no-margin"><%= _.escape(body).replace(new RegExp('\\r?\\n', 'g'), '<br />') %></p>
       </div>
-      <span class="timestamp">
-        <span class="posted-at">Posted <span class="timeago" title="<%= formatted_created_at %>"></span></span>
-      </span>
-      <a class="delete-comment only-user only-user-<%= officer.user_id %>">Delete</a>
     """
 
     events:
@@ -50,9 +51,9 @@
     className: "notification"
 
     template: _.template """
-      <i class="<%= js_parsed.icon %>"></i>
+      <i class="<%- js_parsed.icon %>"></i>
       <%= js_parsed.text %>
-      <div class="date"><span class="timeago" title="<%= created_at %>"></span></div>
+      <div class="date"><span class="timeago" title="<%- created_at %>"></span></div>
     """
     parse: ->
       if @model.attributes.notification_type is "Dismissal"

@@ -30,9 +30,9 @@ Class Helper {
     if ($content) {
       $isEmail = filter_var($content, FILTER_VALIDATE_EMAIL);
       return "<div class='datum'>
-                <label>$label</label>
-                <div class='content'>".($link ? "<a href='".($isEmail ? "mailto:$content" : $content).
-                  "' ".($isEmail ? '' : 'target="_blank"').">" : "")."$content".($link ? '</a>' : '')."</div>
+                <label>".$label."</label>
+                <div class='content'>".($link ? "<a href='".($isEmail ? "mailto:".$content : $content).
+                  "' ".($isEmail ? '' : 'target="_blank"').">" : "").$content.($link ? '</a>' : '')."</div>
               </div>";
     } else {
       return '';
@@ -71,9 +71,9 @@ Class Helper {
     if ($title == "") {
       return "EasyBid";
     } elseif ($action == "") {
-      return "$title | EasyBid";
+      return e($title)." | EasyBid";
     } else {
-      return "$action | $title | EasyBid";
+      return e($action)." | ".e($title)." | EasyBid";
     }
   }
 

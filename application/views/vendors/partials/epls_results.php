@@ -25,5 +25,5 @@
     </tbody>
   </table>
 <?php elseif ($bid->employee_details): ?>
-  <p><?php echo $bid->employee_details; ?></p>
+  <p><?php echo nl2br(e($bid->employee_details)); ?></p>
 <?php endif; ?>

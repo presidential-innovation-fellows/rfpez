@@ -14,7 +14,7 @@
   });
   ProjectView = Backbone.View.extend({
     tagName: "tr",
-    template: _.template("<td><%= id %></td>\n<td><%= title %></td>\n<td><%= fork_count %></td>\n<td>\n  <select class=\"recommended-select\">\n    <option value=\"1\" <% if (recommended == 1){ %>selected<% } %>>Yes</option>\n    <option value=\"0\" <% if (recommended == 0){ %>selected<% } %>>No</option>\n  </select>\n</td>\n<td>\n  <select class=\"public-select\">\n    <option value=\"1\" <% if (public == 1){ %>selected<% } %>>Yes</option>\n    <option value=\"0\" <% if (public == 0){ %>selected<% } %>>No</option>\n  </select>\n</td>\n<td><%= project_type.name %></td>"),
+    template: _.template("<td><%- id %></td>\n<td><%- title %></td>\n<td><%- fork_count %></td>\n<td>\n  <select class=\"recommended-select\">\n    <option value=\"1\" <% if (recommended == 1){ %>selected<% } %>>Yes</option>\n    <option value=\"0\" <% if (recommended == 0){ %>selected<% } %>>No</option>\n  </select>\n</td>\n<td>\n  <select class=\"public-select\">\n    <option value=\"1\" <% if (public == 1){ %>selected<% } %>>Yes</option>\n    <option value=\"0\" <% if (public == 0){ %>selected<% } %>>No</option>\n  </select>\n</td>\n<td><%- project_type.name %></td>"),
     events: {
       "change .recommended-select": "update",
       "change .public-select": "update"

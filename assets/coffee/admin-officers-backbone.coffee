@@ -16,12 +16,12 @@
     tagName: "tr"
 
     template: _.template """
-      <td><%= id %></td>
-      <td><%= name %></td>
-      <td><%= title %></td>
-      <td><%= User.email %></td>
+      <td><%- id %></td>
+      <td><%- name %></td>
+      <td><%- title %></td>
+      <td><%- User.email %></td>
       <td>
-        <div class="not-user-<%= User.id %>">
+        <div class="not-user-<%- User.id %>">
           <% if (role == 3 && !isSuperAdmin) { %>
             This officer is a super-admin.
           <% } else { %>
@@ -35,14 +35,14 @@
             </select>
           <% } %>
         </div>
-        <div class="only-user only-user-<%= User.id %>">
-          You're a <%= role_text %>.
+        <div class="only-user only-user-<%- User.id %>">
+          You're a <%- role_text %>.
         </div>
       </td>
       <td>
         <% if (role != 3){ %>
           <div class="super-admin-only">
-            <div class="not-user-<%= User.id %>">
+            <div class="not-user-<%- User.id %>">
               <% if (!User.banned_at){ %>
                 <a class="btn btn-danger ban-button btn-mini">Ban Officer</a>
               <% } else { %>

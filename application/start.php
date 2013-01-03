@@ -208,3 +208,5 @@ IoC::singleton('yaml_dumper', function() {
 Event::listen('laravel.language.loader', function(){
  return array('asdfadsf' => 'asdf');
 });
+
+require path('base').'application/libraries/htmLawed.php';

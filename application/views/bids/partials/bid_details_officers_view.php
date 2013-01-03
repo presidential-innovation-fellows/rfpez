@@ -16,9 +16,9 @@
   <div class="row-fluid">
     <div class="span5 col1">
       <h5>Approach</h5>
-      <p><?php echo $bid->approach; ?></p>
+      <p><?php echo nl2br(e($bid->approach)); ?></p>
       <h5>Previous Work</h5>
-      <p><?php echo $bid->previous_work; ?></p>
+      <p><?php echo nl2br(e($bid->previous_work)); ?></p>
       <h5>Employee Details
 </h5>
       <?php echo View::make('vendors.partials.epls_results')->with('bid', $bid); ?>

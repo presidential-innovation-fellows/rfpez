@@ -31,21 +31,21 @@
     tagName: "tr"
 
     template: _.template """
-      <td class="email"><%= User.email %></td>
+      <td class="email"><%- User.email %></td>
       <td>
         <% if (pivot.owner === "1") { %>
           <i class="icon-star"></i>
         <% } %>
       </td>
       <td>
-        <span class="not-user-<%= User.id %> only-user only-user-<%= owner_id %>">
+        <span class="not-user-<%- User.id %> only-user only-user-<%- owner_id %>">
           <% if (pivot.owner !== "1") { %>
             <button class="btn btn-danger">Remove</button>
           <% } else { %>
             Can't remove the owner.
           <% } %>
         </span>
-        <span class="only-user only-user-<%= User.id %>">
+        <span class="only-user only-user-<%- User.id %>">
           That's you!
         </span>
       </td>

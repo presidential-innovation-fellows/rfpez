@@ -1,11 +1,11 @@
 <?php if (!isset($defer)) $defer = false; ?>
 <div class="vendor-data">
-  <?php echo Helper::datum("Contact Name", $vendor->contact_name); ?>
-  <?php echo Helper::datum("Email", $vendor->user->email, true); ?>
-  <?php echo Helper::datum("Address", $vendor->address."<br />".$vendor->city.", ".$vendor->state." ".$vendor->zip); ?>
-  <?php echo Helper::datum("Website", $vendor->homepage_url, true); ?>
-  <?php echo Helper::datum("Portfolio", $vendor->portfolio_url, true); ?>
-  <?php echo Helper::datum("Source code", $vendor->sourcecode_url, true); ?>
+  <?php echo Helper::datum("Contact Name", e($vendor->contact_name)); ?>
+  <?php echo Helper::datum("Email", e($vendor->user->email), true); ?>
+  <?php echo Helper::datum("Address", e($vendor->address)."<br />".e($vendor->city).", ".e($vendor->state)." ".e($vendor->zip)); ?>
+  <?php echo Helper::datum("Website", e($vendor->homepage_url), true); ?>
+  <?php echo Helper::datum("Portfolio", e($vendor->portfolio_url), true); ?>
+  <?php echo Helper::datum("Source code", e($vendor->sourcecode_url), true); ?>
   <div class="datum">
     <label>DSBS</label>
     <div class="content">

@@ -14,11 +14,11 @@
     </div>
   <?php endif; ?>
   <h5>Approach</h5>
-  <p><?php echo $bid->approach; ?></p>
+  <p><?php echo nl2br(e($bid->approach)); ?></p>
   <h5>Previous Work</h5>
-  <p><?php echo $bid->previous_work; ?></p>
+  <p><?php echo nl2br(e($bid->previous_work)); ?></p>
   <h5>Employee Details</h5>
-  <p><?php echo $bid->employee_details; ?></p>
+  <p><?php echo nl2br(e($bid->employee_details)); ?></p>
   <div class="row">
     <div class="span6 prices">
       <h5>Prices</h5>

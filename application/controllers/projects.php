@@ -136,6 +136,7 @@ class Projects_Controller extends Base_Controller {
   public function action_background_post() {
     $project = Config::get('project');
     $project->fill(Input::get('project'));
+    $project->background = htmLawed($project->background, array('safe' => true));
     $project->save();
     return Redirect::to_route('project_sections', array($project->id));
   }
@@ -184,17 +185,21 @@ class Projects_Controller extends Base_Controller {
       $section = ProjectSection::find($section_id);
       if ($section->can_edit_without_forking()){
         $section->fill($section_input);
+        $section->body = htmLawed($section->body, array('safe' => true));
         $section->times_used = 1;
         $section->created_by_project_id = $project->id;
         $section->save();
       } else {
         $new_section = $section->fork($project->id, $section_input);
+        $new_section->body = htmLawed($new_section->body, array('safe' => true));
+        $new_section->save();
         $project->replace_section($section->id, $new_section->id);
       }
 
     } else {
       // we're adding a new sction
       $section = new ProjectSection($section_input);
+      $section->body = htmLawed($section->body, array('safe' => true));
       $section->created_by_project_id = $project->id;
       $section->save();
       $section->project_types()->attach($project->project_type_id);
