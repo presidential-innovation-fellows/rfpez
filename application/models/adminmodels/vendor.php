@@ -24,6 +24,14 @@ class Vendor extends \Eloquent {
     'dsbs_name',
     'dsbs_user_id',
     'epls',
+    'sba_b2',
+    'sba_b3',
+    'sba_b4i',
+    'sba_b5i',
+    'sba_b6',
+    'sba_b7',
+    'sba_b8i',
+    'sba_b9',
     'created_at',
     'updated_at'
   );
@@ -50,6 +58,14 @@ class Vendor extends \Eloquent {
     'dsbs_name',
     'dsbs_user_id',
     'epls',
+    'sba_b2',
+    'sba_b3',
+    'sba_b4i',
+    'sba_b5i',
+    'sba_b6',
+    'sba_b7',
+    'sba_b8i',
+    'sba_b9',
     'created_at',
     'updated_at'
   );
