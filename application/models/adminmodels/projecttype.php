@@ -10,7 +10,7 @@ class ProjectType extends \Eloquent {
     'naics',
     'created_at',
     'updated_at',
-    'treshold',
+    'threshold',
     'show_in_list'
   );
 
@@ -20,7 +20,7 @@ class ProjectType extends \Eloquent {
     'naics',
     'created_at',
     'updated_at',
-    'treshold',
+    'threshold',
     'show_in_list'
   );
 
