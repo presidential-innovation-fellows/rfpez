@@ -85,6 +85,7 @@ class User extends Eloquent {
       'zip', 'latitude', 'longitude', 'ballpark_price', 'portfolio_url', 'more_info',
       'created_at', 'updated_at', 'homepage_url', 'sourcecode_url', 'image_url', 'duns',
       'sam_entity_name', 'dsbs_user_id', 'dsbs_name',
+      'epls', 'sba_b2', 'sba_b3', 'sba_b4i', 'sba_b5i', 'sba_b6', 'sba_b7', 'sba_b8i', 'sba_b9'
     );
 
     return array_map(function($v) { return 'vendors.'.$v.' as vendor_alias_'.$v; }, $columns);

@@ -74,6 +74,7 @@ class Users_Controller extends Base_Controller {
 
     if ($vendor = Auth::user()->vendor) {
 
+      $vendor->clear_sba_fields();
       $vendor->fill(Input::get('vendor'));
       if ($vendor->validator()->passes()) {
         $services = Input::get('services') ? array_keys(Input::get('services')) : array();

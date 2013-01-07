@@ -125,6 +125,17 @@ class Vendor extends Eloquent {
     }
   }
 
+  public function clear_sba_fields() {
+    $this->sba_b2 = null;
+    $this->sba_b3 = null;
+    $this->sba_b4i = null;
+    $this->sba_b5i = null;
+    $this->sba_b6 = null;
+    $this->sba_b7 = null;
+    $this->sba_b8i = null;
+    $this->sba_b9 = null;
+  }
+
 }
 
 Event::listen('eloquent.saving: Vendor', function($model){
