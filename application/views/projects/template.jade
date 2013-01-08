@@ -24,11 +24,11 @@
 
   p !{__("r.projects.template.scratch_text")}
   .centered
-    a.btn.btn-primary(href="#{route('project_background', array($project->id))}") Start From Scratch
+    a.btn.btn-primary(href="#{route('edit_project', array($project->id))}") Start From Scratch
 
 - else:
 
   p.well !{__("r.projects.template.no_templates", array("project_type" => $project->project_type->name))}
 
     .centered
-      a.btn.btn-primary(href="#{route('project_background', array($project->id))}") Let's get started! &rarr;
+      a.btn.btn-primary(href="#{route('edit_project', array($project->id))}") Let's get started! &rarr;

@@ -91,27 +91,6 @@ Route::group(array('https' => true), function(){
   Route::get('projects/(:num)/template', array('uses' => 'projects@template', 'as' => 'project_template'));
   Route::get('projects/(:num)/template/(:num)', array('uses' => 'projects@template_post', 'as' => 'project_template_post'));
 
-  Route::get('projects/(:num)/background', array('uses' => 'projects@background', 'as' => 'project_background'));
-  Route::post('projects/(:num)/background', array('uses' => 'projects@background_post', 'as' => 'project_background'));
-
-  Route::get('projects/(:num)/sections', array('uses' => 'projects@sections', 'as' => 'project_sections'));
-  Route::post('projects/(:num)/sections', array('uses' => 'projects@sections_post', 'as' => 'project_sections'));
-
-  Route::post('projects/(:num)/sections/(:num)', array('uses' => 'projects@sections_add', 'as' => 'project_section_add'));
-  Route::delete('projects/(:num)/sections/(:num)', array('uses' => 'projects@sections_remove', 'as' => 'project_section_delete'));
-
-  Route::post('projects/(:num)/sections/reorder', array('uses' => 'projects@sections_reorder', 'as' => 'project_sections_reorder'));
-
-  Route::get('projects/(:num)/blanks', array('uses' => 'projects@blanks', 'as' => 'project_blanks'));
-  Route::post('projects/(:num)/blanks', array('uses' => 'projects@blanks_post', 'as' => 'project_blanks'));
-
-  Route::get('projects/(:num)/timeline', array('uses' => 'projects@timeline', 'as' => 'project_timeline'));
-
-  Route::post('projects/(:num)/deliverables', array('uses' => 'deliverables@create'));
-  Route::put('projects/(:num)/deliverables/(:num)', array('uses' => 'deliverables@update'));
-  Route::delete('projects/(:num)/deliverables/(:num)', array('uses' => 'deliverables@delete'));
-  Route::put('projects/(:num)/deliverables/order', array('uses' => 'deliverables@save_order'));
-
   Route::get('projects/(:num)/review', array('uses' => 'projects@review', 'as' => 'project_review'));
 
   Route::post('projects/(:num)/toggle-public', array('uses' => 'projects@toggle_public', 'as' => 'project_toggle_public'));

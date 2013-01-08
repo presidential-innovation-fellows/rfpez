@@ -1,0 +1,11 @@
+- Section::inject('page_title', $project->title)
+- Section::inject('page_action', "Edit SOW")
+- Section::inject('active_subnav', 'create')
+- Section::inject('no_page_header', true)
+
+!{View::make('projects.partials.toolbar')->with('project', $project)}
+
+| <iframe src='http://beta.etherpad.org/p/rfpez-#{$project->id}?showChat=false&showLineNumbers=false' width="100%" height="500" style="border: 0; outline: 0;"></iframe>
+
+.form-actions
+  button.btn.btn-primary Continue &rarr;

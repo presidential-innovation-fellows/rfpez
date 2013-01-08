@@ -18,13 +18,13 @@
   <h5><?php echo __("r.projects.template.scratch_header"); ?></h5>
   <p><?php echo __("r.projects.template.scratch_text"); ?></p>
   <div class="centered">
-    <a class="btn btn-primary" href="<?php echo e(route('project_background', array($project->id))); ?>">Start From Scratch</a>
+    <a class="btn btn-primary" href="<?php echo e(route('edit_project', array($project->id))); ?>">Start From Scratch</a>
   </div>
 <?php else: ?>
   <p class="well">
     <?php echo __("r.projects.template.no_templates", array("project_type" => $project->project_type->name)); ?>
     <div class="centered">
-      <a class="btn btn-primary" href="<?php echo e(route('project_background', array($project->id))); ?>">Let's get started! &rarr;</a>
+      <a class="btn btn-primary" href="<?php echo e(route('edit_project', array($project->id))); ?>">Let's get started! &rarr;</a>
     </div>
   </p>
 <?php endif; ?>

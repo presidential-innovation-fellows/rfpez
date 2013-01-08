@@ -11,6 +11,7 @@ class Remove_Sow_Composer {
 	{
 		Schema::drop('project_section_type');
 		Schema::drop('project_sections');
+		Schema::drop('deliverables');
 
 		Schema::table('projects', function($t){
 			$t->drop_column('background');
