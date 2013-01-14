@@ -7,7 +7,7 @@
     <input type="text" name="user[email]" value="<?php echo e($user['email']); ?>" />
     <label class="checkbox">
       <input type="checkbox" name="user[send_emails]" <?php echo e(isset($user['send_emails']) && !$user['send_emails'] ? '' : 'checked'); ?> />
-      Yes, email me with updates about EasyBid
+      Yes, email me with updates about RFP-EZ
     </label>
   </div>
 <?php else: ?>
@@ -22,7 +22,7 @@
   <label class="larger">Role: <?php echo e($officer['role_text']); ?></label>
   <label class="checkbox">
     <input type="checkbox" name="user[send_emails]" <?php echo e(Auth::user()->send_emails ? 'checked' : ''); ?> />
-    Yes, email me with updates about EasyBid
+    Yes, email me with updates about RFP-EZ
   </label>
 <?php endif; ?>
 <div class="control-group">

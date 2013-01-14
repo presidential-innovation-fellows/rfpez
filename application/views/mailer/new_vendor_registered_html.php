@@ -1,6 +1,6 @@
 <p>Hey <?= $user->vendor->company_name ?>,</p>
 
-<p>Thanks for signing up for EasyBid, and for being one of the first to participate in this exciting pilot program.</p>
+<p>Thanks for signing up for RFP-EZ, and for being one of the first to participate in this exciting pilot program.</p>
 
 <p>In the coming weeks, we'll be adding more and more government projects that are looking for proposals from businesses like yours. If you checked the box during sign-up, we'll send you notices about these from time-to-time.</p>
 

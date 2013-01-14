@@ -1,7 +1,7 @@
 <div id="signinModal" class="modal hide" tabindex="-1" role="dialog">
   <div class="modal-header">
     <button class="close" type="button" data-dismiss="modal">&times;</button>
-    <h3>Login to EasyBid</h3>
+    <h3>Login to RFP-EZ</h3>
   </div>
   <div class="modal-body">
     <form action="<?php echo e(route('signin')); ?>" method="POST">

@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href="<?php echo e(route('root')); ?>" data-no-turbolink="data-no-turbolink">EasyBid</a>
+      <a class="brand" href="<?php echo e(route('root')); ?>" data-no-turbolink="data-no-turbolink">RFP-EZ</a>
       <div class="nav-collapse collapse">
         <?php if (Auth::check()): ?>
           <ul class="nav">

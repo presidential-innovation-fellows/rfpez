@@ -2,7 +2,7 @@
 <?php Section::inject('no_page_header', true) ?>
 <div class="hero-unit">
   <h1>
-    EasyBid
+    RFP-EZ
     <small><?php echo e(__('r.home.index_signed_out.site_tagline')); ?></small>
   </h1>
 </div>
