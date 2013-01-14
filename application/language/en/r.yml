@@ -82,8 +82,8 @@ partials:
     help: >
       Need help? Just tweet <a href="http://twitter.com/projectrfpez">@ProjectRFPEZ</a> or email <a href="mailto:rfpez@sba.gov">rfpez@sba.gov</a>!
     text: >
-      EasyBid is an official website of the United States Government, and was
-      created by <a href='http://wh.gov/innovationfellows/rfpez'>Team Project RFP-EZ</a>
+      RFP-EZ is an official website of the United States Government, and was
+      created by <a href='http://wh.gov/innovationfellows/rfpez'>Project RFP-EZ</a>
       as part of the Presidential Innovation Fellowship program.
 
   topnav:
@@ -101,7 +101,7 @@ projects:
     change_price_type_warning: Careful! Changing this now will affect bids that have already been submitted.
     collaborators: >
       Invite anyone with a .gov email address to collaborate on this project.
-      If they don't already have an account on EasyBid, we'll let them create one.
+      If they don't already have an account on RFP-EZ, we'll let them create one.
     sharing: >
       By setting this project to public, it will show up in the list of
       "templates" that officers can start from when writing a SOW.
@@ -131,7 +131,7 @@ projects:
       or ask someone to add you as a collaborator on a project that already exists.
 
   new:
-    congrats: Congrats on using EasyBid for your procurement!
+    congrats: Congrats on using RFP-EZ for your procurement!
     helper: "First, we just need some basic information about your project."
     no_date: "You'll have a chance to change this later, so don't worry if you don't know the exact date."
 
@@ -214,9 +214,9 @@ bid_award_message: >
 
 delete_bid_confirmation: Are you sure you want to delete your bid?
 
-email_signature_text: -The EasyBid Team
+email_signature_text: -The RFP-EZ Team
 
-email_signature_html: <p><em>-The EasyBid Team</em></p>
+email_signature_html: <p><em>-The RFP-EZ Team</em></p>
 
 chromeframe_text: >
   You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a>

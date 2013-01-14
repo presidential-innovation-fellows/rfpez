@@ -9,7 +9,7 @@
 
     label.checkbox
       | <input type="checkbox" name="user[send_emails]" #{isset($user['send_emails']) && !$user['send_emails'] ? '' : 'checked'} />
-      | Yes, email me with updates about EasyBid
+      | Yes, email me with updates about RFP-EZ
 
 - else:
 
@@ -23,7 +23,7 @@
 
   label.checkbox
     | <input type="checkbox" name="user[send_emails]" #{Auth::user()->send_emails ? 'checked' : ''} />
-    | Yes, email me with updates about EasyBid
+    | Yes, email me with updates about RFP-EZ
 
 - endif;
 

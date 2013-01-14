@@ -33,11 +33,11 @@ class Projects_Controller extends Base_Controller {
 
     $feed = Feed::make();
 
-    $feed->author('The EasyBid Team')
+    $feed->author('The RFP-EZ Team')
          ->pubdate(time())
          ->ttl(60)
-         ->title('Government Contracting Opportunities on EasyBid')
-         ->description('Government Contracting Opportunities on EasyBid')
+         ->title('Government Contracting Opportunities on RFP-EZ')
+         ->description('Government Contracting Opportunities on RFP-EZ')
          ->permalink(route('project_rss', 'rss20'))
          ->baseurl(URL::home());
 
@@ -259,7 +259,7 @@ class Projects_Controller extends Base_Controller {
 
     if (!Auth::officer()->is_role_or_higher(Officer::ROLE_CONTRACTING_OFFICER)) {
       // @todo add instructions for contacting admin to get verified
-      Helper::flash_errors("Sorry, you haven't been verified as a contracting officer on EasyBid.");
+      Helper::flash_errors("Sorry, you haven't been verified as a contracting officer on RFP-EZ.");
       return Redirect::to_route('project_post_on_fbo', array($project->id));
     }
 

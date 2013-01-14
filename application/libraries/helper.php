@@ -69,11 +69,11 @@ Class Helper {
 
   public static function full_title($title = "", $action = "") {
     if ($title == "") {
-      return "EasyBid";
+      return "RFP-EZ";
     } elseif ($action == "") {
-      return e($title)." | EasyBid";
+      return e($title)." | RFP-EZ";
     } else {
-      return e($action)." | ".e($title)." | EasyBid";
+      return e($action)." | ".e($title)." | RFP-EZ";
     }
   }
 

@@ -8,7 +8,7 @@ Class Mailer {
     if (!$transport) return;
     $mailer = Swift_Mailer::newInstance($transport);
     $message = Swift_Message::newInstance();
-    $message->setFrom(array('rfpez@sba.gov'=>'EasyBid'));
+    $message->setFrom(array('rfpez@sba.gov'=>'RFP-EZ'));
 
 
     if ($template_name == "Notification") {
@@ -25,7 +25,7 @@ Class Mailer {
       $new_user = $attributes["new_user"];
       $project = $attributes["project"];
 
-      $message->setSubject("You've been invited to collaborate on EasyBid by ".$invited_by->email)
+      $message->setSubject("You've been invited to collaborate on RFP-EZ by ".$invited_by->email)
               ->setTo($new_user->email)
               ->addPart(View::make('mailer.new_officer_invited_text')
                 ->with('new_user', $new_user)
@@ -47,7 +47,7 @@ Class Mailer {
     } elseif ($template_name == "NewVendorRegistered") {
       $user = $attributes["user"];
 
-      $message->setSubject("Thanks for signing up on EasyBid!")
+      $message->setSubject("Thanks for signing up on RFP-EZ!")
               ->setTo($user->email)
               ->addPart(View::make('mailer.new_vendor_registered_text')->with('user', $user), 'text/plain')
               ->setBody(View::make('mailer.new_vendor_registered_html')->with('user', $user), 'text/html');
@@ -55,7 +55,7 @@ Class Mailer {
     } elseif ($template_name == "FinishOfficerRegistration") {
       $user = $attributes["user"];
 
-      $message->setSubject("Complete your EasyBid Registration")
+      $message->setSubject("Complete your RFP-EZ Registration")
               ->setTo($user->email)
               ->addPart(View::make('mailer.finish_officer_registration_text')->with('user', $user), 'text/plain')
               ->setBody(View::make('mailer.finish_officer_registration_html')->with('user', $user), 'text/html');
@@ -63,7 +63,7 @@ Class Mailer {
     } elseif ($template_name == "ForgotPassword") {
       $user = $attributes["user"];
 
-      $message->setSubject("EasyBid Reset Password Request")
+      $message->setSubject("RFP-EZ Reset Password Request")
               ->setTo($user->email)
               ->addPart(View::make('mailer.forgot_password_text')->with('user', $user), 'text/plain')
               ->setBody(View::make('mailer.forgot_password_html')->with('user', $user), 'text/html');
