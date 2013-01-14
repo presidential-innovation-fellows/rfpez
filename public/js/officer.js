@@ -2646,7 +2646,7 @@ $(document).on("change", "#project-type-select", function() {
         text = " The Contract was awarded to <a href=\"" + this.model.attributes.parsed.link + "\">" + this.model.attributes.payload.bid.vendor.company_name + "</a>. ";
         icon = "icon-thumbs-up";
       } else if (this.model.attributes.notification_type === "ProjectCollaboratorAdded") {
-        text = " " + this.model.attributes.payload.officer.name + " was added as a collaborator. ";
+        text = " " + this.model.attributes.payload.officer.User.email + " was added as a collaborator. ";
         icon = "icon-user";
       }
       return {
