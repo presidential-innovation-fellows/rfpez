@@ -4,7 +4,7 @@ class Notification extends Eloquent {
 
   public static $timestamps = true;
 
-  public $includes_in_array = array('parsed');
+  public $includes_in_array = array('parsed', 'formatted_created_at');
 
   public function target() {
     return $this->belongs_to('User', 'target_id');
@@ -34,6 +34,10 @@ class Notification extends Eloquent {
 
   public function parsed() {
     return NotificationParser::parse($this);
+  }
+
+  public function formatted_created_at() {
+    return date('c', is_object($this->created_at) ? $this->created_at->getTimestamp() : strtotime($this->created_at));
   }
 
   public static function send($notification_type, $attributes, $send_email = true) {

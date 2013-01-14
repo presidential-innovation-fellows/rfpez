@@ -42,7 +42,7 @@
   NotificationView = Backbone.View.extend({
     tagName: "div",
     className: "notification",
-    template: _.template("<i class=\"<%- js_parsed.icon %>\"></i>\n<%= js_parsed.text %>\n<div class=\"date\"><span class=\"timeago\" title=\"<%- created_at %>\"></span></div>"),
+    template: _.template("<i class=\"<%- js_parsed.icon %>\"></i>\n<%= js_parsed.text %>\n<div class=\"date\"><span class=\"timeago\" title=\"<%- formatted_created_at %>\"></span></div>"),
     parse: function() {
       var icon, text;
       if (this.model.attributes.notification_type === "Dismissal") {
