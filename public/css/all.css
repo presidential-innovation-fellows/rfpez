@@ -2431,6 +2431,14 @@ body.super-admin .super-admin-only {
 ol.extra-bottom-padding {
   padding-bottom: 15px;
 }
+.lead-list {
+  font-size: 20px;
+  font-weight: 200;
+  margin-bottom: 20px;
+}
+.lead-list li {
+  line-height: 30px;
+}
 label.required {
   font-weight: bold;
 }
@@ -2943,6 +2951,10 @@ tbody.project .admin-star i {
 .explain-duns-link {
   padding-left: 10px;
   font-size: 0.9em;
+}
+.blum {
+  background-color: #efefef;
+  padding: 10px;
 }
 .new-project-page {
   width: 500px;
