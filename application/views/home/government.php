@@ -16,7 +16,9 @@
 </ol>
 <p class="lead">
   Ready to try RFP-EZ for yourself?&nbsp;
-  <a class="btn btn-large btn-warning" href="<?php echo e(route('new_officers')); ?>">Sign up now</a>
+  <a class="btn btn-large btn-warning" href="<?php echo e(route('new_officers')); ?>">Sign up now
+</a>
+  or email <a href="mailto:rfpez@sba.gov">rfpez@sba.gov</a> for more info.
 </p>
 <hr />
 <blockquote class="blum">
