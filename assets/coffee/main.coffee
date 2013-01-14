@@ -12,10 +12,7 @@ $(document).on 'shown', '#signinModal', ->
   $("#signinModal #email").focus()
 
 $(document).on "click", "a[data-confirm]", (e) ->
-  e.preventDefault();
-  el = $(this)
-  if confirm(el.data('confirm'))
-    window.location = el.attr('href')
+  e.preventDefault() unless confirm($(@).data('confirm'))
 
 $(document).on "submit", "#new-contract-form", (e) ->
   return e.preventDefault() unless $(this).find('input[name=solnbr]').val()

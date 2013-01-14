@@ -16,11 +16,8 @@ $(document).on('shown', '#signinModal', function() {
 });
 
 $(document).on("click", "a[data-confirm]", function(e) {
-  var el;
-  e.preventDefault();
-  el = $(this);
-  if (confirm(el.data('confirm'))) {
-    return window.location = el.attr('href');
+  if (!confirm($(this).data('confirm'))) {
+    return e.preventDefault();
   }
 });
 
