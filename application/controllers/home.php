@@ -21,4 +21,9 @@ class Home_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
+  public function action_government() {
+    $view = View::make('home.government');
+    $this->layout->content = $view;
+  }
+
 }

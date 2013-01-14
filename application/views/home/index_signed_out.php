@@ -15,6 +15,6 @@
   <div class="span6">
     <h5><?php echo __('r.home.index_signed_out.gov_header'); ?></h5>
     <p class="main-description"><?php echo __('r.home.index_signed_out.gov_description'); ?></p>
-    <a class="btn btn-warning btn-large" href="<?php echo e( route('new_officers') ); ?>"><?php echo __('r.home.index_signed_out.gov_button'); ?></a>
+    <a class="btn btn-warning btn-large" href="<?php echo e( route('government') ); ?>"><?php echo __('r.home.index_signed_out.gov_button'); ?></a>
   </div>
 </div>

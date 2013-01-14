@@ -31,6 +31,7 @@ Route::group(array('https' => true), function(){
   Route::resourceful('vendors', array('new', 'create', 'index', 'show'));
 
   Route::resourceful('officers', array('new', 'create', 'update', 'index'));
+  Route::get('government', array('uses' => 'home@government', 'as' => 'government'));
   Route::get('officers/typeahead', array('uses' => 'officers@typeahead', 'as' => 'officers_typeahead'));
 
   Route::resourceful('questions', array('create', 'update'));

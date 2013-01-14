@@ -2428,6 +2428,9 @@ body.super-admin .super-admin-only {
   color: #000;
   padding: 0.2em;
 }
+ol.extra-bottom-padding {
+  padding-bottom: 15px;
+}
 label.required {
   font-weight: bold;
 }
