@@ -1,13 +1,17 @@
 <?php Section::inject('page_title', (Auth::officer() ? 'Everybody\'s Projects' : 'Projects' )) ?>
+<?php Section::inject('no_page_header', true) ?>
+<?php if (!Auth::user()): ?>
+  <p class="lead well">Ready to start bidding? <a href="<?php echo e(route('new_vendors')); ?>">Sign up</a> in minutes!</p>
+<?php endif; ?>
+<h4>
+  <?php echo (Auth::officer() ? 'Everybody\'s Projects' : 'Projects' ); ?>
+  <small>(<a href="<?php echo e(route('project_rss', 'rss')); ?>">rss</a> / <a href="<?php echo e(route('project_rss', 'atom')); ?>">atom</a>)</small>
+  <a class="officer-only toggle-my-all-projects" href="<?php echo e(route('my_projects')); ?>">my projects only</a>
+  <div class="search-projects pull-right">
+    <input id="filter-projects-input" class="search-query" type="search" placeholder="Filter projects..." />
+  </div>
+</h4>
 <?php if (count($projects) > 0): ?>
-  <?php Section::start('inside_header'); { ?>
-    <small>(<a href="<?php echo e(route('project_rss', 'rss')); ?>">rss</a> / <a href="<?php echo e(route('project_rss', 'atom')); ?>">atom</a>)</small>
-    <a class="officer-only toggle-my-all-projects" href="<?php echo e(route('my_projects')); ?>">my projects only</a>
-    <div class="search-projects pull-right">
-      <input id="filter-projects-input" class="search-query" type="search" placeholder="Filter projects..." />
-    </div>
-  <?php } ?>
-  <?php Section::stop(); ?>
   <table class="table projects-table">
     <thead>
       <tr>

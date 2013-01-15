@@ -64,9 +64,9 @@ home:
     site_tagline: A Technology Marketplace That Everybody Loves
     biz_header: For Small Business
     biz_description: >
-      Create a simple online profile and begin bidding on <a href=':url'>projects</a>.
+      Create a simple online profile and begin bidding on projects.
       If you're selected to work on one, we'll walk you through the government registration process.
-    biz_button: Register as a Business
+    biz_button: Browse the Projects &rarr;
     gov_header: For Government
     gov_description: >
       Make great statements of work. Browse innovative tech businesses and see their online portfolios.

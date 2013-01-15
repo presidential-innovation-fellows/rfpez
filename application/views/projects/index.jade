@@ -1,14 +1,21 @@
 - Section::inject('page_title', (Auth::officer() ? 'Everybody\'s Projects' : 'Projects' ))
+- Section::inject('no_page_header', true)
+
+
+- if (!Auth::user()):
+  p.lead.well Ready to start bidding? <a href="#{route('new_vendors')}">Sign up</a> in minutes!
+- endif;
+
+
+h4 !{(Auth::officer() ? 'Everybody\'s Projects' : 'Projects' )}
+  small (<a href="#{route('project_rss', 'rss')}">rss</a> / <a href="#{route('project_rss', 'atom')}">atom</a>)
+  a.officer-only.toggle-my-all-projects(href="#{route('my_projects')}") my projects only
+  .search-projects.pull-right
+    input.search-query#filter-projects-input(type="search", placeholder="Filter projects...")
+
+
 
 - if (count($projects) > 0):
-
-  - Section::start('inside_header');
-    small (<a href="#{route('project_rss', 'rss')}">rss</a> / <a href="#{route('project_rss', 'atom')}">atom</a>)
-    a.officer-only.toggle-my-all-projects(href="#{route('my_projects')}") my projects only
-    .search-projects.pull-right
-      input.search-query#filter-projects-input(type="search", placeholder="Filter projects...")
-
-  - Section::stop();
 
   table.table.projects-table
     thead
