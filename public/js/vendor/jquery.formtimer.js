@@ -35,7 +35,7 @@
 
         var data = {formId: formId, startTime: startTime, endTime: endTime, duration: duration};
 
-        if (typeof _gaq !== "undefined") _gaq.push(['_trackEvent', 'FormTimer', 'Form Submitted', formId, duration]);
+        if (typeof _gaq !== "undefined") _gaq.push(['_trackEvent', 'FormTimer - Form Submitted', formId, duration]);
 
         if (settings.url) {
           $.getJSON(settings.url, data).complete(function(){
