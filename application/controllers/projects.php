@@ -189,14 +189,24 @@ class Projects_Controller extends Base_Controller {
         $section->times_used = 1;
         $section->created_by_project_id = $project->id;
         $section->save();
+
+        if (trim($section_input["title"]) == "" && trim($section_input["body"]) == "") {
+          $project->remove_section($section->id);
+        }
+
       } else {
         $new_section = $section->fork($project->id, $section_input);
         $new_section->body = htmLawed($new_section->body, array('safe' => true));
         $new_section->save();
         $project->replace_section($section->id, $new_section->id);
+
+        if (trim($section_input["title"]) == "" && trim($section_input["body"]) == "") {
+          $project->remove_section($new_section->id);
+        }
+
       }
 
-    } else {
+    } elseif (trim($section_input["title"]) != "" && trim($section_input["body"]) != "") {
       // we're adding a new sction
       $section = new ProjectSection($section_input);
       $section->body = htmLawed($section->body, array('safe' => true));
