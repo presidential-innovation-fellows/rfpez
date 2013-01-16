@@ -50,7 +50,7 @@ h4 !{(Auth::officer() ? 'Everybody\'s Projects' : 'Projects' )}
                 - endif;
             - endif;
 
-            p.project-description-truncated #{Helper::truncate($project->background, 13)}
+            p.project-description-truncated #{$project->background_truncated()}
 
           td.visible-desktop #{$project->agency}
 

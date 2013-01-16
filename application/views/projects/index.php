@@ -48,7 +48,7 @@
                 <?php endif; ?>
               </span>
             <?php endif; ?>
-            <p class="project-description-truncated"><?php echo e(Helper::truncate($project->background, 13)); ?></p>
+            <p class="project-description-truncated"><?php echo e($project->background_truncated()); ?></p>
           </td>
           <td class="visible-desktop"><?php echo e($project->agency); ?></td>
           <td><?php echo e($project->formatted_proposals_due_at()); ?></td>

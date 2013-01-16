@@ -116,6 +116,10 @@ class Project extends Eloquent {
     return false;
   }
 
+  public function background_truncated() {
+    return strip_tags(Helper::truncate($this->background, 13));
+  }
+
   public function my_bid() {
     if (!Auth::user() || !Auth::user()->vendor) return false;
 
