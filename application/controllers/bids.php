@@ -75,7 +75,7 @@ class Bids_Controller extends Base_Controller {
     $bid->vendor_id = Auth::user()->vendor->id;
     $bid->project_id = $project->id;
 
-    $bid->fill($bid_input);
+    $bid->fill(Input::get('bid'));
 
     $prices = array();
     $i = 0;
