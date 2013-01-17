@@ -25,26 +25,18 @@
 
       form.on('submit', function(e){
         if (timerSent) return;
+        timerSent = true;
 
-        e.preventDefault();
         if (!startTime) startTime = new Date();
         endTime = new Date();
         duration = endTime.getTime() - startTime.getTime();
-
-        timerSent = true;
 
         var data = {formId: formId, startTime: startTime, endTime: endTime, duration: duration};
 
         if (typeof _gaq !== "undefined") _gaq.push(['_trackEvent', 'FormTimer - Form Submitted', formId, duration]);
 
-        if (settings.url) {
-          $.getJSON(settings.url, data).complete(function(){
-            form.submit();
-          });
-        } else {
-          form.submit();
-        }
 
+        if (settings.url) $.getJSON(settings.url, data);
       });
 
     });
