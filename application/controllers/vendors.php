@@ -54,6 +54,7 @@ class Vendors_Controller extends Base_Controller {
                            ->select(array('*', 'vendors.id as vendor_id'))
                            ->skip(($page - 1) * 10)
                            ->take(10)
+                           ->order_by('vendors.created_at', 'desc')
                            ->get();
     $this->layout->content = $view;
   }
