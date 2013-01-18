@@ -46,6 +46,11 @@ class Vendors_Controller extends Base_Controller {
     $page = intval(Input::get('page') ?: 1);
     $view->vendors = Vendor::join('users', 'user_id', '=', 'users.id')
                            ->where_null('users.banned_at')
+                           ->raw_where("EXISTS (SELECT service_id from service_vendor WHERE `vendor_id` = `vendors`.`id`)")
+                           ->where(function($q){
+                              $q->where(DB::raw("RIGHT(image_url, 4)"), '=', 'jpeg');
+                              $q->or_where_in(DB::raw("RIGHT(image_url, 3)"), array('jpg', 'gif', 'png'));
+                           })
                            ->select(array('*', 'vendors.id as vendor_id'))
                            ->skip(($page - 1) * 10)
                            ->take(10)
