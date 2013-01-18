@@ -12,6 +12,9 @@
       <li>
         <a href="http://presidential-innovation-fellows.github.com/rfpez-blog">Blog</a>
       </li>
+      <li>
+        <a href="https://github.com/presidential-innovation-fellows/rfpez">Fork this site on GitHub!</a>
+      </li>
     </ul>
   </div>
 </footer>
