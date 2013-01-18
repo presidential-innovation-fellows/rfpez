@@ -99,6 +99,13 @@
                 <th>Total Price:</th>
                 <td id="total-price" colspan="2"></td>
               </tr>
+              <tr class="total-price-validation-row">
+                <td colspan="2">
+                  <div class="control-group">
+                    <input class="total-price-input" type="hidden" name="total_price" />
+                  </div>
+                </td>
+              </tr>
             <?php endif; ?>
             <tr>
               <td colspan="3">

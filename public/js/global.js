@@ -4900,7 +4900,7 @@ $(document).on("submit", "#ask-question-form", function(e) {
 
 $.validator.addMethod('dotgovonly', function(value, element, param) {
   return value.match(new RegExp('.gov$', 'i'));
-}, 'Sorry, only .gov email addresses are allowed.');
+}, "Sorry, only .gov email addresses are allowed.");
 
 $.validator.addMethod('urladdhttp', function(value, element) {
   if (this.optional(element)) {
@@ -4913,6 +4913,14 @@ $.validator.addMethod('urladdhttp', function(value, element) {
     return /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value);
   }
 }, 'Please enter a valid URL.');
+
+$.validator.addMethod('sat_threshold', function(value, element, param) {
+  return parseInt(value) < 150001;
+}, "All projects inside of RFP-EZ are Simplified Acquisition Threshold projects. This means they can't exceed a total of $150,000.");
+
+$.validator.setDefaults({
+  ignore: []
+});
 
 $(document).on("ready page:load", function() {
   $("#change-password-form").validate_rfpez({
@@ -4958,6 +4966,9 @@ $(document).on("ready page:load", function() {
       },
       "bid[employee_details]": {
         required: true
+      },
+      "total_price": {
+        sat_threshold: true
       }
     }
   });

@@ -9,7 +9,8 @@ update_total_price = function() {
       return total += price;
     }
   });
-  return $("#total-price").html("$" + total);
+  $("#total-price").html("$" + total);
+  return $(".total-price-input").val(total);
 };
 
 $(document).on("click", "#add-deliverable-button", function() {

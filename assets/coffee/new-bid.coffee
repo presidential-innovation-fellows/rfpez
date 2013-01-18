@@ -4,6 +4,7 @@ update_total_price = ->
     if price = parseFloat($(this).val())
       total += price
   $("#total-price").html("$"+total)
+  $(".total-price-input").val(total)
 
 $(document).on "click", "#add-deliverable-button", ->
   $(".deliverables-row:eq(0)").clone().appendTo(".prices-table tbody").find("input").val("")
