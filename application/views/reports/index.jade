@@ -1,3 +1,15 @@
 - Section::inject('page_title', 'Reports')
 
 p Reports!
+
+h5 signups_per_day
+code !{json_encode($signups_per_day)}
+
+h5 new_to_contracting
+code !{json_encode($new_to_contracting)}
+
+h5 bids_per_project
+code !{json_encode($bids_per_project)}
+
+h5 avg_bids_per_project
+code !{json_encode($avg_bids_per_project)}
