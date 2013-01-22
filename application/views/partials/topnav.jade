@@ -20,6 +20,8 @@
 
               - if (Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)):
                 li
+                  a(href="#{route('reports')}") Reports
+                li
                   a(href="#{route('admin_home')}") Admin
               - endif;
               - if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)):
