@@ -16,8 +16,7 @@ class Reports_Controller extends Base_Controller {
 
     $all_days = array();
     $date = new \DateTime();
-    //$date->setTimestamp(1358488800); # 1/18/2013
-    $date->setTimestamp(1355097600); # 12/10/2012
+    $date->setTimestamp(1358488800); # 1/18/2013
 
     while ($date < new \DateTime()) {
       array_push($all_days, $date->format("Y-m-d"));
