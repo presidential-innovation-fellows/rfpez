@@ -16,7 +16,7 @@ $.validator.addMethod('urladdhttp', function(value, element) {
 }, 'Please enter a valid URL.');
 
 $.validator.addMethod('sat_threshold', function(value, element, param) {
-  return parseInt(value) < 150001;
+  return !value || (parseInt(value) < 150001);
 }, "All projects inside of RFP-EZ are Simplified Acquisition Threshold projects. This means they can't exceed a total of $150,000.");
 
 $.validator.setDefaults({
