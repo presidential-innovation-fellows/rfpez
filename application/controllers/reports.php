@@ -16,7 +16,8 @@ class Reports_Controller extends Base_Controller {
 
     $all_days = array();
     $date = new \DateTime();
-    $date->setTimestamp(1358488800); # 1/18/2013
+    //$date->setTimestamp(1358488800); # 1/18/2013
+    $date->setTimestamp(1355097600); # 12/10/2012
 
     while ($date < new \DateTime()) {
       array_push($all_days, $date->format("Y-m-d"));
@@ -102,7 +103,8 @@ class Reports_Controller extends Base_Controller {
     $avg_price_total = $total_price_for_all / $total_bids_in_all;
 
 
-
+    $view->total_signups = $num_signups;
+    $view->total_new_to_contracting = $num_new;
     $view->signups_per_day = $signups_per_day;
     $view->new_to_contracting = $new_to_contracting;
     $view->bids_per_project = $bids_per_project;

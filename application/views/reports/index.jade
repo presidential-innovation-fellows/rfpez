@@ -1,21 +1,33 @@
 - Section::inject('page_title', 'Reports')
 
-p Reports!
+h1 #{$total_signups} new businesses have signed up, #{$total_new_to_contracting} of which are new to gov contracting.
 
-h5 signups_per_day
-pre !{json_encode($signups_per_day)}
+h6 Sign-ups per day since Jan. 18
+#signups-chart
 
-h5 new_to_contracting
-pre !{json_encode($new_to_contracting)}
+-//h5 new_to_contracting
+-//code !{json_encode($new_to_contracting)}
 
-h5 bids_per_project
-pre !{json_encode($bids_per_project)}
+h1 Projects have received an average of #{round($avg_bids_per_project, 1)} bids.
 
-h5 avg_bids_per_project
-pre !{json_encode($avg_bids_per_project)}
+-//h5 bids_per_project
+-//code !{json_encode($bids_per_project)}
 
-h5 avg_prices
-pre !{json_encode($avg_prices)}
+-//h5 avg_bids_per_project
+-//pre !{json_encode($avg_bids_per_project)}
 
-h5 avg_price_total
-pre !{json_encode($avg_price_total)}
+-//h5 avg_prices
+-//pre !{json_encode($avg_prices)}
+
+-//h5 avg_price_total
+-//pre !{json_encode($avg_price_total)}
+
+script
+  | $.getScript('/js/vendor/raphael.js', function(){
+  |   var signupsPerDay = !{json_encode($signups_per_day)};
+  |   var flatSignupsArray = [];
+  |   for (var day in signupsPerDay) {
+  |     flatSignupsArray.push(signupsPerDay[day]);
+  |   }
+  |   Rfpez.reporting_stats({ signupsPerDay : flatSignupsArray });
+  | });
