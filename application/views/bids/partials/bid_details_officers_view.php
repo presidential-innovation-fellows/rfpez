@@ -19,9 +19,8 @@
       <p><?php echo nl2br(e($bid->approach)); ?></p>
       <h5>Previous Work</h5>
       <p><?php echo nl2br(e($bid->previous_work)); ?></p>
-      <h5>Employee Details
-</h5>
-      <?php echo View::make('vendors.partials.epls_results')->with('bid', $bid); ?>
+      <h5>Employee Details</h5>
+      <p><?php echo nl2br(e($bid->employee_details)); ?></p>
       <h5>Prices</h5>
       <table class="table">
         <thead>
