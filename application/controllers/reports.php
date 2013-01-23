@@ -60,7 +60,7 @@ class Reports_Controller extends Base_Controller {
     $total_projects = 0;
     $total_bids = 0;
     $bids_per_project = array();
-    foreach (DB::query("SELECT id, title, (SELECT COUNT(*) from bids where project_id = projects.id) as bids from projects") as $result) {
+    foreach (DB::query("SELECT id, title, (SELECT COUNT(*) from bids where project_id = projects.id) as bids from projects WHERE projects.posted_to_fbo_at IS NOT NULL")  as $result) {
       array_push($bids_per_project, array(
         'project_id' => $result->id,
         'project_title' => $result->title,
@@ -91,7 +91,7 @@ class Reports_Controller extends Base_Controller {
     }
 
     $avg_prices = array();
-    foreach (Project::all() as $project) {
+    foreach (Project::where_not_null('posted_to_fbo_at')->get() as $project) {
       array_push($avg_prices, array(
         'project_id' => $project->id,
         'project_title' => $project->title,
