@@ -72,12 +72,43 @@ class Reports_Controller extends Base_Controller {
 
     $avg_bids_per_project = $total_bids / $total_projects;
 
+    $total_price_for_all = 0;
+    $total_bids_in_all = 0;
+    $total_prices = array();
+    foreach (Bid::where_not_null('submitted_at')->get() as $bid) {
+      if (!isset($total_prices[$bid->project_id])) {
+        $total_prices[$bid->project_id] = array(
+          'num_bids' => 0,
+          'total_price' => 0,
+        );
+      }
+
+      $total_prices[$bid->project_id]['num_bids']++;
+      $total_prices[$bid->project_id]['total_price'] += $bid->total_price_integer();
+
+      $total_bids_in_all++;
+      $total_price_for_all += $bid->total_price_integer();
+    }
+
+    $avg_prices = array();
+    foreach (Project::all() as $project) {
+      array_push($avg_prices, array(
+        'project_id' => $project->id,
+        'project_title' => $project->title,
+        'avg_price' => isset($total_prices[$project->id]) ? $total_prices[$project->id]['total_price'] / $total_prices[$project->id]['num_bids'] : 0
+      ));
+    }
+
+    $avg_price_total = $total_price_for_all / $total_bids_in_all;
+
 
 
     $view->signups_per_day = $signups_per_day;
     $view->new_to_contracting = $new_to_contracting;
     $view->bids_per_project = $bids_per_project;
     $view->avg_bids_per_project = $avg_bids_per_project;
+    $view->avg_prices = $avg_prices;
+    $view->avg_price_total = $avg_price_total;
 
     $this->layout->content = $view;
   }
