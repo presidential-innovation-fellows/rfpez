@@ -101,8 +101,6 @@ class Reports_Controller extends Base_Controller {
       ));
     }
 
-    Log::info(json_encode($avg_prices));
-
     $avg_price_total = $total_price_for_all / $total_bids_in_all;
 
 
