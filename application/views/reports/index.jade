@@ -1,0 +1,24 @@
+- Section::inject('page_title', 'Reports')
+
+hr
+h1 #{$total_signups} new businesses have signed up, #{$total_new_to_contracting} are probably new to gov contracting
+#signups-chart
+  <img src="//chart.googleapis.com/chart?chxs=0,676767,11.167,0.333,l,676767&chxt=y&chbh=a&chs=920x120&cht=bvs&chco=F69400&chds=a&chd=t:!{implode(",", $signups_per_day_flat)}&chg=-1,0,0,4&chtt=Sign-ups+per+day+since+Jan.+18" width="920" height="120" alt="Sign-ups per day since Jan. 18" />
+
+hr
+
+.row
+  .span-5
+    h1 Projects average #{round($avg_bids_per_project, 1)} bids
+    #num-bids-chart
+
+  .span-5
+    h1 Bids average $#{round($avg_price_total)}
+    #price-bids-chart
+
+- Section::start('additional_scripts');
+  script(src='https://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22visualization%22%2C%22version%22%3A%221%22%2C%22packages%22%3A%5B%22corechart%22%5D%7D%5D%7D')
+- Section::stop();
+
+script
+  | Rfpez.reporting_stats({ bidsPerProject : !{json_encode($bids_per_project)}, avgPrices: !{json_encode($avg_prices)}, avgPriceTotal : !{json_encode($avg_price_total)} });
