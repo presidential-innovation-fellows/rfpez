@@ -1,11 +1,15 @@
 Rfpez.reporting_stats = (stats) ->
 
 
-  priceDataForGchart = for project in stats.avgPrices
-    [project.project_title, parseInt(project.avg_price, 10)]
+  priceDataForGchart = [["project title", "average price"]]
 
-  bidsDataForGchart = for project in stats.bidsPerProject
-    [project.project_title, parseInt(project.num_bids, 10)]
+  for project in stats.avgPrices
+    priceDataForGchart.push [project.project_title, parseInt(project.avg_price, 10)]
+
+  bidsDataForGchart = [["project title", "average price"]]
+
+  for project in stats.bidsPerProject
+    bidsDataForGchart.push [project.project_title, parseInt(project.num_bids, 10)]
 
   drawCharts = ->
 

@@ -1,26 +1,18 @@
 
 Rfpez.reporting_stats = function(stats) {
-  var bidsDataForGchart, drawCharts, priceDataForGchart, project;
-  priceDataForGchart = (function() {
-    var _i, _len, _ref, _results;
-    _ref = stats.avgPrices;
-    _results = [];
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      project = _ref[_i];
-      _results.push([project.project_title, parseInt(project.avg_price, 10)]);
-    }
-    return _results;
-  })();
-  bidsDataForGchart = (function() {
-    var _i, _len, _ref, _results;
-    _ref = stats.bidsPerProject;
-    _results = [];
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      project = _ref[_i];
-      _results.push([project.project_title, parseInt(project.num_bids, 10)]);
-    }
-    return _results;
-  })();
+  var bidsDataForGchart, drawCharts, priceDataForGchart, project, _i, _j, _len, _len1, _ref, _ref1;
+  priceDataForGchart = [["project title", "average price"]];
+  _ref = stats.avgPrices;
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    project = _ref[_i];
+    priceDataForGchart.push([project.project_title, parseInt(project.avg_price, 10)]);
+  }
+  bidsDataForGchart = [["project title", "average price"]];
+  _ref1 = stats.bidsPerProject;
+  for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+    project = _ref1[_j];
+    bidsDataForGchart.push([project.project_title, parseInt(project.num_bids, 10)]);
+  }
   drawCharts = function() {
     var bidChart, bidData, bidOptions, priceChart, priceData, priceOptions;
     bidData = google.visualization.arrayToDataTable(bidsDataForGchart);
