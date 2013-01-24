@@ -34,6 +34,8 @@ head
 
   !{HTML::script('js/modernizr.js')}
 
+  !{Section::yield('additional_scripts')}
+
   script(src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js")
   script
     | window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.1.min.js"><\/script>')
