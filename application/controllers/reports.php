@@ -16,7 +16,8 @@ class Reports_Controller extends Base_Controller {
 
     $all_days = array();
     $date = new \DateTime();
-    $date->setTimestamp(1358488800); # 1/18/2013
+    //$date->setTimestamp(1358488800); # 1/18/2013
+    $date->setTimestamp(1354320000); # 12/17/2013
 
     while ($date < new \DateTime()) {
       array_push($all_days, $date->format("Y-m-d"));
@@ -29,8 +30,9 @@ class Reports_Controller extends Base_Controller {
     }
 
     $signups_per_day = array();
+    $signups_per_day_flat = array();
     foreach ($all_days as $day) {
-      $signups_per_day[$day] = @$signups[$day] ?: 0;
+      $signups_per_day_flat[] =$signups_per_day[$day] = intval(@$signups[$day]) ?: 0;
     }
 
     $signups = array();
@@ -105,6 +107,7 @@ class Reports_Controller extends Base_Controller {
     $view->total_signups = $num_signups;
     $view->total_new_to_contracting = $num_new;
     $view->signups_per_day = $signups_per_day;
+    $view->signups_per_day_flat = $signups_per_day_flat;
     $view->new_to_contracting = $new_to_contracting;
     $view->bids_per_project = $bids_per_project;
     $view->avg_bids_per_project = $avg_bids_per_project;
