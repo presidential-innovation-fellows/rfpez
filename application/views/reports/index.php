@@ -15,8 +15,7 @@
     <div id="price-bids-chart"></div>
   </div>
 </div>
-<script src="http://www.google.com/jsapi"></script>
+<script src="https://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22visualization%22%2C%22version%22%3A%221%22%2C%22packages%22%3A%5B%22corechart%22%5D%7D%5D%7D"></script>
 <script>
-  google.load('visualization', '1', {packages: ['corechart']});
   Rfpez.reporting_stats({ bidsPerProject : <?php echo json_encode($bids_per_project); ?>, avgPrices: <?php echo json_encode($avg_prices); ?>, avgPriceTotal : <?php echo json_encode($avg_price_total); ?> });
 </script>

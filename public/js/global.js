@@ -7914,48 +7914,35 @@ $(document).on("ready page:load", function() {
 
 
 Rfpez.reporting_stats = function(stats) {
-  var bidsDataForGchart, drawCharts, priceDataForGchart, project, _i, _j, _len, _len1, _ref, _ref1;
+  var bidChart, bidData, bidOptions, bidsDataForGchart, priceChart, priceData, priceDataForGchart, priceOptions, project, _i, _j, _len, _len1, _ref, _ref1;
   priceDataForGchart = [["project title", "average price"]];
   _ref = stats.avgPrices;
   for (_i = 0, _len = _ref.length; _i < _len; _i++) {
     project = _ref[_i];
     priceDataForGchart.push([project.project_title, parseInt(project.avg_price, 10)]);
   }
-  bidsDataForGchart = [["project title", "average price"]];
+  bidsDataForGchart = [["project title", "average bids"]];
   _ref1 = stats.bidsPerProject;
   for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
     project = _ref1[_j];
     bidsDataForGchart.push([project.project_title, parseInt(project.num_bids, 10)]);
   }
-  drawCharts = function() {
-    var bidChart, bidData, bidOptions, priceChart, priceData, priceOptions;
-    bidData = google.visualization.arrayToDataTable(bidsDataForGchart);
-    bidOptions = {
-      title: 'Average number of bids per project',
-      legend: {
-        position: 'none'
-      },
-      vAxis: {
-        title: 'Project'
-      }
-    };
-    bidChart = new google.visualization.BarChart(document.getElementById('num-bids-chart'));
-    bidChart.draw(bidData, bidOptions);
-    priceData = google.visualization.arrayToDataTable(priceDataForGchart);
-    priceOptions = {
-      title: 'Average price of bid per project',
-      legend: {
-        position: 'none'
-      },
-      vAxis: {
-        title: 'Project'
-      }
-    };
-    priceChart = new google.visualization.BarChart(document.getElementById('price-bids-chart'));
-    return priceChart.draw(priceData, priceOptions);
+  bidData = google.visualization.arrayToDataTable(bidsDataForGchart);
+  bidOptions = {
+    title: 'Average number of bids per project',
+    legend: {
+      position: 'none'
+    }
   };
-  google.load("visualization", "1", {
-    packages: ["corechart"]
-  });
-  return google.setOnLoadCallback(drawCharts);
+  bidChart = new google.visualization.BarChart(document.getElementById('num-bids-chart'));
+  bidChart.draw(bidData, bidOptions);
+  priceData = google.visualization.arrayToDataTable(priceDataForGchart);
+  priceOptions = {
+    title: 'Average price of bid per project',
+    legend: {
+      position: 'none'
+    }
+  };
+  priceChart = new google.visualization.BarChart(document.getElementById('price-bids-chart'));
+  return priceChart.draw(priceData, priceOptions);
 };
