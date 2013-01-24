@@ -16,8 +16,8 @@ class Reports_Controller extends Base_Controller {
 
     $all_days = array();
     $date = new \DateTime();
-    //$date->setTimestamp(1358488800); # 1/18/2013
-    $date->setTimestamp(1354320000); # 12/17/2013
+    $date->setTimestamp(1358488800); # 1/18/2013
+    //$date->setTimestamp(1354320000); # 12/17/2013
 
     while ($date < new \DateTime()) {
       array_push($all_days, $date->format("Y-m-d"));
@@ -100,6 +100,8 @@ class Reports_Controller extends Base_Controller {
         'avg_price' => isset($total_prices[$project->id]) ? $total_prices[$project->id]['total_price'] / $total_prices[$project->id]['num_bids'] : 0
       ));
     }
+
+    Log::info(json_encode($avg_prices));
 
     $avg_price_total = $total_price_for_all / $total_bids_in_all;
 

@@ -1,33 +1,36 @@
 Rfpez.reporting_stats = (stats) ->
-  flatSignupsArray = for own day, signUps of stats.signupsPerDay
-    signUps
 
-  drawChart = ->
-    data = google.visualization.arrayToDataTable([
-      ['Year', 'Sales', 'Expenses'],
-      ['2004',  1000,      400],
-      ['2005',  1170,      460],
-      ['2006',  660,       1120],
-      ['2007',  1030,      540]
-    ]);
 
-    options =
-      title: 'Company Performance'
+  priceDataForGchart = for project in stats.avgPrices
+    [project.project_title, parseInt(project.avg_price, 10)]
+
+  bidsDataForGchart = for project in stats.bidsPerProject
+    [project.project_title, parseInt(project.num_bids, 10)]
+
+  drawCharts = ->
+
+    bidData = google.visualization.arrayToDataTable bidsDataForGchart
+    bidOptions =
+      title: 'Average number of bids per project'
+      legend:
+        position: 'none'
       vAxis:
-        title: 'Year'
-        titleTextStyle:
-          color: 'red'
+        title: 'Project'
 
-    chart = new google.visualization.BarChart(document.getElementById('signups-chart'));
-    chart.draw(data, options);
+    bidChart = new google.visualization.BarChart(document.getElementById('num-bids-chart'));
+    bidChart.draw bidData, bidOptions
 
+    priceData = google.visualization.arrayToDataTable priceDataForGchart
+    priceOptions =
+      title: 'Average price of bid per project'
+      legend:
+        position: 'none'
+      vAxis:
+        title: 'Project'
+
+    priceChart = new google.visualization.BarChart(document.getElementById('price-bids-chart'));
+    priceChart.draw priceData, priceOptions
 
   google.load "visualization", "1", {packages:["corechart"]}
-  google.setOnLoadCallback drawChart
+  google.setOnLoadCallback drawCharts
 
-  projectLabels = []
-  avgPrices = []
-  flatBidsArray = for project in stats.bidsPerProject
-    projectLabels.push(project.project_title)
-    avgPrices.push(parseInt(project.avg_price))
-    parseInt(project.num_bids, 10)

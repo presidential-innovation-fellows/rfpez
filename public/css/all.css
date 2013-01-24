@@ -3125,3 +3125,8 @@ ul.templates-list li.show-more.all-loaded .show-more-templates-link {
 .admin-projects-table select {
   width: 60px;
 }
+#num-bids-chart,
+#price-bids-chart {
+  width: 450px;
+  height: 400px;
+}
