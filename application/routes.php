@@ -42,6 +42,8 @@ Route::group(array('https' => true), function(){
 
   Route::get('bids/mine', array('uses' => 'bids@mine', 'as' => 'my_bids'));
 
+  Route::get('reports', array('uses' => 'reports@index', 'as' => 'reports'));
+
   ////////
 
   Route::resourceful('projects', array('new', 'create', 'edit', 'update', 'index', 'show'));

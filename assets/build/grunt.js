@@ -96,6 +96,7 @@ module.exports = function(grunt) {
           '../js/vendor/underscore.js',
           '../js/vendor/backbone.js',
           '../js/vendor-image-preview.js',
+          '../js/reporting-stats.js'
         ],
         dest: '../../public/js/global.js'
       },

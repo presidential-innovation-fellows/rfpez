@@ -19,6 +19,9 @@
               </li>
               <?php if (Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): ?>
                 <li>
+                  <a href="<?php echo e(route('reports')); ?>">Reports</a>
+                </li>
+                <li>
                   <a href="<?php echo e(route('admin_home')); ?>">Admin</a>
                 </li>
               <?php endif; ?>
