@@ -12,7 +12,7 @@ Rfpez.reporting_stats = (stats) ->
 
   bidData = google.visualization.arrayToDataTable bidsDataForGchart
   bidOptions =
-    title: 'Average number of bids per project'
+    title: 'Bids per project'
     legend:
       position: 'none'
 
