@@ -5,14 +5,14 @@ Rfpez.reporting_stats = (stats) ->
   for project in stats.avgPrices
     priceDataForGchart.push [project.project_title, parseInt(project.avg_price, 10)]
 
-  bidsDataForGchart = [["project title", "average bids"]]
+  bidsDataForGchart = [["project title", "bids"]]
 
   for project in stats.bidsPerProject
     bidsDataForGchart.push [project.project_title, parseInt(project.num_bids, 10)]
 
   bidData = google.visualization.arrayToDataTable bidsDataForGchart
   bidOptions =
-    title: 'Average number of bids per project'
+    title: 'Bids per project'
     legend:
       position: 'none'
 

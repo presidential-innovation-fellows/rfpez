@@ -7921,7 +7921,7 @@ Rfpez.reporting_stats = function(stats) {
     project = _ref[_i];
     priceDataForGchart.push([project.project_title, parseInt(project.avg_price, 10)]);
   }
-  bidsDataForGchart = [["project title", "average bids"]];
+  bidsDataForGchart = [["project title", "bids"]];
   _ref1 = stats.bidsPerProject;
   for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
     project = _ref1[_j];
@@ -7929,7 +7929,7 @@ Rfpez.reporting_stats = function(stats) {
   }
   bidData = google.visualization.arrayToDataTable(bidsDataForGchart);
   bidOptions = {
-    title: 'Average number of bids per project',
+    title: 'Bids per project',
     legend: {
       position: 'none'
     }
