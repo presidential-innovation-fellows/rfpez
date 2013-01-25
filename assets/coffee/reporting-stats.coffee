@@ -27,3 +27,26 @@ Rfpez.reporting_stats = (stats) ->
 
   priceChart = new google.visualization.BarChart(document.getElementById('price-bids-chart'));
   priceChart.draw priceData, priceOptions
+
+
+
+  data = [['Date', '# of signups', '% of vendors new to contracting']]
+
+  for key, val of stats.signupsPerDay
+    data.push [key, val, stats.newVendorPercentage[key]]
+
+  data = google.visualization.arrayToDataTable data
+
+  options =
+    title: "Vendor Signups"
+    vAxes:
+      0: {logScale: false}
+      1: {logScale: false, maxValue: 1}
+    series:
+      0: {targetAxisIndex:0}
+      1: {targetAxisIndex:1}
+
+
+
+  signupsLineChart = new google.visualization.LineChart(document.getElementById('signups-line-chart'))
+  signupsLineChart.draw(data, options)

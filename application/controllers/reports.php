@@ -50,11 +50,11 @@ class Reports_Controller extends Base_Controller {
     $num_new = 0;
     $new_to_contracting = array();
     foreach ($all_days as $day) {
-      if (!isset($signups[$day])) continue;
-
-      $num_signups += $signups[$day]['new'];
-      $num_signups += $signups[$day]['old'];
-      $num_new += $signups[$day]['new'];
+      if (isset($signups[$day])) {
+        $num_signups += $signups[$day]['new'];
+        $num_signups += $signups[$day]['old'];
+        $num_new += $signups[$day]['new'];
+      }
 
       $new_to_contracting[$day] = $num_new / $num_signups;
     }
