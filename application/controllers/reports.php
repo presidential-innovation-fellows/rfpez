@@ -62,7 +62,7 @@ class Reports_Controller extends Base_Controller {
     $total_projects = 0;
     $total_bids = 0;
     $bids_per_project = array();
-    foreach (DB::query("SELECT id, title, (SELECT COUNT(*) from bids where project_id = projects.id) as bids from projects WHERE projects.posted_to_fbo_at IS NOT NULL")  as $result) {
+    foreach (DB::query("SELECT id, title, (SELECT COUNT(*) from bids where project_id = projects.id AND deleted_at IS NULL AND submitted_at IS NOT NULL) as bids from projects WHERE projects.posted_to_fbo_at IS NOT NULL")  as $result) {
       array_push($bids_per_project, array(
         'project_id' => $result->id,
         'project_title' => $result->title,
