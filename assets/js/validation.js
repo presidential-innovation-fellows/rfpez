@@ -1,7 +1,7 @@
 
 $.validator.addMethod('dotgovonly', function(value, element, param) {
-  return value.match(new RegExp('.gov$', 'i'));
-}, "Sorry, only .gov email addresses are allowed.");
+  return value.match(new RegExp('.gov$', 'i')) || value.match(new RegExp('.mil$', 'i'));
+}, "Sorry, only government email addresses are allowed.");
 
 $.validator.addMethod('urladdhttp', function(value, element) {
   if (this.optional(element)) {
