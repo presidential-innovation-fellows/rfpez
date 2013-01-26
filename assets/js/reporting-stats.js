@@ -31,7 +31,7 @@ Rfpez.reporting_stats = function(stats) {
   };
   priceChart = new google.visualization.BarChart(document.getElementById('price-bids-chart'));
   priceChart.draw(priceData, priceOptions);
-  data = [['Date', '# of signups', '% of vendors new to contracting']];
+  data = [['Date', '# of daily signups', '% of vendors new to contracting']];
   _ref2 = stats.signupsPerDay;
   for (key in _ref2) {
     val = _ref2[key];

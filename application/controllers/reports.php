@@ -17,7 +17,7 @@ class Reports_Controller extends Base_Controller {
     $all_days = array();
     $date = new \DateTime();
     $date->setTimestamp(1358488800); # 1/18/2013
-    //$date->setTimestamp(1354320000); # 12/17/2013
+    // $date->setTimestamp(1354320000); # 12/17/2013
 
     while ($date < new \DateTime()) {
       array_push($all_days, $date->format("Y-m-d"));
@@ -56,7 +56,7 @@ class Reports_Controller extends Base_Controller {
         $num_new += $signups[$day]['new'];
       }
 
-      $new_to_contracting[$day] = $num_new / $num_signups;
+      $new_to_contracting[$day] = $num_signups == 0 ? 0 : $num_new / $num_signups;
     }
 
     $total_projects = 0;
