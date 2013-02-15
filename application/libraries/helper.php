@@ -80,6 +80,7 @@ Class Helper {
   public static function all_us_states() {
     return array('AL'=>"Alabama",
                 'AK'=>"Alaska",
+                'AS'=>"American Samoa",
                 'AZ'=>"Arizona",
                 'AR'=>"Arkansas",
                 'CA'=>"California",
@@ -105,6 +106,7 @@ Class Helper {
                 'MN'=>"Minnesota",
                 'MS'=>"Mississippi",
                 'MO'=>"Missouri",
+                'MP'=>"Northern Mariana Islands",
                 'MT'=>"Montana",
                 'NE'=>"Nebraska",
                 'NV'=>"Nevada",
