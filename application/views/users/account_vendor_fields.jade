@@ -80,14 +80,6 @@
           | Send email updates about new projects open for bids
 
       .control-group
-        label Registered in SAM.gov?
-        - if ($vendor["sam_entity_name"]):
-          .green Yes, under "#{$vendor["sam_entity_name"]}"
-        - else:
-          .red No
-        - endif;
-
-      .control-group
         label Registered in DSBS?
         - if ($vendor["dsbs_name"]):
           .green Yes, under "#{$vendor["dsbs_name"]}"

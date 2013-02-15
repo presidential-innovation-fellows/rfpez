@@ -79,14 +79,6 @@
         </label>
       </div>
       <div class="control-group">
-        <label>Registered in SAM.gov?</label>
-        <?php if ($vendor["sam_entity_name"]): ?>
-          <div class="green">Yes, under "<?php echo e($vendor["sam_entity_name"]); ?>"</div>
-        <?php else: ?>
-          <div class="red">No</div>
-        <?php endif; ?>
-      </div>
-      <div class="control-group">
         <label>Registered in DSBS?</label>
         <?php if ($vendor["dsbs_name"]): ?>
           <div class="green">Yes, under "<?php echo e($vendor["dsbs_name"]); ?>"
