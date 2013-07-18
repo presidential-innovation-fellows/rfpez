@@ -1,26 +1,31 @@
 - Section::inject('page_title', $vendor->company_name)
 - Section::inject('no_page_header', true)
 
-.vendor-detail
-  .company-name.pull-left #{$vendor->company_name}
+.subheader
+  h4 vendors
 
-  .homepage-url.btn.pull-right
-    a(href="#{$vendor->homepage_url}", target="_blank") view company website
+.container.inner-container
 
-  .clearfix
+  .vendor-detail
+    .company-name.pull-left #{$vendor->company_name}
 
-  .ballpark-price #{$vendor->ballpark_price_display()}
+    .homepage-url.btn.pull-right
+      a(href="#{$vendor->homepage_url}", target="_blank") view company website
 
-  hr.dark
+    .clearfix
 
-  .more-info
-    p #{$vendor->more_info}
+    .ballpark-price #{$vendor->ballpark_price_display()}
+
+    hr.dark
+
+    .more-info
+      p #{$vendor->more_info}
 
 
-  .vendor-image-preview-frame.pull-left
-    img(src="#{$vendor->image_url}")
+    .vendor-image-preview-frame.pull-left
+      img(src="#{$vendor->image_url}")
 
-  .pull-left.span5.offset1
-    !{View::make('vendors.partials.data')->with('vendor', $vendor)}
+    .pull-left.span5.offset1
+      !{View::make('vendors.partials.data')->with('vendor', $vendor)}
 
-  .clearfix
+    .clearfix

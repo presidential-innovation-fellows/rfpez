@@ -1,66 +1,79 @@
+.subheader
+  - Section::inject('page_title', "$project->title")
 
-- Section::inject('page_title', "$project->title")
-- Section::inject('active_subnav', "view")
+  - if ($project->is_mine()):
+    - Section::inject('no_page_header', true)
+    !{View::make('projects.partials.toolbar')->with('project', $project)}
+    !{View::make('projects.partials.answer_question_form')}
+  - else:
+    .subheader-secondline
+    !{$project->agency}
+  - endif;
 
-- if ($project->is_mine()):
-  - Section::inject('no_page_header', true)
-  !{View::make('projects.partials.toolbar')->with('project', $project)}
-  !{View::make('projects.partials.answer_question_form')}
-- endif;
+.container.inner-container.inner-container-show-project
 
-.row
-  .span6
-    !{View::make('projects.partials.full_sow')->with('project', $project)}
+  - Section::inject('active_subnav', "view")
 
-  .span5.offset1
+  .row
+    .span6
+      !{View::make('projects.partials.full_sow')->with('project', $project)}
 
-    h5 Bids due !{Helper::timeago($project->proposals_due_at)}
+    .span5.offset1
 
-    - if (Auth::vendor()):
-      - if ($bid = $project->my_current_bid()):
-        a.btn.btn-small.btn-primary(href="#{route('bid', array($project->id, $bid->id))}") View my bid
-      - elseif ($bid = $project->my_current_bid_draft()):
-        a.btn.btn-success(href="#{route('new_bids', array($project->id))}") Continue Writing Bid
-      - else:
-        a.btn.btn-success(href="#{route('new_bids', array($project->id))}") Bid on this Project
+      - if ($project->source() == Project::SOURCE_NATIVE):
+
+        .well-plain
+          .bids-due-timeago Bids due !{Helper::timeago($project->proposals_due_at)}
+          .bids-due-date !{date('F jS, Y', strtotime($project->proposals_due_at))}
+
+        - if (Auth::vendor()):
+          - if ($bid = $project->my_current_bid()):
+            a.btn.btn-action-gold(href="#{route('bid', array($project->id, $bid->id))}") View my bid
+          - elseif ($bid = $project->my_current_bid_draft()):
+            a.btn.btn-success.btn-large.btn-extra-large(href="#{route('new_bids', array($project->id))}") Continue Writing Bid
+          - else:
+            a.btn.btn-success.btn-large.btn-extra-large(href="#{route('new_bids', array($project->id))}") Bid on this Project
+          - endif;
+        - endif;
+
+        .no-auth-only
+          <a class="btn btn-success" href="#signinModal" data-toggle="modal">Sign in</a> to bid on this project.
+
+        hr
+
       - endif;
-    - endif;
 
-    .no-auth-only
-      <a class="btn btn-success" href="#signinModal" data-toggle="modal">Sign in</a> to bid on this project.
+      .share
+        h5 Share
+        p
+          | <div class="addthis_toolbox addthis_default_style ">
+          | <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+          | <a class="addthis_button_tweet"></a>
+          | <a class="addthis_counter addthis_pill_style"></a>
+          | </div>
+          :javascript
+            | // var addthis_share = {"title": "#{}"};
+          | <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50b67b147c93387b"></script>
 
-    hr
+      hr
 
-    .share
-      h5 Share
-      p
-        | <div class="addthis_toolbox addthis_default_style ">
-        | <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-        | <a class="addthis_button_tweet"></a>
-        | <a class="addthis_counter addthis_pill_style"></a>
-        | </div>
-        :javascript
-          | // var addthis_share = {"title": "#{}"};
-        | <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50b67b147c93387b"></script>
+      - if ($project->source() == Project::SOURCE_NATIVE):
+        .q-and-a
+          h5 Q &amp; A
+          .questions
+            - if ($project->questions):
+              - foreach($project->questions as $question):
+                !{View::make('projects.partials.question')->with('question', $question)}
+            - else:
+              p.no-questions-asked !{__("r.projects.show.no_questions")}
 
-    hr
-
-    .q-and-a
-      h5 Q &amp; A
-      .questions
-        - if ($project->questions):
-          - foreach($project->questions as $question):
-            !{View::make('projects.partials.question')->with('question', $question)}
-        - else:
-          p.no-questions-asked !{__("r.projects.show.no_questions")}
-
-      .vendor-only
-        - if ($project->question_period_is_open()):
-          h4 Ask a question about this project
-          form#ask-question-form(action="#{route('questions')}", id="ask-question-form", method="post")
-            input(type="hidden", name="project_id", value="#{$project->id}")
-            textarea(name="question", placeholder="Type your question here")
-            button.btn.btn-primary.btn-small(data-loading-text="Sending...") Submit Question
-        - else:
-          p Sorry, the Q+A period is over and no new questions can be asked.
-
+          .vendor-only
+            - if ($project->question_period_is_open()):
+              h4 Ask a question about this project
+              form#ask-question-form(action="#{route('questions')}", id="ask-question-form", method="post")
+                input(type="hidden", name="project_id", value="#{$project->id}")
+                textarea(name="question", placeholder="Type your question here")
+                button.btn.btn-primary.btn-small(data-loading-text="Sending...") Submit Question
+            - else:
+              p Sorry, the Q+A period is over and no new questions can be asked.
+      - endif;

@@ -638,6 +638,9 @@ tbody.project {
 tbody.project .project-meta td {
   vertical-align: middle;
 }
+tbody.project .project-meta-highlight {
+  background-color: #FFF3D1;
+}
 tbody.project .project-title {
   font-size: 1.1em;
   font-weight: bold;

@@ -20,11 +20,11 @@ tbody(class="bid #{$unread ? 'unread' : ''}", data-project-id="#{$bid->project->
       - if (Auth::officer()->is_verified_contracting_officer()):
         - if (!$bid->awarded_at):
           - if($bid->dismissed()):
-            a(class="btn btn-info undismiss-button", data-move-to-table="true") Un-dismiss
+            a(class="btn btn-info undismiss-button", data-move-to-table="true") Un-decline
             div
-              em Dismissed: #{$bid->dismissal_reason}
+              em Declined: #{$bid->dismissal_reason}
           - else:
-            a(class="btn btn-warning show-dismiss-modal", data-move-to-table="true") Dismiss
+            a(class="btn btn-action-gold show-dismiss-modal", data-move-to-table="true") Decline
             - if (!$bid->project->winning_bid()):
               a(class="btn btn-primary show-award-modal", data-move-to-table="true") Award
             - endif;

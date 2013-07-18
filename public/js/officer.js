@@ -2634,10 +2634,10 @@ $(document).on("change", "#project-type-select", function() {
     parse: function() {
       var icon, text;
       if (this.model.attributes.notification_type === "Dismissal") {
-        text = " <a href=\"" + this.model.attributes.parsed.link + "\">" + this.model.attributes.payload.bid.vendor.company_name + "'s</a> bid was dismissed. ";
+        text = " <a href=\"" + this.model.attributes.parsed.link + "\">" + this.model.attributes.payload.bid.vendor.company_name + "'s</a> bid was declined. ";
         icon = "icon-thumbs-down";
       } else if (this.model.attributes.notification_type === "Undismissal") {
-        text = " <a href=\"" + this.model.attributes.parsed.link + "\">" + this.model.attributes.payload.bid.vendor.company_name + "'s</a> bid was un-dismissed. ";
+        text = " <a href=\"" + this.model.attributes.parsed.link + "\">" + this.model.attributes.payload.bid.vendor.company_name + "'s</a> bid was un-declined. ";
         icon = "icon-repeat";
       } else if (this.model.attributes.notification_type === "BidSubmit") {
         text = " <a href=\"" + this.model.attributes.parsed.link + "\">" + this.model.attributes.payload.bid.vendor.company_name + "</a> submitted a bid. ";

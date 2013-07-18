@@ -1,32 +1,35 @@
-- Section::inject('page_title', $project->title)
-- Section::inject('page_action', "Background")
-- Section::inject('active_subnav', 'create')
-- Section::inject('active_sidebar', 'background')
-- Section::inject('no_page_header', true)
+.subheader
+  - Section::inject('page_title', $project->title)
+  - Section::inject('page_action', "Background")
+  - Section::inject('active_subnav', 'create')
+  - Section::inject('active_sidebar', 'background')
+  - Section::inject('no_page_header', true)
 
-!{View::make('projects.partials.toolbar')->with('project', $project)}
+  !{View::make('projects.partials.toolbar')->with('project', $project)}
 
-.row-fluid
+.container.inner-container
 
-  .span3
-    !{View::make('projects.partials.sow_composer_sidebar')->with('project', $project)}
+  .row-fluid
 
-  .span9
-    .alert.alert-info #{__("r.projects.background.helper")}
+    .span3
+      !{View::make('projects.partials.sow_composer_sidebar')->with('project', $project)}
 
-    h5 #{__("r.projects.background.tips_header")}
+    .span9
+      .alert.alert-info #{__("r.projects.background.helper")}
 
-    ul
-      li #{__("r.projects.background.tips.0")}
-      li #{__("r.projects.background.tips.1")}
-      li #{__("r.projects.background.tips.2")}
-      li #{__("r.projects.background.tips.3")}
-      li #{__("r.projects.background.tips.4")}
+      h5 #{__("r.projects.background.tips_header")}
+
+      ul
+        li #{__("r.projects.background.tips.0")}
+        li #{__("r.projects.background.tips.1")}
+        li #{__("r.projects.background.tips.2")}
+        li #{__("r.projects.background.tips.3")}
+        li #{__("r.projects.background.tips.4")}
 
 
-    form.background-form(method="POST")
-      .wysiwyg-wrapper
-        textarea.wysihtml5(name="project[background]") !{$project->background}
+      form.background-form(method="POST")
+        .wysiwyg-wrapper
+          textarea.wysihtml5(name="project[background]") !{$project->background}
 
-      .form-actions
-        button.btn.btn-primary Save and Continue &rarr;
+        .form-actions
+          button.btn.btn-primary Save and Continue &rarr;

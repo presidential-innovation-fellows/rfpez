@@ -1,23 +1,24 @@
-- Section::inject('page_title', $project->title)
-- Section::inject('page_action', "Review")
-- Section::inject('active_subnav', 'create')
-- Section::inject('active_sidebar', 'review')
-- Section::inject('no_page_header', true)
+.subheader
+	- Section::inject('page_title', $project->title)
+	- Section::inject('page_action', "Review")
+	- Section::inject('active_subnav', 'create')
+	- Section::inject('active_sidebar', 'review')
+	- Section::inject('no_page_header', true)
 
-!{View::make('projects.partials.toolbar')->with('project', $project)}
-
-
-
-
-.row-fluid
-  .span3
-    !{View::make('projects.partials.sow_composer_sidebar')->with('project', $project)}
-
-  .span9
-    .well !{__("r.projects.review.text", array("post_url" => route('project_post_on_fbo', array($project->id)), "invite_url" =>route('project_admin', array($project->id))))}
-
-    !{View::make('projects.partials.full_sow')->with('project', $project)}
+	!{View::make('projects.partials.toolbar')->with('project', $project)}
 
 
-    .form-actions
-      a.btn.btn-primary(href="#{route('project_post_on_fbo', array($project->id))}") Looks Good! &rarr;
+.container.inner-container
+
+	.row-fluid
+	  .span3
+	    !{View::make('projects.partials.sow_composer_sidebar')->with('project', $project)}
+
+	  .span9
+	    .well !{__("r.projects.review.text", array("post_url" => route('project_post_on_fbo', array($project->id)), "invite_url" =>route('project_admin', array($project->id))))}
+
+	    !{View::make('projects.partials.full_sow')->with('project', $project)}
+
+
+	    .form-actions
+	      a.btn.btn-primary(href="#{route('project_post_on_fbo', array($project->id))}") Looks Good! &rarr;

@@ -1,16 +1,19 @@
 <?php Section::inject('page_title', (Auth::officer() ? 'Everybody\'s Projects' : 'Projects' )) ?>
 <?php Section::inject('no_page_header', true) ?>
-<?php if (!Auth::user()): ?>
-  <p class="lead well">Ready to start bidding? <a href="<?php echo e(route('new_vendors')); ?>">Sign up</a> in minutes!</p>
-<?php endif; ?>
-<h4>
-  <?php echo (Auth::officer() ? 'Everybody\'s Projects' : 'Projects' ); ?>
-  <small>(<a href="<?php echo e(route('project_rss', 'rss')); ?>">rss</a> / <a href="<?php echo e(route('project_rss', 'atom')); ?>">atom</a>)</small>
-  <a class="officer-only toggle-my-all-projects" href="<?php echo e(route('my_projects')); ?>">my projects only</a>
-  <div class="search-projects pull-right">
-    <input id="filter-projects-input" class="search-query" type="search" placeholder="Filter projects..." />
-  </div>
-</h4>
+<div class="subheader">
+  <?php if (!Auth::user()): ?>
+    <p class="lead well">Ready to start bidding? <a href="<?php echo e(route('new_vendors')); ?>">Sign up</a> in minutes!</p>
+  <?php endif; ?>
+  <h4>
+    <?php echo (Auth::officer() ? 'Everybody\'s Projects' : 'Projects' ); ?>
+    <small>(<a href="<?php echo e(route('project_rss', 'rss')); ?>">rss</a> / <a href="<?php echo e(route('project_rss', 'atom')); ?>">atom</a>)</small>
+    <a class="officer-only toggle-my-all-projects" href="<?php echo e(route('my_projects')); ?>">my projects only</a>
+    <div class="search-projects pull-right">
+      <input id="filter-projects-input" class="search-query" type="search" placeholder="Filter projects..." />
+    </div>
+  </h4>
+</div><!-- subheader index -->
+<div class="container inner-container">
 <?php if (count($projects) > 0): ?>
   <table class="table projects-table">
     <thead>
@@ -26,9 +29,13 @@
     </thead>
     <?php foreach($projects as $project): ?>
       <tbody class="project">
-        <tr class="project-meta">
+        <tr class="project-meta <?php if ($project->source == Project::SOURCE_NATIVE) echo 'project-meta-highlight'; ?>">
           <td class="hidden-phone">
-            <img src="<?php echo e($project->project_type->image()); ?>" title="<?php echo e($project->project_type->name); ?>" alt="<?php echo e($project->project_type->name); ?>" />
+            <?php if ($project->source == Project::SOURCE_NATIVE): ?>
+              <img src="<?php echo e($project->project_type->image()); ?>" title="<?php echo e($project->project_type->name); ?>" alt="<?php echo e($project->project_type->name); ?>" />
+            <?php else: ?>
+              <span class="fbo-import-icon">FBO</span>
+            <?php endif; ?>
           </td>
           <td>
             <a class="project-title" href="<?php echo e(route('project', array($project->id))); ?>"><?php echo e($project->title); ?></a>
@@ -56,6 +63,7 @@
       </tbody>
     <?php endforeach; ?>
   </table>
-<?php else: ?>
-  <p><?php echo e(__("r.projects.index.none")); ?></p>
-<?php endif; ?>
+  <?php else: ?>
+    <p><?php echo e(__("r.projects.index.none")); ?></p>
+  <?php endif; ?>
+</div>

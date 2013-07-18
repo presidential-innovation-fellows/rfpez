@@ -1,101 +1,104 @@
-- Section::inject('page_title', $project->title)
-- Section::inject('page_action', "Admin")
-- Section::inject('active_subnav', 'admin')
-- Section::inject('no_page_header', true)
+.subheader
+  - Section::inject('page_title', $project->title)
+  - Section::inject('page_action', "Admin")
+  - Section::inject('active_subnav', 'admin')
+  - Section::inject('no_page_header', true)
 
-!{View::make('projects.partials.toolbar')->with('project', $project)}
+  !{View::make('projects.partials.toolbar')->with('project', $project)}
 
-.row-fluid
-  .span6
+.container.inner-container
 
-    h5 Update Project
+  .row-fluid
+    .span6
 
-    form(action="#{route('project', array($project->id))}", method="POST", id="update-project-form")
-      input(type="hidden", name="_method", value="PUT")
-      .control-group
-        label Project Title
-        input(type="text", name="project[title]", value="#{$project->title}")
+      h5 Update Project
 
-      .control-group
-        label Agency
-        input(type="text", name="project[agency]", value="#{$project->agency}")
+      form(action="#{route('project', array($project->id))}", method="POST", id="update-project-form")
+        input(type="hidden", name="_method", value="PUT")
+        .control-group
+          label Project Title
+          input.full-width(type="text", name="project[title]", value="#{$project->title}")
 
-      .control-group
-        label Office
-        input(type="text", name="project[office]", value="#{$project->office}")
+        .control-group
+          label Agency
+          input.full-width(type="text", name="project[agency]", value="#{$project->agency}")
 
-      .control-group
-        label Project Type
-        input(type="text", value="#{$project->project_type->name}", readonly)
+        .control-group
+          label Office
+          input.full-width(type="text", name="project[office]", value="#{$project->office}")
 
-      .control-group
-        label Q+A Period Ends
-        span.input-append.date.datepicker-wrapper
-          input.span3(type="text", name="project[question_period_over_at]", value="#{$project->formatted_question_period_over_at()}")
-          span.add-on
-            i.icon-calendar
-        | &nbsp; at 11:59pm EST
+        .control-group
+          label Project Type
+          input.full-width(type="text", value="#{$project->project_type->name}", readonly)
 
-      .control-group
-        label Bids Due
-        span.input-append.date.datepicker-wrapper
-          input.span3(type="text", name="project[proposals_due_at]", value="#{$project->formatted_proposals_due_at()}")
-          span.add-on
-            i.icon-calendar
-        | &nbsp; at 11:59pm EST
+        .control-group
+          label Q+A Period Ends
+          span.input-append.date.datepicker-wrapper
+            input.span3(type="text", name="project[question_period_over_at]", value="#{$project->formatted_question_period_over_at()}")
+            span.add-on
+              i.icon-calendar
+          | &nbsp; at 11:59pm EST
 
-      .control-group
-        label Price type
-        label
-          | <input type="radio" name="project[price_type]" value="#{Project::PRICE_TYPE_FIXED}" #{$project->price_type == Project::PRICE_TYPE_FIXED ? 'checked' : ''} />
-          | Fixed price
-        label
-          | <input type="radio" name="project[price_type]" value="#{Project::PRICE_TYPE_HOURLY}" #{$project->price_type == Project::PRICE_TYPE_HOURLY ? 'checked' : ''} />
-          | Hourly price
+        .control-group
+          label Bids Due
+          span.input-append.date.datepicker-wrapper
+            input.span3(type="text", name="project[proposals_due_at]", value="#{$project->formatted_proposals_due_at()}")
+            span.add-on
+              i.icon-calendar
+          | &nbsp; at 11:59pm EST
 
-        - if ($project->submitted_bids()->count() > 0):
-          em #{__("r.projects.admin.change_price_type_warning")}
+        .control-group
+          label Price type
+          label
+            | <input type="radio" name="project[price_type]" value="#{Project::PRICE_TYPE_FIXED}" #{$project->price_type == Project::PRICE_TYPE_FIXED ? 'checked' : ''} />
+            | Fixed price
+          label
+            | <input type="radio" name="project[price_type]" value="#{Project::PRICE_TYPE_HOURLY}" #{$project->price_type == Project::PRICE_TYPE_HOURLY ? 'checked' : ''} />
+            | Hourly price
 
-      .form-actions
-        button.btn.btn-primary Save
+          - if ($project->submitted_bids()->count() > 0):
+            em #{__("r.projects.admin.change_price_type_warning")}
+
+        .form-actions
+          button.btn.btn-primary Save
 
 
-  .span6
+    .span6
 
-    h5 Collaborators
+      h5 Collaborators
 
-    p #{__("r.projects.admin.collaborators")}
+      p #{__("r.projects.admin.collaborators")}
 
-    table.table.collaborators-table(data-project-id="#{$project->id}")
-      thead
-        tr
-          th Email
-          th Owner
-          th Actions
-      tbody#collaborators-tbody
-        :javascript
-          | $(function(){
-          |  new Rfpez.Backbone.Collaborators( !{$project->id}, !{$project->owner()->user->id}, !{$collaborators_json} )
-          | })
+      table.table.collaborators-table(data-project-id="#{$project->id}")
+        thead
+          tr
+            th Email
+            th Owner
+            th Actions
+        tbody#collaborators-tbody
+          :javascript
+            | $(function(){
+            |  new Rfpez.Backbone.Collaborators( !{$project->id}, !{$project->owner()->user->id}, !{$collaborators_json} )
+            | })
 
-      tfoot
-        tr
-          td(colspan="3")
-            form#add-collaborator-form(action="#{route('project_collaborators', array($project->id))}", method="POST")
-              .input-append
-                input(type="text", name="email", placeholder="Email Address", autocomplete="off")
-                button.btn.btn-success Add
+        tfoot
+          tr
+            td(colspan="3")
+              form#add-collaborator-form(action="#{route('project_collaborators', array($project->id))}", method="POST")
+                .input-append
+                  input.full-width(type="text", name="email", placeholder="Email Address", autocomplete="off")
+                  button.btn.btn-success Add
 
-    h5 Sharing
+      h5 Sharing
 
-    p #{__("r.projects.admin.sharing")}
+      p #{__("r.projects.admin.sharing")}
 
-      form(action="#{route('project_toggle_public', array($project->id))}?redirect=#{URI::current()}", method="POST")
-        .well
-          - if ($project->public):
-            span.public-status Status: Public
-            button.btn.btn-danger Set to Private
-          - else:
-            span.public-status Status: Private
-            button.btn.btn-success Set to Public (Recommended!)
-          - endif;
+        form(action="#{route('project_toggle_public', array($project->id))}?redirect=#{URI::current()}", method="POST")
+          .well
+            - if ($project->public):
+              span.public-status Status: Public
+              button.btn.btn-danger Set to Private
+            - else:
+              span.public-status Status: Private
+              button.btn.btn-success Set to Public (Recommended!)
+            - endif;

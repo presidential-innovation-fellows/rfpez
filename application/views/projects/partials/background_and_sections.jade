@@ -1,8 +1,8 @@
-h5 Background
+h5.sow-section-header.sow-section-header-first Background
 p !{$project->background}
 
 - foreach ($project->sections_by_category() as $category => $sections):
-  h5 #{$category}
+  h5.sow-section-header #{$category}
 
   - foreach ($sections as $section):
     strong #{$section->title}

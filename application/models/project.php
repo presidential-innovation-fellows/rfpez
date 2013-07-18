@@ -10,12 +10,15 @@ class Project extends Eloquent {
   const PRICE_TYPE_FIXED = 0;
   const PRICE_TYPE_HOURLY = 1;
 
+  const SOURCE_NATIVE = 0;
+  const SOURCE_FBO = 1;
+
   public static $timestamps = true;
 
   public static $my_project_ids = false;
 
   public static $accessible = array('project_type_id', 'title', 'agency', 'office', 'public', 'background',
-                                    'sections', 'variables', 'proposals_due_at', 'price_type');
+                                    'sections', 'variables', 'proposals_due_at', 'price_type', 'source');
 
   public static $sow_progress_markers = array('project_template' => 0,
                                               'project_background' => 1,
@@ -142,6 +145,10 @@ class Project extends Eloquent {
     } else {
       return self::STATUS_CONTRACT_AWARDED;
     }
+  }
+
+  public function source() {
+    return $this->source;
   }
 
   public function is_open_for_bids() {

@@ -36,9 +36,9 @@ head
 
   !{Section::yield('additional_scripts')}
 
-  script(src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js")
+  script(src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js")
   script
-    | window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.1.min.js"><\/script>')
+    | window.jQuery || document.write('<script src="/bundles/administrator/js/jquery/jquery-1.8.2.min.js"><\/script>')
 
 
 
@@ -70,7 +70,7 @@ body(class="#{$body_class}", data-current-page="#{Section::yield('current_page')
 
     !{View::make('partials.topnav')}
 
-    .container
+    .subheader.subheader-primary
 
       - if (Auth::guest()):
         !{View::make('partials.signin_modal')}
@@ -95,7 +95,8 @@ body(class="#{$body_class}", data-current-page="#{Section::yield('current_page')
 
       !{Section::yield('subnav')}
 
-      !{$content}
+
+    !{$content}
 
 
   !{View::make('partials.footer')}

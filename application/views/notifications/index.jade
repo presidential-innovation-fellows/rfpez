@@ -1,14 +1,18 @@
-- Section::inject('page_title', 'Notifications')
+.subheader
 
-- if (count($notifications->results) > 0):
-  table.notifications-table.table
-    - foreach ($notifications->results as $notification):
-      !{View::make('notifications.partials.notification')->with('notification', $notification)}
+.container.inner-container
 
-  .pagination-wrapper
-    !{$notifications->links()}
+	- Section::inject('page_title', 'Notifications')
 
-- else:
-  p #{__("r.notifications.index.no_notifications")}
-- endif;
+	- if (count($notifications->results) > 0):
+	  table.notifications-table.table
+	    - foreach ($notifications->results as $notification):
+	      !{View::make('notifications.partials.notification')->with('notification', $notification)}
+
+	  .pagination-wrapper
+	    !{$notifications->links()}
+
+	- else:
+	  p #{__("r.notifications.index.no_notifications")}
+	- endif;
 

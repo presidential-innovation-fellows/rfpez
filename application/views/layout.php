@@ -26,9 +26,9 @@
   <?php endif; ?>
   <?php echo HTML::script('js/modernizr.js'); ?>
   <?php echo Section::yield('additional_scripts'); ?>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
   <script>
-    window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.1.min.js"><\/script>')
+    window.jQuery || document.write('<script src="/bundles/administrator/js/jquery/jquery-1.8.2.min.js"><\/script>')
   </script>
   <?php echo Helper::asset('js/global'); ?>
   <?php if (Auth::user()): ?>
@@ -49,7 +49,7 @@
   <![endif]-->
   <div id="outer-container">
     <?php echo View::make('partials.topnav'); ?>
-    <div class="container">
+    <div class="subheader subheader-primary">
       <?php if (Auth::guest()): ?>
         <?php echo View::make('partials.signin_modal'); ?>
       <?php endif; ?>
@@ -76,8 +76,10 @@
         </h4>
       <?php } ?>
       <?php echo Section::yield('subnav'); ?>
-      <?php echo $content; ?>
-    </div>
+    </div><!-- subheader layout -->
+
+    <?php echo $content; ?>
+
   </div>
   <?php echo View::make('partials.footer'); ?>
   <?php if (Request::is_env('production') || Request::is_env('ec2')) { ?>

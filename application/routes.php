@@ -44,6 +44,8 @@ Route::group(array('https' => true), function(){
 
   Route::get('reports', array('uses' => 'reports@index', 'as' => 'reports'));
 
+  Route::get('faq', array('uses' => 'home@faq', 'as' => 'faq'));
+
   ////////
 
   Route::resourceful('projects', array('new', 'create', 'edit', 'update', 'index', 'show'));

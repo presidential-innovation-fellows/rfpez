@@ -2,7 +2,7 @@
 <div class="details-inner">
   <?php if ($bid->dismissed()): ?>
     <div class="alert alert-danger dismissed-alert">
-      <div class="dismissal-notice">You have dismissed this bid.</div>
+      <div class="dismissal-notice">You have declined this bid.</div>
       <div class="dismissal-reason">
         <strong>Reason:</strong>
         <span><?php echo e($bid->dismissal_reason); ?></span>

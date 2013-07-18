@@ -1,34 +1,36 @@
-- Section::inject('page_title', $project->title)
-- Section::inject('page_action', "Select a Template")
-- Section::inject('active_subnav', 'create')
-- Section::inject('no_page_header', true)
+.subheader
+  - Section::inject('page_title', $project->title)
+  - Section::inject('page_action', "Select a Template")
+  - Section::inject('active_subnav', 'create')
+  - Section::inject('no_page_header', true)
 
-!{View::make('projects.partials.toolbar')->with('project', $project)}
+  !{View::make('projects.partials.toolbar')->with('project', $project)}
+
+.container.inner-container
+
+  - if ($templates):
+
+    h5 !{__("r.projects.template.template_header")}
+
+    p !{__("r.projects.template.template_text")}
+
+    ul.templates-list
+      !{View::make('projects.partials.template_lis')->with('templates', $templates)->with('project', $project)}
+      - if ($more_templates_count):
+        li.show-more
+          a.show-more-templates-link(data-href="#{route('project_more_templates', array($project->id))}") See #{$more_templates_count} more #{Str::plural('template', $more_templates_count)}...
+          img.spinner(src="#{asset('img/spinner.gif')}")
 
 
-- if ($templates):
+    h5 !{__("r.projects.template.scratch_header")}
 
-  h5 !{__("r.projects.template.template_header")}
-
-  p !{__("r.projects.template.template_text")}
-
-  ul.templates-list
-    !{View::make('projects.partials.template_lis')->with('templates', $templates)->with('project', $project)}
-    - if ($more_templates_count):
-      li.show-more
-        a.show-more-templates-link(data-href="#{route('project_more_templates', array($project->id))}") See #{$more_templates_count} more #{Str::plural('template', $more_templates_count)}...
-        img.spinner(src="#{asset('img/spinner.gif')}")
-
-
-  h5 !{__("r.projects.template.scratch_header")}
-
-  p !{__("r.projects.template.scratch_text")}
-  .centered
-    a.btn.btn-primary(href="#{route('project_background', array($project->id))}") Start From Scratch
-
-- else:
-
-  p.well !{__("r.projects.template.no_templates", array("project_type" => $project->project_type->name))}
-
+    p !{__("r.projects.template.scratch_text")}
     .centered
-      a.btn.btn-primary(href="#{route('project_background', array($project->id))}") Let's get started! &rarr;
+      a.btn.btn-primary(href="#{route('project_background', array($project->id))}") Start From Scratch
+
+  - else:
+
+    p.well !{__("r.projects.template.no_templates", array("project_type" => $project->project_type->name))}
+
+      .centered
+        a.btn.btn-primary(href="#{route('project_background', array($project->id))}") Let's get started! &rarr;

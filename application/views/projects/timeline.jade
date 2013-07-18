@@ -1,39 +1,42 @@
-- Section::inject('page_title', $project->title)
-- Section::inject('page_action', "Timeline")
-- Section::inject('active_subnav', 'create')
-- Section::inject('active_sidebar', 'timeline')
-- Section::inject('no_page_header', true)
+.subheader
+  - Section::inject('page_title', $project->title)
+  - Section::inject('page_action', "Timeline")
+  - Section::inject('active_subnav', 'create')
+  - Section::inject('active_sidebar', 'timeline')
+  - Section::inject('no_page_header', true)
 
-!{View::make('projects.partials.toolbar')->with('project', $project)}
+  !{View::make('projects.partials.toolbar')->with('project', $project)}
 
-.row-fluid
-  .span3
-    !{View::make('projects.partials.sow_composer_sidebar')->with('project', $project)}
+.container.inner-container
 
-  .span9
-    .alert.alert-info
-      - if ($project->price_type == Project::PRICE_TYPE_HOURLY):
-        | !{__("r.projects.timeline.hourly")}
-      - endif;
-      | !{__("r.projects.timeline.drag_helper")}
+  .row-fluid
+    .span3
+      !{View::make('projects.partials.sow_composer_sidebar')->with('project', $project)}
 
-    form(method="POST")
+    .span9
+      .alert.alert-info
+        - if ($project->price_type == Project::PRICE_TYPE_HOURLY):
+          | !{__("r.projects.timeline.hourly")}
+        - endif;
+        | !{__("r.projects.timeline.drag_helper")}
 
-      table(class="table timeline-table #{$project->price_type == Project::PRICE_TYPE_HOURLY ? 'hourly-price' : 'fixed-price'}")
-        thead
-          tr
-            th Deliverable
-            th.completion-date Completion Date !{Helper::helper_tooltip(__("r.projects.timeline.tbd"))}
-            th Actions
-        tbody#deliverables-tbody
-          :javascript
-            | $(function(){
-            |   new Rfpez.Backbone.SowDeliverables( !{$project->id}, !{$deliverables_json} )
-            | })
+      form(method="POST")
 
-      a.btn.add-deliverable-timeline-button.pull-right Add Deliverable <i class="icon-plus-sign"></i>
+        table(class="table timeline-table #{$project->price_type == Project::PRICE_TYPE_HOURLY ? 'hourly-price' : 'fixed-price'}")
+          thead
+            tr
+              th Deliverable
+              th.completion-date Completion Date !{Helper::helper_tooltip(__("r.projects.timeline.tbd"))}
+              th Actions
+          tbody#deliverables-tbody
+            :javascript
+              | $(function(){
+              |   new Rfpez.Backbone.SowDeliverables( !{$project->id}, !{$deliverables_json} )
+              | })
 
-      .clearfix
+        a.btn.add-deliverable-timeline-button.pull-right Add Deliverable <i class="icon-plus-sign"></i>
 
-      .form-actions
-        a.btn.btn-primary(href="#{route('project_review', array($project->id))}") Save and Continue &rarr;
+        .clearfix
+
+        .form-actions
+          a.btn.btn-primary(href="#{route('project_review', array($project->id))}") Save and Continue &rarr;

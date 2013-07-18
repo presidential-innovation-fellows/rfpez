@@ -97,7 +97,7 @@ class Bid extends SoftDeleteModel {
     if (!$this->submitted_at) {
       return "Draft Saved";
     } elseif ($this->dismissed()) {
-      return "Dismissed";
+      return "Did Not Win";
     } elseif ($this->awarded_at) {
       return "Won!";
     } else {

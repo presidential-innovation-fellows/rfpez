@@ -16,7 +16,7 @@ bids:
         When you award this contract, we'll send the message below to the vendor that
         you have accepted their bid and are ready to start working with them.
         Make sure all your "i"s are dotted and "t"s are crossed before you hit the button below.
-        We will also automatically dismiss all other bids on this project.
+        We will also automatically mark all other bids on this project "not selected."
       co_warning: >
         Awarding contracts is for <strong>registered contracting officers</strong> only.
         If you're not a CO, turn back now.
@@ -25,13 +25,13 @@ bids:
 
     bid_details_vendors_view:
       review: Your bid is currently being reviewed. We'll let you know when the status changes.
-      dismissed: Your bid has been dismissed.
+      dismissed: Your bid did not win.
       won_header: <strong>Your bid won!</strong>
       won_body: Here's what the government officer said:<br /><br /><em>":message"</em>
 
     bid_for_review:
       congrats: Congrats on finding a great bid!
-      only_co: Only COs can dismiss bids.
+      only_co: Only COs can decline bids.
 
     dismiss_modal:
       optional_fields: >
@@ -83,7 +83,7 @@ partials:
       Need help? Just tweet <a href="http://twitter.com/projectrfpez">@ProjectRFPEZ</a> or email <a href="mailto:rfpez@sba.gov">rfpez@sba.gov</a>!
     text: >
       RFP-EZ is an official website of the United States Government, and was
-      created by <a href='http://wh.gov/innovationfellows/rfpez'>Project RFP-EZ</a>
+      created by <a href='http://wh.gov/innovationfellows/rfp-ez'>Project RFP-EZ</a>
       as part of the Presidential Innovation Fellowship program.
 
   topnav:

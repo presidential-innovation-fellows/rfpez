@@ -26,4 +26,9 @@ class Home_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
+  public function action_faq() {
+    $view = View::make('home.faq');
+    $this->layout->content = $view;
+  }
+
 }

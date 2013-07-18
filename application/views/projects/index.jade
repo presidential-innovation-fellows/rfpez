@@ -1,60 +1,64 @@
 - Section::inject('page_title', (Auth::officer() ? 'Everybody\'s Projects' : 'Projects' ))
 - Section::inject('no_page_header', true)
 
+.subheader
 
-- if (!Auth::user()):
-  p.lead.well Ready to start bidding? <a href="#{route('new_vendors')}">Sign up</a> in minutes!
-- endif;
+  - if (!Auth::user()):
+    p.lead.well Ready to start bidding? <a href="#{route('new_vendors')}">Sign up</a> in minutes!
+  - endif;
 
+  h4 !{(Auth::officer() ? 'Everybody\'s Projects' : 'Projects' )}
+    small (<a href="#{route('project_rss', 'rss')}">rss</a> / <a href="#{route('project_rss', 'atom')}">atom</a>)
+    a.officer-only.toggle-my-all-projects(href="#{route('my_projects')}") my projects only
+    .search-projects.pull-right
+      input.search-query#filter-projects-input(type="search", placeholder="Filter projects...")
 
-h4 !{(Auth::officer() ? 'Everybody\'s Projects' : 'Projects' )}
-  small (<a href="#{route('project_rss', 'rss')}">rss</a> / <a href="#{route('project_rss', 'atom')}">atom</a>)
-  a.officer-only.toggle-my-all-projects(href="#{route('my_projects')}") my projects only
-  .search-projects.pull-right
-    input.search-query#filter-projects-input(type="search", placeholder="Filter projects...")
+.container.inner-container
 
+  - if (count($projects) > 0):
 
+    table.table.projects-table
+      thead
+        tr
+          th.type.hidden-phone Type
+          th.project-title Project Title
+          th.agency.visible-desktop Agency
+          th.due
+            | Bids Due
+            !{Helper::helper_tooltip("Bids are due at 11:59pm EST on the date listed.", "top", false, true)}
 
-- if (count($projects) > 0):
+      - foreach($projects as $project):
 
-  table.table.projects-table
-    thead
-      tr
-        th.type.hidden-phone Type
-        th.project-title Project Title
-        th.agency.visible-desktop Agency
-        th.due
-          | Bids Due
-          !{Helper::helper_tooltip("Bids are due at 11:59pm EST on the date listed.", "top", false, true)}
+        tbody.project
+          tr(class="#{(($project->source == Project::SOURCE_NATIVE) ? 'project-meta project-meta-highlight' : 'project-meta')}")
+            td.hidden-phone
+              - if ($project->source() == Project::SOURCE_NATIVE):
+                img(src="#{$project->project_type->image()}", title="#{$project->project_type->name}", alt="#{$project->project_type->name}")
+              - else:
+                span.fbo-import-icon FBO
+            td
+              a.project-title(href="#{route('project', array($project->id))}") #{$project->title}
+              - if ($project->is_mine()):
+                span.admin-star
+                  i.icon-star
+                  a(href="#{route('review_bids', array($project->id))}") Review Bids
+              - endif;
 
-    - foreach($projects as $project):
-      tbody.project
-        tr.project-meta
-          td.hidden-phone
-            img(src="#{$project->project_type->image()}", title="#{$project->project_type->name}", alt="#{$project->project_type->name}")
-          td
-            a.project-title(href="#{route('project', array($project->id))}") #{$project->title}
-            - if ($project->is_mine()):
-              span.admin-star
-                i.icon-star
-                a(href="#{route('review_bids', array($project->id))}") Review Bids
-            - endif;
+              - if ($bid = $project->my_bid()):
+                span.admin-star
+                  i.icon-star
+                  - if ($bid->submitted_at):
+                    a(href="#{route('bid', array($project->id, $project->my_bid()->id))}") View my bid
+                  - else:
+                    a(href="#{route('new_bids', array($project->id))}") Continue Writing Bid
+                  - endif;
+              - endif;
 
-            - if ($bid = $project->my_bid()):
-              span.admin-star
-                i.icon-star
-                - if ($bid->submitted_at):
-                  a(href="#{route('bid', array($project->id, $project->my_bid()->id))}") View my bid
-                - else:
-                  a(href="#{route('new_bids', array($project->id))}") Continue Writing Bid
-                - endif;
-            - endif;
+              p.project-description-truncated #{$project->background_truncated()}
 
-            p.project-description-truncated #{$project->background_truncated()}
+            td.visible-desktop #{$project->agency}
 
-          td.visible-desktop #{$project->agency}
+            td #{$project->formatted_proposals_due_at()}
 
-          td #{$project->formatted_proposals_due_at()}
-
-- else:
-  p #{__("r.projects.index.none")}
+  - else:
+    p #{__("r.projects.index.none")}

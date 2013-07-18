@@ -7,17 +7,17 @@ Class NotificationParser {
 
     if ($notification->notification_type == "Dismissal") {
       $bid = $notification->payload["bid"];
-      $return_array["subject"] = "Your bid on ".$bid["project"]["title"]." has been dismissed.";
+      $return_array["subject"] = "Your bid on ".$bid["project"]["title"]." did not win.";
       $return_array["line1"] = "Your bid on <a href='".route('bid', array($bid["project"]["id"], $bid["id"]))."'>".$bid["project"]["title"].
-                "</a> has been dismissed.";
+                "</a> did not win.";
       $return_array["line2"] = "";
       $return_array["link"] = route('bid', array($bid["project"]["id"], $bid["id"]));
 
     } elseif ($notification->notification_type == "Undismissal") {
       $bid = $notification->payload["bid"];
-      $return_array["subject"] = "Your bid on ".$bid["project"]["title"]." has been un-dismissed.";
+      $return_array["subject"] = "Your bid on ".$bid["project"]["title"]." is being reconsidered.";
       $return_array["line1"] = "Your bid on <a href='".route('bid', array($bid["project"]["id"], $bid["id"]))."'>".$bid["project"]["title"].
-                "</a> has been un-dismissed.";
+                "</a> is being reconsidered.";
       $return_array["line2"] = "Congrats, you're back in the running!";
       $return_array["link"] = route('bid', array($bid["project"]["id"], $bid["id"]));
 

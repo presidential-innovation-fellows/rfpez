@@ -1,16 +1,20 @@
 - Section::inject('page_title', 'Change Email')
 
-form.form-horizontal(action="#{route('change_email')}", method="post")
+.subheader
 
-  .control-group
-    label.control-label New Email
-    .controls
-      input(type="text", name="new_email", value="#{Input::old('new_email')}")
+.container.inner-container
 
-  .control-group
-    label.control-label Verify Password
-    .controls
-      input(type="password", name="password")
+  form.form-horizontal(action="#{route('change_email')}", method="post")
 
-  .form-actions
-    button.btn.btn-primary(type="submit") Submit
+    .control-group
+      label.control-label New Email
+      .controls
+        input(type="text", name="new_email", value="#{Input::old('new_email')}")
+
+    .control-group
+      label.control-label Verify Password
+      .controls
+        input(type="password", name="password")
+
+    .form-actions
+      button.btn.btn-primary(type="submit") Submit

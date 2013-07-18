@@ -1,26 +1,44 @@
-- Section::inject('page_title', $project->title)
-- Section::inject('page_action', "Review Bids")
-- Section::inject('active_subnav', 'review_bids')
-- Section::inject('no_page_header', true)
-- Section::inject('current_page', 'bid-review')
+.subheader
+  - Section::inject('page_title', $project->title)
+  - Section::inject('page_action', "Review Bids")
+  - Section::inject('active_subnav', 'review_bids')
+  - Section::inject('no_page_header', true)
+  - Section::inject('current_page', 'bid-review')
 
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 !{View::make('bids.partials.dismiss_modal')}
 !{View::make('bids.partials.award_modal')->with('project', $project)}
 
-.well
-  a#review-tips-toggle(data-hide-text="Hide Tips [-]") Show Tips [+]
+.container.inner-container
 
-  #review-tips.collapse
-    ul
-      li #{__("r.bids.review.stars_tip")}
+  .well
+    a#review-tips-toggle(data-hide-text="Hide Tips [-]") Show Tips [+]
+
+    #review-tips.collapse
+      ul
+        li #{__("r.bids.review.stars_tip")}
 
 
-div(class="winning-bid-table-wrapper #{$project->winning_bid() ? '' : 'hide'}")
+  div(class="winning-bid-table-wrapper #{$project->winning_bid() ? '' : 'hide'}")
 
-  h5 Winning Bid
+    h5 Winning Bid
 
-  table.table.bids-table.winning-bid
+    table.table.bids-table.winning-bid
+      thead
+        tr
+          th.unread-and-star(colspan="2")
+          th.vendor-name Vendor Name
+          th.price Price
+          th.actions Actions
+
+      - if ($project->winning_bid()):
+        !{View::make('bids.partials.bid_for_review')->with('bid', $project->winning_bid())}
+      - endif;
+
+
+  h5.content-table-title Bids awaiting review
+
+  table.table.bids-table.open-bids
     thead
       tr
         th.unread-and-star(colspan="2")
@@ -28,33 +46,18 @@ div(class="winning-bid-table-wrapper #{$project->winning_bid() ? '' : 'hide'}")
         th.price Price
         th.actions Actions
 
-    - if ($project->winning_bid()):
-      !{View::make('bids.partials.bid_for_review')->with('bid', $project->winning_bid())}
-    - endif;
+    - foreach($open_bids as $bid):
+      !{View::make('bids.partials.bid_for_review')->with('bid', $bid)}
 
+  h5 Declined bids
 
-h5 Bids awaiting review
+  table.table.bids-table.dismissed-bids
+    thead
+      tr
+        th.unread-and-star(colspan="2")
+        th.vendor-name Vendor Name
+        th.price Price
+        th.actions Actions
 
-table.table.bids-table.open-bids
-  thead
-    tr
-      th.unread-and-star(colspan="2")
-      th.vendor-name Vendor Name
-      th.price Price
-      th.actions Actions
-
-  - foreach($open_bids as $bid):
-    !{View::make('bids.partials.bid_for_review')->with('bid', $bid)}
-
-h5 Dismissed bids
-
-table.table.bids-table.dismissed-bids
-  thead
-    tr
-      th.unread-and-star(colspan="2")
-      th.vendor-name Vendor Name
-      th.price Price
-      th.actions Actions
-
-  - foreach($dismissed_bids as $bid):
-    !{View::make('bids.partials.bid_for_review')->with('bid', $bid)}
+    - foreach($dismissed_bids as $bid):
+      !{View::make('bids.partials.bid_for_review')->with('bid', $bid)}

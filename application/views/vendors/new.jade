@@ -1,13 +1,16 @@
 - Section::inject('page_title', 'New Company')
 
-hr
-form#new-vendor-form(action="#{route('vendors')}", method="POST")
+.subheader
 
-  !{View::make('users.account_vendor_fields')->with('vendor', Input::old('vendor'))->with('user', Input::old('user'))->with('services', Input::old('services'))->with('signup', true)}
+.container.inner-container
 
-  h5 How did you hear about RFP-EZ?
-  .control-group
-    input.input-xlarge(type="text", name="user[how_hear]", value="", placeholder="optional")
+	form#new-vendor-form(action="#{route('vendors')}", method="POST")
 
-  .form-actions
-    button.btn.btn-primary(type="submit") Create Profile
+	  !{View::make('users.account_vendor_fields')->with('vendor', Input::old('vendor'))->with('user', Input::old('user'))->with('services', Input::old('services'))->with('signup', true)}
+
+	  h5 How did you hear about RFP-EZ?
+	  .control-group
+	    input.input-xlarge(type="text", name="user[how_hear]", value="", placeholder="optional")
+
+	  .form-actions
+	    button.btn.btn-primary(type="submit") Create Profile

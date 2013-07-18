@@ -1,5 +1,8 @@
-<h4>Admin Panel</h4>
-<div class="navbar navbar-inverse">
+<div class="subheader">
+  <h4>Admin Panel</h4>
+</div>
+<div class="container inner-container">
+  <div class="navbar navbar-inverse">
   <div class="navbar-inner">
     <ul class="nav">
       <li class="<?php echo e($current_page == 'projects' ? 'active' : ''); ?>">

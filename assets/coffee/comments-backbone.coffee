@@ -57,10 +57,10 @@
     """
     parse: ->
       if @model.attributes.notification_type is "Dismissal"
-        text = """ <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}'s</a> bid was dismissed. """
+        text = """ <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}'s</a> bid was declined. """
         icon = "icon-thumbs-down"
       else if @model.attributes.notification_type is "Undismissal"
-        text = """ <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}'s</a> bid was un-dismissed. """
+        text = """ <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}'s</a> bid was un-declined. """
         icon = "icon-repeat"
       else if @model.attributes.notification_type is "BidSubmit"
         text = """ <a href="#{@model.attributes.parsed.link}">#{@model.attributes.payload.bid.vendor.company_name}</a> submitted a bid. """

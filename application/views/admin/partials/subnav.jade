@@ -1,20 +1,22 @@
-h4 Admin Panel
+.subheader
+  h4 Admin Panel
 
-.navbar.navbar-inverse
-  .navbar-inner
-    ul.nav
-      li(class="#{$current_page == 'projects' ? 'active' : ''}")
-        a(href="#{route('admin_projects')}") Projects
+.container.inner-container
+  .navbar.navbar-inverse
+    .navbar-inner
+      ul.nav
+        li(class="#{$current_page == 'projects' ? 'active' : ''}")
+          a(href="#{route('admin_projects')}") Projects
 
-      li(class="#{$current_page == 'officers' ? 'active' : ''}")
-        a(href="#{route('admin_officers')}") Officers
+        li(class="#{$current_page == 'officers' ? 'active' : ''}")
+          a(href="#{route('admin_officers')}") Officers
 
-      li(class="#{$current_page == 'vendors' ? 'active' : ''}")
-        a(href="#{route('admin_vendors')}") Vendors
+        li(class="#{$current_page == 'vendors' ? 'active' : ''}")
+          a(href="#{route('admin_vendors')}") Vendors
 
-      - if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)):
-        li(class="#{$current_page == 'emails' ? 'active' : ''}")
-          a(href="#{route('admin_emails')}") Emails
+        - if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)):
+          li(class="#{$current_page == 'emails' ? 'active' : ''}")
+            a(href="#{route('admin_emails')}") Emails
 
-        li(class="#{$current_page == 'project_sections' ? 'active' : ''}")
-          a(href="#{route('admin_project_sections')}") Project Sections
+          li(class="#{$current_page == 'project_sections' ? 'active' : ''}")
+            a(href="#{route('admin_project_sections')}") Project Sections

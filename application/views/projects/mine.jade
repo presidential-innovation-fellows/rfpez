@@ -5,32 +5,39 @@
   a.btn.btn-small.btn-success.new-project-btn.pull-right(href="#{ route('new_projects') }")
     i.icon-plus-sign.icon-white
     | new project
-  .clearfix &nbsp;
 - Section::stop();
 
-- if ($projects):
-  table.table.my-project-table
-    thead
-      tr
-        th.type
-        th.project-title Project
-        th.status Status
-        th.due Bids Due
-          !{Helper::helper_tooltip("Bids are due at 11:59pm EST on the date listed.", "top", false, true)}
-        th.actions Actions
-    tbody.project
-      - foreach($projects as $project):
-        tr.project-meta
-          td
-            img.my-project-icon(src="#{$project->project_type->image()}", title="#{$project->project_type->name}", alt="#{$project->project_type->name}")
-          td
-            - if ($project->status() != Project::STATUS_WRITING_SOW):
-              a.project-title(href="#{ route('review_bids', array($project->id)) }") #{$project->title}
-            - else:
-              a.project-title(href="#{ route('project', array($project->id)) }") #{$project->title}
-          td #{$project->status_text()}
-          td #{$project->formatted_proposals_due_at()}
-          td
-            a.btn.btn-mini(href="#{ route('project_admin', array($project->id)) }") Admin
-- else:
-  p !{__("r.projects.mine.none", array("url" => route('new_projects')))}
+.subheader
+
+.container.inner-container
+
+  - if ($projects):
+    table.table.my-project-table
+      thead
+        tr
+          th.type
+          th.project-title Project
+          th.status Status
+          th.due Bids Due
+            !{Helper::helper_tooltip("Bids are due at 11:59pm EST on the date listed.", "top", false, true)}
+          th.actions Actions
+      tbody.project
+        - foreach($projects as $project):
+          tr(class="#{(($project->source == Project::SOURCE_NATIVE) ? 'project-meta project-meta-highlight' : 'project-meta')}")
+            td
+              - if ($project->source() == Project::SOURCE_NATIVE):
+                img.my-project-icon(src="#{$project->project_type->image()}", title="#{$project->project_type->name}", alt="#{$project->project_type->name}")
+              - else:
+                span.fbo-import-icon FBO
+            td
+              - if ($project->status() != Project::STATUS_WRITING_SOW):
+                a.project-title(href="#{ route('review_bids', array($project->id)) }") #{$project->title}
+              - else:
+                a.project-title(href="#{ route('project', array($project->id)) }") #{$project->title}
+            td #{$project->status_text()}
+            td #{$project->formatted_proposals_due_at()}
+            td
+              a.btn.btn-mini(href="#{ route('project_admin', array($project->id)) }") Admin
+        - 
+  - else:
+    p !{__("r.projects.mine.none", array("url" => route('new_projects')))}

@@ -1,21 +1,24 @@
 - Section::inject('page_title', 'My Bids')
 
-- if ($bids):
-  table.table.my-bid-table
-    thead
-      tr
-        th Project
-        th Total Price
-        th Status
-    tbody
-      - foreach($bids as $bid):
-        tr(class="bid bid-#{strtolower($bid->status)}")
-          td
-            a(href="#{$bid->submitted_at ? route('bid', array($bid->project->id, $bid->id)) : route('new_bids', array($bid->project->id))}") #{$bid->project->title}
-          td #{$bid->display_price()}
-          td.status #{$bid->status}
+.subheader
 
-- else:
-  p No bids.
-  p
-    a.btn.btn-success(href="#{route('projects')}") !{__('r.bids.mine.find_projects')}
+.container.inner-container
+  - if ($bids):
+    table.table.my-bid-table
+      thead
+        tr
+          th Project
+          th Total Price
+          th Status
+      tbody
+        - foreach($bids as $bid):
+          tr(class="bid bid-#{strtolower($bid->status)}")
+            td
+              a(href="#{$bid->submitted_at ? route('bid', array($bid->project->id, $bid->id)) : route('new_bids', array($bid->project->id))}") #{$bid->project->title}
+            td #{$bid->display_price()}
+            td.status #{$bid->status}
+
+  - else:
+    p No bids.
+    p
+      a.btn.btn-success(href="#{route('projects')}") !{__('r.bids.mine.find_projects')}

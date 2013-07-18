@@ -1,6 +1,6 @@
 h4
   | #{$project->title}
-  span.pull-right Status: #{$project->status_text()}
+  span.project-status.pull-right Status: #{$project->status_text()}
 
 .nav.nav-tabs.project-subnav
   - if ($project->status() == Project::STATUS_WRITING_SOW):
@@ -9,7 +9,7 @@ h4
     li(class="#{Helper::active_subnav('post_on_fbo') ? 'active':''}")
       a(href="#{route('project_post_on_fbo', array($project->id))}") Post on FBO
   - elseif ($project->status() == Project::STATUS_ACCEPTING_BIDS || $project->status() == Project::STATUS_REVIEWING_BIDS || $project->status() == Project::STATUS_CONTRACT_AWARDED):
-    li(class="#{Helper::active_subnav('view') ? 'active':''}")
+    li(class="#{((Helper::active_subnav('view') || Helper::active_subnav('')) ? 'active':''}")
       a(href="#{route('project', array($project->id))}") View Posting
     li(class="#{Helper::active_subnav('review_bids') ? 'active':''}")
       a(href="#{route('review_bids', array($project->id))}") Review Bids (#{$project->submitted_bids()->count()})

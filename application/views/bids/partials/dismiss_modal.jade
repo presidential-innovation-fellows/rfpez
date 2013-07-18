@@ -3,14 +3,14 @@
     .modal-header
       button.close(type='button', data-dismiss='modal') ×
       h3
-        | Dismiss bid from
+        | Decline bid from
         span.company-name
 
     .modal-body
       .alert.alert-info !{__('r.bids.partials.dismiss_modal.optional_fields')}
 
       .control-group
-        label.control-label Dismissal Reason:
+        label.control-label Reason Declined:
         .controls
           select(name='reason')
             option(value="") -- Select a Reason --
@@ -21,8 +21,8 @@
 
       .control-group
         .controls
-          textarea(name='explanation', placeholder='Dismissal Explanation')
+          textarea(name='explanation', placeholder='Explanation for Declining')
 
     .modal-footer
       button.btn(data-dismiss='modal') Cancel
-      button.btn.btn-primary.dismiss-btn(data-loading-text='Dismissing...') Dismiss
+      button.btn.btn-primary.dismiss-btn(data-loading-text='Declining...') Decline

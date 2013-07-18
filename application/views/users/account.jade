@@ -1,12 +1,16 @@
 - Section::inject('page_title', 'My Account')
 
-form(action="#{route('account')}", method="POST", class="account-form account-form-#{Auth::user()->vendor ? 'vendor' : 'officer'}")
+.subheader
 
-  - if (Auth::user()->vendor):
-    !{View::make('users.account_vendor_fields')}
-  - else:
-    !{View::make('users.account_officer_fields')}
-  - endif;
+.container.inner-container
 
-  .form-actions
-    input.btn.btn-primary(type="submit", value="Save Changes")
+	form(action="#{route('account')}", method="POST", class="account-form account-form-#{Auth::user()->vendor ? 'vendor' : 'officer'}")
+
+	  - if (Auth::user()->vendor):
+	    !{View::make('users.account_vendor_fields')}
+	  - else:
+	    !{View::make('users.account_officer_fields')}
+	  - endif;
+
+	  .form-actions
+	    input.btn.btn-primary(type="submit", value="Save Changes")

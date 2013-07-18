@@ -1,25 +1,27 @@
-- Section::inject('page_title', $project->title)
-- Section::inject('page_action', "Fill in Blanks")
-- Section::inject('active_subnav', 'create')
-- Section::inject('active_sidebar', 'fill_in_blanks')
-- Section::inject('no_page_header', true)
+.subheader
+  - Section::inject('page_title', $project->title)
+  - Section::inject('page_action', "Fill in Blanks")
+  - Section::inject('active_subnav', 'create')
+  - Section::inject('active_sidebar', 'fill_in_blanks')
+  - Section::inject('no_page_header', true)
 
 !{View::make('projects.partials.toolbar')->with('project', $project)}
 
+.container.inner-container
 
-.row-fluid
-  .span3
-    !{View::make('projects.partials.sow_composer_sidebar')->with('project', $project)}
+  .row-fluid
+    .span3
+      !{View::make('projects.partials.sow_composer_sidebar')->with('project', $project)}
 
-  .span9
-    form(method="POST")
+    .span9
+      form(method="POST")
 
-      .fill-in-blanks
-        - $parsed = SowVariableParser::parse(View::make('projects.partials.background_and_sections')->with('project', $project), $project->variables)
-        - if ($parsed["count"] == 0):
-          .alert.alert-info #{__("r.projects.blanks.none")}
-        - endif;
-        !{$parsed["output"]}
+        .fill-in-blanks
+          - $parsed = SowVariableParser::parse(View::make('projects.partials.background_and_sections')->with('project', $project), $project->variables)
+          - if ($parsed["count"] == 0):
+            .alert.alert-info #{__("r.projects.blanks.none")}
+          - endif;
+          !{$parsed["output"]}
 
-      .form-actions
-        button.btn.btn-primary Save and Continue &rarr;
+        .form-actions
+          button.btn.btn-primary Save and Continue &rarr;

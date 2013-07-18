@@ -1,58 +1,59 @@
-- Section::inject('page_title', 'New Project')
-- Section::inject('no_page_header', true)
-
-
-.new-project-page
-
+.subheader
   h4 New Project
 
-  .well
-    p
-      strong !{__("r.projects.new.congrats")}
+.container.inner-container
+  - Section::inject('page_title', 'New Project')
+  - Section::inject('no_page_header', true)
 
-    p !{__("r.projects.new.helper")}
+  .new-project-page
 
-  form(action="#{route('projects')}", method="POST", id="new-project-form")
-    .control-group
-      label Project Title
-      input(type="text", name="project[title]")
-
-    .control-group
-      label Agency
-      input(type="text", name="project[agency]")
-
-    .control-group
-      label Office
-      input(type="text", name="project[office]")
-
-    .control-group
-      label Bids Due
-      span.input-append.date.datepicker-wrapper
-        input.span3(type="text", name="project[proposals_due_at]")
-        span.add-on
-          i.icon-calendar
-      | &nbsp; at 11:59pm EST
-
+    .well
       p
-        em !{__("r.projects.new.no_date")}
+        strong !{__("r.projects.new.congrats")}
 
-    .control-group
-      label Project Type
-      select#project-type-select(name="project[project_type_id]")
-        - foreach (ProjectType::defaults() as $project_type):
-          option(value="#{$project_type->id}") #{$project_type->name}
-        option(value="Other") Other
-      input#new-project-type-input.hide(type="text", name="new_project_type_name")
+      p !{__("r.projects.new.helper")}
 
-    .control-group
-      label Price type
-      label.radio
-        input(type="radio", name="project[price_type]", value="#{Project::PRICE_TYPE_FIXED}", checked)
-        | Fixed price
-      label.radio
-        input(type="radio", name="project[price_type]", value="#{Project::PRICE_TYPE_HOURLY}")
-        | Hourly price
+    form(action="#{route('projects')}", method="POST", id="new-project-form")
+      .control-group
+        label Project Title
+        input.full-width(type="text", name="project[title]")
 
-    .form-actions
-      button.btn.btn-primary(type="submit") Create Project
+      .control-group
+        label Agency
+        input.full-width(type="text", name="project[agency]")
+
+      .control-group
+        label Office
+        input.full-width(type="text", name="project[office]")
+
+      .control-group
+        label Bids Due
+        span.input-append.date.datepicker-wrapper
+          input.span3(type="text", name="project[proposals_due_at]")
+          span.add-on
+            i.icon-calendar
+        | &nbsp; at 11:59pm EST
+
+        p
+          em !{__("r.projects.new.no_date")}
+
+      .control-group
+        label Project Type
+        select#project-type-select(name="project[project_type_id]")
+          - foreach (ProjectType::defaults() as $project_type):
+            option(value="#{$project_type->id}") #{$project_type->name}
+          option(value="Other") Other
+        input#new-project-type-input.hide(type="text", name="new_project_type_name")
+
+      .control-group
+        label Price type
+        label.radio
+          input(type="radio", name="project[price_type]", value="#{Project::PRICE_TYPE_FIXED}", checked)
+          | Fixed price
+        label.radio
+          input(type="radio", name="project[price_type]", value="#{Project::PRICE_TYPE_HOURLY}")
+          | Hourly price
+
+      .form-actions
+        button.btn.btn-primary(type="submit") Create Project
 

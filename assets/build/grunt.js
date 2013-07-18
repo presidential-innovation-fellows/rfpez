@@ -52,7 +52,8 @@ module.exports = function(grunt) {
           '../css/bootstrap-responsive.css',
           '../css/bootstrap-wysihtml5.css',
           '../css/datepicker.css',
-          '../css/compiled_styl.css'
+          '../css/compiled_styl.css',
+          '../css/restyler.css'
         ],
         dest: '../../public/css/all.css'
       },

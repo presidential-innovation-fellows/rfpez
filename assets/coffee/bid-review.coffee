@@ -158,7 +158,7 @@ $(document).on "click", ".manual-awarded-message-checkbox", ->
 #   j         move selection down
 #   s         star selection
 #   o, return open selection
-#   d         dismiss selection
+#   d         decline selection
 
 on_mouseover_select = true
 mouseover_select_timeout = false

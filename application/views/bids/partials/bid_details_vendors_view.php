@@ -1,4 +1,4 @@
-<div class="details-inner">
+<div class="details-inner details-inner-my-bid">
   <?php if ($bid->dismissed()): ?>
     <div class="alert alert-danger dismissed-alert">
       <div class="dismissal-notice"><?php echo e(__('r.bids.partials.bid_details_vendors_view.dismissed')); ?></div>
@@ -22,7 +22,7 @@
   <div class="row">
     <div class="span6 prices">
       <h5>Prices</h5>
-      <table class="table">
+      <table class="table bid-prices-table">
         <thead>
           <tr>
             <th>Deliverable</th>

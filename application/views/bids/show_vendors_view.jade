@@ -1,12 +1,15 @@
 - Section::inject('page_title', $bid->project->title)
 - Section::inject('page_action', 'Show Bid')
 
-a(href="#{route('project', array($project->id))}") &larr; Back to project page
+.subheader
+	.container
+		a(href="#{route('project', array($project->id))}") &larr; Back to project page
 
-.row
-  .span6
-    !{View::make('projects.partials.full_sow')->with('project', $project)}
+.container.inner-container
+	.row
+	  .span6
+	    !{View::make('projects.partials.full_sow')->with('project', $project)}
 
-  .span5.offset1
-    h4 My Bid
-    !{View::make('bids.partials.bid_details_vendors_view')->with('bid', $bid)}
+	  #column-my-bid.span5.offset1
+	    h4 My Bid
+	    !{View::make('bids.partials.bid_details_vendors_view')->with('bid', $bid)}

@@ -1,24 +1,27 @@
 - Section::inject('page_title', 'Sign In')
 
+.subheader
 
-form.form-horizontal(action="#{ route('signin') }", method="POST")
-  input(type="hidden", name="redirect_to", value="#{Input::old('redirect_to') ?: Session::get('redirect_to')}")
-  .control-group
-    label.control-label Email
-    .controls
-      input(type='text', name='email', value="#{Input::old('email')}", data-onload-focus)
+.container.inner-container
 
-  .control-group
-    label.control-label Password
-    .controls
-      input(type='password', name='password')
-      a.forgot(href="#{route('forgot_password')}") Forgot Password?
+  form.form-horizontal(action="#{ route('signin') }", method="POST")
+    input(type="hidden", name="redirect_to", value="#{Input::old('redirect_to') ?: Session::get('redirect_to')}")
+    .control-group
+      label.control-label Email
+      .controls
+        input(type='text', name='email', value="#{Input::old('email')}", data-onload-focus)
 
-  .control-group
-    .controls
-      label.checkbox
-        input(type='checkbox', checked, name='remember')
-        | Remember Me?
+    .control-group
+      label.control-label Password
+      .controls
+        input(type='password', name='password')
+        a.forgot(href="#{route('forgot_password')}") Forgot Password?
 
-  .form-actions
-    button.btn.btn-primary(type='submit') Sign In
+    .control-group
+      .controls
+        label.checkbox
+          input(type='checkbox', checked, name='remember')
+          | Remember Me?
+
+    .form-actions
+      button.btn.btn-primary(type='submit') Sign In

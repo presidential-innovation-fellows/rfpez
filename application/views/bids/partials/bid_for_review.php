@@ -24,12 +24,12 @@
       <?php if (Auth::officer()->is_verified_contracting_officer()): ?>
         <?php if (!$bid->awarded_at): ?>
           <?php if($bid->dismissed()): ?>
-            <a class="btn btn-info undismiss-button" data-move-to-table="true">Un-dismiss</a>
+            <a class="btn btn-info undismiss-button" data-move-to-table="true">Un-decline</a>
             <div>
-              <em>Dismissed: <?php echo e($bid->dismissal_reason); ?></em>
+              <em>Declined: <?php echo e($bid->dismissal_reason); ?></em>
             </div>
           <?php else: ?>
-            <a class="btn btn-warning show-dismiss-modal" data-move-to-table="true">Dismiss</a>
+            <a class="btn btn-action-gold show-dismiss-modal" data-move-to-table="true">Decline</a>
             <?php if (!$bid->project->winning_bid()): ?>
               <a class="btn btn-primary show-award-modal" data-move-to-table="true">Award</a>
             <?php endif; ?>

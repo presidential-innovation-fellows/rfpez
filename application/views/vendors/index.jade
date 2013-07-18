@@ -1,25 +1,29 @@
 - Section::inject('page_title', 'Browse Vendors')
 - Section::inject('current_page', 'vendors-index')
 
-.vendors-wrapper
-  .vendors
-    - foreach($vendors as $vendor):
-      .media.vendor.well
-        .company-name.pull-left
-          a(href="#{route('vendor', array($vendor->vendor_id))}") #{$vendor->company_name}
+.subheader
 
-        .ballpark-price.pull-right #{$vendor->ballpark_price_display()}
+.container.inner-container
 
-        .clearfix
+  .vendors-wrapper
+    .vendors
+      - foreach($vendors as $vendor):
+        .media.vendor.well
+          .company-name.pull-left
+            a(href="#{route('vendor', array($vendor->vendor_id))}") #{$vendor->company_name}
 
-        .vendor-image-preview-frame
-          a(href="#{route('vendor', array($vendor->vendor_id))}")
-            img(src="#{$vendor->image_url}")
+          .ballpark-price.pull-right #{$vendor->ballpark_price_display()}
 
-        .more-info #{$vendor->more_info}
+          .clearfix
+
+          .vendor-image-preview-frame
+            a(href="#{route('vendor', array($vendor->vendor_id))}")
+              img(src="#{$vendor->image_url}")
+
+          .more-info #{$vendor->more_info}
 
 
-  .loading-spinner
-    <?= HTML::image('img/spinner.gif') ?>
+    .loading-spinner
+      <?= HTML::image('img/spinner.gif') ?>
 
-  .finished-loading-text !{__("r.vendors.index.viewing_all")}
+    .finished-loading-text !{__("r.vendors.index.viewing_all")}
