@@ -26,13 +26,13 @@
       </thead>
       <tbody class="project">
         <?php foreach($projects as $project): ?>
-          <tr class="project-meta <?php if ($project->source() == Project::SOURCE_NATIVE) echo 'project-meta-highlight'; ?>">
+          <tr class="project-meta <?php // if ($project->source() == Project::SOURCE_NATIVE) echo 'project-meta-highlight'; ?>">
             <td>
-              <?php if ($project->source() == Project::SOURCE_NATIVE): ?>
+              <?php // if ($project->source() == Project::SOURCE_NATIVE): ?>
                 <img class="my-project-icon" src="<?php echo e($project->project_type->image()); ?>" title="<?php echo e($project->project_type->name); ?>" alt="<?php echo e($project->project_type->name); ?>" />
-              <?php else: ?>
-                <span class="fbo-import-icon">FBO</span>
-              <?php endif; ?>
+              <?php // else: ?>
+                <!-- <span class="fbo-import-icon">FBO</span> -->
+              <?php // endif; ?>
             </td>
             <td>
               <?php if ($project->status() != Project::STATUS_WRITING_SOW): ?>

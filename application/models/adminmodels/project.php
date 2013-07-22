@@ -21,8 +21,8 @@ class Project extends \Eloquent {
     'posted_to_fbo_at',
     'question_period_over_at',
     'created_at',
-    'updated_at',
-    'source'
+    'updated_at'//,
+    // 'source'
   );
 
   public $edit = array(
@@ -44,8 +44,8 @@ class Project extends \Eloquent {
     'posted_to_fbo_at',
     'question_period_over_at',
     'created_at',
-    'updated_at',
-    'source'
+    // 'updated_at',
+    // 'source'
   );
 
 }

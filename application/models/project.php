@@ -18,7 +18,7 @@ class Project extends Eloquent {
   public static $my_project_ids = false;
 
   public static $accessible = array('project_type_id', 'title', 'agency', 'office', 'public', 'background',
-                                    'sections', 'variables', 'proposals_due_at', 'price_type', 'source');
+                                    'sections', 'variables', 'proposals_due_at', 'price_type' /*, 'source' */ );
 
   public static $sow_progress_markers = array('project_template' => 0,
                                               'project_background' => 1,
@@ -147,9 +147,9 @@ class Project extends Eloquent {
     }
   }
 
-  public function source() {
-    return $this->source;
-  }
+  // public function source() {
+  //   return $this->source;
+  // }
 
   public function is_open_for_bids() {
     return $this->status() == self::STATUS_ACCEPTING_BIDS;
