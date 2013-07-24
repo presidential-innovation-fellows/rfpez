@@ -1,14 +1,19 @@
 - Section::inject('page_title', 'New Officer')
 
-form#new-officer-form(action="#{route('officers')}", method="post")
+.subheader
 
-  <?php $user = Input::get('user'); ?>
-  <?php $officer = Input::get('officer'); ?>
+.container.inner-container
 
-  !{View::make('users.account_officer_fields')->with('officer', Input::old('officer'))->with('user', Input::old('user'))->with('signup', true)}
+	form#new-officer-form(action="#{route('officers')}", method="post")
 
-  .form-actions
-    .control-group.form-inline
-      label How did you hear about RFP-EZ?
-      input.input-xlarge(type="text", name="user[how_hear]", value="")
-    button.btn.btn-primary(type="submit") Submit
+	  <?php $user = Input::get('user'); ?>
+	  <?php $officer = Input::get('officer'); ?>
+
+	  !{View::make('users.account_officer_fields')->with('officer', Input::old('officer'))->with('user', Input::old('user'))->with('signup', true)}
+
+	    .control-group
+	      label How did you hear about RFP-EZ?
+	      input.input-xxlarge(type="text", name="user[how_hear]", value="")
+
+	  div
+	    button.btn.btn-primary(type="submit") Submit
