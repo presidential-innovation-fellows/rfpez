@@ -21,7 +21,8 @@ RFP-EZ is working to create a streamlined process for the federal government to 
 - Create an empty MySQL database named "rfpez" (or whatever your heart desires)
 - Copy the `application/config/local_example` directory to `application/config/local` (which will be .gitignore'd)
 - Enter your database credentials in `application/config/local/database.php`
-- Install the Laravel migrations table: `php artisan migrate:install --env=local`
+- From the root project directory, install the Laravel migrations table: `php artisan migrate:install --env=local`
+  - If the last command only creates the laravel_migrations table itself, but does not migrate the tables, then also do: `php artisan migrate --path=applciations/migrations --env=local`
 - Give yourself some seed data: `php artisan seed --env=local`
 
 ##### 4. Run the Grunt watcher
