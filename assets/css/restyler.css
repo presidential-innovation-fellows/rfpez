@@ -39,7 +39,6 @@ body {
 	margin: 0 auto;
 	position: relative;
 	border-top: 1px solid #FBA71A;
-
 }
 
 .inner-container h5,
@@ -48,6 +47,12 @@ body {
 	font-size: 22px;
 	font-weight: normal;
 	color: #EE2543;
+}
+
+.alert {
+	margin-bottom: 0;
+	position: relative;
+	top: -20px;
 }
 
 /* heading styles */
