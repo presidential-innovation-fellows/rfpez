@@ -1,4 +1,4 @@
-<div class="subheader"><!-- subheader for review bids -->
+<div class="subheader">
   <?php Section::inject('page_title', $project->title) ?>
   <?php Section::inject('page_action', "Review Bids") ?>
   <?php Section::inject('active_subnav', 'review_bids') ?>

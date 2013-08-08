@@ -1,5 +1,5 @@
 <?php
 
 return array(
-  'use_minified' => false
+  'use_minified' => true
 );

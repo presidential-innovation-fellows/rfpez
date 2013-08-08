@@ -1,13 +1,19 @@
 module.exports = function(grunt) {
 
-  var tasks = 'stylus jader coffee concat cssmin min';
+  var tasks = new Array('stylus', 'jader', 'coffee', 'concat', 'cssmin', 'uglify');
+  // var tasks = 'stylus jader coffee concat cssmin min';
 
   var path = require('path');
   var exec = require('child_process').exec;
 
   grunt.loadNpmTasks('grunt-css');
-  grunt.loadNpmTasks('grunt-coffee');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-stylus');
+	// grunt.loadNpmTasks('grunt-contrib-jade');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('jader', 'Compiles jade templates to PHP.', function() {
     var cb = this.async();
@@ -23,15 +29,29 @@ module.exports = function(grunt) {
 
     pkg: '<json:package.json>',
 
+		// jade: {
+  //     files: ['../../application/views/**/**/*.jade']
+		// },
+
     coffee: {
       all: {
-        src: ['../coffee/**/*.coffee'],
+        expand: true,
+        cwd: '../coffee/',
+        src: '*.coffee',
         dest: '../js',
+        ext: '.js',
+        // src: ['../coffee/*.coffee'],
+        // dest: '../js',
         options: {bare: true}
       },
       vendor: {
-        src: ['../js/vendor/*.coffee'],
+        expand: true,
+        cwd: '../js/vendor',
+        src: '*.coffee',
         dest: '../../public/js/vendor',
+        ext: '.js',
+        // src: ['../js/vendor/*.coffee'],
+        // dest: '../../public/js/vendor',
         options: {bare: true}
       }
     },
@@ -43,7 +63,6 @@ module.exports = function(grunt) {
         }
       }
     },
-
 
     concat: {
       css: {
@@ -145,7 +164,7 @@ module.exports = function(grunt) {
       }
     },
 
-    min: {
+    uglify: {
       js_global: {
         src: ['../../public/js/global.js'],
         dest: '../../public/js/global.min.js'
@@ -167,7 +186,6 @@ module.exports = function(grunt) {
         dest: '../../public/js/vendor/turbolinks.min.js'
       }
     },
-
 
     watch: {
       app: {

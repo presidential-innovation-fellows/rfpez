@@ -10,14 +10,39 @@
 .btn-action-gold{color:#ffffff;text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);background-color:#FBA71A;background-image:-moz-linear-gradient(top, #FBA71A, #FBA71A);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#FBA71A), to(#FBA71A));background-image:-webkit-linear-gradient(top, #FBA71A, #FBA71A);background-image:-o-linear-gradient(top, #FBA71A, #FBA71A);background-image:linear-gradient(to bottom, #FBA71A, #FBA71A);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FBA71A', endColorstr='#FBA71A', GradientType=0);border-color:#FBA71A #FBA71A #913800;border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);*background-color:#FBA71A;filter:progid:DXImageTransform.Microsoft.gradient(enabled = false);}.btn-warning:hover,.btn-warning:active,.btn-warning.active,.btn-warning.disabled,.btn-warning[disabled]{color:#ffffff;background-color:#FBA71A;*background-color:#c44c00;}
 .btn-action-gold:active,.btn-action-gold.active{background-color:#aa4200 \9;}
 
+/* systm-wide Bootstrap customizations */
+a {
+	color:#50A4D8;
+}
 
 /* pagewide style changes */
 
+.navbar {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 18px;
+}
+.navbar-inner {
+	min-height: 80px;
+	background-color: #EE2543;
+	background-image: none;
+	background-repeat: none;
+	filter: none;
+}
+.navbar .brand {
+	padding: 0 20px;
+}
+.navbar .nav > li> a {
+	padding: 31px 10px 29px;
+}
 .navbar .brand > img {
 	margin-top: 15px;
 }
+
 .notification-nav-item .unread-notification-badge {
   top: 33px;
+}
+#unread_notifications_icon {
+	margin-top: 4px;
 }
 
 .subheader-primary > .alert {

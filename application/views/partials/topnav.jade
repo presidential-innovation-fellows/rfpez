@@ -51,7 +51,7 @@
 
             li.hidden-desktop
               a(href="#{route('notifications')}")
-                i.icon-white.icon-envelope
+                i#unread_notifications_icon.icon-white.icon-envelope
                 | Notifications (#{Auth::user()->unread_notification_count()} Unread)
 
             li.dropdown.notification-nav-item.visible-desktop

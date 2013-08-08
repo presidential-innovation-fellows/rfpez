@@ -9,10 +9,6 @@
 
     .span6
 
-      !{View::make('projects.partials.full_sow')->with('project', $project)}
-
-    .span6
-
       h5.red-header New Bid
 
       .alert.alert-success
@@ -112,3 +108,7 @@
           button.btn.btn-primary(type="submit") Submit Bid
           a.btn#save-draft-button(data-loading-text="All Changes Saved") Save Draft
           span.help-inline #{__("r.bids.new.no_edit_warning")}
+
+    .span6
+      !{View::make('projects.partials.full_sow')->with('project', $project)}
+

@@ -58,7 +58,7 @@
             </li>
             <li class="hidden-desktop">
               <a href="<?php echo e(route('notifications')); ?>">
-                <i class="icon-white icon-envelope"></i>
+                <i id="unread_notifications_icon" class="icon-white icon-envelope"></i>
                 Notifications (<?php echo e(Auth::user()->unread_notification_count()); ?> Unread)
               </a>
             </li>

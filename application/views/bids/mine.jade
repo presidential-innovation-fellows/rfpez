@@ -12,7 +12,7 @@
           th Status
       tbody
         - foreach($bids as $bid):
-          tr(class="bid bid-#{strtolower($bid->status)}")
+          tr(class="bid bid-#{str_replace(' ', '-', strtolower($bid->status))}")
             td
               a(href="#{$bid->submitted_at ? route('bid', array($bid->project->id, $bid->id)) : route('new_bids', array($bid->project->id))}") #{$bid->project->title}
             td #{$bid->display_price()}
