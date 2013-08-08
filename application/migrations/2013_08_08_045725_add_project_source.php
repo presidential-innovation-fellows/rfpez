@@ -10,7 +10,7 @@ class Add_Project_Source {
 	public function up()
 	{
 		Schema::table('projects', function($t){
-			$t->smallinteger('source')->nullable()->default(0);
+			$t->smallInteger('source')->nullable()->default(0);
 		});
 	}
 
