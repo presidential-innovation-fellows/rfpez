@@ -1,1 +1,1 @@
-Please visit <?php echo e(route('project', array($project->id))); ?> for more info on this project.
+Please visit <a href="<?php echo e(route('project', array($project->id))); ?>"><?php echo e(route('project', array($project->id))); ?></a> to bid or learn more about this project.

@@ -85,6 +85,7 @@ partials:
       RFP-EZ is an official website of the United States Government, and was
       created by <a href='http://wh.gov/innovationfellows/rfp-ez'>Project RFP-EZ</a>
       as part of the Presidential Innovation Fellowship program.
+      <em>RFP-EZ is a pilot program. This website is an <a href="http://en.wikipedia.org/wiki/Software_release_life_cycle#Beta">open beta</a>.</em>
 
   topnav:
     no_notifications: No notifications to display.

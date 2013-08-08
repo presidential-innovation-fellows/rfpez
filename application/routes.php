@@ -1,6 +1,7 @@
 <?php
 
-Route::group(array('https' => true), function(){
+Route::group(array('https' => Config::get('application.ssl')), function(){
+// Route::group(array('https' => true), function(){
 
   Route::get('/', array('uses' => 'home@index', 'as' => 'root'));
 

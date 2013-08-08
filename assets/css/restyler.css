@@ -13,6 +13,18 @@
 
 /* pagewide style changes */
 
+.navbar .brand > img {
+	margin-top: 15px;
+}
+.notification-nav-item .unread-notification-badge {
+  top: 33px;
+}
+
+.subheader-primary > .alert {
+	margin-bottom: 0;
+	position: relative;
+	top: -30px;
+}
 body {
 	background-image: url(/img/bg_headfoot.png);
 	background-repeat: repeat;
@@ -95,14 +107,15 @@ footer.footer > .container {
 
 /* new standard section headers for SOWComposer and BidMaker */
 
-h5.sow-section-header, h5.red-header {
+h3.sow-section-header, h5.red-header {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 24px;
 	font-weight: bold;
 	color: #EE2543;
 	margin-top: 30px;
+	line-height: 20px;
 }
-h5.sow-section-header.sow-section-header-first
+h3.sow-section-header.sow-section-header-first
 , h5.red-header {
 	margin-top: 10px;
 }
@@ -153,6 +166,12 @@ form input.full-width {
 }
 .btn-extra-large {
 	font-size: 150%;
+}
+#sync-with-fbo-form label, 
+#sync-with-fbo-form input,
+#sync-with-fbo-form textarea,
+#sync-with-fbo-form div.well  {
+	display: none;
 }
 
 

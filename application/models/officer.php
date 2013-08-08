@@ -13,7 +13,7 @@ class Officer extends Eloquent {
 
   public static $hidden = array('created_at', 'updated_at');
 
-  public static $admin_emails = array('adam.becker@sba.gov', 'clay.johnson@sba.gov', 'jed.wood@sba.gov');
+  public static $admin_emails = array('aaron.snow@gsa.gov', 'gregory.godbout@gsa.gov', 'robert.read@gsa.gov', 'marty@marty.com');
 
   public $includes = array('User');
 

@@ -183,7 +183,7 @@
 			Q: How can an agency participate in RFP-EZ?
 		</div>
 		<div class="answer">
-			A: On December 28, 2012, the Small Business Administration (the agency sponsoring the initiative) issued a notice announcing RFP-EZ as a pilot program at 77 FR 76588, available <a href="http://www.gpo.gov/fdsys/pkg/FR-2012-12-28/html/2012-31323.htm">here</a>.   If the agency has a web design or development requirement valued below $150,000, it should go to <a href="https://rfpez.sba.gov/">https://rfpez.sba.gov/</a> to find out more information about signing on to the system.
+			A: On December 28, 2012, the Small Business Administration (the agency sponsoring the initiative) issued a notice announcing RFP-EZ as a pilot program at 77 FR 76588, available <a href="http://www.gpo.gov/fdsys/pkg/FR-2012-12-28/html/2012-31323.htm">here</a>.   If the agency has a web design or development requirement valued below $150,000, it should go to <a href="<?php echo e(route('root')); ?>">our homepage</a> to find out more information about signing on to the system.
 		</div>
 	</div>
 

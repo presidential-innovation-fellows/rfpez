@@ -17,8 +17,8 @@ class Project extends Eloquent {
 
   public static $my_project_ids = false;
 
-  public static $accessible = array('project_type_id', 'title', 'agency', 'office', 'public', 'background',
-                                    'sections', 'variables', 'proposals_due_at', 'price_type' /*, 'source' */ );
+  public static $accessible = array('project_type_id', 'title', 'agency', 'office', /* 'zipcode', */ 'public', 'background',
+                                    'sections', 'variables', 'proposals_due_at', 'price_type'/*, 'source'*/);
 
   public static $sow_progress_markers = array('project_template' => 0,
                                               'project_background' => 1,
@@ -66,6 +66,10 @@ class Project extends Eloquent {
 
   public function owner() {
     return $this->officers()->where_owner(true)->first();
+  }
+
+  public function owner_email() {
+    return User::find($this->owner()->user_id)->email;
   }
 
   public function i_am_owner() {

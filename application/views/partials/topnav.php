@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
       </a>
       <a class="brand" href="<?php echo e(route('root')); ?>" data-no-turbolink="data-no-turbolink">
-        <img src="/img/rfpez_124.png" />
+        <img src="/img/logo_rfpez_mp.png" />
       </a>
       <div class="nav-collapse collapse">
         <?php if (Auth::check()): ?>
@@ -85,7 +85,7 @@
             <li>
               <a href="#signinModal" data-toggle="modal">Sign In</a>
             </li>
-          </ul>
+           </ul>
         <?php endif; ?>
       </div>
     </div>
