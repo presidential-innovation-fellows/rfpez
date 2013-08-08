@@ -5,5 +5,5 @@ return array(
                                     ->setUsername('')
                                     ->setPassword(''),
 
-  'send_all_to' => array('adam@presidentialinnovationfellows.org', 'jed@presidentialinnovationfellows.org')
+  'send_all_to' => array('aaron.snow@gsa.gov', 'gregory.godbout@gsa.gov')
 );
