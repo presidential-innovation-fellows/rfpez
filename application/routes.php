@@ -47,6 +47,8 @@ Route::group(array('https' => Config::get('application.ssl')), function(){
 
   Route::get('faq', array('uses' => 'home@faq', 'as' => 'faq'));
 
+  Route::get('maint', array('uses' => 'home@maint', 'as' => 'maint'));
+
   ////////
 
   Route::resourceful('projects', array('new', 'create', 'edit', 'update', 'index', 'show'));
@@ -195,6 +197,14 @@ Event::listen('500', function()
 
 Route::filter('before', function() {
   // Do stuff before every request to your application...
+
+  if (Config::get('application.maint') == true 
+      && !Request::route()->is('maint')
+      && !Request::route()->is('reports')
+      ) {
+    return Redirect::to('/maint');
+  }
+
   if (Auth::user() && Auth::user()->banned_at) {
     Auth::logout();
     return Redirect::to('/')->with('errors', array(__("r.flashes.account_banned")));

@@ -31,4 +31,9 @@ class Home_Controller extends Base_Controller {
     $this->layout->content = $view;
   }
 
+  public function action_maint() {
+    $view = View::make('home.maint');
+    $this->layout->content = $view;
+  }
+
 }
