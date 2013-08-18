@@ -9,6 +9,7 @@ class Project extends Eloquent {
 
   const PRICE_TYPE_FIXED = 0;
   const PRICE_TYPE_HOURLY = 1;
+  const PRICE_TYPE_NONE = -1;
 
   const SOURCE_NATIVE = 0;
   const SOURCE_FBO = 1;

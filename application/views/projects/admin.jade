@@ -15,6 +15,16 @@
 
       form(action="#{route('project', array($project->id))}", method="POST", id="update-project-form")
         input(type="hidden", name="_method", value="PUT")
+
+        - if (Auth::user()):
+          - if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): 
+            .control-group
+              label Source
+              select#source-select(name="project[source]")
+                if ()
+                option(value="#{Project::SOURCE_NATIVE}", selected="#{($project->source == Project::SOURCE_NATIVE)}") RFP-EZ
+                option(value="#{Project::SOURCE_FBO", selected="#{($project->source == Project::SOURCE_FBO)}") FBO
+
         .control-group
           label Project Title
           input.full-width(type="text", name="project[title]", value="#{$project->title}")
@@ -59,11 +69,23 @@
           label
             | <input type="radio" name="project[price_type]" value="#{Project::PRICE_TYPE_HOURLY}" #{$project->price_type == Project::PRICE_TYPE_HOURLY ? 'checked' : ''} />
             | Hourly price
+          - if (Auth::user()):
+            - if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): 
+              label
+                | <input type="radio" name="project[price_type]" value="#{Project::PRICE_TYPE_NONE}" #{$project->price_type == Project::PRICE_TYPE_NONE ? 'checked' : ''} />
+                | NONE (FBO)
 
           - if ($project->submitted_bids()->count() > 0):
             em #{__("r.projects.admin.change_price_type_warning")}
 
-        .form-actions
+        - if (Auth::user()):
+          - if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)): 
+            .control-group.background-edit-form <br /><strong>Background:</strong>
+              .wysiwyg-wrapper
+                textarea.wysihtml5(name="project[background]") !{$project->background}
+
+        .control-group
+          .form-actions
           button.btn.btn-primary Save
 
 
@@ -106,3 +128,17 @@
               span.public-status Status: Private
               button.btn.btn-success Set to Public (Recommended!)
             - endif;
+
+  - if (Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)):
+
+    .row-fluid
+      .span12
+
+        h5 Edit background
+
+        form.background-form(method="POST")
+          .wysiwyg-wrapper
+            textarea.wysihtml5(name="project[background]") !{$project->background}
+
+          .form-actions
+            button.btn.btn-primary Save

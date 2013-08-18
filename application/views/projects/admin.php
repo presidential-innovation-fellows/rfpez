@@ -11,6 +11,19 @@
       <h5>Update Project</h5>
       <form id="update-project-form" action="<?php echo e(route('project', array($project->id))); ?>" method="POST">
         <input type="hidden" name="_method" value="PUT" />
+
+        <?php if (Auth::user()): ?>
+          <?php if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): ?>
+            <div class="control-group">
+              <label>Source</label>
+              <select id="source-select" name="project[source]">
+                <option value="<?php echo e(Project::SOURCE_NATIVE); ?>" <?php if ($project->source == Project::SOURCE_NATIVE) echo 'selected'; ?>>RFP-EZ</option>
+                <option value="<?php echo e(Project::SOURCE_FBO); ?>" <?php if ($project->source == Project::SOURCE_FBO) echo 'selected'; ?>>FBO</option>
+              </select>
+            </div>
+          <?php endif; ?>
+        <?php endif; ?>
+
         <div class="control-group">
           <label>Project Title</label>
           <input type="text" class="full-width" name="project[title]" value="<?php echo e($project->title); ?>" />
@@ -52,6 +65,7 @@
           &nbsp; at 11:59pm EST
         </div>
         <div class="control-group">
+
           <label>Price type</label>
           <label>
             <input type="radio" name="project[price_type]" value="<?php echo e(Project::PRICE_TYPE_FIXED); ?>" <?php echo e($project->price_type == Project::PRICE_TYPE_FIXED ? 'checked' : ''); ?> />
@@ -61,10 +75,30 @@
             <input type="radio" name="project[price_type]" value="<?php echo e(Project::PRICE_TYPE_HOURLY); ?>" <?php echo e($project->price_type == Project::PRICE_TYPE_HOURLY ? 'checked' : ''); ?> />
             Hourly price
           </label>
+          <?php if (Auth::user()): ?>
+            <?php if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): ?>
+              <label>
+                <input type="radio" name="project[price_type]" value="<?php echo e(Project::PRICE_TYPE_NONE); ?>" <?php echo e($project->price_type == Project::PRICE_TYPE_NONE ? 'checked' : ''); ?> />
+                NONE (FBO)
+              </label>
+            <?php endif; ?>
+          <?php endif; ?>
+
           <?php if ($project->submitted_bids()->count() > 0): ?>
             <em><?php echo e(__("r.projects.admin.change_price_type_warning")); ?></em>
           <?php endif; ?>
         </div>
+
+        <?php if (Auth::user()): ?>
+          <?php if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)): ?>
+            <div class="control-group background-edit-form">
+              <label><br /><strong>Background:</strong></label>
+              <div class="wysiwyg-wrapper">
+                <textarea class="wysihtml5" name="project[background]"><?php echo $project->background; ?></textarea>
+              </div>
+            </div>
+          <?php endif; ?>
+        <?php endif; ?>
         <!-- <div class="form-actions"> -->
         <div class="control-group">
           <button class="btn btn-primary">Save</button>

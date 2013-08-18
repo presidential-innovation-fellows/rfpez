@@ -12,6 +12,17 @@
       <p><?php echo __("r.projects.new.helper"); ?></p>
     <!-- </div> -->
     <form id="new-project-form" action="<?php echo e(route('projects')); ?>" method="POST">
+    <?php if (Auth::user()): ?>
+      <?php if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): ?>
+        <div class="control-group">
+          <label>Source</label>
+          <select id="source-select" name="project[source]">
+            <option value="<?php echo e(Project::SOURCE_NATIVE); ?>">RFP-EZ</option>
+            <option value="<?php echo e(Project::SOURCE_FBO); ?>">FBO</option>
+          </select>
+        </div>
+      <?php endif; ?>
+    <?php endif; ?>
       <div class="control-group">
         <label>Project Title</label>
         <input type="text" class="full-width" name="project[title]" />
@@ -61,6 +72,14 @@
           <input type="radio" name="project[price_type]" value="<?php echo e(Project::PRICE_TYPE_HOURLY); ?>" />
           Hourly price
         </label>
+        <?php if (Auth::user()): ?>
+          <?php if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): ?>
+            <label class="radio">
+              <input type="radio" name="project[price_type]" value="<?php echo e(Project::PRICE_TYPE_NONE); ?>" />
+              NONE (FBO)
+            </label>
+          <?php endif; ?>
+        <?php endif; ?>
       </div>
       <div class="form-actions">
         <button class="btn btn-primary" type="submit">Create Project</button>
