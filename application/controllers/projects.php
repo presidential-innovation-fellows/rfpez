@@ -312,7 +312,10 @@ class Projects_Controller extends Base_Controller {
       $project->office = $project_input["office"];
       $project->zipcode = $project_input["zipcode"];
       $project->price_type = $project_input["price_type"];
+      $project->source = $project_input["source"];
 
+      $project->background = $project_input["background"];
+      
       if ($project_input["proposals_due_at"]) {
         $dt = new \DateTime($project_input["proposals_due_at"] . " 23:59:59", new DateTimeZone('America/New_York'));
         $dt->setTimeZone(new DateTimeZone('UTC'));
