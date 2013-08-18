@@ -39,10 +39,10 @@
         </select>
       </td>
       <td>
-        <% if (!delisted){ %>
-          <a class="btn btn-danger delist-button btn-mini">Delist</a>
-        <% } else { %>
+        <% if (delisted == 1){ %>
           <a class="btn relist-button btn-mini">Relist</a>
+        <% } else { %>
+          <a class="btn btn-danger delist-button btn-mini">Delist</a>
         <% } %>
       </td>
     """
