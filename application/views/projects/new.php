@@ -25,6 +25,10 @@
         <input type="text" class="full-width" name="project[office]" />
       </div>
       <div class="control-group">
+        <label>Zip Code</label>
+        <input type="text" class="full-width" name="project[zipcode]" />
+      </div>
+      <div class="control-group">
         <label>Bids Due</label>
         <span class="input-append date datepicker-wrapper">
           <input class="span3" type="text" name="project[proposals_due_at]" />

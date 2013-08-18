@@ -290,7 +290,15 @@ class Projects_Controller extends Base_Controller {
       if (Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)) {
         $project->recommended = $json["recommended"];
         $project->public = $json["public"];
+        $project->source = $json["source"];
+
+        if (isset($json["command"])) {
+          if ($json["command"] == "delist") $project->delist();
+          if ($json["command"] == "relist") $project->relist();
+        }
+
       }
+
 
       $project->save();
 
@@ -302,6 +310,7 @@ class Projects_Controller extends Base_Controller {
       $project->title = $project_input["title"];
       $project->agency = $project_input["agency"];
       $project->office = $project_input["office"];
+      $project->zipcode = $project_input["zipcode"];
       $project->price_type = $project_input["price_type"];
 
       if ($project_input["proposals_due_at"]) {
@@ -423,6 +432,15 @@ class Projects_Controller extends Base_Controller {
       Helper::flash_errors("Sorry, you haven't been verified as a contracting officer on RFP-EZ.");
       return Redirect::to_route('project_post_on_fbo', array($project->id));
     }
+
+    // // post to FBO
+    // $fbo_post_result = $project->post_project_to_fbo($_POST);
+
+    // if (!$fbo_post_result['success']) {
+    //   // post to FBO failed
+    //   Helper::flash_errors("Sorry, we couldn't post your project to FBO. Message = " . $fbo_post_result['message']);
+    //   return Redirect::to_route('project_post_on_fbo', array($project->id));
+    // }
 
     $project->posted_to_fbo_at = new \DateTime;
     $project->save();

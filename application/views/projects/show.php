@@ -17,7 +17,7 @@
     </div>
     <div class="span5 offset1">
 
-      <?php // if ($project->source == Project::SOURCE_NATIVE): ?>
+      <?php if ($project->source == Project::SOURCE_NATIVE): ?>
 
         <div class="well-plain">
           <div class="bids-due-timeago">Bids due <?php echo Helper::timeago($project->proposals_due_at); ?></div>
@@ -39,7 +39,7 @@
         </div>
         <hr />
 
-      <?php // endif; // rpfez native project ?>
+      <?php endif; // rpfez native project ?>
 
       <div class="share">
         <h5>Share</h5>
@@ -57,10 +57,11 @@
       </div>
       <hr />
 
-      <?php // if ($project->source == Project::SOURCE_NATIVE): ?>
+      <?php if ($project->source == Project::SOURCE_NATIVE): ?>
 
         <div class="q-and-a">
           <h5>Q &amp; A</h5>
+          <p><em>These questions and answers are public. To ask a question privately, <a href="mailto:<?php echo $project->owner_email(); ?>">email the project owner</a>.</em></p>
           <div class="questions">
             <?php if ($project->questions): ?>
               <?php foreach($project->questions as $question): ?>
@@ -84,7 +85,7 @@
           </div>
         </div>
 
-      <?php // endif; // rpfez native project ?>
+      <?php endif; // rpfez native project ?>
 
     </div>
   </div>

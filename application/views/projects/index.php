@@ -29,13 +29,13 @@
     </thead>
     <?php foreach($projects as $project): ?>
       <tbody class="project">
-        <tr class="project-meta <?php // if ($project->source == Project::SOURCE_NATIVE) echo 'project-meta-highlight'; ?>">
+        <tr class="project-meta <?php if ($project->source == Project::SOURCE_NATIVE) echo 'project-meta-highlight'; ?>">
           <td class="hidden-phone">
-            <?php // if ($project->source == Project::SOURCE_NATIVE): ?>
+            <?php if ($project->source == Project::SOURCE_NATIVE): ?>
               <img src="<?php echo e($project->project_type->image()); ?>" title="<?php echo e($project->project_type->name); ?>" alt="<?php echo e($project->project_type->name); ?>" />
-            <?php // else: ?>
-              <!-- <span class="fbo-import-icon">FBO</span> -->
-            <?php // endif; ?>
+            <?php else: ?>
+              <span class="fbo-import-icon">FBO</span>
+            <?php endif; ?>
           </td>
           <td>
             <a class="project-title" href="<?php echo e(route('project', array($project->id))); ?>"><?php echo e($project->title); ?></a>

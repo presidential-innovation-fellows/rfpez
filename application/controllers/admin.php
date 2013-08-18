@@ -30,6 +30,13 @@ class Admin_Controller extends Base_Controller {
     return Redirect::back();
   }
 
+  public function action_project_sections_toggle_source($id) {
+    $section = ProjectSection::find($id);
+    $section->source = $section->source == 1 ? 0 : 1;
+    $section->save();
+    return Redirect::back();
+  }
+
   public function action_projects() {
     $view = View::make('admin.projects');
     $view->projects = Project::with('project_type')->paginate(10);

@@ -20,7 +20,7 @@
 
     .span5.offset1
 
-      // - if ($project->source() == Project::SOURCE_NATIVE):
+      - if ($project->source() == Project::SOURCE_NATIVE):
 
         .well-plain
           .bids-due-timeago Bids due !{Helper::timeago($project->proposals_due_at)}
@@ -41,7 +41,7 @@
 
         hr
 
-      // - endif;
+      - endif;
 
       .share
         h5 Share
@@ -57,7 +57,7 @@
 
       hr
 
-      // - if ($project->source() == Project::SOURCE_NATIVE):
+      - if ($project->source() == Project::SOURCE_NATIVE):
         .q-and-a
           h5 Q &amp; A
           .questions
@@ -76,4 +76,4 @@
                 button.btn.btn-primary.btn-small(data-loading-text="Sending...") Submit Question
             - else:
               p Sorry, the Q+A period is over and no new questions can be asked.
-      // - endif;
+      - endif;

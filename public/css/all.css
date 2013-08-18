@@ -2513,7 +2513,7 @@ ul.templates-list li.show-more.all-loaded .show-more-templates-link{display:none
 .public-status{font-weight:bold;margin-right:20px}
 .fill-in-blanks input[type=text]{padding:0 3px;width:100px;margin:0 0 1px;font-size:14px;line-height:20px;}
 .fill-in-blanks input[type=text].empty{background:#ffe7a0}
-.admin-projects-table select{width:60px}
+.admin-projects-table select{width:90px}
 #num-bids-chart,#price-bids-chart{width:450px;height:400px}
 
 /* 

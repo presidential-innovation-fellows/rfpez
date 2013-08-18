@@ -17,8 +17,8 @@ class Project extends Eloquent {
 
   public static $my_project_ids = false;
 
-  public static $accessible = array('project_type_id', 'title', 'agency', 'office', /* 'zipcode', */ 'public', 'background',
-                                    'sections', 'variables', 'proposals_due_at', 'price_type'/*, 'source'*/);
+  public static $accessible = array('project_type_id', 'title', 'agency', 'office', 'zipcode', 'public', 'background',
+                                    'sections', 'variables', 'proposals_due_at', 'price_type', 'source', 'delisted');
 
   public static $sow_progress_markers = array('project_template' => 0,
                                               'project_background' => 1,
@@ -151,9 +151,13 @@ class Project extends Eloquent {
     }
   }
 
-  // public function source() {
-  //   return $this->source;
-  // }
+  public function source() {
+    return $this->source;
+  }
+
+  public function delisted() {
+    return $this->delisted;
+  }
 
   public function is_open_for_bids() {
     return $this->status() == self::STATUS_ACCEPTING_BIDS;
@@ -371,6 +375,16 @@ class Project extends Eloquent {
     }
   }
 
+  public function delist() {
+    $this->delisted = true;
+    $this->save();
+  }
+
+  public function relist() {
+    $this->delisted = false;
+    $this->save();
+  }
+
   public function current_sow_composer_route_name() {
     return array_search($this->sow_progress, Project::$sow_progress_markers) ?: "project_review";
   }
@@ -448,6 +462,7 @@ class Project extends Eloquent {
 
   public static function open_projects() {
     return self::where_not_null('posted_to_fbo_at')
+               ->where('delisted', '!=', true)
                ->where('proposals_due_at', '>', new \DateTime("", new DateTimeZone('UTC')));
   }
 

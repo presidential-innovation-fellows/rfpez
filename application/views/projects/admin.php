@@ -24,6 +24,10 @@
           <input type="text" class="full-width" name="project[office]" value="<?php echo e($project->office); ?>" />
         </div>
         <div class="control-group">
+          <label>Zip Code</label>
+          <input type="text" class="full-width" name="project[zipcode]" value="<?php echo e($project->zipcode); ?>" />
+        </div>
+        <div class="control-group">
           <label>Project Type</label>
           <input type="text" class="full-width" value="<?php echo e($project->project_type->name); ?>" readonly="readonly" />
         </div>

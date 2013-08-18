@@ -28,6 +28,10 @@
           input.full-width(type="text", name="project[office]", value="#{$project->office}")
 
         .control-group
+          label Zip Code
+          input.full-width(type="text", name="project[zipcode]", value="#{$project->zipcode}")
+
+        .control-group
           label Project Type
           input.full-width(type="text", value="#{$project->project_type->name}", readonly)
 

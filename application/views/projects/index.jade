@@ -30,13 +30,13 @@
       - foreach($projects as $project):
 
         tbody.project
-          tr.project-meta
-          //- tr(class="#{(($project->source == Project::SOURCE_NATIVE) ? 'project-meta project-meta-highlight' : 'project-meta')}")
+          //- tr.project-meta
+          tr(class="#{(($project->source == Project::SOURCE_NATIVE) ? 'project-meta project-meta-highlight' : 'project-meta')}")
             td.hidden-phone
-              // - if ($project->source() == Project::SOURCE_NATIVE):
+              - if ($project->source() == Project::SOURCE_NATIVE):
                 img(src="#{$project->project_type->image()}", title="#{$project->project_type->name}", alt="#{$project->project_type->name}")
-              // - else:
-                //- span.fbo-import-icon FBO
+              - else:
+                span.fbo-import-icon FBO
             td
               a.project-title(href="#{route('project', array($project->id))}") #{$project->title}
               - if ($project->is_mine()):

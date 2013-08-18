@@ -12,6 +12,9 @@ Class Factory {
   public static $offices = array("Office of Capital Access", "Office of Credit Risk Management", "Office of Investment",
                                  "Office of Field Operations", "Office of Surety Guarantees", "Office of Hearings & Appeals");
 
+  public static $zipcodes = array("20001", "20002", "20003",
+                                 "20004", "20005", "20006");
+
   public static $project_titles = array("API for Energy.gov", "Census API", "MyGov's Sweet API", "Bluth Banana Stand API");
 
   public static function vendor() {
@@ -82,6 +85,7 @@ Class Factory {
                            'title' => self::$project_titles[array_rand(self::$project_titles)],
                            'agency' => self::$agencies[array_rand(self::$agencies)],
                            'office' => self::$offices[array_rand(self::$offices)],
+                           'zipcode' => self::$offices[array_rand(self::$zipcodes)],
                            'background' => $faker->paragraph,
                            'sections' => $original_project->sections,
                            'variables' => $original_project->variables,

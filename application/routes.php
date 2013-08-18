@@ -201,6 +201,7 @@ Route::filter('before', function() {
   if (Config::get('application.maint') == true 
       && !Request::route()->is('maint')
       && !Request::route()->is('reports')
+      && !Request::route()->is('admin')
       ) {
     return Redirect::to('/maint');
   }

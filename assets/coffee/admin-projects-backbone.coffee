@@ -32,16 +32,42 @@
         </select>
       </td>
       <td><%- project_type.name %></td>
+      <td>
+        <select class="source-select">
+          <option value="1" <% if (source == 1){ %>selected<% } %>>FBO</option>
+          <option value="0" <% if (source == 0){ %>selected<% } %>>RFP-EZ</option>
+        </select>
+      </td>
+      <td>
+        <% if (!delisted){ %>
+          <a class="btn btn-danger delist-button btn-mini">Delist</a>
+        <% } else { %>
+          <a class="btn relist-button btn-mini">Relist</a>
+        <% } %>
+      </td>
     """
 
     events:
       "change .recommended-select": "update"
       "change .public-select": "update"
+      "change .source-select": "update"
+      "click .delist-button": "delist"
+      "click .relist-button": "relist"
+
+    delist: ->
+      if confirm('Are you sure you want to delist this project?')
+        @model.save
+          command: "delist"
+
+    relist: ->
+      @model.save
+        command: "relist"
 
     update: ->
       @model.save
         recommended: @$el.find(".recommended-select").val()
         public: @$el.find(".public-select").val()
+        source: @$el.find(".source-select").val()
 
     initialize: ->
       @model.bind "change", @render, @
