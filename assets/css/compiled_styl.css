@@ -174,7 +174,7 @@ tbody.project .project-meta-highlight{background-color:#fff3d1}
 tbody.project .project-title{font-size:1.1em;font-weight:bold}
 tbody.project .admin-star{font-size:11px;}
 tbody.project .admin-star i{line-height:12px;margin-top:-1px}
-.background-form textarea{width:100%;max-width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;min-height:280px}
+.background-form textarea,.background-edit-form textarea{width:100%;max-width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;min-height:280px}
 .explain-duns-link{padding-left:10px;font-size:.9em}
 .blum{background-color:#efefef;padding:10px}
 .new-project-page{width:500px;margin:0 auto;}
