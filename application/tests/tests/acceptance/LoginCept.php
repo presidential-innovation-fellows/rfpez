@@ -20,7 +20,7 @@ $I->see('Projects', 'h4');
 
 /* Signout works */
 $I->click('Sign Out');
-$I->see('A Technology Marketplace That Everybody Loves');
+$I->see('RFP-EZ Marketplace');
 
 /* Officer login wrong password fails */
 $I->amOnPage('/signin');
