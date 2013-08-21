@@ -12,7 +12,7 @@
         <a href="http://www.sba.gov/about-sba-info/privacy-policy">Privacy Policy</a>
       </li>
       <li>
-        <a href="http://www.twitter.com/projectrfpez">@ProjectRFPEZ</a>
+        <a href="http://www.twitter.com/rfpez">@rfpez</a>
       </li>
       <li>
         <a href="http://presidential-innovation-fellows.github.com/rfpez-blog">Blog</a>
