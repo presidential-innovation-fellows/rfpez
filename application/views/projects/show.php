@@ -13,11 +13,42 @@
   <?php Section::inject('active_subnav', "view") ?>
   <div class="row">
     <div class="span6">
-      <?php echo View::make('projects.partials.full_sow')->with('project', $project); ?>
-    </div>
-    <div class="span5 offset1">
 
-      <?php if ($project->source == Project::SOURCE_NATIVE): ?>
+      <?php echo View::make('projects.partials.full_sow')->with('project', $project); ?>
+
+      <?php if ($project->source != Project::SOURCE_NATIVE): ?>
+
+        <?php if (Auth::vendor()): ?>
+          <?php echo View::make('projects.partials.external_url_link_button')->with('project', $project); ?>
+        <?php else: ?>
+          <div class="no-auth-only">
+            <a class="btn btn-success" href="#signinModal" data-toggle="modal">Sign in</a> to learn more about this project.
+          </div>
+        <?php endif; ?>
+
+        <p>&nbsp;</p>
+        <div class="share">
+          <h5>Share</h5>
+          <p>
+            <div class="addthis_toolbox addthis_default_style ">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+            <a class="addthis_counter addthis_pill_style"></a>
+            </div>
+            <script type="text/javascript">
+              // var addthis_share = {"title": "#{}"};
+            </script>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50b67b147c93387b"></script>
+          </p>
+        </div>
+
+      <?php endif; ?>
+
+    </div>
+
+    <?php if ($project->source == Project::SOURCE_NATIVE): ?>
+
+      <div class="span5 offset1">
 
         <div class="well-plain">
           <div class="bids-due-timeago">Bids due <?php echo Helper::timeago($project->proposals_due_at); ?></div>
@@ -37,27 +68,26 @@
         <div class="no-auth-only">
           <a class="btn btn-success" href="#signinModal" data-toggle="modal">Sign in</a> to bid on this project.
         </div>
+
         <hr />
 
-      <?php endif; // rpfez native project ?>
+        <p>&nbsp;</p>
 
-      <div class="share">
-        <h5>Share</h5>
-        <p>
-          <div class="addthis_toolbox addthis_default_style ">
-          <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-          <a class="addthis_button_tweet"></a>
-          <a class="addthis_counter addthis_pill_style"></a>
-          </div>
-          <script type="text/javascript">
-            // var addthis_share = {"title": "#{}"};
-          </script>
-          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50b67b147c93387b"></script>
-        </p>
-      </div>
-      <hr />
-
-      <?php if ($project->source == Project::SOURCE_NATIVE): ?>
+        <div class="share">
+          <h5>Share</h5>
+          <p>
+            <div class="addthis_toolbox addthis_default_style ">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+            <a class="addthis_counter addthis_pill_style"></a>
+            </div>
+            <script type="text/javascript">
+              // var addthis_share = {"title": "#{}"};
+            </script>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50b67b147c93387b"></script>
+          </p>
+        </div>
+        <hr />
 
         <div class="q-and-a">
           <h5>Q &amp; A</h5>

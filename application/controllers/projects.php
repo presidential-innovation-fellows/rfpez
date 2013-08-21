@@ -315,6 +315,7 @@ class Projects_Controller extends Base_Controller {
 
       if (Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)) {
         $project->source = $project_input["source"];
+        $project->external_url = $project_input["external_url"];
       }
 
       if (Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)) {

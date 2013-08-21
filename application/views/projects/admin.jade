@@ -25,6 +25,10 @@
                 option(value="#{Project::SOURCE_NATIVE}", selected="#{($project->source == Project::SOURCE_NATIVE)}") RFP-EZ
                 option(value="#{Project::SOURCE_FBO", selected="#{($project->source == Project::SOURCE_FBO)}") FBO
 
+            .control-group
+              label External URL <em>(if source is not RFP-EZ)</em>
+              input.full-width(type="text", name="project[external_url]", value="#{$project->external_url}")
+
         .control-group
           label Project Title
           input.full-width(type="text", name="project[title]", value="#{$project->title}")

@@ -9,17 +9,33 @@
   <?php echo View::make('bids.partials.award_modal')->with('project', $project); ?>
 </div>
 <div class="container inner-container">
-  <div class="well">
-    <a id="review-tips-toggle" data-hide-text="Hide Tips [-]">Show Tips [+]</a>
-    <div id="review-tips" class="collapse">
-      <ul>
-        <li><?php echo e(__("r.bids.review.stars_tip")); ?></li>
-      </ul>
+  <?php if ($project->source() == Project::SOURCE_NATIVE): ?>
+    <div class="well">
+      <a id="review-tips-toggle" data-hide-text="Hide Tips [-]">Show Tips [+]</a>
+      <div id="review-tips" class="collapse">
+        <ul>
+          <li><?php echo e(__("r.bids.review.stars_tip")); ?></li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <div class="winning-bid-table-wrapper <?php echo e($project->winning_bid() ? '' : 'hide'); ?>">
-    <h5>Winning Bid</h5>
-    <table class="table bids-table winning-bid">
+    <div class="winning-bid-table-wrapper <?php echo e($project->winning_bid() ? '' : 'hide'); ?>">
+      <h5>Winning Bid</h5>
+      <table class="table bids-table winning-bid">
+        <thead>
+          <tr>
+            <th class="unread-and-star" colspan="2"></th>
+            <th class="vendor-name">Vendor Name</th>
+            <th class="price">Price</th>
+            <th class="actions">Actions</th>
+          </tr>
+        </thead>
+        <?php if ($project->winning_bid()): ?>
+          <?php echo View::make('bids.partials.bid_for_review')->with('bid', $project->winning_bid()); ?>
+        <?php endif; ?>
+      </table>
+    </div>
+    <h5 class="content-table-title">Bids awaiting review</h5>
+    <table class="table bids-table open-bids">
       <thead>
         <tr>
           <th class="unread-and-star" colspan="2"></th>
@@ -28,37 +44,25 @@
           <th class="actions">Actions</th>
         </tr>
       </thead>
-      <?php if ($project->winning_bid()): ?>
-        <?php echo View::make('bids.partials.bid_for_review')->with('bid', $project->winning_bid()); ?>
-      <?php endif; ?>
+      <?php foreach($open_bids as $bid): ?>
+        <?php echo View::make('bids.partials.bid_for_review')->with('bid', $bid); ?>
+      <?php endforeach; ?>
     </table>
-  </div>
-  <h5 class="content-table-title">Bids awaiting review</h5>
-  <table class="table bids-table open-bids">
-    <thead>
-      <tr>
-        <th class="unread-and-star" colspan="2"></th>
-        <th class="vendor-name">Vendor Name</th>
-        <th class="price">Price</th>
-        <th class="actions">Actions</th>
-      </tr>
-    </thead>
-    <?php foreach($open_bids as $bid): ?>
-      <?php echo View::make('bids.partials.bid_for_review')->with('bid', $bid); ?>
-    <?php endforeach; ?>
-  </table>
-  <h5>Declined bids</h5>
-  <table class="table bids-table dismissed-bids">
-    <thead>
-      <tr>
-        <th class="unread-and-star" colspan="2"></th>
-        <th class="vendor-name">Vendor Name</th>
-        <th class="price">Price</th>
-        <th class="actions">Actions</th>
-      </tr>
-    </thead>
-    <?php foreach($dismissed_bids as $bid): ?>
-      <?php echo View::make('bids.partials.bid_for_review')->with('bid', $bid); ?>
-    <?php endforeach; ?>
-  </table>
+    <h5>Declined bids</h5>
+    <table class="table bids-table dismissed-bids">
+      <thead>
+        <tr>
+          <th class="unread-and-star" colspan="2"></th>
+          <th class="vendor-name">Vendor Name</th>
+          <th class="price">Price</th>
+          <th class="actions">Actions</th>
+        </tr>
+      </thead>
+      <?php foreach($dismissed_bids as $bid): ?>
+        <?php echo View::make('bids.partials.bid_for_review')->with('bid', $bid); ?>
+      <?php endforeach; ?>
+    </table>
+  <?php else: ?>
+    <p>BidMonitor is not available for this project.</p>
+  <?php endif; ?>
 </div>

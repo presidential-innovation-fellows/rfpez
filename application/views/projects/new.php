@@ -21,6 +21,10 @@
             <option value="<?php echo e(Project::SOURCE_FBO); ?>">FBO</option>
           </select>
         </div>
+        <div class="control-group">
+          <label>External URL <em>(if source is not RFP-EZ)</em></label>
+          <input type="text" class="full-width" name="project[external_url]" />
+        </div>
       <?php endif; ?>
     <?php endif; ?>
       <div class="control-group">

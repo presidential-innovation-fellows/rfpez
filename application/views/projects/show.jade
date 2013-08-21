@@ -17,6 +17,26 @@
   .row
     .span6
       !{View::make('projects.partials.full_sow')->with('project', $project)}
+      - if ($project->source() != Project::SOURCE_NATIVE):
+        - if (Auth:vendor()):
+          !{View::make('projects.partials.external_url_link_button')->with('project', $project)}
+        - else:
+          .no-auth-only
+            <a class="btn btn-success" href="#signinModal" data-toggle="modal">Sign in</a> to learn more about this project.
+
+        p &nbsp;
+        
+        .share
+          h5 Share
+          p
+            | <div class="addthis_toolbox addthis_default_style ">
+            | <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            | <a class="addthis_button_tweet"></a>
+            | <a class="addthis_counter addthis_pill_style"></a>
+            | </div>
+            :javascript
+              | // var addthis_share = {"title": "#{}"};
+            | <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50b67b147c93387b"></script>
 
     .span5.offset1
 
@@ -41,23 +61,20 @@
 
         hr
 
-      - endif;
+        .share
+          h5 Share
+          p
+            | <div class="addthis_toolbox addthis_default_style ">
+            | <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            | <a class="addthis_button_tweet"></a>
+            | <a class="addthis_counter addthis_pill_style"></a>
+            | </div>
+            :javascript
+              | // var addthis_share = {"title": "#{}"};
+            | <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50b67b147c93387b"></script>
 
-      .share
-        h5 Share
-        p
-          | <div class="addthis_toolbox addthis_default_style ">
-          | <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-          | <a class="addthis_button_tweet"></a>
-          | <a class="addthis_counter addthis_pill_style"></a>
-          | </div>
-          :javascript
-            | // var addthis_share = {"title": "#{}"};
-          | <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50b67b147c93387b"></script>
+        hr
 
-      hr
-
-      - if ($project->source() == Project::SOURCE_NATIVE):
         .q-and-a
           h5 Q &amp; A
           .questions

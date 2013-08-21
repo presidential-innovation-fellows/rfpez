@@ -19,7 +19,7 @@ class Project extends Eloquent {
   public static $my_project_ids = false;
 
   public static $accessible = array('project_type_id', 'title', 'agency', 'office', 'zipcode', 'public', 'background',
-                                    'sections', 'variables', 'proposals_due_at', 'price_type', 'source', 'delisted');
+                                    'sections', 'variables', 'proposals_due_at', 'price_type', 'source', 'delisted', 'external_url');
 
   public static $sow_progress_markers = array('project_template' => 0,
                                               'project_background' => 1,
@@ -158,6 +158,10 @@ class Project extends Eloquent {
 
   public function delisted() {
     return $this->delisted;
+  }
+
+  public function external_url() {
+    return $this->external_url;
   }
 
   public function is_open_for_bids() {

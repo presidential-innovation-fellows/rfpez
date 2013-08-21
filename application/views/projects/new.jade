@@ -23,6 +23,10 @@
               option(value="#{Project::SOURCE_NATIVE}") RFP-EZ
               option(value="#{Project::SOURCE_FBO") FBO
 
+          .control-group
+            label External URL <em>(if source is not RFP-EZ)</em>
+            input.full-width(type="text", name="project[external_url]")
+
       .control-group
         label Project Title
         input.full-width(type="text", name="project[title]")
