@@ -61,6 +61,8 @@ Route::group(array('https' => Config::get('application.ssl')), function(){
 
   Route::get('projects/(:num)/more-templates', array('uses' => 'projects@more_templates', 'as' => 'project_more_templates'));
 
+  Route::get('projects/(:num)/outbound', array('uses' => 'projects@outbound', 'as' => 'project_outbound'));
+
   Route::get('projects/(:num)/admin', array('uses' => 'projects@admin', 'as' => 'project_admin'));
 
   Route::get('projects/(:num)/collaborators', array('uses' => 'projects@get_collaborators'));

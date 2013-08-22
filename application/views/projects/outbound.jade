@@ -1,0 +1,13 @@
+.subheader
+  - Section::inject('page_title', "$project->title")
+  .subheader-secondline
+  !{$project->agency}
+
+.container.inner-container.inner-container-show-project
+  p 
+  	Redirecting to 
+  	a.outbound(href="#{$project->external_url}") #{$project->external_url} 
+  	...
+
+ :javascript
+ 	|window.location.href = "!{$project->external_url}";

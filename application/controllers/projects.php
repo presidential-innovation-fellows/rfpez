@@ -5,7 +5,7 @@ class Projects_Controller extends Base_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->filter('before', 'officer_only')->except(array('show', 'index', 'rss'));
+    $this->filter('before', 'officer_only')->except(array('show', 'index', 'rss', 'outbound'));
 
     $this->filter('before', 'project_exists')->except(array('new', 'create', 'mine', 'index', 'rss'));
 
@@ -13,7 +13,7 @@ class Projects_Controller extends Base_Controller {
 
     $this->filter('before', 'template_exists_and_is_forkable')->only('template_post');
 
-    $this->filter('before', 'i_am_collaborator')->except(array('new', 'create', 'mine', 'index', 'show', 'destroy_collaborator', 'rss'));
+    $this->filter('before', 'i_am_collaborator')->except(array('new', 'create', 'mine', 'index', 'show', 'destroy_collaborator', 'rss', 'outbound'));
 
     $this->filter('before', 'i_am_owner')->only(array('destroy_collaborator'));
   }
@@ -357,6 +357,40 @@ class Projects_Controller extends Base_Controller {
     $view->project = Config::get('project');
     $view->collaborators_json = eloquent_to_json($view->project->officers()->get());
     $this->layout->content = $view;
+  }
+
+  public function action_outbound() {
+    $project = Config::get('project');
+
+    if (Auth::user() && $project->external_url) {
+      // need: external URL, current URL, user_id, current datetime
+      $external_url = $project->external_url;
+      $page_url = URL::full();
+      $user_id = Auth::user()->id;
+      $dt = new \DateTime;
+
+      $exit_array = array(
+          'user_id' => $user_id
+          , 'page_url' => $page_url
+          , 'outbound_url' => $external_url
+          , 'when' => $dt
+        );
+
+      // // log the event
+      $exits = new OutboundExit($exit_array);
+      $exits->save();
+
+      // show the view that contains the redirect
+      $view = View::make('projects.outbound');
+      $view->project = $project;
+      $this->layout->content = $view;
+
+    } else {
+      
+      // not logged in; redirect to project page
+      return Redirect::to_route('project', array($project->id));
+
+    } // if Auth::user()
   }
 
   public function action_toggle_public() {

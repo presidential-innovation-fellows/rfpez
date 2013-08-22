@@ -22,7 +22,7 @@
           <?php echo View::make('projects.partials.external_url_link_button')->with('project', $project); ?>
         <?php else: ?>
           <div class="no-auth-only">
-            <a class="btn btn-success" href="#signinModal" data-toggle="modal">Sign in</a> to learn more about this project.
+            <a class="btn btn-success" href="#signinModal" data-toggle="modal">Sign in</a> to bid or learn more about this project.
           </div>
         <?php endif; ?>
 
