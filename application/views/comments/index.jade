@@ -6,18 +6,18 @@
 	!{View::make('projects.partials.toolbar')->with('project', $project)}
 
 .container.inner-container
-
 	.comments-list
-	:javascript
-	| $(function(){
-	|  new Rfpez.Backbone.Comments( !{$project->id}, !{$comments} )
-	| })
+		:javascript
+			| $(function(){
+			|  new Rfpez.Backbone.Comments( !{$project->id}, !{$comments} )
+			| })
 
 	.form-actions
+
 	h5 Add Comment
 
 	form#add-comment-form(action="#{'comments'}", method="POST", data-officer-name="#{Auth::officer()->name}", data-officer-user-id="#{Auth::officer()->user_id}")
-	textarea.span5(name="body")
+		textarea.span5(name="body")
 
 	div
 	  button.btn.btn-primary Submit Comment

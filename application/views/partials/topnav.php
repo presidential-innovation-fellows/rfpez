@@ -85,7 +85,7 @@
             <li>
               <a href="#signinModal" data-toggle="modal">Sign In</a>
             </li>
-           </ul>
+          </ul>
         <?php endif; ?>
       </div>
     </div>

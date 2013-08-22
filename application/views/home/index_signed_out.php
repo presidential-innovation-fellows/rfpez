@@ -1,12 +1,8 @@
 <?php Section::inject('page_title', __('r.home.index_signed_out.site_tagline')) ?>
 <?php Section::inject('no_page_header', true) ?>
 <div class="subheader">
-  <h1 class="home-tagline">
-    Quality solutions for efficient government
-  </h1>
-  <h2 class="home-subline">
-    RFP-EZ delivers savings for taxpayers and new opportunities for small businesses
-  </h2>
+  <h1 class="home-tagline">Quality solutions for efficient government</h1>
+  <h2 class="home-subline">RFP-EZ delivers savings for taxpayers and new opportunities for small businesses</h2>
   <div class="home-story-graphic">
     <img src="/img/home_image_set.png" />
   </div>

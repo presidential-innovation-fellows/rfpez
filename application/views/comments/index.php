@@ -13,13 +13,12 @@
       })
     </script>
   </div>
-  <div class="form-actions">
-    <h5>Add Comment</h5>
-    <form id="add-comment-form" action="<?php echo e('comments'); ?>" method="POST" data-officer-name="<?php echo e(Auth::officer()->name); ?>" data-officer-user-id="<?php echo e(Auth::officer()->user_id); ?>">
-      <textarea class="span5" name="body"></textarea>
-      <div>
-        <button class="btn btn-primary">Submit Comment</button>
-      </div>
-    </form>
+  <div class="form-actions"></div>
+  <h5>Add Comment</h5>
+  <form id="add-comment-form" action="<?php echo e('comments'); ?>" method="POST" data-officer-name="<?php echo e(Auth::officer()->name); ?>" data-officer-user-id="<?php echo e(Auth::officer()->user_id); ?>">
+    <textarea class="span5" name="body"></textarea>
+  </form>
+  <div>
+    <button class="btn btn-primary">Submit Comment</button>
   </div>
 </div>
