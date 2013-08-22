@@ -3,22 +3,20 @@
     <p class="help"><?php echo __('r.partials.footer.help'); ?></p>
     <p><?php echo __('r.partials.footer.text'); ?></p>
     <ul>
-
-       <li>
+      <li>
         <a href="/faq">FAQ</a>
       </li>
- 
-       <li>
-        <a href="http://www.sba.gov/about-sba-info/privacy-policy">Privacy Policy</a>
+      <li>
+        <a class="outbound" href="http://www.sba.gov/about-sba-info/privacy-policy">Privacy Policy</a>
       </li>
       <li>
-        <a href="http://www.twitter.com/projectrfpez">@ProjectRFPEZ</a>
+        <a class="outbound" href="http://www.twitter.com/projectrfpez">@ProjectRFPEZ</a>
       </li>
       <li>
-        <a href="http://presidential-innovation-fellows.github.com/rfpez-blog">Blog</a>
+        <a class="outbound" href="http://presidential-innovation-fellows.github.com/rfpez-blog">Blog</a>
       </li>
       <li>
-        <a href="https://github.com/presidential-innovation-fellows/rfpez">Fork this site on GitHub!</a>
+        <a class="outbound" href="https://github.com/presidential-innovation-fellows/rfpez">Fork this site on GitHub!</a>
       </li>
     </ul>
   </div>
