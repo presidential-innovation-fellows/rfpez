@@ -1,4 +1,3 @@
-
 $(document).on("change keyup", "#filter-projects-input", function() {
   var all_contracts, query;
   query = $.trim($(this).val());

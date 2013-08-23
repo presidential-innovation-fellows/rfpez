@@ -1,4 +1,3 @@
-
 (function() {
   var App, AppView, Officer, OfficerList, OfficerView, Officers;
   Officer = Backbone.Model.extend({

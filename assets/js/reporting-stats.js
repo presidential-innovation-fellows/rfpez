@@ -1,4 +1,3 @@
-
 Rfpez.reporting_stats = function(stats) {
   var bidChart, bidData, bidOptions, bidsDataForGchart, data, key, options, priceChart, priceData, priceDataForGchart, priceOptions, project, signupsLineChart, val, _i, _j, _len, _len1, _ref, _ref1, _ref2;
   priceDataForGchart = [["project title", "average price"]];

@@ -1,4 +1,3 @@
-
 $(document).on("ready page:load", function() {
   return $("[data-dsbs-user-id]").each(function() {
     var el, user_id;

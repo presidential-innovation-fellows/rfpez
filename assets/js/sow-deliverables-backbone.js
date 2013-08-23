@@ -1,4 +1,3 @@
-
 (function() {
   var App, AppView, Deliverable, DeliverableList, DeliverableView, Deliverables;
   Deliverable = Backbone.Model.extend({

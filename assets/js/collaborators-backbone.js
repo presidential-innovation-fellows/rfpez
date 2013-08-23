@@ -1,4 +1,3 @@
-
 (function() {
   var App, AppView, Collaborator, CollaboratorList, CollaboratorView, Collaborators;
   Collaborator = Backbone.Model.extend({

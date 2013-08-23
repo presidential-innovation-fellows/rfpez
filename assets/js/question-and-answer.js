@@ -1,4 +1,3 @@
-
 $(document).on("submit", "#answer-question-form", function(e) {
   var answer_text, el, question, question_id;
   e.preventDefault();

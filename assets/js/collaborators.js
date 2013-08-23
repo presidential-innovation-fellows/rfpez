@@ -1,4 +1,3 @@
-
 $(document).on("ready page:load", function() {
   var typeahead_searching;
   typeahead_searching = false;

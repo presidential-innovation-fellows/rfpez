@@ -1,4 +1,3 @@
-
 (function() {
   var App, AppView, Comment, CommentList, CommentView, Comments, NotificationView;
   Comment = Backbone.Model.extend({
