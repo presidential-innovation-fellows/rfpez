@@ -1,6 +1,6 @@
 h4
   | #{$project->title}
-  span.project-status.pull-right Status: #{$project->status_text()}
+  .project-status Status: #{$project->status_text()}
 
 .nav.nav-tabs.project-subnav
   - if ($project->status() == Project::STATUS_WRITING_SOW):

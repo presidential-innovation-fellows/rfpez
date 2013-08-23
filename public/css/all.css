@@ -2697,6 +2697,7 @@ h3.sow-section-header.sow-section-header-first
 .project-status {
 	font-size: 14px;
 	color: gray;
+	text-align: right;
 }
 form input.full-width {
 	width: 310px;

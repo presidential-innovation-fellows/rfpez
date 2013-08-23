@@ -1,6 +1,6 @@
 <h4>
   <?php echo e($project->title); ?>
-  <span class="project-status pull-right">Status: <?php echo e($project->status_text()); ?></span>
+  <div class="project-status">Status: <?php echo e($project->status_text()); ?></div>
 </h4>
 <div class="nav nav-tabs project-subnav">
   <?php if ($project->status() == Project::STATUS_WRITING_SOW): ?>
