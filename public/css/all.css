@@ -2694,10 +2694,10 @@ h3.sow-section-header.sow-section-header-first
 	width: 940px;
 	margin: 0 auto;
 }
-.project-status {
+.project-status, .project-owner {
 	font-size: 14px;
 	color: gray;
-	text-align: right;
+	line-height: 1.4;
 }
 form input.full-width {
 	width: 310px;

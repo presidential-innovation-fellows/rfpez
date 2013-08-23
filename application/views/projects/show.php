@@ -1,6 +1,7 @@
 <div class="subheader">
   <?php Section::inject('page_title', "$project->title") ?>
-  <?php if ($project->is_mine()): ?>
+  <?php 
+    if ($project->is_mine() || (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN))): ?>
     <?php Section::inject('no_page_header', true) ?>
     <?php echo View::make('projects.partials.toolbar')->with('project', $project); ?>
     <?php echo View::make('projects.partials.answer_question_form'); ?>
@@ -21,7 +22,7 @@
 
       <?php if ($project->source != Project::SOURCE_NATIVE): ?>
 
-        <?php if (Auth::vendor()): ?>
+        <?php if (Auth::user()) : ?>
           <?php echo View::make('projects.partials.external_url_link_button')->with('project', $project); ?>
         <?php else: ?>
           <div class="no-auth-only">

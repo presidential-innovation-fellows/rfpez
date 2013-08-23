@@ -13,11 +13,10 @@
   });
   ProjectView = Backbone.View.extend({
     tagName: "tr",
-    template: _.template("<td><%- id %></td>\n<td><%- title %></td>\n<td><%- fork_count %></td>\n<td>\n  <select class=\"recommended-select\">\n    <option value=\"1\" <% if (recommended == 1){ %>selected<% } %>>Yes</option>\n    <option value=\"0\" <% if (recommended == 0){ %>selected<% } %>>No</option>\n  </select>\n</td>\n<td>\n  <select class=\"public-select\">\n    <option value=\"1\" <% if (public == 1){ %>selected<% } %>>Yes</option>\n    <option value=\"0\" <% if (public == 0){ %>selected<% } %>>No</option>\n  </select>\n</td>\n<td><%- project_type.name %></td>\n<td>\n  <select class=\"source-select\">\n    <option value=\"1\" <% if (source == 1){ %>selected<% } %>>FBO</option>\n    <option value=\"0\" <% if (source == 0){ %>selected<% } %>>RFP-EZ</option>\n  </select>\n</td>\n<td>\n  <% if (delisted == 1){ %>\n    <a class=\"btn relist-button btn-mini\">Relist</a>\n  <% } else { %>\n    <a class=\"btn btn-danger delist-button btn-mini\">Delist</a>\n  <% } %>\n</td>"),
+    template: _.template("<td><%- id %></td>\n<td><%- title %></td>\n<td><%- fork_count %></td>\n<td>\n  <select class=\"recommended-select\">\n    <option value=\"1\" <% if (recommended == 1){ %>selected<% } %>>Yes</option>\n    <option value=\"0\" <% if (recommended == 0){ %>selected<% } %>>No</option>\n  </select>\n</td>\n<td>\n  <select class=\"public-select\">\n    <option value=\"1\" <% if (public == 1){ %>selected<% } %>>Yes</option>\n    <option value=\"0\" <% if (public == 0){ %>selected<% } %>>No</option>\n  </select>\n</td>\n<td><%- project_type.name %></td>\n<td>\n  <% if (delisted == 1){ %>\n    <a class=\"btn relist-button btn-mini\">Relist</a>\n  <% } else { %>\n    <a class=\"btn btn-danger delist-button btn-mini\">Delist</a>\n  <% } %>\n</td>"),
     events: {
       "change .recommended-select": "update",
       "change .public-select": "update",
-      "change .source-select": "update",
       "click .delist-button": "delist",
       "click .relist-button": "relist"
     },
@@ -36,8 +35,7 @@
     update: function() {
       return this.model.save({
         recommended: this.$el.find(".recommended-select").val(),
-        "public": this.$el.find(".public-select").val(),
-        source: this.$el.find(".source-select").val()
+        "public": this.$el.find(".public-select").val()
       });
     },
     initialize: function() {

@@ -1,6 +1,8 @@
 h4
   | #{$project->title}
   .project-status Status: #{$project->status_text()}
+  - if (!$project->is_mine()):
+    .project-owner Owner: #{$project->owner()->name} (#{$project->owner()->agency})
 
 .nav.nav-tabs.project-subnav
   - if ($project->status() == Project::STATUS_WRITING_SOW):
@@ -11,8 +13,10 @@ h4
   - elseif ($project->status() == Project::STATUS_ACCEPTING_BIDS || $project->status() == Project::STATUS_REVIEWING_BIDS || $project->status() == Project::STATUS_CONTRACT_AWARDED):
     li(class="#{((Helper::active_subnav('view') || Helper::active_subnav('')) ? 'active':''}")
       a(href="#{route('project', array($project->id))}") View Posting
-    li(class="#{Helper::active_subnav('review_bids') ? 'active':''}")
-      a(href="#{route('review_bids', array($project->id))}") Review Bids (#{$project->submitted_bids()->count()})
+    - if ($project->is_mine() && $project->source() == Project::SOURCE_NATIVE)):
+      li(class="#{Helper::active_subnav('review_bids') ? 'active':''}")
+        a(href="#{route('review_bids', array($project->id))}") Review Bids (#{$project->submitted_bids()->count()})
+    - endif;
   - endif;
 
     li(class="pull-right #{Helper::active_subnav('admin') ? 'active':''}")

@@ -1,7 +1,7 @@
 .subheader
   - Section::inject('page_title', "$project->title")
 
-  - if ($project->is_mine()):
+  - if ($project->is_mine() || (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN))):
     - Section::inject('no_page_header', true)
     !{View::make('projects.partials.toolbar')->with('project', $project)}
     !{View::make('projects.partials.answer_question_form')}
@@ -22,7 +22,7 @@
 
   - if ($project->source() != Project::SOURCE_NATIVE):
 
-    - if (Auth:vendor()):
+    - if (Auth:user()):
       !{View::make('projects.partials.external_url_link_button')->with('project', $project)}
     - else:
       .no-auth-only
