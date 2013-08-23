@@ -34,7 +34,6 @@ $(document).on("ready page:load", function() {
   }
 });
 
-
 $(document).on("ready page:load", function() {
   var draft_saved, form_update_handler, save_draft, save_draft_button;
   if (!Rfpez.current_page("new-bid")) {

@@ -2208,7 +2208,6 @@ $.fn.sortable = function(options) {
   });
 
 })( jQuery );
-
 $(document).on("ready page:load", function() {
   var typeahead_searching;
   typeahead_searching = false;
@@ -2586,7 +2585,6 @@ $(document).on("change", "#project-type-select", function() {
   }
 });
 
-
 (function() {
   var App, AppView, Comment, CommentList, CommentView, Comments, NotificationView;
   Comment = Backbone.Model.extend({
@@ -2735,7 +2733,6 @@ $(document).on("change", "#project-type-select", function() {
   };
 })();
 
-
 (function() {
   var App, AppView, Collaborator, CollaboratorList, CollaboratorView, Collaborators;
   Collaborator = Backbone.Model.extend({
@@ -2852,7 +2849,6 @@ $(document).on("change", "#project-type-select", function() {
     return App;
   };
 })();
-
 
 (function() {
   var App, AppView, Deliverable, DeliverableList, DeliverableView, Deliverables;
