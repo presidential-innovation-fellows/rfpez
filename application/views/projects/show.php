@@ -15,6 +15,9 @@
     <div class="span6">
 
       <?php echo View::make('projects.partials.full_sow')->with('project', $project); ?>
+    </div>
+
+    <div class="span5 offset1">
 
       <?php if ($project->source != Project::SOURCE_NATIVE): ?>
 
@@ -27,6 +30,7 @@
         <?php endif; ?>
 
         <p>&nbsp;</p>
+
         <div class="share">
           <h5>Share</h5>
           <p>
@@ -42,13 +46,7 @@
           </p>
         </div>
 
-      <?php endif; ?>
-
-    </div>
-
-    <?php if ($project->source == Project::SOURCE_NATIVE): ?>
-
-      <div class="span5 offset1">
+      <?php else: ?>
 
         <div class="well-plain">
           <div class="bids-due-timeago">Bids due <?php echo Helper::timeago($project->proposals_due_at); ?></div>
@@ -115,8 +113,8 @@
           </div>
         </div>
 
-      <?php endif; // rpfez native project ?>
+      </div>
+    <?php endif; // rpfez native project ?>
 
-    </div>
   </div>
 </div>
