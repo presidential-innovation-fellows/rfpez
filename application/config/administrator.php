@@ -27,6 +27,10 @@ return array(
       'title' => 'Bid',
       'model' => 'AdminModels\\Bid'
      ),
+    'outboundexits' => array(
+      'title' => 'Outbound',
+      'model' => 'AdminModels\\Outboundexit'
+    ),
     'comment' => array(
       'title' => 'Cmmnt',
       'model' => 'AdminModels\\Comment'
