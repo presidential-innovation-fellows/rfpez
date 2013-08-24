@@ -1,25 +1,28 @@
-- Section::inject('no_page_header', true)
+.subheader
+  - Section::inject('no_page_header', true)
+  h4 Admin Panel
 
-!{View::make('admin.partials.subnav')->with('current_page', 'vendors')}
+div.container.inner-container
+  !{View::make('admin.partials.subnav')->with('current_page', 'vendors')}
 
-table.table.table-bordered.table-striped.admin-vendors-table
-  thead
-    tr
-      th id
-      th company_name
-      th actions
-
-  tbody#vendors-tbody
-    - foreach ($vendors->results as $vendor):
+  table.table.table-bordered.table-striped.admin-vendors-table
+    thead
       tr
-        td #{$vendor->id}
-        td #{$vendor->company_name}
-        td
-          - if ($vendor->user->banned_at):
-            | Banned.
-          - else:
-            a.btn.btn-danger(href="#{route('admin_ban_vendor', array($vendor->id))}", data-confirm="#{__('r.admin.vendors.ban_vendor_confirmation')}", data-no-turbolink) Ban Vendor
-          - endif;
+        th id
+        th company_name
+        th actions
 
-.pagination-wrapper
-  !{$vendors->links()}
+    tbody#vendors-tbody
+      - foreach ($vendors->results as $vendor):
+        tr
+          td #{$vendor->id}
+          td #{$vendor->company_name}
+          td
+            - if ($vendor->user->banned_at):
+              | Banned.
+            - else:
+              a.btn.btn-danger(href="#{route('admin_ban_vendor', array($vendor->id))}", data-confirm="#{__('r.admin.vendors.ban_vendor_confirmation')}", data-no-turbolink) Ban Vendor
+            - endif;
+
+  .pagination-wrapper
+    !{$vendors->links()}

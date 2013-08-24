@@ -1,22 +1,26 @@
-- Section::inject('no_page_header', true)
+.subheader
+  - Section::inject('no_page_header', true)
+  h4 Admin Panel
 
-!{View::make('admin.partials.subnav')->with('current_page', 'officers')}
+div.container.inner-container
 
-table.table.table-bordered.table-striped.admin-officers-table
-  thead
-    tr
-      th id
-      th name
-      th title
-      th email
-      th role
-      th actions
+  !{View::make('admin.partials.subnav')->with('current_page', 'officers')}
 
-  tbody#officers-tbody
-    :javascript
-      | $(function(){
-      |  new Rfpez.Backbone.AdminOfficers( !{$officers_json} )
-      | })
+  table.table.table-bordered.table-striped.admin-officers-table
+    thead
+      tr
+        th id
+        th name
+        th title
+        th email
+        th role
+        th actions
 
-.pagination-wrapper
-  !{$officers->links()}
+    tbody#officers-tbody
+      :javascript
+        | $(function(){
+        |  new Rfpez.Backbone.AdminOfficers( !{$officers_json} )
+        | })
+
+  .pagination-wrapper
+    !{$officers->links()}
