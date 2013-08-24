@@ -16,7 +16,6 @@
           <?php echo Helper::helper_tooltip(__("r.admin.projects.project_helper_text"), "top"); ?>
         </th>
         <th>project_type</th>
-        <th>source</th>
         <th>Delist</th>
       </tr>
     </thead>
