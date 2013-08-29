@@ -4766,7 +4766,6 @@ if (!Array.prototype.indexOf) {
     return -1;
   }
 }
-
 window.Rfpez || (window.Rfpez = {
   Backbone: {}
 });
@@ -4815,11 +4814,10 @@ $(document).on("ready page:load", function() {
   $('input, textarea').placeholder();
   if ($("body").hasClass('officer')) {
     $('.datepicker-wrapper').datepicker();
-    $('.wysihtml5').wysihtml5();
+    $('.wysihtml5').ckeditor();
   }
   return Rfpez.current_page_string = $("body").data('current-page');
 });
-
 
 $(document).on("submit", "#answer-question-form", function(e) {
   var answer_text, el, question, question_id;
@@ -4896,7 +4894,6 @@ $(document).on("submit", "#ask-question-form", function(e) {
     }
   });
 });
-
 
 $.validator.addMethod('dotgovonly', function(value, element, param) {
   return value.match(new RegExp('.gov$', 'i')) || value.match(new RegExp('.mil$', 'i')) || value.match(new RegExp('.fed.us$', 'i'));
@@ -5045,7 +5042,6 @@ $(document).on("ready page:load", function() {
   });
 });
 
-
 $(document).on("change keyup", "#filter-projects-input", function() {
   var all_contracts, query;
   query = $.trim($(this).val());
@@ -5161,7 +5157,6 @@ $(document).on("ready page:load pjax:popstate", function() {
     });
   });
 });
-
 
 $(document).on("ready page:load", function() {
   return $("[data-dsbs-user-id]").each(function() {
@@ -7911,7 +7906,6 @@ $(document).on("keydown", ".vendor-image-url input", vendor_image_keydown);
 $(document).on("ready page:load", function() {
   return update_vendor_image_preview();
 });
-
 
 Rfpez.reporting_stats = function(stats) {
   var bidChart, bidData, bidOptions, bidsDataForGchart, data, key, options, priceChart, priceData, priceDataForGchart, priceOptions, project, signupsLineChart, val, _i, _j, _len, _len1, _ref, _ref1, _ref2;

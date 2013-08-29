@@ -1,4 +1,3 @@
-
 window.Rfpez || (window.Rfpez = {
   Backbone: {}
 });
@@ -47,7 +46,7 @@ $(document).on("ready page:load", function() {
   $('input, textarea').placeholder();
   if ($("body").hasClass('officer')) {
     $('.datepicker-wrapper').datepicker();
-    $('.wysihtml5').wysihtml5();
+    $('.wysihtml5').ckeditor();
   }
   return Rfpez.current_page_string = $("body").data('current-page');
 });

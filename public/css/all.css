@@ -2473,6 +2473,7 @@ tbody.project .project-title{font-size:1.1em;font-weight:bold}
 tbody.project .admin-star{font-size:11px;}
 tbody.project .admin-star i{line-height:12px;margin-top:-1px}
 .background-form textarea,.background-edit-form textarea{width:100%;max-width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;min-height:280px}
+.background-edit-form{width:200%}
 .explain-duns-link{padding-left:10px;font-size:.9em}
 .blum{background-color:#efefef;padding:10px}
 .new-project-page{width:500px;margin:0 auto;}
@@ -2500,8 +2501,8 @@ ul.templates-list li.show-more.all-loaded .show-more-templates-link{display:none
 .sow-sidebar li a{display:block;margin:0 0 -1px;padding:8px 14px;border:1px solid #e5e5e5;}
 .sow-sidebar li a .icon-chevron-right{opacity:.5;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter:alpha(opacity=50);float:right;margin-top:2px;margin-right:-6px}
 .sow-sidebar li.active .icon-chevron-right{opacity:1;-ms-filter:none;filter:none}
-#add-edit-section-modal{width:700px;min-height:500px;margin-top:-280px;}
-#add-edit-section-modal .modal-body{max-height:500px}
+#add-edit-section-modal{width:700px;min-height:590px;margin-top:-330px;}
+#add-edit-section-modal .modal-body{max-height:610px}
 #add-edit-section-modal .category-controls select{width:150px}
 #add-edit-section-modal .category-controls input{display:inline;width:180px}
 #add-edit-section-modal textarea{width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;min-height:140px}

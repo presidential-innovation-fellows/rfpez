@@ -35,6 +35,6 @@ $(document).on "ready page:load", ->
 
   if $("body").hasClass('officer')
     $('.datepicker-wrapper').datepicker()
-    $('.wysihtml5').wysihtml5()
+    $('.wysihtml5').ckeditor()
 
   Rfpez.current_page_string = $("body").data('current-page')

@@ -11,7 +11,7 @@
                 strong #{$section->title}
                 a.btn.btn-success.btn-mini.edit-section-link Edit
                 a.btn.btn-danger.btn-mini.remove-button(data-href="#{route('project_section_delete', array($project->id, $section->id))}", data-loading-text="Removing...") Remove
-                p.body !{$section->body}
+                div.body !{$section->body}
     - else:
       p #{__("r.projects.partials.sections_for_editing.none")}
     - endif;

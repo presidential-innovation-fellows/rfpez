@@ -76,12 +76,15 @@
         </h4>
       <?php } ?>
       <?php echo Section::yield('subnav'); ?>
-    </div><!-- subheader layout -->
-
+    </div>
     <?php echo $content; ?>
-
   </div>
   <?php echo View::make('partials.footer'); ?>
+  <script>
+    var CKEDITOR_BASEPATH = '/js/vendor/ckeditor/';
+  </script>
+  <script src="/js/vendor/ckeditor/ckeditor.js"></script>
+  <script src="/js/vendor/ckeditor/adapters/jquery.js"></script>
   <?php if (Request::is_env('production') || Request::is_env('ec2')) { ?>
     <script src="/js/vendor/google.analytics.js"></script>
     <script src="/js/vendor/jquery.formtimer.js"></script>

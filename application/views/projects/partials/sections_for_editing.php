@@ -10,7 +10,7 @@
                 <strong><?php echo e($section->title); ?></strong>
                 <a class="btn btn-success btn-mini edit-section-link">Edit</a>
                 <a class="btn btn-danger btn-mini remove-button" data-href="<?php echo e(route('project_section_delete', array($project->id, $section->id))); ?>" data-loading-text="Removing...">Remove</a>
-                <p class="body"><?php echo $section->body; ?></p>
+                <div class="body"><?php echo $section->body; ?></div>
               </div>
             <?php endforeach; ?>
           </div>
