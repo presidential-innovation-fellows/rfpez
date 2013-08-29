@@ -43,7 +43,7 @@
 					<br /><br />
 					The request for quotation can be electronically accessed and responded to via the following link: [insert link provided in RFP-EZ]. All changes to the requirement that occur prior to the closing date will be posted in FBO and RFP-EZ. It is the responsibility of vendors to monitor FBO and RFP-EZ for amendments that may be issued. 
 				</blockquote>
-		  	<p>However, we are working on creating a seemliness link from FBO to RFP-EZ so that when a CO posts an RFP or RFQ in RFP-EZ, it also posts automatically to FBO.  This feature is coming soon!
+		  	<p>However, we are working on creating a seamless link from FBO to RFP-EZ so that when a CO posts an RFP or RFQ in RFP-EZ, it also posts automatically to FBO.  This feature is coming soon!
 		  	</p>
 		</div>
 	</div>
@@ -53,7 +53,7 @@
 			Q: What happens when an agency amends the SOW/RFP?
 		</div>
 		<div class="answer">
-		  <p>A: If a notice is required to be published on FBO, you would publish the notice of the amendment on FBO, with a link to the amendment on RFP-EZ.  However, we are working on creating a seemliness link from FBO to RFP-EZ so that when a CO posts an amendment to an RFP or RFQ in RFP-EZ, it also posts automatically to FBO.  This feature is coming soon!
+		  <p>A: If a notice is required to be published on FBO, you would publish the notice of the amendment on FBO, with a link to the amendment on RFP-EZ.  However, we are working on creating a seamless link from FBO to RFP-EZ so that when a CO posts an amendment to an RFP or RFQ in RFP-EZ, it also posts automatically to FBO.  This feature is coming soon!
 		  </p>
 		  <p>If a notice is not required to be published on FBO, you would amend the SOW/RFP on RFP-EZ, with the assistance of the administrators of the system.
 		  </p>
