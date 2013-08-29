@@ -1,7 +1,6 @@
 module.exports = function(grunt) {
 
   var tasks = new Array('stylus', 'jader', 'coffee', 'concat', 'cssmin', 'uglify');
-  // var tasks = 'stylus jader coffee concat cssmin min';
 
   var path = require('path');
   var exec = require('child_process').exec;
@@ -12,14 +11,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-stylus');
-	// grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('jader', 'Compiles jade templates to PHP.', function() {
     var cb = this.async();
 
     var child = exec('php ../../artisan jader', function (error, stdout, stderr) {
-      console.log(error ? error : "Done");
+      console.log(error ? error : stdout + "\n" + stderr + "\nDone");
       cb();
     });
   });
@@ -28,10 +26,6 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     pkg: '<json:package.json>',
-
-		// jade: {
-  //     files: ['../../application/views/**/**/*.jade']
-		// },
 
     coffee: {
       all: {
@@ -69,7 +63,6 @@ module.exports = function(grunt) {
         src: [
           '../css/bootstrap.css',
           '../css/bootstrap-responsive.css',
-          '../css/bootstrap-wysihtml5.css',
           '../css/datepicker.css',
           '../css/compiled_styl.css',
           '../css/restyler.css'
@@ -132,8 +125,6 @@ module.exports = function(grunt) {
       js_officer: {
         src: [
           '../js/vendor/bootstrap-datepicker.js',
-          '../js/vendor/wysihtml5.min.js',
-          '../js/vendor/bootstrap-wysihtml5.js',
           '../js/vendor/jquery.sortable.js',
           '../js/vendor/autogrow-input.js',
           '../js/vendor/jquery.hotkeys.js',
