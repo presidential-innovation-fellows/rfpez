@@ -92,6 +92,10 @@ module.exports = function(grunt) {
       js_global: {
         src: [
           '../js/vendor/bootstrap.js',
+          '../js/vendor/ckeditor-preload-settings.js',
+          '../js/vendor/ckeditor/ckeditor.js',
+          '../js/vendor/ckeditor/adapters/jquery.js',
+          '../js/vendor/ckeditor-bootstrap-fix.js',
           '../js/vendor/jquery.validate.js',
           '../js/vendor/jquery.validate_rfpez.js',
           '../js/vendor/jquery.timeago.js',

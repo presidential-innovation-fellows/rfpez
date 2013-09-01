@@ -14,7 +14,7 @@ Route::filter('add_assets', function()
 
 	$assets->add('bootstrap', 'css/bootstrap.css');
 	$assets->add('bootstrap-responsive', 'css/bootstrap-responsive.css');
-	$assets->add('jquery.ui.css', 'css/ui/jquery-ui-1.9.1.custom.min.css');
+	$assets->add('jquery.ui.css', 'css/ui/jquery-ui-1.10.3.custom.min.css');
 	$assets->add('jquery.ui.timepicker.css', 'css/ui/jquery.ui.timepicker.css');
 	$assets->add('chosen_css', 'css/chosen.css');
 	$assets->add('main_style', 'css/main.css');
@@ -25,7 +25,7 @@ Route::filter('add_assets', function()
 	 */
 
 	//jquery core
-	$assets->add('jquery', 'js/jquery/jquery-1.8.2.min.js');
+	$assets->add('jquery', 'js/jquery/jquery-1.9.1.min.js');
 
 	//jquery chosen and ajax chosen
 	$assets->add('jquery-chosen', 'js/jquery/jquery.chosen.min.js');
@@ -35,7 +35,7 @@ Route::filter('add_assets', function()
 	$assets->add('jquery-tmpl', 'js/jquery/jquery.tmpl.min.js');
 
 	//jquery ui
-	$assets->add('jquery.ui', 'js/jquery/jquery-ui-1.9.1.custom.min.js');
+	$assets->add('jquery.ui', 'js/jquery/jquery-ui-1.10.3.custom.min.js');
 
 	//jquery timepicker addon
 	$assets->add('jquery.ui.timepicker', 'js/jquery/jquery-ui-timepicker-addon.js');

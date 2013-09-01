@@ -36,11 +36,9 @@ head
 
   !{Section::yield('additional_scripts')}
 
-  script(src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js")
+  script(src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
   script
-    | window.jQuery || document.write('<script src="/bundles/administrator/js/jquery/jquery-1.8.2.min.js"><\/script>')
-
-
+    | window.jQuery || document.write('<script src="/bundles/administrator/js/jquery/jquery-1.9.1.min.js"><\/script>')
 
   !{Helper::asset('js/global')}
 
@@ -101,10 +99,6 @@ body(class="#{$body_class}", data-current-page="#{Section::yield('current_page')
 
   !{View::make('partials.footer')}
 
-  script
-    | var CKEDITOR_BASEPATH = '/js/vendor/ckeditor/';
-  script(src="/js/vendor/ckeditor/ckeditor.js")
-  script(src="/js/vendor/ckeditor/adapters/jquery.js")
   - if (Request::is_env('production') || Request::is_env('ec2'))
     script(src="/js/vendor/google.analytics.js")
     script(src="/js/vendor/jquery.formtimer.js")

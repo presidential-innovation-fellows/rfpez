@@ -26,9 +26,9 @@
   <?php endif; ?>
   <?php echo HTML::script('js/modernizr.js'); ?>
   <?php echo Section::yield('additional_scripts'); ?>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>
-    window.jQuery || document.write('<script src="/bundles/administrator/js/jquery/jquery-1.8.2.min.js"><\/script>')
+    window.jQuery || document.write('<script src="/bundles/administrator/js/jquery/jquery-1.9.1.min.js"><\/script>')
   </script>
   <?php echo Helper::asset('js/global'); ?>
   <?php if (Auth::user()): ?>
@@ -80,11 +80,6 @@
     <?php echo $content; ?>
   </div>
   <?php echo View::make('partials.footer'); ?>
-  <script>
-    var CKEDITOR_BASEPATH = '/js/vendor/ckeditor/';
-  </script>
-  <script src="/js/vendor/ckeditor/ckeditor.js"></script>
-  <script src="/js/vendor/ckeditor/adapters/jquery.js"></script>
   <?php if (Request::is_env('production') || Request::is_env('ec2')) { ?>
     <script src="/js/vendor/google.analytics.js"></script>
     <script src="/js/vendor/jquery.formtimer.js"></script>
