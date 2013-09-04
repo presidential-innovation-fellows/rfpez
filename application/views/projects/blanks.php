@@ -4,8 +4,8 @@
   <?php Section::inject('active_subnav', 'create') ?>
   <?php Section::inject('active_sidebar', 'fill_in_blanks') ?>
   <?php Section::inject('no_page_header', true) ?>
+  <?php echo View::make('projects.partials.toolbar')->with('project', $project); ?>
 </div>
-<?php echo View::make('projects.partials.toolbar')->with('project', $project); ?>
 <div class="container inner-container">
   <div class="row-fluid">
     <div class="span3">
