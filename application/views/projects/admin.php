@@ -151,8 +151,13 @@
         </form>
       </p>
       <?php if ($project->status() != Project::STATUS_AMENDING_SOW && $project->status() != Project::STATUS_WRITING_SOW): ?>
+        <br />
         <h5>Amending</h5>
-        <p>Click here to amend the Statement of Work.</p>
+        <p>Click the button below to begin amending your Statement of Work.</p>
+        <div class="alert alert-info">
+          Note: RFP-EZ does not retain previous versions of your SOW. 
+          You may want to print or save your SOW in its current state before you begin amending it.
+        </div>
         <form action="<?php echo e(route('project_begin_amending', array($project->id))); ?>" method="POST">
           <button class="btn btn-warning btn-large">Amend Project</button>
         </form>
