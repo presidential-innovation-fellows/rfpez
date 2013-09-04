@@ -15,10 +15,18 @@ Class Mailer {
       $notification = $attributes["notification"];
       $parsed = $notification->parsed();
 
+      $message_body = '<p><strong>' . $parsed["line1"] . '</strong></p>'
+      . '<p>' . $parsed["line2"] . '</p>'
+      . '<p>' . $parsed["link"] . '</p>'
+      . __('r.email_signature_html');
+
       $message->setSubject($parsed["subject"])
               ->setTo($notification->target->email)
-              ->addPart(View::make('mailer.notification_text')->with('notification', $notification), 'text/plain')
-              ->setBody(View::make('mailer.notification_html')->with('notification', $notification), 'text/html');
+              ->addPart($message_body, 'text/plain')
+              ->setBody($message_body, 'text/html');
+              // not working:
+              // ->addPart(View::make('mailer.notification_text')->with('notification', $notification), 'text/plain')
+              // ->setBody(View::make('mailer.notification_html')->with('notification', $notification), 'text/html');
 
     } elseif ($template_name == "NewOfficerInvited") {
       $invited_by = $attributes["invited_by"];

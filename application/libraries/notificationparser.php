@@ -44,6 +44,13 @@ Class NotificationParser {
       $return_array["line2"] = "You can now review bids and answer questions about this project.";
       $return_array["link"] = route('project', array($project["id"]));
 
+    } elseif ($notification->notification_type == "AnnounceAmendmentsToBidders") {
+      $bid = $notification->payload["bid"];
+      $return_array["subject"] = "Amended: " . $bid["project"]["title"];
+      $return_array["line1"] = "The project on which you bid, <strong>" . $bid["project"]["title"] . "</strong>, has been amended.";
+      $return_array["line2"] = "Please re-review the project. If you want to re-bid, you can delete your bid and submit a new bid at any time before the due date.";
+      $return_array["link"] = route('bid', array($bid["project"]["id"], $bid["id"]));
+
     } elseif ($notification->notification_type == "Comment") {
       $comment = $notification->payload["comment"];
       $return_array["subject"] = $comment["officer"]["name"]." has commented on ".$comment["project"]["title"].".";
