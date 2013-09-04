@@ -76,6 +76,10 @@ Route::group(array('https' => Config::get('application.ssl')), function(){
   Route::get('projects/(:num)/postonfbo', array('uses' => 'projects@post_on_fbo', 'as' => 'project_post_on_fbo'));
   Route::post('projects/(:num)/postonfbo', array('uses' => 'projects@post_on_fbo_post', 'as' => 'project_post_on_fbo'));
 
+  Route::get('projects/(:num)/repostonfbo', array('uses' => 'projects@repost_on_fbo', 'as' => 'project_repost_on_fbo'));
+  Route::post('projects/(:num)/repostonfbo', array('uses' => 'projects@repost_on_fbo_post', 'as' => 'project_repost_on_fbo'));
+  Route::post('projects/(:num)/nochanges', array('uses' => 'projects@amendment_no_changes_post', 'as' => 'project_amendment_no_changes'));
+
   Route::get('projects/(:num)/comments', array('uses' => 'comments@index', 'as' => 'comments'));
   Route::post('projects/(:num)/comments', array('uses' => 'comments@create', 'as' => 'comments'));
   Route::delete('projects/(:num)/comments/(:num)', array('uses' => 'comments@destroy', 'as' => 'comment_destroy'));
@@ -125,6 +129,8 @@ Route::group(array('https' => Config::get('application.ssl')), function(){
   Route::get('projects/(:num)/review', array('uses' => 'projects@review', 'as' => 'project_review'));
 
   Route::post('projects/(:num)/toggle-public', array('uses' => 'projects@toggle_public', 'as' => 'project_toggle_public'));
+
+  Route::post('projects/(:num)/begin-amending', array('uses' => 'projects@begin_amending', 'as' => 'project_begin_amending'));
 
   /*
   |--------------------------------------------------------------------------
