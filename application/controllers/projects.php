@@ -399,6 +399,14 @@ class Projects_Controller extends Base_Controller {
     return Redirect::to(Input::get('redirect'));
   }
 
+  public function action_begin_amending() {
+
+    $project = Config::get('project');
+    $project->start_amending();
+
+    return Redirect::to_route('project_background', array($project->id));
+  }
+
   public function action_index() {
     $view = View::make('projects.index');
     $view->projects = Project::open_projects()->get();
@@ -495,6 +503,68 @@ class Projects_Controller extends Base_Controller {
     return Redirect::to_route('project', array($project->id));
   }
 
+  public function action_repost_on_fbo() {
+    $view = View::make('projects.repost_on_fbo');
+    $view->project = Config::get('project');
+    $this->layout->content = $view;
+  }
+
+  public function action_amendment_no_changes() {
+    $view = View::make('projects.amendment_no_changes');
+    $view->project = Config::get('project');
+    $this->layout->content = $view;
+  }
+
+  public function action_repost_on_fbo_post() {
+    $project = Config::get('project');
+
+    if (!Auth::officer()->is_role_or_higher(Officer::ROLE_CONTRACTING_OFFICER)) {
+      // @todo add instructions for contacting admin to get verified
+      Helper::flash_errors('Sorry, you haven\'t been verified as a contracting officer on RFP-EZ yet. Please <a href="mailto:rfpez@sba.gov">email us</a> to complete verification.');
+      return Redirect::to_route('project_repost_on_fbo', array($project->id));
+    }
+
+    // send update emails to all bidders
+    $project->send_amendment_emails();
+
+    // record amendment text as a section of the post (under the header "Amendments")
+    $section_input = Input::get('amendment_description');
+    $section = new ProjectSection($section_input);
+    $section->body = htmLawed($section->body, array('safe' => true));
+    $section->created_by_project_id = $project->id;
+    $section->save();
+
+    // do we want this too? unclear
+    $section->project_types()->attach($project->project_type_id);
+    $project->add_section($section->id);
+
+    // turn off "amending" state toggle
+    $project->end_amending();
+
+    // update post date
+    $project->posted_to_fbo_at = new \DateTime;
+    // ... or add a new column "last_amended_at"?
+
+    $project->save();
+
+    return Redirect::to_route('project', array($project->id));
+  }
+
+  public function action_amendment_no_changes_post() {
+    $project = Config::get('project');
+
+    if (!Auth::officer()->is_role_or_higher(Officer::ROLE_CONTRACTING_OFFICER)) {
+      // @todo add instructions for contacting admin to get verified
+      Helper::flash_errors('Sorry, you haven\'t been verified as a contracting officer on RFP-EZ. Please <a href="mailto:rfpez@sba.gov">email us</a>.');
+      return Redirect::to_route('project_repost_on_fbo', array($project->id));
+    }
+
+    $project->end_amending();
+
+    return Redirect::to_route('project', array($project->id));
+
+  }
+
 }
 
 Route::filter('project_exists', function() {
@@ -507,8 +577,14 @@ Route::filter('project_exists', function() {
 Route::filter('project_posted', function() {
   $project = Config::get('project');
 
-  if ($project->status() != Project::STATUS_WRITING_SOW) return;
+  if ($project->status() != Project::STATUS_WRITING_SOW
+    && $project->status() != Project::STATUS_AMENDING_SOW
+    ) return;
 
+  // while the project is being amended, non-officers see the "show" version of the project (no SOWComposer)
+  if (!Auth::officer() && $project->status() == Project::STATUS_AMENDING_SOW) return;
+
+  // non-officers who try to view an SOWComposer page get sent home
   if (!Auth::officer()) return Redirect::to('/');
 
   $route = $project->current_sow_composer_route_name();

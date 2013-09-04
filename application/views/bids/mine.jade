@@ -17,6 +17,10 @@
               a(href="#{$bid->submitted_at ? route('bid', array($bid->project->id, $bid->id)) : route('new_bids', array($bid->project->id))}") #{$bid->project->title}
             td #{$bid->display_price()}
             td.status #{$bid->status}
+              - if ($bid->is_amended()):
+                &nbsp; &nbsp; 
+                span.bid-amended Note: this project was amended on #{$bid->amended_at()}.
+              - endif;
 
   - else:
     p No bids.

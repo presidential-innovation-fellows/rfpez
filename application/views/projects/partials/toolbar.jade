@@ -1,6 +1,12 @@
 h4
   | #{$project->title}
-  .project-status Status: #{$project->status_text()}
+  
+  - if ($project->status() == Project::STATUS_AMENDING_SOW):
+    .project-status.red-header Status: #{$project->status_text()}
+  - else:
+    .project-status Status: #{$project->status_text()}
+  - endif;
+
   - if (!$project->is_mine()):
     .project-owner Owner: #{$project->owner()->name} (#{$project->owner()->agency})
 
@@ -10,6 +16,11 @@ h4
       a(href="#{route('project', array($project->id))}") Write SOW
     li(class="#{Helper::active_subnav('post_on_fbo') ? 'active':''}")
       a(href="#{route('project_post_on_fbo', array($project->id))}") Post on FBO
+  - elseif ($project->status() == Project::STATUS_AMENDING_SOW):
+    li(class="#{Helper::active_subnav('create') ? 'active':''}")
+      a(href="#{route('project', array($project->id))}") Amend SOW
+    li(class="#{Helper::active_subnav('repost_on_fbo') ? 'active':''}")
+      a(href="#{route('project_repost_on_fbo', array($project->id))}") End Amendments
   - elseif ($project->status() == Project::STATUS_ACCEPTING_BIDS || $project->status() == Project::STATUS_REVIEWING_BIDS || $project->status() == Project::STATUS_CONTRACT_AWARDED):
     li(class="#{((Helper::active_subnav('view') || Helper::active_subnav('')) ? 'active':''}")
       a(href="#{route('project', array($project->id))}") View Posting

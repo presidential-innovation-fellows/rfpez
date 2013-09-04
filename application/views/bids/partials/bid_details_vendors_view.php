@@ -5,6 +5,9 @@
     </div>
   <?php elseif (!$bid->awarded_at): ?>
     <div class="alert alert-info"><?php echo e(__('r.bids.partials.bid_details_vendors_view.review')); ?></div>
+    <?php if ($bid->is_amended()): ?>
+      <div class="alert alert-error"><?php echo e(__('r.bids.partials.bid_details_vendors_view.amended')); ?></div>
+    <?php endif; ?>
   <?php else: ?>
     <div class="alert alert-success">
       <?php echo __('r.bids.partials.bid_details_vendors_view.won_header'); ?>

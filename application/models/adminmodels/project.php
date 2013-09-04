@@ -25,7 +25,8 @@ class Project extends \Eloquent {
     'updated_at',
     'source',
     'delisted',
-    'external_url'
+    'external_url',
+    'amending'
   );
 
   public $edit = array(
@@ -51,7 +52,8 @@ class Project extends \Eloquent {
     'updated_at',
     'source',
     'delisted',
-    'external_url'
+    'external_url',
+    'amending'
   );
 
 }

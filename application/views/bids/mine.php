@@ -17,7 +17,13 @@
               <a href="<?php echo e($bid->submitted_at ? route('bid', array($bid->project->id, $bid->id)) : route('new_bids', array($bid->project->id))); ?>"><?php echo e($bid->project->title); ?></a>
             </td>
             <td><?php echo e($bid->display_price()); ?></td>
-            <td class="status"><?php echo e($bid->status); ?></td>
+            <td class="status">
+              <?php echo e($bid->status); ?>
+              <?php if ($bid->is_amended()): ?>
+                &nbsp; &nbsp; 
+                <span class="bid-amended">Note: this project was amended on <?php echo e($bid->amended_at()); ?>.</span>
+              <?php endif; ?>
+            </td>
           </tr>
         <?php endforeach; ?>
       </tbody>

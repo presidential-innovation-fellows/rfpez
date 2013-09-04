@@ -5,7 +5,6 @@
     <i class="icon-plus-sign icon-white"></i>
     new project
   </a>
-  <!-- <div class="clearfix">&nbsp;</div> -->
 <?php } ?>
 <?php Section::stop(); ?>
 <div class="subheader"></div>
@@ -26,7 +25,7 @@
       </thead>
       <tbody class="project">
         <?php foreach($projects as $project): ?>
-          <tr class="project-meta <?php if ($project->source() == Project::SOURCE_NATIVE) echo 'project-meta-highlight'; ?>">
+          <tr class="<?php echo e((($project->source == Project::SOURCE_NATIVE) ? 'project-meta project-meta-highlight' : 'project-meta')); ?>">
             <td>
               <?php if ($project->source() == Project::SOURCE_NATIVE): ?>
                 <img class="my-project-icon" src="<?php echo e($project->project_type->image()); ?>" title="<?php echo e($project->project_type->name); ?>" alt="<?php echo e($project->project_type->name); ?>" />
@@ -35,7 +34,7 @@
               <?php endif; ?>
             </td>
             <td>
-              <?php if ($project->status() != Project::STATUS_WRITING_SOW): ?>
+              <?php if ($project->status() != Project::STATUS_WRITING_SOW && $project->status() != Project::STATUS_AMENDING_SOW): ?>
                 <a class="project-title" href="<?php echo e( route('review_bids', array($project->id)) ); ?>"><?php echo e($project->title); ?></a>
               <?php else: ?>
                 <a class="project-title" href="<?php echo e( route('project', array($project->id)) ); ?>"><?php echo e($project->title); ?></a>
@@ -48,6 +47,7 @@
             </td>
           </tr>
         <?php endforeach; ?>
+        <?php  ?>
       </tbody>
     </table>
   <?php else: ?>

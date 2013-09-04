@@ -48,6 +48,9 @@
               - if ($bid = $project->my_bid()):
                 span.admin-star
                   i.icon-star
+                  - if ($bid->is_amended()):
+                    span.bid-amended Amended #{$bid->amended_at()}
+                  - endif;
                   - if ($bid->submitted_at):
                     a(href="#{route('bid', array($project->id, $project->my_bid()->id))}") View my bid
                   - else:

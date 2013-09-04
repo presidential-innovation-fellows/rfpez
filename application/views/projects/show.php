@@ -57,6 +57,10 @@
         <?php if (Auth::vendor()): ?>
           <?php if ($bid = $project->my_current_bid()): ?>
             <a class="btn btn-action-gold" href="<?php echo e(route('bid', array($project->id, $bid->id))); ?>">View my bid</a>
+            <?php if ($bid->is_amended()): ?>
+              <p>&nbsp;</p>
+              <div class="alert alert-error"><?php echo __('r.bids.partials.bid_details_vendors_view.amended'); ?></div>
+            <?php endif; ?>
           <?php elseif ($bid = $project->my_current_bid_draft()): ?>
             <a class="btn btn-large btn-success btn-extra-large" href="<?php echo e(route('new_bids', array($project->id))); ?>">Continue Writing Bid</a>
           <?php else: ?>

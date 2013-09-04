@@ -11,42 +11,41 @@
       <h5>Update Project</h5>
       <form id="update-project-form" action="<?php echo e(route('project', array($project->id))); ?>" method="POST">
         <input type="hidden" name="_method" value="PUT" />
-
         <?php if (Auth::user()): ?>
           <?php if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): ?>
             <div class="control-group">
               <label>Source</label>
               <select id="source-select" name="project[source]">
-                <option value="<?php echo e(Project::SOURCE_NATIVE); ?>" <?php if ($project->source == Project::SOURCE_NATIVE) echo 'selected'; ?>>RFP-EZ</option>
-                <option value="<?php echo e(Project::SOURCE_FBO); ?>" <?php if ($project->source == Project::SOURCE_FBO) echo 'selected'; ?>>FBO</option>
+                <if>()</if>
+                <option value="<?php echo e(Project::SOURCE_NATIVE); ?>" selected="<?php echo e(($project->source == Project::SOURCE_NATIVE)); ?>">RFP-EZ</option>
+                <option value="#{Project::SOURCE_FBO" selected="<?php echo e(($project->source == Project::SOURCE_FBO)); ?>">FBO</option>
               </select>
             </div>
             <div class="control-group">
               <label>External URL <em>(if source is not RFP-EZ)</em></label>
-              <input type="text" class="full-width" name="project[external_url]" value="<?php echo e($project->external_url); ?>" />
+              <input class="full-width" type="text" name="project[external_url]" value="<?php echo e($project->external_url); ?>" />
             </div>
           <?php endif; ?>
         <?php endif; ?>
-
         <div class="control-group">
           <label>Project Title</label>
-          <input type="text" class="full-width" name="project[title]" value="<?php echo e($project->title); ?>" />
+          <input class="full-width" type="text" name="project[title]" value="<?php echo e($project->title); ?>" />
         </div>
         <div class="control-group">
           <label>Agency</label>
-          <input type="text" class="full-width" name="project[agency]" value="<?php echo e($project->agency); ?>" />
+          <input class="full-width" type="text" name="project[agency]" value="<?php echo e($project->agency); ?>" />
         </div>
         <div class="control-group">
           <label>Office</label>
-          <input type="text" class="full-width" name="project[office]" value="<?php echo e($project->office); ?>" />
+          <input class="full-width" type="text" name="project[office]" value="<?php echo e($project->office); ?>" />
         </div>
         <div class="control-group">
           <label>Zip Code</label>
-          <input type="text" class="full-width" name="project[zipcode]" value="<?php echo e($project->zipcode); ?>" />
+          <input class="full-width" type="text" name="project[zipcode]" value="<?php echo e($project->zipcode); ?>" />
         </div>
         <div class="control-group">
           <label>Project Type</label>
-          <input type="text" class="full-width" value="<?php echo e($project->project_type->name); ?>" readonly="readonly" />
+          <input class="full-width" type="text" value="<?php echo e($project->project_type->name); ?>" readonly="readonly" />
         </div>
         <div class="control-group">
           <label>Q+A Period Ends</label>
@@ -69,7 +68,6 @@
           &nbsp; at 11:59pm EST
         </div>
         <div class="control-group">
-
           <label>Price type</label>
           <label>
             <input type="radio" name="project[price_type]" value="<?php echo e(Project::PRICE_TYPE_FIXED); ?>" <?php echo e($project->price_type == Project::PRICE_TYPE_FIXED ? 'checked' : ''); ?> />
@@ -87,27 +85,23 @@
               </label>
             <?php endif; ?>
           <?php endif; ?>
-
           <?php if ($project->submitted_bids()->count() > 0): ?>
             <em><?php echo e(__("r.projects.admin.change_price_type_warning")); ?></em>
           <?php endif; ?>
         </div>
-
         <?php if (Auth::user()): ?>
           <?php if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_SUPER_ADMIN)): ?>
             <div class="control-group background-edit-form">
-              <label><br /><strong>Background:</strong></label>
+              <br /><strong>Background:</strong>
               <div class="wysiwyg-wrapper">
                 <textarea class="wysihtml5" name="project[background]"><?php echo $project->background; ?></textarea>
               </div>
             </div>
           <?php endif; ?>
         <?php endif; ?>
-        <!-- <div class="form-actions"> -->
         <div class="control-group">
           <button class="btn btn-primary">Save</button>
         </div>
-        <!-- </div> -->
       </form>
     </div>
     <div class="span6">
@@ -133,7 +127,7 @@
             <td colspan="3">
               <form id="add-collaborator-form" action="<?php echo e(route('project_collaborators', array($project->id))); ?>" method="POST">
                 <div class="input-append">
-                  <input type="text" class="full-width" name="email" placeholder="Email Address" autocomplete="off" />
+                  <input class="full-width" type="text" name="email" placeholder="Email Address" autocomplete="off" />
                   <button class="btn btn-success">Add</button>
                 </div>
               </form>
@@ -156,6 +150,13 @@
           </div>
         </form>
       </p>
+      <?php if ($project->status() != Project::STATUS_AMENDING_SOW && $project->status() != Project::STATUS_WRITING_SOW): ?>
+        <h5>Amending</h5>
+        <p>Click here to amend the Statement of Work.</p>
+        <form action="<?php echo e(route('project_begin_amending', array($project->id))); ?>" method="POST">
+          <button class="btn btn-warning btn-large">Amend Project</button>
+        </form>
+      <?php endif; ?>
     </div>
   </div>
 </div>

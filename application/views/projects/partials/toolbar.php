@@ -1,6 +1,12 @@
 <h4>
   <?php echo e($project->title); ?>
-  <div class="project-status">Status: <?php echo e($project->status_text()); ?></div>
+
+  <?php if ($project->status() == Project::STATUS_AMENDING_SOW): ?>
+    <div class="project-status red-header">Status: <?php echo e($project->status_text()); ?></div>
+  <?php else: ?>
+    <div class="project-status">Status: <?php echo e($project->status_text()); ?></div>
+  <?php endif; ?>
+
   <?php if (!$project->is_mine()): ?>
     <div class="project-owner">Owner: <?php echo e($project->owner()->name); ?> (<?php echo e($project->owner()->agency); ?>)</div>
   <?php endif; ?>
@@ -12,6 +18,13 @@
     </li>
     <li class="<?php echo e(Helper::active_subnav('post_on_fbo') ? 'active':''); ?>">
       <a href="<?php echo e(route('project_post_on_fbo', array($project->id))); ?>">Post on FBO</a>
+    </li>
+  <?php elseif ($project->status() == Project::STATUS_AMENDING_SOW): ?>
+    <li class="<?php echo e(Helper::active_subnav('create') ? 'active':''); ?>">
+      <a href="<?php echo e(route('project', array($project->id))); ?>">Amend SOW</a>
+    </li>
+    <li class="<?php echo e(Helper::active_subnav('repost_on_fbo') ? 'active':''); ?>">
+      <a href="<?php echo e(route('project_repost_on_fbo', array($project->id))); ?>">End Amendments</a>
     </li>
   <?php elseif ($project->status() == Project::STATUS_ACCEPTING_BIDS || $project->status() == Project::STATUS_REVIEWING_BIDS || $project->status() == Project::STATUS_CONTRACT_AWARDED): ?>
     <li class="<?php echo e((Helper::active_subnav('view') || Helper::active_subnav('')) ? 'active':''); ?>">

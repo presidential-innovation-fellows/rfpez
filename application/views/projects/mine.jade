@@ -31,7 +31,7 @@
               - else:
                 span.fbo-import-icon FBO
             td
-              - if ($project->status() != Project::STATUS_WRITING_SOW):
+              - if ($project->status() != Project::STATUS_WRITING_SOW && $project->status() != Project::STATUS_AMENDING_SOW):
                 a.project-title(href="#{ route('review_bids', array($project->id)) }") #{$project->title}
               - else:
                 a.project-title(href="#{ route('project', array($project->id)) }") #{$project->title}

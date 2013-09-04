@@ -1,24 +1,28 @@
 .subheader
-	- Section::inject('page_title', $project->title)
-	- Section::inject('page_action', "Review")
-	- Section::inject('active_subnav', 'create')
-	- Section::inject('active_sidebar', 'review')
-	- Section::inject('no_page_header', true)
+  - Section::inject('page_title', $project->title)
+  - Section::inject('page_action', "Review")
+  - Section::inject('active_subnav', 'create')
+  - Section::inject('active_sidebar', 'review')
+  - Section::inject('no_page_header', true)
 
-	!{View::make('projects.partials.toolbar')->with('project', $project)}
+  !{View::make('projects.partials.toolbar')->with('project', $project)}
 
 
 .container.inner-container
 
-	.row-fluid
-	  .span3
-	    !{View::make('projects.partials.sow_composer_sidebar')->with('project', $project)}
+  .row-fluid
+    .span3
+      !{View::make('projects.partials.sow_composer_sidebar')->with('project', $project)}
 
-	  .span9
-	    .well !{__("r.projects.review.text", array("post_url" => route('project_post_on_fbo', array($project->id)), "invite_url" =>route('project_admin', array($project->id))))}
+    .span9
+    - if ($project->status() == Project::STATUS_WRITING_SOW):
+        .well !{__("r.projects.review.text", array("post_url" => route('project_post_on_fbo', array($project->id)), "invite_url" =>route('project_admin', array($project->id))))}
+    - elseif ($project->status() == Project::STATUS_AMENDING_SOW):
+        .well !{__("r.projects.review_amended.text", array("post_url" => route('project_repost_on_fbo', array($project->id)), "invite_url" =>route('project_admin', array($project->id))))}
+    - endif;
 
-	    !{View::make('projects.partials.full_sow')->with('project', $project)}
+      !{View::make('projects.partials.full_sow')->with('project', $project)}
 
 
-	    .form-actions
-	      a.btn.btn-primary(href="#{route('project_post_on_fbo', array($project->id))}") Looks Good! &rarr;
+      .form-actions
+        a.btn.btn-primary(href="#{route('project_post_on_fbo', array($project->id))}") Looks Good! &rarr;

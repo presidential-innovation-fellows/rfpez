@@ -28,6 +28,9 @@ bids:
       dismissed: Your bid did not win.
       won_header: <strong>Your bid won!</strong>
       won_body: Here's what the government officer said:<br /><br /><em>":message"</em>
+      amended: >
+        NOTE: This project was amended after you submitted your bid. Please re-review the project.
+        If you want to re-bid, you can delete this bid and submit a new bid at any time before the due date.
 
     bid_for_review:
       congrats: Congrats on finding a great bid!
@@ -149,12 +152,29 @@ projects:
       This step is for certified contracting officers only. If that's not you, just click on the "admin"
       tab above and you can invite your CO to collaborate with you.
 
+  repost_on_fbo:
+    step1: >
+      <strong>1.</strong> Enter a short message describing your amendment(s). This message will be included in an email that will 
+      be sent to everyone who has already bid on this project. If there aren't any bids yet, you may skip this step.
+    step2: >
+      <strong>2.</strong> <strong>Make sure you've made the same amendments on FedBizOpps.</strong>
+    step3: >
+      <strong>3.</strong> Click here to complete your amendment(s):
+    no_changes: >
+      If you did not make any changes, click here:
+
   review:
     text: >
       Everything look good? If you're a contracting officer, you can now
       <a href=":post_url">post this project</a> on FedBizOpps. If not, you can
       <a href=":invite_url">invite your CO</a> to collaborate on this project and
       help get it out the door.
+
+  review_amended:
+    text: >
+      Everything look good? If you're a contracting officer,
+      <a href=":post_url">repost this project</a> on FedBizOpps. 
+      <br />If not, you can ask your CO to do so.
 
   sections:
     drag_helper: Click and drag the sections and section headers to reorder your SOW.

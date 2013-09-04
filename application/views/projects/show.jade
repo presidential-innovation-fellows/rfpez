@@ -50,6 +50,9 @@
     - if (Auth::vendor()):
       - if ($bid = $project->my_current_bid()):
         a.btn.btn-action-gold(href="#{route('bid', array($project->id, $bid->id))}") View my bid
+        - if ($bid->is_amended()):
+          .alert.alert-error #{__('r.bids.partials.bid_details_vendors_view.amended')}
+        - endif;
       - elseif ($bid = $project->my_current_bid_draft()):
         a.btn.btn-success.btn-large.btn-extra-large(href="#{route('new_bids', array($project->id))}") Continue Writing Bid
       - else:

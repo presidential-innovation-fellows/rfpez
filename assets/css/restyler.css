@@ -181,6 +181,9 @@ h3.sow-section-header.sow-section-header-first
 	color: gray;
 	line-height: 1.4;
 }
+.project-status.red-header {
+	color: #EE2543;
+}
 form input.full-width {
 	width: 310px;
 }
@@ -200,6 +203,9 @@ form input.full-width {
 	display: none;
 }
 
+#complete-amendment-form textarea {
+	height: 100px;
+}
 
 /* new homepage */
 
@@ -247,7 +253,11 @@ form input.full-width {
 .vendor-image-preview-frame {
 	border: 0 none;
 }
-
+.bid-amended {
+	color: #EE2543;
+	margin: 0 5px;
+	font-weight: bold;
+}
 
 /* nav tab display changes */
 

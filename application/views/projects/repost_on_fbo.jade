@@ -1,0 +1,42 @@
+.subheader
+  - Section::inject('page_title', "$project->title")
+  - Section::inject('page_action', "Repost on FBO")
+  - Section::inject('no_page_header', true)
+
+  !{View::make('projects.partials.toolbar')->with('project', $project)}
+
+.container.inner-container
+
+  .row-fluid
+    .span7
+
+      h5 If you did NOT make any amendments, click here:
+      form#amendment-no-changes-form(action="#{route('project_amendment_no_changes', array($project->id))}", method="POST")
+        .control-group
+          button.btn.btn-primary.btn-large No Changes Were Made
+
+      p &nbsp;
+
+      h5 If you DID amend the project:
+
+      p !{__("r.projects.repost_on_fbo.step1")}
+
+      form#complete-amendment-form(method="POST")
+
+        input(type="hidden", name="amendment_description[section_category]", value="Amendments")
+        input(type="hidden", name="amendment_description[title]", value="Amended #{date('m/d/Y')}")
+
+        textarea.input-xxlarge(name="amendment_description[body]")
+
+        p !{__("r.projects.repost_on_fbo.step2")}
+
+        p !{__("r.projects.repost_on_fbo.step3")}
+
+        .control-group
+          button.btn.btn-success.btn-large Sync Amendment with FBO
+
+
+    .span4.offset1
+      .well
+        h5 Not a Contracting Officer?
+        p !{__("r.projects.post_on_fbo.not_co")}

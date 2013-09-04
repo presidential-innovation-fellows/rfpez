@@ -92,6 +92,20 @@ class Notification extends Eloquent {
                                 'payload_type' => 'comment',
                                 'payload_id' => $comment->id));
 
+    } elseif ($notification->notification_type == "AnnounceAmendmentsToBidders") {
+
+      $bid = $attributes["bid"];
+      $actor_id = $attributes['actor_id'];
+      $target_id = $attributes["target_id"];
+
+      $payload = array('bid' => $bid->to_array());
+      $payload_id = $bid->id;
+
+      $notification->fill(array('target_id' => $target_id,
+                                'actor_id' => $actor_id,
+                                'payload' => $payload,
+                                'payload_type' => 'bid',
+                                'payload_id' => $payload_id));
     } else {
       throw new \Exception("Don't know how to handle that notification type.");
     }

@@ -5,6 +5,9 @@
       .dismissal-notice #{__('r.bids.partials.bid_details_vendors_view.dismissed')}
   - elseif (!$bid->awarded_at):
     .alert.alert-info #{__('r.bids.partials.bid_details_vendors_view.review')}
+    - if ($bid->is_amended()):
+      .alert.alert-error #{__('r.bids.partials.bid_details_vendors_view.amended')}
+    - endif;
   - else:
     .alert.alert-success
       | !{__('r.bids.partials.bid_details_vendors_view.won_header')}

@@ -105,6 +105,15 @@ class Bid extends SoftDeleteModel {
     }
   }
 
+  public function is_amended() {
+    return ($this->project->posted_to_fbo_at > $this->submitted_at) ? true : false;
+  }
+
+  public function amended_at() {
+    if ($this->project->posted_to_fbo_at)
+      return date("m/d/Y", strtotime($this->project->posted_to_fbo_at));
+  }
+
   public function submit() {
     $this->submitted_at = new \DateTime;
     $this->save();

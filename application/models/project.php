@@ -6,6 +6,7 @@ class Project extends Eloquent {
   const STATUS_ACCEPTING_BIDS = 2;
   const STATUS_REVIEWING_BIDS = 3;
   const STATUS_CONTRACT_AWARDED = 4;
+  const STATUS_AMENDING_SOW = 5;
 
   const PRICE_TYPE_FIXED = 0;
   const PRICE_TYPE_HOURLY = 1;
@@ -19,7 +20,7 @@ class Project extends Eloquent {
   public static $my_project_ids = false;
 
   public static $accessible = array('project_type_id', 'title', 'agency', 'office', 'zipcode', 'public', 'background',
-                                    'sections', 'variables', 'proposals_due_at', 'price_type', 'source', 'delisted', 'external_url');
+                                    'sections', 'variables', 'proposals_due_at', 'price_type', 'source', 'delisted', 'external_url', 'amending');
 
   public static $sow_progress_markers = array('project_template' => 0,
                                               'project_background' => 1,
@@ -141,7 +142,9 @@ class Project extends Eloquent {
   }
 
   public function status() {
-    if (!$this->posted_to_fbo_at) {
+    if ($this->amending) {
+      return self::STATUS_AMENDING_SOW;
+    } elseif (!$this->posted_to_fbo_at) {
       return self::STATUS_WRITING_SOW;
     } elseif (new DateTime($this->proposals_due_at, new DateTimeZone('UTC')) > new DateTime('', new DateTimeZone('UTC')) && !$this->winning_bid()) {
       return self::STATUS_ACCEPTING_BIDS;
@@ -164,6 +167,10 @@ class Project extends Eloquent {
     return $this->external_url;
   }
 
+  public function amending() {
+    return $this->amending;
+  }
+
   public function is_open_for_bids() {
     return $this->status() == self::STATUS_ACCEPTING_BIDS;
   }
@@ -181,6 +188,8 @@ class Project extends Eloquent {
     switch ($status) {
       case self::STATUS_WRITING_SOW:
         return "Writing SOW";
+      case self::STATUS_AMENDING_SOW:
+        return "Amending SOW";
       case self::STATUS_ACCEPTING_BIDS:
         return "Accepting bids";
       case self::STATUS_REVIEWING_BIDS:
@@ -390,6 +399,26 @@ class Project extends Eloquent {
     $this->save();
   }
 
+  public function start_amending() {
+    $this->amending = true;
+    $this->save();
+  }
+
+  public function end_amending() {
+    $this->amending = false;
+    $this->save();
+  }
+  
+  public function toggle_amending() {
+    if ($this->amending) {
+      $this->amending = false;
+      $this->save();
+    } else {
+      $this->amending = true;
+      $this->save();
+    }
+  }
+
   public function current_sow_composer_route_name() {
     return array_search($this->sow_progress, Project::$sow_progress_markers) ?: "project_review";
   }
@@ -410,6 +439,22 @@ class Project extends Eloquent {
         }
         $i++;
       }
+    }
+  }
+
+  public function send_amendment_emails() {
+
+    $open_bids = $this->open_bids()->get();
+    foreach ($open_bids as $bid) {
+
+      $target_id = $bid->vendor->user_id;
+      $actor_id = Auth::user()->id;
+      $send_email = true;
+
+      Notification::send(
+        "AnnounceAmendmentsToBidders", 
+        array("bid" => $bid, "target_id" => $target_id, "actor_id" => $actor_id), 
+        $send_email);
     }
   }
 
