@@ -2937,7 +2937,7 @@ return!0}return g.call(b,d)});if(i.length){var b=new a.Deferred;a.when.apply(thi
 // Without this, ckeditor dialogs (e.g., the link editor) don't work because they're modals-on-top-of-a-modal.
 //
 // NOTE: Include this AFTER jQuery, bootstrap and ckeditor are loaded.
-
+;(function($) {
 $.fn.modal.Constructor.prototype.enforceFocus = function() {
   modal_this = this
   $(document).on('focusin.modal', function (e) {
@@ -2948,7 +2948,7 @@ $.fn.modal.Constructor.prototype.enforceFocus = function() {
     }
   })
 };
-
+})(jQuery);
 /**
  * jQuery Validation Plugin 1.9.0
  *
