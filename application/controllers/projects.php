@@ -520,7 +520,7 @@ class Projects_Controller extends Base_Controller {
 
     if (!Auth::officer()->is_role_or_higher(Officer::ROLE_CONTRACTING_OFFICER)) {
       // @todo add instructions for contacting admin to get verified
-      Helper::flash_errors('Sorry, you haven\'t been verified as a contracting officer on RFP-EZ yet. Please <a href="mailto:rfpez@sba.gov">email us</a> to complete verification.');
+      Helper::flash_errors('Sorry, you haven\'t been verified as a contracting officer on RFP-EZ yet. Please <a href="mailto:rfpez@gsa.gov">email us</a> to complete verification.');
       return Redirect::to_route('project_repost_on_fbo', array($project->id));
     }
 
@@ -555,7 +555,7 @@ class Projects_Controller extends Base_Controller {
 
     if (!Auth::officer()->is_role_or_higher(Officer::ROLE_CONTRACTING_OFFICER)) {
       // @todo add instructions for contacting admin to get verified
-      Helper::flash_errors('Sorry, you haven\'t been verified as a contracting officer on RFP-EZ. Please <a href="mailto:rfpez@sba.gov">email us</a>.');
+      Helper::flash_errors('Sorry, you haven\'t been verified as a contracting officer on RFP-EZ. Please <a href="mailto:rfpez@gsa.gov">email us</a>.');
       return Redirect::to_route('project_repost_on_fbo', array($project->id));
     }
 

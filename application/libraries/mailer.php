@@ -8,7 +8,7 @@ Class Mailer {
     if (!$transport) return;
     $mailer = Swift_Mailer::newInstance($transport);
     $message = Swift_Message::newInstance();
-    $message->setFrom(array('rfpez@sba.gov'=>'RFP-EZ'));
+    $message->setFrom(array('rfpez@gsa.gov'=>'RFP-EZ'));
 
 
     if ($template_name == "Notification") {

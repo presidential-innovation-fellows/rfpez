@@ -83,7 +83,7 @@ notifications:
 partials:
   footer:
     help: >
-      Need help? Just tweet <a href="http://twitter.com/rfpez">@rfpez</a> or email <a href="mailto:rfpez@sba.gov">rfpez@sba.gov</a>!
+      Need help? Just tweet <a href="http://twitter.com/rfpez">@rfpez</a> or email <a href="mailto:rfpez@gsa.gov">rfpez@gsa.gov</a>!
     text: >
       RFP-EZ is an official website of the United States Government, and was
       created by <a href='http://wh.gov/innovationfellows/rfp-ez'>Project RFP-EZ</a>
