@@ -22,9 +22,16 @@
             .control-group
               label Source
               select#source-select(name="project[source]")
-                if ()
-                option(value="#{Project::SOURCE_NATIVE}", selected="#{($project->source == Project::SOURCE_NATIVE)}") RFP-EZ
-                option(value="#{Project::SOURCE_FBO", selected="#{($project->source == Project::SOURCE_FBO)}") FBO
+                - if ($project->source == Project::SOURCE_NATIVE):
+                  option(value="#{Project::SOURCE_NATIVE}", selected="selected") RFP-EZ
+                - else:
+                  option(value="#{Project::SOURCE_NATIVE}") RFP-EZ
+                - endif;
+                - if ($project->source == Project::SOURCE_FBO):
+                  option(value="#{Project::SOURCE_FBO}", selected="selected") FBO
+                - else:
+                  option(value="#{Project::SOURCE_FBO}") FBO
+                - endif;
 
             .control-group
               label External URL <em>(if source is not RFP-EZ)</em>
@@ -145,7 +152,7 @@
       - if ($project->status() != Project::STATUS_AMENDING_SOW && $project->status() != Project::STATUS_WRITING_SOW):
 
         br
-        
+
         h5 Amending
         p Click the button below to begin amending your Statement of Work.
         div.alert.alert-info 

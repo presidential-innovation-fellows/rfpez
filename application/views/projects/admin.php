@@ -16,9 +16,16 @@
             <div class="control-group">
               <label>Source</label>
               <select id="source-select" name="project[source]">
-                <if>()</if>
-                <option value="<?php echo e(Project::SOURCE_NATIVE); ?>" selected="<?php echo e(($project->source == Project::SOURCE_NATIVE)); ?>">RFP-EZ</option>
-                <option value="#{Project::SOURCE_FBO" selected="<?php echo e(($project->source == Project::SOURCE_FBO)); ?>">FBO</option>
+                <?php if ($project->source == Project::SOURCE_NATIVE): ?>
+                  <option value="<?php echo e(Project::SOURCE_NATIVE); ?>" selected="selected">RFP-EZ</option>
+                <?php else: ?>
+                  <option value="<?php echo e(Project::SOURCE_NATIVE); ?>">RFP-EZ</option>
+                <?php endif; ?>
+                <?php if ($project->source == Project::SOURCE_FBO): ?>
+                  <option value="<?php echo e(Project::SOURCE_FBO); ?>" selected="selected">FBO</option>
+                <?php else: ?>
+                  <option value="<?php echo e(Project::SOURCE_FBO); ?>">FBO</option>
+                <?php endif; ?>
               </select>
             </div>
             <div class="control-group">
