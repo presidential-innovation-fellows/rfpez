@@ -16,6 +16,15 @@
     <div class="span6">
 
       <?php echo View::make('projects.partials.full_sow')->with('project', $project); ?>
+
+      <?php if ($project->source == Project::SOURCE_FBO): ?>
+        <a class="fbo-disclaimer hide-show-toggler" data-target="fbo-disclaimer-text" href="#fbo-disclaimer-text">Disclaimer</a>
+        <p class="fbo-disclaimer" id="fbo-disclaimer-text">
+          <?php echo __("r.projects.show.fbo_disclaimer"); ?>
+        </p>
+
+      <?php endif; ?>
+
     </div>
 
     <div class="span5 offset1">
@@ -24,6 +33,7 @@
 
         <?php if (Auth::user()) : ?>
           <?php echo View::make('projects.partials.external_url_link_button')->with('project', $project); ?>
+
         <?php else: ?>
           <div class="no-auth-only">
             <a class="btn btn-success" href="#signinModal" data-toggle="modal">Sign in</a> to bid or learn more about this project.
@@ -50,8 +60,8 @@
       <?php else: ?>
 
         <div class="well-plain">
-          <div class="bids-due-timeago">Bids due <?php echo Helper::timeago($project->proposals_due_at); ?></div>
-          <div class="bids-due-date"><?php echo date('F jS, Y', strtotime($project->proposals_due_at)); ?></div>
+          <div class="bids-due-timeago">Bids due <?php echo $project->timeago_proposals_due_at(); ?></div>
+          <div class="bids-due-date"><?php echo $project->formatted_long_proposals_due_at(); ?></div>
         </div>
 
         <?php if (Auth::vendor()): ?>

@@ -181,6 +181,14 @@ projects:
 
   show:
     no_questions: No questions have been asked.
+    fbo_disclaimer: >
+      The purpose of this summary is to provide targeted marketing to innovative
+      small businesses through a simplified listing of a federal procurement opportunity.  
+      This summary is not intended to replace that opportunity's listing on the
+      <a target="_blank" href="//www.fbo.gov">Federal Business Opportunities website (FBO)</a>.
+      FBO is the official website where all federal government contracting opportunities 
+      and awards over $25,000 are listed. You must read the FBO listing (reachable via the link which,
+      after signing in, is provided above) to determine the Government's requirements for this project.
 
   template:
     template_header: Select a Template

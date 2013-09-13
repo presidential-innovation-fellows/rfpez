@@ -353,7 +353,19 @@ class Project extends Eloquent {
   public function formatted_proposals_due_at() {
     $dt = new \DateTime($this->get_attribute('proposals_due_at'), new DateTimeZone('UTC'));
     $dt->setTimeZone(new DateTimeZone('America/New_York'));
-    return $dt->format('n/d/y');
+    return $dt->format('n/d/y'); // 01/12/2013
+  }
+
+  public function formatted_long_proposals_due_at() {
+    $dt = new \DateTime($this->get_attribute('proposals_due_at'), new DateTimeZone('UTC'));
+    $dt->setTimeZone(new DateTimeZone('America/New_York'));
+    return $dt->format('F jS, Y'); // January 11th, 2013
+  }
+
+  public function timeago_proposals_due_at() {
+    $dt = new \DateTime($this->get_attribute('proposals_due_at'), new DateTimeZone('UTC'));
+    $dt->setTimeZone(new DateTimeZone('America/New_York'));
+    return Helper::timeago($dt->format('c')); // ISO 8601 format (timeago-friendly)
   }
 
   public function save_progress($route_name) {

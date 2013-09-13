@@ -2340,6 +2340,7 @@ footer.footer ul li:last-child:after{content:""}
 .new-bid-form .prices-table tfoot .total-price-validation-row td .control-group{margin:0}
 .my-bid-table tr.bid.bid-dismissed td.status{color:#f00}
 .new-bid-page .timeline-table{width:100%}
+.eligibility-unsure{font-size:small;font-style:italic;line-height:1.3}
 .notification-table{margin:0}
 .notification-item{list-style:none;padding:10px 0 10px 30px;position:relative;}
 .notification-item .unread-td{width:15px;text-align:center;vertical-align:middle}
@@ -2372,6 +2373,8 @@ tbody.project .admin-star{font-size:11px;}
 tbody.project .admin-star i{line-height:12px;margin-top:-1px}
 .background-form textarea,.background-edit-form textarea{width:100%;max-width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;min-height:280px}
 .background-edit-form{width:200%}
+.fbo-disclaimer{margin-top:2em;font-size:small;font-style:italic;line-height:1.4}
+#fbo-disclaimer-text{display:none}
 .explain-duns-link{padding-left:10px;font-size:.9em}
 .blum{background-color:#efefef;padding:10px}
 .new-project-page{width:500px;margin:0 auto;}

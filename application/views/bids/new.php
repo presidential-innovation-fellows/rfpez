@@ -8,10 +8,20 @@
     <div class="span6">
       <h5 class="red-header">New Bid</h5>
       <div class="alert alert-success">
-        <strong>Eligibility:</strong>
-        This project is reserved for small businesses. In this case, the government defines small as having
-        annual revenues of less than <strong>$<?php echo e(intval($project->project_type->threshold)); ?> million</strong> dollars.
-        By placing a bid, you certify that your company falls under this threshold.
+        <p>
+          <strong>Eligibility:
+</strong>
+          This project has been set aside for small businesses. 
+          In this case, "small" means your business's average annual receipts 
+          over the last three years were less than <strong>$<?php echo e(trim($project->project_type->threshold, '0.')); ?> million</strong>.
+          Businesses that exceed this threshold do not qualify for this project.
+        </p>
+        <p class="eligibility-unsure">
+          Unsure if you qualify?
+          <a target="_blank" href="http://www.sba.gov/content/determining-business-size">Read more about determining business size</a>
+          or <a target="_blank" href="http://www.sba.gov/size-standards-tool">try the SBA's Size Standards Tool</a>. 
+          The NAICS code for this project is <strong><?php echo e($project->project_type->naics); ?></strong>.
+        </p>
       </div>
       <form class="new-bid-form" action="<?php echo e( route('bids', array($project->id)) ); ?>" method="POST">
         <input type="hidden" name="submit_now" value="true" />

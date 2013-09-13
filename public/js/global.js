@@ -5695,6 +5695,13 @@ $(document).on("mouseleave", ".helper-tooltip", function(e) {
   return $(this).tooltip('hide');
 });
 
+$(document).on("click", ".hide-show-toggler", function(e) {
+  var target_id;
+  e.preventDefault();
+  target_id = $(this).attr('data-target');
+  return $('#' + target_id).toggle();
+});
+
 $(document).on("ready page:load", function() {
   $("[data-onload-focus]:eq(0)").focus();
   $("span.timeago").timeago();

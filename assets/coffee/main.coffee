@@ -28,6 +28,11 @@ $(document).on "mouseenter", ".helper-tooltip", (e) ->
 $(document).on "mouseleave", ".helper-tooltip", (e) ->
   $(this).tooltip('hide')
 
+$(document).on "click", ".hide-show-toggler", (e) ->
+  e.preventDefault()
+  target_id = $(this).attr('data-target')
+  $('#' + target_id).toggle()
+
 $(document).on "ready page:load", ->
   $("[data-onload-focus]:eq(0)").focus()
   $("span.timeago").timeago()
