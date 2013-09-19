@@ -374,7 +374,10 @@ class Project extends Eloquent {
   public function formatted_long_proposals_due_at() {
     $dt = new \DateTime($this->get_attribute('proposals_due_at'), new DateTimeZone('UTC'));
     $dt->setTimeZone(new DateTimeZone('America/New_York'));
-    return $dt->format('F jS, Y'); // January 11th, 2013
+    // only include the time if it isn't 11:59 PM
+    $time_formatted = $dt->format('g:i A');
+    if ($time_formatted == '11:59 PM') $time_formatted = '';
+    return $dt->format('F jS, Y') . ' ' . $time_formatted; // January 11th, 2013
   }
 
   public function timeago_proposals_due_at() {
