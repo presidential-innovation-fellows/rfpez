@@ -26,6 +26,8 @@
           .control-group
             label External URL <em>(if source is not RFP-EZ)</em>
             input.full-width(type="text", name="project[external_url]")
+        - endif;
+      - endif;
 
       .control-group
         label Project Title
@@ -45,11 +47,10 @@
 
       .control-group
         label Bids Due
-        span.input-append.date.datepicker-wrapper
+        span.input-append.date.datetimepicker-wrapper
           input.span3(type="text", name="project[proposals_due_at]")
           span.add-on
             i.icon-calendar
-        | &nbsp; at 11:59pm EST
 
         p
           em !{__("r.projects.new.no_date")}
@@ -75,6 +76,8 @@
             label.radio
               input(type="radio", name="project[price_type]", value="#{Project::PRICE_TYPE_NONE}")
               | NONE (FBO)
+          - endif;
+        - endif;
 
       .form-actions
         button.btn.btn-primary(type="submit") Create Project

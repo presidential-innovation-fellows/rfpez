@@ -56,23 +56,21 @@
         </div>
         <div class="control-group">
           <label>Q+A Period Ends</label>
-          <span class="input-append date datepicker-wrapper">
-            <input class="span3" type="text" name="project[question_period_over_at]" value="<?php echo e($project->formatted_question_period_over_at()); ?>" />
+          <span class="input-append date datetimepicker-wrapper">
+            <input type="text" name="project[question_period_over_at]" value="<?php echo e($project->formatted_question_period_over_at()); ?>" />
             <span class="add-on">
               <i class="icon-calendar"></i>
             </span>
           </span>
-          &nbsp; at 11:59pm EST
         </div>
         <div class="control-group">
           <label>Bids Due</label>
-          <span class="input-append date datepicker-wrapper">
-            <input class="span3" type="text" name="project[proposals_due_at]" value="<?php echo e($project->formatted_proposals_due_at()); ?>" />
+          <span class="input-append date datetimepicker-wrapper">
+            <input type="text" name="project[proposals_due_at]" value="<?php echo e($project->formatted_proposals_due_at()); ?>" />
             <span class="add-on">
               <i class="icon-calendar"></i>
             </span>
           </span>
-          &nbsp; at 11:59pm EST
         </div>
         <div class="control-group">
           <label>Price type</label>

@@ -15,7 +15,7 @@
 </div>
 <div class="container inner-container">
   <?php if (count($projects) > 0): ?>
-    <table class="table projects-table">
+    <table id="projects-table" class="table projects-table">
       <thead>
         <tr>
           <th class="type hidden-phone">Type</th>
@@ -23,21 +23,21 @@
           <th class="agency visible-desktop">Agency</th>
           <th class="due">
             Bids Due
-            <?php echo Helper::helper_tooltip("Bids are due at 11:59pm EST on the date listed.", "top", false, true); ?>
+            <?php echo Helper::helper_tooltip("Bids are due at 11:59pm EST on the date listed unless otherwise noted.", "top", false, true); ?>
           </th>
         </tr>
       </thead>
       <?php foreach($projects as $project): ?>
         <tbody class="project">
           <tr class="<?php echo e((($project->source == Project::SOURCE_NATIVE) ? 'project-meta project-meta-highlight' : 'project-meta')); ?>">
-            <td class="hidden-phone">
+            <td class="type hidden-phone">
               <?php if ($project->source() == Project::SOURCE_NATIVE): ?>
                 <img src="<?php echo e($project->project_type->image()); ?>" title="<?php echo e($project->project_type->name); ?>" alt="<?php echo e($project->project_type->name); ?>" />
               <?php else: ?>
                 <span class="fbo-import-icon">FBO</span>
               <?php endif; ?>
             </td>
-            <td>
+            <td class="project-title">
               <a class="project-title" href="<?php echo e(route('project', array($project->id))); ?>"><?php echo e($project->title); ?></a>
               <?php if ($project->is_mine()): ?>
                 <span class="admin-star">
@@ -60,8 +60,11 @@
               <?php endif; ?>
               <p class="project-description-truncated"><?php echo e($project->background_truncated()); ?></p>
             </td>
-            <td class="visible-desktop"><?php echo e($project->agency); ?></td>
-            <td><?php echo e($project->formatted_proposals_due_at()); ?></td>
+            <td class="agency visible-desktop"><?php echo e($project->agency); ?></td>
+            <td class="due">
+              <?php echo e($project->formatted_proposals_due_at_date()); ?>
+              <span class="due-time"><?php echo e($project->formatted_proposals_due_at_time()); ?></span>
+            </td>
           </tr>
         </tbody>
       <?php endforeach; ?>

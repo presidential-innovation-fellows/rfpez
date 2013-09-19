@@ -40,6 +40,19 @@ $(document).on "ready page:load", ->
 
   if $("body").hasClass('officer')
     $('.datepicker-wrapper').datepicker()
+
+    default_start_date = new Date()
+    default_start_date.setHours(23, 59)
+    $('.datetimepicker-wrapper').datetimepicker({
+        format: "m/d/yy H:ii P",
+        startDate: default_start_date,
+        minView: 2,
+        autoclose: true,
+        showMeridian: true,
+        todayBtn: false,
+        keyboardNavigation: false
+      })
+
     $('.wysihtml5').ckeditor()
 
   Rfpez.current_page_string = $("body").data('current-page')

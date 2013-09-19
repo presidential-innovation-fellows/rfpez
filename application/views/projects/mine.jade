@@ -19,7 +19,7 @@
           th.project-title Project
           th.status Status
           th.due Bids Due
-            !{Helper::helper_tooltip("Bids are due at 11:59pm EST on the date listed.", "top", false, true)}
+            !{Helper::helper_tooltip("Bids are due at 11:59pm EST on the date listed unless otherwise noted.", "top", false, true)}
           th.actions Actions
       tbody.project
         - foreach($projects as $project):
@@ -36,7 +36,8 @@
               - else:
                 a.project-title(href="#{ route('project', array($project->id)) }") #{$project->title}
             td #{$project->status_text()}
-            td #{$project->formatted_proposals_due_at()}
+            td.due #{$project->formatted_proposals_due_at_date()}
+              span.due-time #{$project->formatted_proposals_due_at_time()}
             td
               a.btn.btn-mini(href="#{ route('project_admin', array($project->id)) }") Admin
         - 

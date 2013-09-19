@@ -18,7 +18,7 @@
           <th class="status">Status</th>
           <th class="due">
             Bids Due
-            <?php echo Helper::helper_tooltip("Bids are due at 11:59pm EST on the date listed.", "top", false, true); ?>
+            <?php echo Helper::helper_tooltip("Bids are due at 11:59pm EST on the date listed unless otherwise noted.", "top", false, true); ?>
           </th>
           <th class="actions">Actions</th>
         </tr>
@@ -41,7 +41,10 @@
               <?php endif; ?>
             </td>
             <td><?php echo e($project->status_text()); ?></td>
-            <td><?php echo e($project->formatted_proposals_due_at()); ?></td>
+            <td class="due">
+              <?php echo e($project->formatted_proposals_due_at_date()); ?>
+              <span class="due-time"><?php echo e($project->formatted_proposals_due_at_time()); ?></span>
+            </td>
             <td>
               <a class="btn btn-mini" href="<?php echo e( route('project_admin', array($project->id)) ); ?>">Admin</a>
             </td>

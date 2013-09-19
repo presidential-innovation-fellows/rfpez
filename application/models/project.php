@@ -347,15 +347,30 @@ class Project extends Eloquent {
     if (!$this->get_attribute('question_period_over_at')) return false;
     $dt = new \DateTime($this->get_attribute('question_period_over_at'), new DateTimeZone('UTC'));
     $dt->setTimeZone(new DateTimeZone('America/New_York'));
-    return $dt->format('n/d/y');
+    return $dt->format('n/d/y g:i A');
   }
 
   public function formatted_proposals_due_at() {
     $dt = new \DateTime($this->get_attribute('proposals_due_at'), new DateTimeZone('UTC'));
     $dt->setTimeZone(new DateTimeZone('America/New_York'));
+    return $dt->format('n/d/y g:i A'); // 01/12/2013 2:15 PM
+  }
+
+  public function formatted_proposals_due_at_date() {
+    $dt = new \DateTime($this->get_attribute('proposals_due_at'), new DateTimeZone('UTC'));
+    $dt->setTimeZone(new DateTimeZone('America/New_York'));
     return $dt->format('n/d/y'); // 01/12/2013
   }
 
+  public function formatted_proposals_due_at_time() {
+    $dt = new \DateTime($this->get_attribute('proposals_due_at'), new DateTimeZone('UTC'));
+    $dt->setTimeZone(new DateTimeZone('America/New_York'));
+    if ($dt->format('g:i A') == '11:59 PM') {
+      return '';
+    } else {
+      return $dt->format('g:i A'); // 2:15 PM
+    }
+  }
   public function formatted_long_proposals_due_at() {
     $dt = new \DateTime($this->get_attribute('proposals_due_at'), new DateTimeZone('UTC'));
     $dt->setTimeZone(new DateTimeZone('America/New_York'));

@@ -64,6 +64,7 @@ module.exports = function(grunt) {
           '../css/bootstrap.css',
           '../css/bootstrap-responsive.css',
           '../css/datepicker.css',
+          '../css/datetimepicker.css',
           '../css/compiled_styl.css',
           '../css/restyler.css'
         ],
@@ -128,6 +129,7 @@ module.exports = function(grunt) {
 
       js_officer: {
         src: [
+          '../js/vendor/bootstrap-datetimepicker.js',
           '../js/vendor/bootstrap-datepicker.js',
           '../js/vendor/jquery.sortable.js',
           '../js/vendor/autogrow-input.js',

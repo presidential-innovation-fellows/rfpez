@@ -61,19 +61,17 @@
 
         .control-group
           label Q+A Period Ends
-          span.input-append.date.datepicker-wrapper
-            input.span3(type="text", name="project[question_period_over_at]", value="#{$project->formatted_question_period_over_at()}")
+          span.input-append.date.datetimepicker-wrapper
+            input(type="text", name="project[question_period_over_at]", value="#{$project->formatted_question_period_over_at()}")
             span.add-on
               i.icon-calendar
-          | &nbsp; at 11:59pm EST
 
         .control-group
           label Bids Due
-          span.input-append.date.datepicker-wrapper
-            input.span3(type="text", name="project[proposals_due_at]", value="#{$project->formatted_proposals_due_at()}")
+          span.input-append.date.datetimepicker-wrapper
+            input(type="text", name="project[proposals_due_at]", value="#{$project->formatted_proposals_due_at()}")
             span.add-on
               i.icon-calendar
-          | &nbsp; at 11:59pm EST
 
         .control-group
           label Price type

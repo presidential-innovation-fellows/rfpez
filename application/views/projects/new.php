@@ -5,53 +5,52 @@
   <?php Section::inject('page_title', 'New Project') ?>
   <?php Section::inject('no_page_header', true) ?>
   <div class="new-project-page">
-    <!-- <div class="well"> -->
+    <div class="well">
       <p>
         <strong><?php echo __("r.projects.new.congrats"); ?></strong>
       </p>
       <p><?php echo __("r.projects.new.helper"); ?></p>
-    <!-- </div> -->
+    </div>
     <form id="new-project-form" action="<?php echo e(route('projects')); ?>" method="POST">
-    <?php if (Auth::user()): ?>
-      <?php if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): ?>
-        <div class="control-group">
-          <label>Source</label>
-          <select id="source-select" name="project[source]">
-            <option value="<?php echo e(Project::SOURCE_NATIVE); ?>">RFP-EZ</option>
-            <option value="<?php echo e(Project::SOURCE_FBO); ?>">FBO</option>
-          </select>
-        </div>
-        <div class="control-group">
-          <label>External URL <em>(if source is not RFP-EZ)</em></label>
-          <input type="text" class="full-width" name="project[external_url]" />
-        </div>
+      <?php if (Auth::user()): ?>
+        <?php if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): ?>
+          <div class="control-group">
+            <label>Source</label>
+            <select id="source-select" name="project[source]">
+              <option value="<?php echo e(Project::SOURCE_NATIVE); ?>">RFP-EZ</option>
+              <option value="#{Project::SOURCE_FBO">FBO</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label>External URL <em>(if source is not RFP-EZ)</em></label>
+            <input class="full-width" type="text" name="project[external_url]" />
+          </div>
+        <?php endif; ?>
       <?php endif; ?>
-    <?php endif; ?>
       <div class="control-group">
         <label>Project Title</label>
-        <input type="text" class="full-width" name="project[title]" />
+        <input class="full-width" type="text" name="project[title]" />
       </div>
       <div class="control-group">
         <label>Agency</label>
-        <input type="text" class="full-width" name="project[agency]" />
+        <input class="full-width" type="text" name="project[agency]" />
       </div>
       <div class="control-group">
         <label>Office</label>
-        <input type="text" class="full-width" name="project[office]" />
+        <input class="full-width" type="text" name="project[office]" />
       </div>
       <div class="control-group">
         <label>Zip Code</label>
-        <input type="text" class="full-width" name="project[zipcode]" />
+        <input class="full-width" type="text" name="project[zipcode]" />
       </div>
       <div class="control-group">
         <label>Bids Due</label>
-        <span class="input-append date datepicker-wrapper">
+        <span class="input-append date datetimepicker-wrapper">
           <input class="span3" type="text" name="project[proposals_due_at]" />
           <span class="add-on">
             <i class="icon-calendar"></i>
           </span>
         </span>
-        &nbsp; at 11:59pm EST
         <p>
           <em><?php echo __("r.projects.new.no_date"); ?></em>
         </p>

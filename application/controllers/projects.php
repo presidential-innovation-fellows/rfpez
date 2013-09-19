@@ -323,13 +323,13 @@ class Projects_Controller extends Base_Controller {
       }
 
       if ($project_input["proposals_due_at"]) {
-        $dt = new \DateTime($project_input["proposals_due_at"] . " 23:59:59", new DateTimeZone('America/New_York'));
+        $dt = new \DateTime($project_input["proposals_due_at"], new DateTimeZone('America/New_York'));
         $dt->setTimeZone(new DateTimeZone('UTC'));
         $project->proposals_due_at = $dt;
       }
 
       if ($project_input["question_period_over_at"]) {
-        $dt = new \DateTime($project_input["question_period_over_at"] . " 23:59:59", new DateTimeZone('America/New_York'));
+        $dt = new \DateTime($project_input["question_period_over_at"], new DateTimeZone('America/New_York'));
         $dt->setTimeZone(new DateTimeZone('UTC'));
         $project->question_period_over_at = $dt;
       } else {

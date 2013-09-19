@@ -17,7 +17,7 @@
 
   - if (count($projects) > 0):
 
-    table.table.projects-table
+    table.table.projects-table#projects-table
       thead
         tr
           th.type.hidden-phone Type
@@ -25,19 +25,19 @@
           th.agency.visible-desktop Agency
           th.due
             | Bids Due
-            !{Helper::helper_tooltip("Bids are due at 11:59pm EST on the date listed.", "top", false, true)}
+            | !{Helper::helper_tooltip("Bids are due at 11:59pm EST on the date listed unless otherwise noted.", "top", false, true)}
 
       - foreach($projects as $project):
 
         tbody.project
           //- tr.project-meta
           tr(class="#{(($project->source == Project::SOURCE_NATIVE) ? 'project-meta project-meta-highlight' : 'project-meta')}")
-            td.hidden-phone
+            td.type.hidden-phone
               - if ($project->source() == Project::SOURCE_NATIVE):
                 img(src="#{$project->project_type->image()}", title="#{$project->project_type->name}", alt="#{$project->project_type->name}")
               - else:
                 span.fbo-import-icon FBO
-            td
+            td.project-title
               a.project-title(href="#{route('project', array($project->id))}") #{$project->title}
               - if ($project->is_mine()):
                 span.admin-star
@@ -60,9 +60,10 @@
 
               p.project-description-truncated #{$project->background_truncated()}
 
-            td.visible-desktop #{$project->agency}
+            td.agency.visible-desktop #{$project->agency}
 
-            td #{$project->formatted_proposals_due_at()}
+            td.due #{$project->formatted_proposals_due_at_date()}
+              span.due-time #{$project->formatted_proposals_due_at_time()}
 
   - else:
     p #{__("r.projects.index.none")}
