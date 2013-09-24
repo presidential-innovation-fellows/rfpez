@@ -132,10 +132,12 @@ $(document).on "click", ".show-award-modal", ->
         awarded_message: modal.find("textarea[name=awarded_message]").val()
       type: "GET"
       dataType: "json"
-      success: (data) ->
-        if data.status is "success"
-          modal.modal('hide')
-          window.location.reload()
+      error: (data, textStatus, errorThrown) ->
+        alert 'One or more notification emails was not successfully delivered. Please make sure the winner is notified! [' + textStatus + ': ' + errorThrown + ']'
+      complete: (data, textStatus) ->
+        modal.modal('hide')
+        window.location.reload()
+
 
 $(document).on "click", ".manual-awarded-message-checkbox", ->
   el = $(this)

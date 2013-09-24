@@ -3556,11 +3556,12 @@ $(document).on("click", ".show-award-modal", function() {
       },
       type: "GET",
       dataType: "json",
-      success: function(data) {
-        if (data.status === "success") {
-          modal.modal('hide');
-          return window.location.reload();
-        }
+      error: function(data, textStatus, errorThrown) {
+        return alert('One or more notification emails was not successfully delivered. Please make sure the winner is notified! [' + textStatus + ': ' + errorThrown + ']');
+      },
+      complete: function(data, textStatus) {
+        modal.modal('hide');
+        return window.location.reload();
       }
     });
   });
