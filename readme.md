@@ -1,6 +1,6 @@
 ## The Project
 
-Building a platform that makes it easier for small high-growth businesses to navigate the federal government, and enables agencies to quickly source low-cost, high-impact information technology solutions.
+Building a platform that makes it easier for small high-growth businesses to navigate the federal government and enables agencies to quickly source low-cost, high-impact information technology solutions.
 
 ## What is RFP-EZ?
 
