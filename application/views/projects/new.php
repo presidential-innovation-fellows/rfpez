@@ -18,7 +18,7 @@
             <label>Source</label>
             <select id="source-select" name="project[source]">
               <option value="<?php echo e(Project::SOURCE_NATIVE); ?>">RFP-EZ</option>
-              <option value="#{Project::SOURCE_FBO">FBO</option>
+              <option value="<?php echo e(Project::SOURCE_FBO); ?>">FBO</option>
             </select>
           </div>
           <div class="control-group">
