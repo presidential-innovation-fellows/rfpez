@@ -17,6 +17,8 @@ head
   | <link href="//fonts.googleapis.com/css?family=Telex" media="all" type="text/css" rel="stylesheet">
   !{Helper::asset('css/all')}
 
+  | <!--[if lte IE 8]><style>.message-subnav { background-color: #2D6496; }</style><![endif]-->
+
 
   - if (Auth::guest()):
     - $body_class = "no-auth";

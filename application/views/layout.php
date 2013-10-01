@@ -12,6 +12,7 @@
 </title>
   <link href="//fonts.googleapis.com/css?family=Telex" media="all" type="text/css" rel="stylesheet">
   <?php echo Helper::asset('css/all'); ?>
+  <!--[if lte IE 8]><style>.message-subnav { background-color: #2D6496; }</style><![endif]-->
   <?php if (Auth::guest()): ?>
     <?php $body_class = "no-auth"; ?>
     <?php print "<style>.only-user { display: none; }</style>"; ?>

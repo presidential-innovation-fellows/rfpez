@@ -2613,6 +2613,9 @@ body.vendor .no-auth-only{display:none !important}
 .officer-toolbar{padding-top:25px}
 .sow-toolbar{padding-top:20px}
 .navbar .nav li a:hover{background:#427ba9;background:rgba(0,0,0,0.2)}
+.message-subnav{color:#fff;padding:20px 20px 10px;text-align:justify;}
+.message-subnav a{color:#fff;}
+.message-subnav a:hover,.message-subnav a:active{color:#fff}
 #review-tips ul{padding:20px 0 10px}
 .bids-table{width:100%;}
 .bids-table td{vertical-align:middle}

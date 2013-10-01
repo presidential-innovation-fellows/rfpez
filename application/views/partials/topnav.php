@@ -91,3 +91,10 @@
     </div>
   </div>
 </div>
+<div class="message-subnav">
+  <p>
+    NOTICE: Due to the lapse in government funding, the information on this website may not be up to date, 
+    the transactions submitted via the website may not be processed, and the agency may not be able to respond to inquiries until appropriations are enacted.
+    For more information, please visit <a href="http://www.sba.gov">www.sba.gov</a>.
+  </p>
+</div>
