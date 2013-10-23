@@ -32,6 +32,16 @@
                 - else:
                   option(value="#{Project::SOURCE_FBO}") FBO
                 - endif;
+                - if ($project->source == Project::SOURCE_CHALLENGEGOV):
+                  option(value="#{Project::SOURCE_CHALLENGEGOV}", selected="selected") Challenge
+                - else:
+                  option(value="#{Project::SOURCE_CHALLENGEGOV}") Challenge
+                - endif;
+                - if ($project->source == Project::SOURCE_SBIR):
+                  option(value="#{Project::SOURCE_SBIR}", selected="selected") SBIR
+                - else:
+                  option(value="#{Project::SOURCE_SBIR}") SBIR
+                - endif;
 
             .control-group
               label External URL <em>(if source is not RFP-EZ)</em>
@@ -86,7 +96,7 @@
             - if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): 
               label
                 | <input type="radio" name="project[price_type]" value="#{Project::PRICE_TYPE_NONE}" #{$project->price_type == Project::PRICE_TYPE_NONE ? 'checked' : ''} />
-                | NONE (FBO)
+                | NONE (external project)
 
             - endif;
           - endif;

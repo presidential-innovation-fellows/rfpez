@@ -35,8 +35,15 @@
             td.type.hidden-phone
               - if ($project->source() == Project::SOURCE_NATIVE):
                 img(src="#{$project->project_type->image()}", title="#{$project->project_type->name}", alt="#{$project->project_type->name}")
-              - else:
+              - elseif ($project->source() == Project::SOURCE_FBO):
                 span.fbo-import-icon FBO
+              - elseif ($project->source() == Project::SOURCE_CHALLENGEGOV):
+                span.fbo-import-icon Challenge
+              - elseif ($project->source() == Project::SOURCE_SBIR):
+                span.fbo-import-icon SBIR
+              - else:
+                span.fbo-import-icon 
+              - endif;
             td.project-title
               a.project-title(href="#{route('project', array($project->id))}") #{$project->title}
               - if ($project->is_mine()):

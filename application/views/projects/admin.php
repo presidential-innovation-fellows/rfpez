@@ -26,6 +26,16 @@
                 <?php else: ?>
                   <option value="<?php echo e(Project::SOURCE_FBO); ?>">FBO</option>
                 <?php endif; ?>
+                <?php if ($project->source == Project::SOURCE_CHALLENGEGOV): ?>
+                  <option value="<?php echo e(Project::SOURCE_CHALLENGEGOV); ?>" selected="selected">Challenge</option>
+                <?php else: ?>
+                  <option value="<?php echo e(Project::SOURCE_CHALLENGEGOV); ?>">Challenge</option>
+                <?php endif; ?>
+                <?php if ($project->source == Project::SOURCE_SBIR): ?>
+                  <option value="<?php echo e(Project::SOURCE_SBIR); ?>" selected="selected">SBIR</option>
+                <?php else: ?>
+                  <option value="<?php echo e(Project::SOURCE_SBIR); ?>">SBIR</option>
+                <?php endif; ?>
               </select>
             </div>
             <div class="control-group">
@@ -86,7 +96,7 @@
             <?php if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): ?>
               <label>
                 <input type="radio" name="project[price_type]" value="<?php echo e(Project::PRICE_TYPE_NONE); ?>" <?php echo e($project->price_type == Project::PRICE_TYPE_NONE ? 'checked' : ''); ?> />
-                NONE (FBO)
+                NONE (external project)
               </label>
             <?php endif; ?>
           <?php endif; ?>

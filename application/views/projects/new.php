@@ -19,6 +19,8 @@
             <select id="source-select" name="project[source]">
               <option value="<?php echo e(Project::SOURCE_NATIVE); ?>">RFP-EZ</option>
               <option value="<?php echo e(Project::SOURCE_FBO); ?>">FBO</option>
+              <option value="<?php echo e(Project::SOURCE_CHALLENGEGOV); ?>">Challenge</option>
+              <option value="<?php echo e(Project::SOURCE_SBIR); ?>">SBIR</option>
             </select>
           </div>
           <div class="control-group">
@@ -79,7 +81,7 @@
           <?php if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): ?>
             <label class="radio">
               <input type="radio" name="project[price_type]" value="<?php echo e(Project::PRICE_TYPE_NONE); ?>" />
-              NONE (FBO)
+              NONE (external project)
             </label>
           <?php endif; ?>
         <?php endif; ?>

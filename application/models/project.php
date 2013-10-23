@@ -14,6 +14,8 @@ class Project extends Eloquent {
 
   const SOURCE_NATIVE = 0;
   const SOURCE_FBO = 1;
+  const SOURCE_CHALLENGEGOV = 2;
+  const SOURCE_SBIR = 3;
 
   public static $timestamps = true;
 

@@ -29,8 +29,14 @@
             <td>
               <?php if ($project->source() == Project::SOURCE_NATIVE): ?>
                 <img class="my-project-icon" src="<?php echo e($project->project_type->image()); ?>" title="<?php echo e($project->project_type->name); ?>" alt="<?php echo e($project->project_type->name); ?>" />
-              <?php else: ?>
+              <?php elseif ($project->source() == Project::SOURCE_FBO): ?>
                 <span class="fbo-import-icon">FBO</span>
+              <?php elseif ($project->source() == Project::SOURCE_CHALLENGEGOV): ?>
+                <span class="fbo-import-icon">Challenge</span>
+              <?php elseif ($project->source() == Project::SOURCE_SBIR): ?>
+                <span class="fbo-import-icon">SBIR</span>
+              <?php else: ?>
+                <span class="fbo-import-icon"></span>
               <?php endif; ?>
             </td>
             <td>

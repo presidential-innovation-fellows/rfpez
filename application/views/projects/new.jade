@@ -22,6 +22,8 @@
             select#source-select(name="project[source]")
               option(value="#{Project::SOURCE_NATIVE}") RFP-EZ
               option(value="#{Project::SOURCE_FBO}") FBO
+              option(value="#{Project::SOURCE_CHALLENGEGOV}") Challenge
+              option(value="#{Project::SOURCE_SBIR}") SBIR
 
           .control-group
             label External URL <em>(if source is not RFP-EZ)</em>
@@ -75,7 +77,7 @@
           - if (Auth::officer() && Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN)): 
             label.radio
               input(type="radio", name="project[price_type]", value="#{Project::PRICE_TYPE_NONE}")
-              | NONE (FBO)
+              | NONE (external project)
           - endif;
         - endif;
 
