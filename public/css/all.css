@@ -1711,6 +1711,9 @@ i[class^="icon-"]{opacity:0.8;}
   .modal.fade.in {
     top: 20px;
   }
+  .subheader>h4{
+    width:auto;
+  }
 }
 
 @media (max-width: 480px) {
@@ -2863,7 +2866,6 @@ body {
 .inner-container {
 	padding: 40px 20px;
 	top: -20px;
-	width: 940px;
 	min-height: 300px;
 	margin: 0 auto;
 	position: relative;
