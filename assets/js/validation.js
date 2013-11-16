@@ -56,6 +56,13 @@ $(document).on("ready page:load", function() {
       }
     }
   });
+  $("#edit-section-form").validate_rfpez({
+    rules: {
+      "project_section[title]": {
+        required: true
+      }
+    }
+  });
   $(".new-bid-form").validate_rfpez({
     rules: {
       "bid[approach]": {
