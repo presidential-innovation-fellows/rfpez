@@ -33,12 +33,14 @@
                 </li>
               <?php endif; ?>
             <?php else: ?>
-              <li>
-                <a href="<?php echo e( route('my_bids') ); ?>">Bids</a>
-              </li>
-              <li>
-                <a href="<?php echo e( route('projects') ); ?>">Projects</a>
-              </li>
+              <?php if (!Config::get('application.maint') == true): ?>
+                <li>
+                  <a href="<?php echo e( route('my_bids') ); ?>">Bids</a>
+                </li>
+                <li>
+                  <a href="<?php echo e( route('projects') ); ?>">Projects</a>
+                </li>
+              <?php endif; ?>
             <?php endif; ?>
           </ul>
           <ul class="nav pull-right">
@@ -76,11 +78,13 @@
             </li>
           </ul>
         <?php else: ?>
-          <ul class="nav">
-            <li>
-              <a href="<?php echo e( route('projects') ); ?>">Browse Projects</a>
-            </li>
-          </ul>
+          <?php if (!Config::get('application.maint') == true): ?>
+            <ul class="nav">
+              <li>
+                <a href="<?php echo e( route('projects') ); ?>">Browse Projects</a>
+              </li>
+            </ul>
+          <?php endif; ?>
           <ul class="nav pull-right">
             <li>
               <a href="#signinModal" data-toggle="modal">Sign In</a>

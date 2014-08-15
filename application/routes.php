@@ -210,7 +210,12 @@ Route::filter('before', function() {
       && !Request::route()->is('maint')
       && !Request::route()->is('reports')
       && !Request::route()->is('admin')
-      ) {
+      && !Request::route()->is('superadmin')
+      && !Request::route()->is('signin')
+      && !Request::route()->is('signout')
+      && !Request::route()->is('account')
+      && (!Auth::officer() || !Auth::officer()->is_role_or_higher(Officer::ROLE_ADMIN))
+    ) {
     return Redirect::to('/maint');
   }
 

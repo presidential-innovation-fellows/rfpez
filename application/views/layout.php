@@ -80,7 +80,9 @@
     </div>
     <?php echo $content; ?>
   </div>
-  <?php echo View::make('partials.footer'); ?>
+  <?php if (!Config::get('application.maint') == true): ?>
+    <?php echo View::make('partials.footer'); ?>
+  <?php endif; ?>
   <?php if (Request::is_env('production') || Request::is_env('ec2')) { ?>
     <script src="/js/vendor/google.analytics.js"></script>
     <script src="/js/vendor/jquery.formtimer.js"></script>
